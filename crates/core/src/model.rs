@@ -12,11 +12,13 @@ use std::sync::Arc;
 use serde::{Deserialize, Serialize};
 
 use crate::cloud::Cloud;
+pub use crate::doors::Operation;
 use crate::family::{Family, Piece};
 use crate::geom::{self, P2, Region};
 use crate::graphics::{self, Graphics, ViewFilter, ViewTemplate};
 use crate::language::Language;
 use crate::phasing::{self, OptionSet, PhaseFilter, Status};
+pub use crate::profiles::Profile;
 use crate::texture::{Kind, MAX_IMAGES, Picture, Texture};
 use crate::units::Units;
 use crate::walls;
@@ -1445,18 +1447,21 @@ pub struct CeilingType {
     pub layers: Vec<Layer>,
 }
 
-/// A column type: `width` by `depth`, or round, `width` across.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+/// A column type: `width` by `depth`, or round, `width` across. A structural column's may have a steel section in that
+/// box (`profiles.rs`), its width along the column's angle.
+#[derive(Clone, Debug, Default, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct ColumnType {
     pub width: f64,
     pub depth: f64,
     #[serde(default)]
     pub round: bool,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub profile: Option<Profile>,
 }
 
 /// A run's type: a section `width` across by `depth` deep, or round, `width` across; made of `material` (one of the
-/// library's, or none).
+/// library's, or none). A beam's may have a steel section in that box (`profiles.rs`), its x across and its y up.
 #[derive(Clone, Debug, Default, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct RunType {
@@ -1466,6 +1471,8 @@ pub struct RunType {
     pub round: bool,
     #[serde(default, skip_serializing_if = "String::is_empty")]
     pub material: String,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub profile: Option<Profile>,
 }
 
 /// The categories whose elements are runs, as `Element::run` returns them.
@@ -1482,14 +1489,17 @@ pub struct RoofType {
     pub layers: Vec<Layer>,
 }
 
-/// A door or window type. `sill` is a window's default sill height.
-#[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
+/// A door or window type. `sill` is a window's default sill height; `operation`, how a door's leaf opens (`doors.rs`): a
+/// window's, and a family's door's, is a swing.
+#[derive(Clone, Copy, Debug, Default, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct OpeningType {
     pub width: f64,
     pub height: f64,
     #[serde(default)]
     pub sill: f64,
+    #[serde(default, skip_serializing_if = "Operation::is_swing")]
+    pub operation: Operation,
 }
 
 #[derive(Clone, Debug, Default, PartialEq, Serialize, Deserialize)]
@@ -1733,25 +1743,26 @@ impl Model {
         m.types.wall.insert("Exterior - 300mm".into(), WallType { thickness: 300.0, layers });
         m.types.floor.insert("Generic - 200mm".into(), FloorType { thickness: 200.0, layers: Vec::new() });
         for (n, w) in [("Single 900 x 2100", 900.0), ("Single 800 x 2100", 800.0)] {
-            m.types.door.insert(n.into(), OpeningType { width: w, height: 2100.0, sill: 0.0 });
+            m.types.door.insert(n.into(), OpeningType { width: w, height: 2100.0, sill: 0.0, operation: Operation::Swing });
         }
         for (n, w, h, s) in [("Fixed 1200 x 1500", 1200.0, 1500.0, 900.0), ("Fixed 600 x 900", 600.0, 900.0, 1100.0)] {
-            m.types.window.insert(n.into(), OpeningType { width: w, height: h, sill: s });
+            m.types.window.insert(n.into(), OpeningType { width: w, height: h, sill: s, operation: Operation::Swing });
         }
-        m.types.column.insert("Rectangular 400 x 400".into(), ColumnType { width: 400.0, depth: 400.0, round: false });
-        m.types.column.insert("Round 300".into(), ColumnType { width: 300.0, depth: 300.0, round: true });
+        m.types.column.insert("Rectangular 400 x 400".into(), ColumnType { width: 400.0, depth: 400.0, round: false, profile: None });
+        m.types.column.insert("Round 300".into(), ColumnType { width: 300.0, depth: 300.0, round: true, profile: None });
         // The structure's: concrete columns, footings, beams and strip footings.
         for (n, w, d, round) in [
             ("Concrete 300 x 300", 300.0, 300.0, false),
             ("Concrete 200 x 500", 200.0, 500.0, false),
             ("Concrete Round 400", 400.0, 400.0, true),
         ] {
-            m.types.structural_column.insert(n.into(), ColumnType { width: w, depth: d, round });
+            m.types.structural_column.insert(n.into(), ColumnType { width: w, depth: d, round, profile: None });
         }
         for (n, w) in [("Footing 1200 x 1200", 1200.0), ("Footing 1500 x 1500", 1500.0)] {
-            m.types.footing.insert(n.into(), ColumnType { width: w, depth: w, round: false });
+            m.types.footing.insert(n.into(), ColumnType { width: w, depth: w, round: false, profile: None });
         }
-        let run = |width, depth, round, material: &str| RunType { width, depth, round, material: language.word(material).into() };
+        let run =
+            |width, depth, round, material: &str| RunType { width, depth, round, material: language.word(material).into(), profile: None };
         let beams = [
             ("Beam 200 x 500", run(200.0, 500.0, false, "Concrete")),
             ("Beam 150 x 400", run(150.0, 400.0, false, "Concrete")),
@@ -2523,7 +2534,16 @@ impl Model {
             width: need(crate::family::WIDTH)?,
             height: need(crate::family::HEIGHT)?,
             sill: number(crate::family::SILL).unwrap_or(if is_door { 0.0 } else { 900.0 }),
+            operation: Operation::Swing,
         })
+    }
+
+    /// The parts of a door of the project's own types that opens as `operation` does, in wall `w` (`doors::Part`): on the
+    /// side it faces, its exterior unless it is flipped.
+    pub fn door_parts(&self, o: &Opening, t: &OpeningType, w: &Wall, operation: Operation) -> Vec<crate::doors::Part> {
+        let half = self.thickness(w) / 2.0;
+        let out = if o.flip_facing { -1.0 } else { 1.0 };
+        operation.parts(t.width, t.height, out * half, out)
     }
 
     /// The type of a door or window.
@@ -2944,14 +2964,40 @@ impl Model {
     }
 
     /// A column's outline in plan (a structural column's, a footing's): its rectangle turned to its angle, or a round one's
-    /// 24-sided polygon. Nothing for another element, or an unknown type.
+    /// 24-sided polygon, or a steel section's outer edge. Nothing for another element, or an unknown type.
     pub fn column_outline(&self, e: &Element) -> Vec<P2> {
         let (Some(col), Some(t)) = (e.column(), self.column_type(e)) else { return Vec::new() };
+        if let Some(p) = &t.profile {
+            return p.rings(t.width, t.depth).into_iter().next().map(|r| self.column_placed(col, &r)).unwrap_or_default();
+        }
         if t.round {
             return (0..24).map(|i| col.at + heading(f64::from(i) * 15.0) * (t.width / 2.0)).collect();
         }
         let (u, w, d) = (heading(col.angle), t.width / 2.0, t.depth / 2.0);
         [(-w, -d), (w, -d), (w, d), (-w, d)].into_iter().map(|(a, c)| col.at + u * a + u.perp() * c).collect()
+    }
+
+    /// A steel column's hole in plan (a tube's, a pipe's): none for another.
+    pub fn column_holes(&self, e: &Element) -> Vec<Vec<P2>> {
+        let (Some(col), Some(t)) = (e.column(), self.column_type(e)) else { return Vec::new() };
+        let Some(p) = &t.profile else { return Vec::new() };
+        p.rings(t.width, t.depth).iter().skip(1).map(|r| self.column_placed(col, r)).collect()
+    }
+
+    /// What a column's solid is made of in plan, each piece a prism up its height: its outline, or a hollow section's pieces
+    /// round its hole.
+    pub fn column_pieces(&self, e: &Element) -> Vec<Vec<P2>> {
+        let (Some(col), Some(t)) = (e.column(), self.column_type(e)) else { return Vec::new() };
+        match &t.profile {
+            Some(p) if p.hollow() => p.pieces(t.width, t.depth).iter().map(|q| self.column_placed(col, &q.ring())).collect(),
+            _ => vec![self.column_outline(e)],
+        }
+    }
+
+    /// A column's section's points, x along its angle and y square to it, placed round where it stands.
+    fn column_placed(&self, col: &Column, pts: &[P2]) -> Vec<P2> {
+        let u = heading(col.angle);
+        pts.iter().map(|q| col.at + u * q.0 + u.perp() * q.1).collect()
     }
 
     /// Sheet `id`.
@@ -3348,6 +3394,9 @@ impl Model {
                 size(&format!("{cat} type `{n}` width"), t.width)?;
                 size(&format!("{cat} type `{n}` height"), t.height)?;
                 coord(&format!("{cat} type `{n}` sill"), t.sill)?;
+                if cat == "window" && !t.operation.is_swing() {
+                    return Err(format!("window type `{n}`: a window doesn't open as a {} door does", t.operation.word()));
+                }
             }
         }
         if self.images.len() > MAX_IMAGES {
@@ -3440,6 +3489,12 @@ impl Model {
             for (n, t) in types {
                 size(&format!("{cat} type `{n}` width"), t.width)?;
                 size(&format!("{cat} type `{n}` depth"), t.depth)?;
+                if let Some(p) = &t.profile {
+                    if cat != "structural column" {
+                        return Err(format!("{cat} type `{n}`: a steel section is a structural column's or a beam's, not a {cat}'s"));
+                    }
+                    p.check(&format!("{cat} type `{n}`"), t.width, t.depth, t.round)?;
+                }
             }
         }
         for (cat, types) in &self.types.runs {
@@ -3452,6 +3507,12 @@ impl Model {
                 size(&format!("{who} depth"), t.depth)?;
                 if t.round && t.depth != t.width {
                     return Err(format!("{who}: a round section is as deep as it is wide ({} mm), not {} mm", t.width, t.depth));
+                }
+                if let Some(p) = &t.profile {
+                    if cat != "beam" {
+                        return Err(format!("{who}: a steel section is a structural column's or a beam's, not a {cat}'s"));
+                    }
+                    p.check(&who, t.width, t.depth, t.round)?;
                 }
                 text(&who, "material", &t.material)?;
                 if !t.material.is_empty() && !self.materials.contains_key(&t.material) {

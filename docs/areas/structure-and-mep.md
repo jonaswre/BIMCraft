@@ -37,6 +37,29 @@ runs up; the justification BIMCraft wrote puts the heights back on the line they
 a system comes from the IfcSystem the product is assigned to, and its category from the class and type, or BIMCraft's `Category`
 where a class has several; `LoadBearing` makes a column or a floor structural.
 
+Steel sections (`profiles.rs`). A structural column's or a beam's type (`ColumnType`, `RunType`) may have a `profile`: a `Shape`
+(I, U, L, RHS, CHS) and its plates (`web` and `flange` of an I or a channel, `thickness` of an angle or a hollow section, the `radius` of
+the root fillets), in the type's own `width` by `depth` box (a CHS is `round`, its `width` the diameter), and the `name` it has in the
+catalogue. Its coordinates are IFC's: x across the width (a column's along its angle, a beam's to the left of the way it runs), y along
+the depth (a beam's up, square to its axis), the origin in the middle of the box; a channel's web and an angle's upright leg are on its
+west (-x) side. The catalogue is a table of the EN 10365 values (IPE 80–600, HE A and HE B 100–600: depth, width, web, flange, root
+radius); `type {profile: "IPE 300"}` takes one, `type {shape, …}` makes one, `shape: rectangle` takes it away, and a beam or a structural
+column of a `type` the project hasn't but the catalogue has makes that type first (`from_catalogue`, a beam's in Metal). A section has
+an outline (`rings`: the outer ring with its fillets, a hollow section's hole) and `pieces`, rectangles and convex polygons whose union
+it is: a column's plan cut is its outline, a tube's hole filled with paper again (`Model::column_holes`); its 3D solid is its outline up
+its height, or a tube's pieces (`column_pieces`); a beam's is its pieces swept along it (`runs::Geom::swept`), a rectangle as a prism
+between two planes, a convex piece as a closed mesh a section cuts (`cut: true`), so a section through a beam cuts its true I. The
+plan of a beam is still its footprint. `Profile::area` (with the fillets) gives the take-off: a member's JSON (and its schedule's
+Profile, Section Area cm², Weight per Metre kg/m in steel at 7850 kg/m³, Weight kg) over its length or height. `Model::check` refuses
+plates that don't fit (`Profile::check`) and a section on any other type. IFC writes each steel type's section once (`steel_section`):
+IfcIShapeProfileDef, IfcUShapeProfileDef, IfcLShapeProfileDef, IfcRectangleHollowProfileDef or IfcCircleHollowProfileDef, named for its
+catalogue section (else its type), which each member's extrusion sweeps, an IfcMaterialProfile of it in the type's material in an
+IfcMaterialProfileSet named for the type, and one IfcMaterialProfileSetUsage (cardinal point 5, the middle: the line the body is swept
+along) its members are associated with. Import (`Reader::section`) reads the profile of a product's body extrusion back, its width and
+depth from it and a column's angle from its x axis (a square HEB keeps its turn), keeping a catalogue name only while the plates are
+the catalogue's, and a beam's material through the usage. An older BIMCraft leaves `profile` out of a file and reads the box
+round it, so FORMAT stays.
+
 The discipline tabs after Structure add data to this, no engine code of their own. Plumbing: `pipe` (PI), types in PVC and copper
 (`Types::runs["pipe"]`, outside diameters, so a pipe's `width` is its diameter and its schedule says Diameter). Electrical: `conduit`
 (CN), `cabletray` (CT, `cable_tray`: the one rectangular run) and `wire` (EW), by their outside size. Lightning protection (NBR 5419):

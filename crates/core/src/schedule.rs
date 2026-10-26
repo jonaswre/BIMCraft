@@ -193,6 +193,11 @@ const PHASE_CREATED: Own = ("Phase Created", Kind::Text, From::Param);
 const PHASE_DEMOLISHED: Own = ("Phase Demolished", Kind::Text, From::Param);
 const DESIGN_OPTION: Own = ("Design Option", Kind::Text, From::Param);
 const VOLUME: Own = ("Volume", Kind::Number, From::Key("volume_m3"));
+// A steel member's take-off: its section's name, its area (cm²), its weight per metre (kg/m) and its weight (kg).
+const PROFILE: Own = ("Profile", Kind::Text, From::Key("profile"));
+const SECTION_AREA: Own = ("Section Area", Kind::Number, From::Key("section_area_cm2"));
+const WEIGHT_PER_METRE: Own = ("Weight per Metre", Kind::Number, From::Key("weight_kg_m"));
+const WEIGHT: Own = ("Weight", Kind::Number, From::Key("weight_kg"));
 
 /// Each category's own fields, and how many of them, from the first, its schedule shows unless it
 /// chooses.
@@ -212,7 +217,24 @@ const OWN: &[(&str, usize, &[Own])] = &[
             DESIGN_OPTION,
         ],
     ),
-    ("door", 6, &[MARK, TYPE, WIDTH, HEIGHT, LEVEL, HOST, FAMILY, COUNT, PHASE_CREATED, PHASE_DEMOLISHED, DESIGN_OPTION]),
+    (
+        "door",
+        6,
+        &[
+            MARK,
+            TYPE,
+            WIDTH,
+            HEIGHT,
+            LEVEL,
+            HOST,
+            FAMILY,
+            COUNT,
+            PHASE_CREATED,
+            PHASE_DEMOLISHED,
+            DESIGN_OPTION,
+            ("Operation", Kind::Text, From::Key("operation")),
+        ],
+    ),
     (
         "window",
         7,
@@ -282,7 +304,26 @@ const OWN: &[(&str, usize, &[Own])] = &[
             DESIGN_OPTION,
         ],
     ),
-    ("structuralcolumn", 6, &[ID, TYPE, LEVEL, WIDTH, DEPTH, HEIGHT, COUNT, PHASE_CREATED, PHASE_DEMOLISHED, DESIGN_OPTION]),
+    (
+        "structuralcolumn",
+        6,
+        &[
+            ID,
+            TYPE,
+            LEVEL,
+            WIDTH,
+            DEPTH,
+            HEIGHT,
+            COUNT,
+            PHASE_CREATED,
+            PHASE_DEMOLISHED,
+            DESIGN_OPTION,
+            PROFILE,
+            SECTION_AREA,
+            WEIGHT_PER_METRE,
+            WEIGHT,
+        ],
+    ),
     (
         "footing",
         6,
@@ -299,7 +340,27 @@ const OWN: &[(&str, usize, &[Own])] = &[
             DESIGN_OPTION,
         ],
     ),
-    ("beam", 6, &[ID, TYPE, LEVEL, LENGTH, WIDTH, DEPTH, SYSTEM, COUNT, PHASE_CREATED, PHASE_DEMOLISHED, DESIGN_OPTION]),
+    (
+        "beam",
+        6,
+        &[
+            ID,
+            TYPE,
+            LEVEL,
+            LENGTH,
+            WIDTH,
+            DEPTH,
+            SYSTEM,
+            COUNT,
+            PHASE_CREATED,
+            PHASE_DEMOLISHED,
+            DESIGN_OPTION,
+            PROFILE,
+            SECTION_AREA,
+            WEIGHT_PER_METRE,
+            WEIGHT,
+        ],
+    ),
     ("stripfooting", 6, &[ID, TYPE, LEVEL, LENGTH, WIDTH, DEPTH, SYSTEM, COUNT, PHASE_CREATED, PHASE_DEMOLISHED, DESIGN_OPTION]),
     (
         "pipe",

@@ -20,8 +20,8 @@ use tiny_skia::{Color, FillRule, IntSize, LineCap, LineJoin, Paint, PathBuilder,
 use crate::geom::{self, P2};
 use crate::graphics::{Detail, Look, scale_of};
 use crate::model::{
-    CEILING_CUT, Ceiling, DimKind, Dimension, Element, Floor, Function, Id, Key, Layer, Model, Note, Opening, Pattern, PlanRange, Railing,
-    Ramp, Roof, Section, Shaft, Stair, TOL, Tag, Wall,
+    CEILING_CUT, Ceiling, DimKind, Dimension, Element, Floor, Function, Id, Key, Layer, Model, Note, Opening, OpeningType, Pattern,
+    PlanRange, Railing, Ramp, Roof, Section, Shaft, Stair, TOL, Tag, Wall,
 };
 use crate::pen::{Pen, Weights};
 use crate::styles::{BY_CATEGORY, ObjectStyle};
@@ -790,7 +790,11 @@ pub fn sketch(m: &Model, view: View, id: Id, e: &Element) -> Drawing {
         Element::Spot(sp) => spot_mark(&mut d, view.px(sp.at), m.spot_value(sp), m.units),
         Element::Section(v) => section_mark(&mut d, v),
         Element::Elevation(v) => elevation_mark(&mut d, v),
-        Element::Column(_) | Element::StructuralColumn(_) | Element::Footing(_) => d.line(&m.column_outline(e), Pen::HEAVY, INK, true),
+        Element::Column(_) | Element::StructuralColumn(_) | Element::Footing(_) => {
+            for ring in std::iter::once(m.column_outline(e)).chain(m.column_holes(e)) {
+                d.line(&ring, Pen::HEAVY, INK, true);
+            }
+        }
         crate::model::run_arm!(_) => {
             if let Some(g) = m.run_geom(e) {
                 d.line(&g.footprint(), Pen::HEAVY, INK, true)
@@ -1430,6 +1434,17 @@ fn draw_plan(m: &Model, plan: impl Key, view: View, up: bool, k: f32, n: f64, ti
             ink_cut(&mut d, &run);
         }
     }
+    // A steel tube's hole: paper again inside its walls, its edge inked.
+    for (id, _) in &outlines {
+        let holes = m.elements.get(*id).map(|e| m.column_holes(e)).unwrap_or_default();
+        if !holes.is_empty() {
+            d.owner = Some(*id);
+            d.fill(&holes, PAPER);
+            for hole in &holes {
+                d.line(hole, Pen::HEAVY, INK, true);
+            }
+        }
+    }
     // A compound wall's layers: each its material's cut pattern where it's wide enough to hold it,
     // else lighter where it isn't the wall's structure; a thin line between each two.
     for (&id, e) in &m.elements {
@@ -1984,22 +1999,108 @@ fn opening(d: &mut Drawing, m: &Model, e: &Element, o: &Opening, w: &Wall, cut: 
         return;
     }
     if matches!(e, Element::Door(_)) {
-        // Swinging to the wall's left (its exterior side), or flipped, its right; hung on the jamb
-        // toward its start, or flipped, its end.
-        let side = if o.flip_facing { int } else { ext };
-        let (hinge, free) = if o.flip_hand { (s1, s0) } else { (s0, s1) };
+        door_symbol(d, o, &t, &axis, (ext, int, walls::centre(m, w)), cut - bottom);
+    } else {
+        for across in [int, (ext + int) / 2.0, ext] {
+            d.line(&axis.points(s0, s1, across), Pen::PROJECTION, INK, false);
+        }
+    }
+}
+
+/// A door of the project's own types in a plan whose cut plane is `cut` over its sill, as its kind draws it; the wall's
+/// faces (`ext`, `int`) and its centre line across its axis. A swing door's leaf, swinging to the wall's left (its exterior
+/// side), or flipped, its right; hung on the jamb toward its start, or flipped, its end; a double one's two. Any other kind's
+/// parts (`doors::Operation::parts`): where the cut plane passes through one, it is cut; under it, seen; over it (a coil box,
+/// a sectional door's tracks), dashed; and a sliding leaf's way open as an arrow, a sectional door's as its outline overhead.
+fn door_symbol(d: &mut Drawing, o: &Opening, t: &OpeningType, axis: &Axis, (ext, int, centre): (f64, f64, f64), cut: f64) {
+    use crate::doors::Operation;
+    let side = if o.flip_facing { int } else { ext };
+    let out = if o.flip_facing { -1.0 } else { 1.0 };
+    let (s0, s1) = (o.offset - t.width / 2.0, o.offset + t.width / 2.0);
+    let leaf = |d: &mut Drawing, hinge: f64, free: f64| {
         let pivot = axis.at(hinge, side);
-        let out = axis.tangent(hinge).perp() * if o.flip_facing { -1.0 } else { 1.0 };
         let shut = axis.at(free, side);
-        let open = pivot + out * pivot.dist(shut);
+        let open = pivot + axis.tangent(hinge).perp() * (out * pivot.dist(shut));
         d.line(&[pivot, open], BY_CATEGORY, INK, false);
         // What the leaf sweeps is seen, not cut.
         d.part(Part::Projection);
         d.line(&arc(pivot, open, shut, 24), BY_CATEGORY, INK, false);
         d.part(Part::Cut);
-    } else {
-        for across in [int, (ext + int) / 2.0, ext] {
-            d.line(&axis.points(s0, s1, across), Pen::PROJECTION, INK, false);
+    };
+    // A box along the wall from `a` to `b` (from the opening's middle), across from `c0` to `c1` (from the centre line).
+    let rect = |a: f64, b: f64, c0: f64, c1: f64| {
+        let (a, b, c0, c1) = (o.offset + a, o.offset + b, centre + c0, centre + c1);
+        vec![axis.at(a, c0), axis.at(b, c0), axis.at(b, c1), axis.at(a, c1)]
+    };
+    match t.operation {
+        Operation::Swing => {
+            let (hinge, free) = if o.flip_hand { (s1, s0) } else { (s0, s1) };
+            leaf(d, hinge, free);
+        }
+        Operation::DoubleSwing => {
+            leaf(d, s0, o.offset);
+            leaf(d, s1, o.offset);
+        }
+        kind => {
+            // Each footprint once, as the most of it shows: cut, else seen, else overhead.
+            let mut shown: Vec<(Vec<P2>, u8)> = Vec::new();
+            for p in kind.parts(t.width, t.height, side - centre, out) {
+                let how = if p.z.0 <= cut && cut < p.z.1 {
+                    0
+                } else if p.z.1 <= cut {
+                    1
+                } else {
+                    2
+                };
+                let ring = rect(p.along.0, p.along.1, p.across.0, p.across.1);
+                match shown.iter_mut().find(|(r, _)| *r == ring) {
+                    Some((_, was)) => *was = (*was).min(how),
+                    None => shown.push((ring, how)),
+                }
+            }
+            if kind == Operation::Sectional {
+                // Open, it lies overhead between its tracks, as far in as it is high.
+                let (a, b) = (side - centre + out * 80.0, side - centre + out * (80.0 + t.height));
+                shown.push((rect(-t.width / 2.0, t.width / 2.0, a.min(b), a.max(b)), 2));
+            }
+            for (ring, how) in &shown {
+                match how {
+                    0 => d.line(ring, BY_CATEGORY, INK, true),
+                    1 => {
+                        d.part(Part::Projection);
+                        d.line(ring, BY_CATEGORY, INK, true);
+                        d.part(Part::Cut);
+                    }
+                    _ => {
+                        d.part(Part::Projection);
+                        d.dashed(ring, BY_CATEGORY, INK, true);
+                        d.part(Part::Cut);
+                    }
+                }
+            }
+            // A sliding leaf's way open: toward the wall's start, or flipped, its end; two parting, each its own way.
+            let arrow = |d: &mut Drawing, from: f64, to: f64| {
+                let across = side + out * 250.0;
+                let (tail, tip) = (axis.at(from, across), axis.at(to, across));
+                let back = (tail - tip).unit() * 150.0;
+                let wing = back.perp() * (60.0 / 150.0);
+                d.part(Part::Projection);
+                d.line(&[tail, tip], BY_CATEGORY, INK, false);
+                d.line(&[tip + back + wing, tip, tip + back - wing], BY_CATEGORY, INK, false);
+                d.part(Part::Cut);
+            };
+            let reach = t.width * 0.3;
+            match kind {
+                Operation::Sliding => {
+                    let way = if o.flip_hand { 1.0 } else { -1.0 };
+                    arrow(d, o.offset - way * reach, o.offset + way * reach);
+                }
+                Operation::DoubleSliding => {
+                    arrow(d, o.offset - 100.0, o.offset - 100.0 - reach);
+                    arrow(d, o.offset + 100.0, o.offset + 100.0 + reach);
+                }
+                _ => {}
+            }
         }
     }
 }

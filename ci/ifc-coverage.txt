@@ -23,3 +23,27 @@ phase {"now": "Stage 2"}
 option {"set": "Entrance", "options": ["Glass", "Brick"]}
 option {"now": "Entrance: Brick"}
 wall {"points": [[0,-5000],[6000,-5000]]}
+# Steel sections: a catalogue I beam (sloped too), an I column, a channel, an angle and hollow sections.
+beam {"points": [[0,12000],[6000,12000]], "type": "IPE 300", "offset": 3000}
+beam {"points": [[0,13000],[6000,13000]], "type": "HEA 300", "offset": 3000, "end_offset": 4000}
+structural_column {"at": [0,12000], "type": "HEB 300", "angle": 30}
+type {"category": "beam", "name": "UPE 200", "shape": "U", "width": 80, "depth": 200, "web": 6, "flange": 11, "radius": 13}
+type {"category": "beam", "name": "L 100x10", "shape": "L", "width": 100, "depth": 100, "thickness": 10, "radius": 12}
+type {"category": "structuralcolumn", "name": "RHS 200x100x8", "shape": "RHS", "width": 200, "depth": 100, "thickness": 8}
+type {"category": "structuralcolumn", "name": "CHS 168.3x6", "shape": "CHS", "width": 168.3, "thickness": 6}
+beam {"points": [[0,14000],[6000,14000]], "type": "UPE 200", "offset": 3000}
+beam {"points": [[0,15000],[6000,15000]], "type": "L 100x10", "offset": 3000}
+structural_column {"at": [6000,12000], "type": "RHS 200x100x8"}
+structural_column {"at": [6000,13000], "type": "CHS 168.3x6"}
+# Door kinds, each in a wall of its own.
+wall {"points": [[0,20000],[40000,20000]], "height": 6000}
+type {"category": "door", "name": "Double 1800 x 2100", "width": 1800, "height": 2100, "operation": "double_swing"}
+type {"category": "door", "name": "Sliding 1200 x 2100", "width": 1200, "height": 2100, "operation": "sliding"}
+type {"category": "door", "name": "Sliding pair 2400 x 2100", "width": 2400, "height": 2100, "operation": "double_sliding"}
+type {"category": "door", "name": "Sectional 4000 x 5000", "width": 4000, "height": 5000, "operation": "sectional"}
+type {"category": "door", "name": "Roller 3600 x 4000", "width": 3600, "height": 4000, "operation": "roller"}
+door {"at": [3000,20000], "type": "Double 1800 x 2100"}
+door {"at": [9000,20000], "type": "Sliding 1200 x 2100", "flip_hand": true}
+door {"at": [15000,20000], "type": "Sliding pair 2400 x 2100"}
+door {"at": [22000,20000], "type": "Sectional 4000 x 5000", "flip_facing": true}
+door {"at": [31000,20000], "type": "Roller 3600 x 4000"}

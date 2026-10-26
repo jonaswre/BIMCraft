@@ -12,6 +12,7 @@ mod cloud_tests;
 mod commands;
 mod component_geometry;
 mod csg;
+pub mod doors;
 pub mod engine;
 pub mod family;
 pub mod favorites;
@@ -34,6 +35,7 @@ pub mod paint;
 pub mod pdf;
 pub mod pen;
 pub mod phasing;
+pub mod profiles;
 pub mod render;
 pub mod runs;
 pub mod sample;
@@ -52,9 +54,13 @@ pub mod walls;
 pub use commands::{command_of, element_json, floor_outline, opening_of, roof_footprint, run_category_of, runs_of, stood_of};
 
 #[cfg(test)]
+mod door_tests;
+#[cfg(test)]
 mod mep_tests;
 #[cfg(test)]
 mod plan_view_tests;
+#[cfg(test)]
+mod profile_tests;
 #[cfg(test)]
 mod purge_tests;
 #[cfg(test)]
