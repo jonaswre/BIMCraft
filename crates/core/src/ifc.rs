@@ -56,6 +56,8 @@ const LOFTED: u64 = 47;
 const LOFTED_DEFINES: u64 = 48;
 const GRID: u64 = 49;
 const GRID_CONTAINS: u64 = 50;
+const QUANTITIES: u64 = 51;
+const QUANTITY_DEFINES: u64 = 52;
 
 /// The property set an element's values of the project's parameters go in.
 pub const PARAMETERS: &str = "Project Parameters";
@@ -171,6 +173,26 @@ fn utc(secs: u64) -> String {
     format!("{y:04}-{m:02}-{d:02}T{:02}:{:02}:{:02}", t / 3600, t % 3600 / 60, t % 60)
 }
 
+/// A base quantity: its name and its value in mm, mm² or mm³, which the file holds in mm, m² and m³.
+enum Q {
+    Length(&'static str, f64),
+    Area(&'static str, f64),
+    Volume(&'static str, f64),
+}
+
+/// The volume of a prism round `ring` (in plan) from one plane up to another, mm³: over each triangle of a fan, its area
+/// times its mean height, which is exact as both planes are flat.
+fn prism_volume(ring: &[P2], bottom: &walls::Plane, top: &walls::Plane) -> f64 {
+    let Some(&o) = ring.first() else { return 0.0 };
+    let rise = |q: P2| top.at(q) - bottom.at(q);
+    ring.windows(2).skip(1).map(|w| (w[0] - o).cross(w[1] - o) / 2.0 * (rise(o) + rise(w[0]) + rise(w[1])) / 3.0).sum::<f64>().abs()
+}
+
+/// The area of a section `width` by `depth`, or round `width` across.
+fn section_area(width: f64, depth: f64, round: bool) -> f64 {
+    if round { std::f64::consts::PI * width * width / 4.0 } else { width * depth }
+}
+
 fn refs(ids: &[u64]) -> String {
     ids.iter().map(|i| format!("#{i}")).collect::<Vec<_>>().join(",")
 }
@@ -223,6 +245,28 @@ impl Step {
     fn define(&mut self, ent: u64, name: &str, props: &[u64], (set, relation): (u64, u64), key: u64) {
         let set = self.add(format!("IFCPROPERTYSET({},$,{},$,({}))", self.guid(set, key), s(name), refs(props)));
         self.add(format!("IFCRELDEFINESBYPROPERTIES({},$,$,$,(#{ent}),#{set})", self.guid(relation, key)));
+    }
+
+    /// IFC4's base quantities `name` (`Qto_WallBaseQuantities`) of `ent`, element `id`: a quantity set in the file's
+    /// units, those that aren't a size left out.
+    fn quantities(&mut self, ent: u64, name: &str, qs: &[Q], id: Id) {
+        let items: Vec<u64> = qs
+            .iter()
+            .filter_map(|q| {
+                let (kind, n, v) = match *q {
+                    Q::Length(n, v) => ("IFCQUANTITYLENGTH", n, v),
+                    Q::Area(n, v) => ("IFCQUANTITYAREA", n, v / 1e6),
+                    Q::Volume(n, v) => ("IFCQUANTITYVOLUME", n, v / 1e9),
+                };
+                v.is_finite().then(|| self.add(format!("{kind}({},$,$,{},$)", s(n), real(v.max(0.0)))))
+            })
+            .collect();
+        if items.is_empty() {
+            return;
+        }
+        let set =
+            self.add(format!("IFCELEMENTQUANTITY({},$,{},$,'BaseQuantities',({}))", self.guid(QUANTITIES, id), s(name), refs(&items)));
+        self.add(format!("IFCRELDEFINESBYPROPERTIES({},$,$,$,(#{ent}),#{set})", self.guid(QUANTITY_DEFINES, id)));
     }
 
     /// A material by name, written once; one the library has, with its colour, for viewers to
@@ -591,6 +635,27 @@ pub fn export(m: &Model) -> String {
                 contained.entry(wl.level).or_default().push(ent);
                 products.insert(id, ent);
                 placed.insert(id, (ent, at));
+                // Its volume with and without its doors' and windows' holes; its sides' areas, those over its thickness.
+                let volume = |openings: bool| -> f64 {
+                    walls::prisms(m, id, openings).iter().map(|p| prism_volume(&p.ring, &p.bottom, &p.top)).sum()
+                };
+                let (gross, net, t) = (volume(false), volume(true), m.thickness(wl));
+                let side = |v: f64| if t > 0.0 { v / t } else { 0.0 };
+                w.quantities(
+                    ent,
+                    "Qto_WallBaseQuantities",
+                    &[
+                        Q::Length("Length", path.length()),
+                        Q::Length("Width", t),
+                        Q::Length("Height", m.top_z(wl) - m.base_z(wl)),
+                        Q::Area("GrossFootprintArea", geom::area(&walls::outline(m, id)).abs()),
+                        Q::Area("GrossSideArea", side(gross)),
+                        Q::Area("NetSideArea", side(net)),
+                        Q::Volume("GrossVolume", gross),
+                        Q::Volume("NetVolume", net),
+                    ],
+                    id,
+                );
             }
             Element::Floor(f) => {
                 let Some(&(_, storey)) = storeys.get(&f.level) else { continue };
@@ -614,6 +679,24 @@ pub fn export(m: &Model) -> String {
                 contained.entry(f.level).or_default().push(ent);
                 products.insert(id, ent);
                 hosts.insert(id, (ent, at, m.elevation(f.level)));
+                // Its areas along its slope, less its openings and the shafts through it for the net; its thickness.
+                let cos = f.slope.to_radians().cos().abs().max(1e-6);
+                let net: f64 =
+                    m.floor_slabs(f).iter().flat_map(|(face, rise)| m.less_shafts(face, *rise).0).map(|r| geom::area(&r).abs()).sum();
+                let gross = geom::area(&f.boundary).abs();
+                w.quantities(
+                    ent,
+                    "Qto_SlabBaseQuantities",
+                    &[
+                        Q::Length("Width", m.types.floor.get(&f.type_name).map_or(0.0, |t| t.thickness)),
+                        Q::Length("Perimeter", geom::perimeter(&f.boundary)),
+                        Q::Area("GrossArea", gross / cos),
+                        Q::Area("NetArea", net / cos),
+                        Q::Volume("GrossVolume", gross * depth),
+                        Q::Volume("NetVolume", net * depth),
+                    ],
+                    id,
+                );
                 if f.structural {
                     w.load_bearing(ent, "Pset_SlabCommon", id);
                 }
@@ -633,14 +716,27 @@ pub fn export(m: &Model) -> String {
                 contained.entry(c.level).or_default().push(ent);
                 products.insert(id, ent);
                 hosts.insert(id, (ent, at, m.elevation(c.level)));
+                let net: f64 =
+                    m.ceiling_slabs(c).iter().flat_map(|(face, rise)| m.less_shafts(face, *rise).0).map(|r| geom::area(&r).abs()).sum();
+                w.quantities(
+                    ent,
+                    "Qto_CoveringBaseQuantities",
+                    &[
+                        Q::Length("Width", m.types.ceiling.get(&c.type_name).map_or(0.0, |t| t.thickness)),
+                        Q::Area("GrossArea", geom::area(&c.boundary).abs()),
+                        Q::Area("NetArea", net),
+                    ],
+                    id,
+                );
             }
             Element::Room(r) => {
                 let Some(&(_, storey)) = storeys.get(&r.level) else { continue };
                 let at = w.place(Some(storey), (0.0, 0.0, 0.0), None);
-                // A room that isn't enclosed has no shape to give.
-                let shape = match m.room_region(r) {
+                // A room that isn't enclosed has no shape, and no quantities, to give.
+                let region = m.room_region(r);
+                let height = m.level_above(r.level).map_or(DEFAULT_HEIGHT, |up| m.elevation(up) - m.elevation(r.level));
+                let shape = match &region {
                     Some(region) => {
-                        let height = m.level_above(r.level).map_or(DEFAULT_HEIGHT, |up| m.elevation(up) - m.elevation(r.level));
                         let profile = w.profile(&region.outer, &region.holes);
                         format!("#{}", w.body(profile, 0.0, height, &[]))
                     }
@@ -654,6 +750,23 @@ pub fn export(m: &Model) -> String {
                 ));
                 spaces.entry(r.level).or_default().push(ent);
                 products.insert(id, ent);
+                if let Some(region) = region {
+                    let (area, perimeter) = (region.area(), region.perimeter());
+                    w.quantities(
+                        ent,
+                        "Qto_SpaceBaseQuantities",
+                        &[
+                            Q::Length("Height", height),
+                            Q::Length("GrossPerimeter", perimeter),
+                            Q::Length("NetPerimeter", perimeter),
+                            Q::Area("GrossFloorArea", area),
+                            Q::Area("NetFloorArea", area),
+                            Q::Volume("GrossVolume", area * height),
+                            Q::Volume("NetVolume", area * height),
+                        ],
+                        id,
+                    );
+                }
             }
             // A mass: a proxy of object type `Mass`, as Revit writes them, its footprint swept up from its base to its top; lofted,
             // a closed face set, with a property set to say which corner pairs with which.
@@ -711,6 +824,34 @@ pub fn export(m: &Model) -> String {
                     Element::Footing(_) => w.load_bearing(ent, "Pset_FootingCommon", id),
                     _ => {}
                 }
+                let (section, length) = (section_area(t.width, t.depth, t.round), top - bottom);
+                if matches!(e, Element::Footing(_)) {
+                    let width = if t.round { t.width } else { t.depth };
+                    w.quantities(
+                        ent,
+                        "Qto_FootingBaseQuantities",
+                        &[
+                            Q::Length("Length", t.width),
+                            Q::Length("Width", width),
+                            Q::Length("Height", length),
+                            Q::Volume("GrossVolume", section * length),
+                            Q::Volume("NetVolume", section * length),
+                        ],
+                        id,
+                    );
+                } else {
+                    w.quantities(
+                        ent,
+                        "Qto_ColumnBaseQuantities",
+                        &[
+                            Q::Length("Length", length),
+                            Q::Area("CrossSectionArea", section),
+                            Q::Volume("GrossVolume", section * length),
+                            Q::Volume("NetVolume", section * length),
+                        ],
+                        id,
+                    );
+                }
             }
             // A run: its section swept along its axis, in its material, a member of the system it is in.
             crate::model::run_arm!(r) => {
@@ -743,6 +884,34 @@ pub fn export(m: &Model) -> String {
                 match e {
                     Element::Beam(_) => w.load_bearing(ent, "Pset_BeamCommon", id),
                     Element::StripFooting(_) => w.load_bearing(ent, "Pset_FootingCommon", id),
+                    _ => {}
+                }
+                let (section, length) = (section_area(g.width, g.depth, g.round), g.length());
+                match e {
+                    Element::Beam(_) => w.quantities(
+                        ent,
+                        "Qto_BeamBaseQuantities",
+                        &[
+                            Q::Length("Length", length),
+                            Q::Area("CrossSectionArea", section),
+                            Q::Volume("GrossVolume", section * length),
+                            Q::Volume("NetVolume", section * length),
+                        ],
+                        id,
+                    ),
+                    Element::StripFooting(_) => w.quantities(
+                        ent,
+                        "Qto_FootingBaseQuantities",
+                        &[
+                            Q::Length("Length", length),
+                            Q::Length("Width", g.width),
+                            Q::Length("Height", g.depth),
+                            Q::Area("CrossSectionArea", section),
+                            Q::Volume("GrossVolume", section * length),
+                            Q::Volume("NetVolume", section * length),
+                        ],
+                        id,
+                    ),
                     _ => {}
                 }
                 if !t.material.is_empty() {
@@ -882,6 +1051,31 @@ pub fn export(m: &Model) -> String {
                 contained.entry(r.level).or_default().push(ent);
                 products.insert(id, ent);
                 hosts.insert(id, (ent, at, m.elevation(r.level)));
+                // Its area along its slopes, round its courtyards, and less its openings for the net; the area it covers.
+                let along = |p: &walls::Plane| (1.0 + p.g.dot(p.g)).sqrt();
+                let gross: f64 = m
+                    .roof_faces(r)
+                    .unwrap_or_default()
+                    .iter()
+                    .map(|(loops, p)| {
+                        let (outer, holes) = loops
+                            .split_first()
+                            .map_or((0.0, 0.0), |(o, h)| (geom::area(o).abs(), h.iter().map(|x| geom::area(x).abs()).sum::<f64>()));
+                        (outer - holes) * along(p)
+                    })
+                    .sum();
+                let net: f64 = m.roof_pieces(r).unwrap_or_default().iter().map(|(ring, p)| geom::area(ring).abs() * along(p)).sum();
+                let courtyards: f64 = r.courtyards.iter().map(|c| geom::area(c).abs()).sum();
+                w.quantities(
+                    ent,
+                    "Qto_RoofBaseQuantities",
+                    &[
+                        Q::Area("GrossArea", gross),
+                        Q::Area("NetArea", net),
+                        Q::Area("ProjectedArea", geom::area(&m.roof_outline(r)).abs() - courtyards),
+                    ],
+                    id,
+                );
             }
             _ => {}
         }
@@ -990,6 +1184,18 @@ pub fn export(m: &Model) -> String {
             ))
         };
         w.add(format!("IFCRELFILLSELEMENT({},$,$,$,#{opening},#{ent})", w.guid(FILLS, id)));
+        let qto = if matches!(e, Element::Door(_)) { "Qto_DoorBaseQuantities" } else { "Qto_WindowBaseQuantities" };
+        w.quantities(
+            ent,
+            qto,
+            &[
+                Q::Length("Width", t.width),
+                Q::Length("Height", t.height),
+                Q::Length("Perimeter", 2.0 * (t.width + t.height)),
+                Q::Area("Area", t.width * t.height),
+            ],
+            id,
+        );
         // What a family's door or window is made of: its material, or the set of them.
         let relating = match made_of.as_slice() {
             [] => None,

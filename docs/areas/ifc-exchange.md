@@ -18,3 +18,26 @@ its axes, and a curve-only `FootPrint` is a shape IfcOpenShell's geometry won't 
 Import reads every axis of every `IfcGrid` (U, V and W) as a grid: its tag the name (a taken name gets ` 2`…), its curve's
 ends through the grid's placement, the other way round where `SameSense` is false. An axis that repeats another of the
 same grid (same tag, same line either way round) comes in once, so a lone grid comes back alone.
+
+## Base quantities
+
+Each element's IFC4 base quantities go in an `IfcElementQuantity` named for its set (`MethodOfMeasurement`
+`'BaseQuantities'`), related to it by an `IfcRelDefinesByProperties` (GlobalIds from its GUID, roles `QUANTITIES` and
+`QUANTITY_DEFINES`). Lengths are in the file's millimetres, areas in m², volumes in m³ (the exporter's units); a value that
+isn't a finite size is left out, and so is a set with nothing in it. `Step::quantities` writes them.
+
+| Element | Set | Quantities |
+|---|---|---|
+| Wall | `Qto_WallBaseQuantities` | Length (its location line), Width (its type's thickness), Height (lowest base to highest top), GrossFootprintArea (its mitred outline), GrossSideArea and NetSideArea (its volumes over its thickness), GrossVolume and NetVolume (`walls::prisms` without and with its doors' and windows' holes, each prism's area times its height at its triangles, exact for flat tops and bottoms, so a wall attached to a roof measures right) |
+| Floor | `Qto_SlabBaseQuantities` | Width (its type's thickness), Perimeter, GrossArea (its boundary) and NetArea (less its openings and the shafts through it), along its slope; GrossVolume, NetVolume |
+| Ceiling | `Qto_CoveringBaseQuantities` | Width, GrossArea, NetArea |
+| Room | `Qto_SpaceBaseQuantities` | Height (to the level above, as its body), GrossPerimeter, NetPerimeter, GrossFloorArea, NetFloorArea (its region, measured as BIMCraft measures a room: at the walls' centre lines, so net is gross), GrossVolume, NetVolume; a room that isn't enclosed has none |
+| Column, structural column | `Qto_ColumnBaseQuantities` | Length, CrossSectionArea, GrossVolume, NetVolume |
+| Footing | `Qto_FootingBaseQuantities` | Length, Width, Height, GrossVolume, NetVolume |
+| Beam | `Qto_BeamBaseQuantities` | Length (along its axis), CrossSectionArea, GrossVolume, NetVolume |
+| Strip footing | `Qto_FootingBaseQuantities` | Length, Width, Height, CrossSectionArea, GrossVolume, NetVolume |
+| Door, window | `Qto_DoorBaseQuantities`, `Qto_WindowBaseQuantities` | Width, Height, Perimeter, Area (of its opening) |
+| Roof | `Qto_RoofBaseQuantities` | GrossArea (its slopes along their pitch, round its courtyards), NetArea (less its openings), ProjectedArea (its outline in plan less its courtyards) |
+
+Import ignores them: what an element measures comes from its geometry. Pipes, conduits, trays, stairs, ramps, railings,
+masses and components have none yet.

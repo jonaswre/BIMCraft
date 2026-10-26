@@ -256,3 +256,175 @@ mod grids {
         assert!(!text.contains("IFCGRID"));
     }
 }
+
+mod quantities {
+    use super::*;
+
+    /// The base quantity set of entity `#ent`: its name and each quantity's value, as the file's units give them.
+    fn qto(f: &Step, ent: u64) -> (String, BTreeMap<String, f64>) {
+        let sets: Vec<u64> = f
+            .all("IFCRELDEFINESBYPROPERTIES")
+            .into_iter()
+            .filter(|r| f.list(*r, 4).contains(&ent) && f.kind(f.at(*r, 5)) == "IFCELEMENTQUANTITY")
+            .map(|r| f.at(r, 5))
+            .collect();
+        assert_eq!(sets.len(), 1, "one base quantity set for #{ent}");
+        let set = sets[0];
+        let values = f
+            .list(set, 5)
+            .into_iter()
+            .map(|q| {
+                assert!(["IFCQUANTITYLENGTH", "IFCQUANTITYAREA", "IFCQUANTITYVOLUME"].contains(&f.kind(q)), "{}", f.kind(q));
+                (f.text(q, 0), f.real(q, 3))
+            })
+            .collect();
+        (f.text(set, 2), values)
+    }
+
+    /// The entity of kind `kind` written for element `id` (its Tag).
+    fn of(f: &Step, kind: &str, id: u64) -> u64 {
+        let tag = format!("'{id}'");
+        *f.all(kind).iter().find(|e| f.0[e].1.contains(&tag)).unwrap_or_else(|| panic!("no {kind} for {id}"))
+    }
+
+    fn check(q: &BTreeMap<String, f64>, name: &str, want: f64, tol: f64) {
+        let got = q.get(name).copied().unwrap_or_else(|| panic!("no {name} in {q:?}"));
+        assert!(near(got, want, tol), "{name}: {got}, not {want} ({q:?})");
+    }
+
+    fn id(v: &Value) -> u64 {
+        v["id"].as_u64().or_else(|| v["ids"][0].as_u64()).unwrap()
+    }
+
+    fn element(s: &mut Session, id: u64) -> Value {
+        run(s, "elements", json!({}))["elements"].as_array().unwrap().iter().find(|e| e["id"] == id).unwrap().clone()
+    }
+
+    #[test]
+    fn walls_slabs_spaces_and_openings_carry_their_base_quantities() {
+        // Given a 6 x 4 m box of walls up to Level 2, a door and a window in it, a floor under it and a room in it.
+        let mut s = Session::new();
+        let walls = run(&mut s, "wall", json!({"points": [[0, 0], [6000, 0], [6000, 4000], [0, 4000]], "closed": true}));
+        let south = walls["ids"][0].as_u64().unwrap();
+        let door = id(&run(&mut s, "door", json!({"at": [3000, 0]})));
+        let window = id(&run(&mut s, "window", json!({"at": [6000, 2000]})));
+        let floor = id(&run(&mut s, "floor", json!({"boundary": [[0, 0], [6000, 0], [6000, 4000], [0, 4000]]})));
+        let room = id(&run(&mut s, "room", json!({"point": [3000, 2000], "name": "Hall"})));
+        let room = element(&mut s, room);
+        let (wall, d, wn, fl) = (element(&mut s, south), element(&mut s, door), element(&mut s, window), element(&mut s, floor));
+        let (t, h) = (wall["thickness"].as_f64().unwrap(), wall["height"].as_f64().unwrap());
+        let (dw, dh) = (d["width"].as_f64().unwrap(), d["height"].as_f64().unwrap());
+        let (ww, wh) = (wn["width"].as_f64().unwrap(), wn["height"].as_f64().unwrap());
+        let ft = fl["thickness"].as_f64().unwrap();
+
+        // When it is saved as IFC.
+        let (_, text) = save_ifc(&mut s, "qto.ifc");
+        let f = Step::of(&text);
+
+        // Then the south wall, 6 m along its centre line, says how long, thick and tall it is, and its areas and volumes
+        // (m², m³) with and without the door's hole.
+        let (name, q) = qto(&f, of(&f, "IFCWALL", south));
+        assert_eq!(name, "Qto_WallBaseQuantities");
+        check(&q, "Length", 6000.0, 1e-6);
+        check(&q, "Width", t, 1e-6);
+        check(&q, "Height", h, 1e-6);
+        let side = 6.0 * h / 1000.0;
+        check(&q, "GrossSideArea", side, 1e-4);
+        check(&q, "NetSideArea", side - dw * dh / 1e6, 1e-4);
+        check(&q, "GrossFootprintArea", 6.0 * t / 1000.0, 1e-4);
+        check(&q, "GrossVolume", side * t / 1000.0, 1e-4);
+        check(&q, "NetVolume", (side - dw * dh / 1e6) * t / 1000.0, 1e-4);
+
+        // The door and the window (tagged with their marks, the only ones): their sizes and the area of their openings.
+        let (name, q) = qto(&f, f.all("IFCDOOR")[0]);
+        assert_eq!(name, "Qto_DoorBaseQuantities");
+        check(&q, "Width", dw, 1e-6);
+        check(&q, "Height", dh, 1e-6);
+        check(&q, "Area", dw * dh / 1e6, 1e-6);
+        let (name, q) = qto(&f, f.all("IFCWINDOW")[0]);
+        assert_eq!(name, "Qto_WindowBaseQuantities");
+        check(&q, "Width", ww, 1e-6);
+        check(&q, "Height", wh, 1e-6);
+        check(&q, "Area", ww * wh / 1e6, 1e-6);
+
+        // The floor: its thickness, its perimeter, and its areas and volumes.
+        let (name, q) = qto(&f, of(&f, "IFCSLAB", floor));
+        assert_eq!(name, "Qto_SlabBaseQuantities");
+        check(&q, "Width", ft, 1e-6);
+        check(&q, "Perimeter", 20000.0, 1e-6);
+        check(&q, "GrossArea", 24.0, 1e-6);
+        check(&q, "NetArea", 24.0, 1e-6);
+        check(&q, "GrossVolume", 24.0 * ft / 1000.0, 1e-6);
+        check(&q, "NetVolume", 24.0 * ft / 1000.0, 1e-6);
+
+        // The room: its area and perimeter as BIMCraft measures them (at the walls' centre lines, so here the box's 6 x 4
+        // m), as tall as the storey.
+        let space = f.all("IFCSPACE")[0];
+        let (name, q) = qto(&f, space);
+        assert_eq!(name, "Qto_SpaceBaseQuantities");
+        check(&q, "NetFloorArea", room["area_m2"].as_f64().unwrap(), 0.005);
+        check(&q, "GrossFloorArea", 24.0, 1e-6);
+        check(&q, "NetPerimeter", 20000.0, 1e-6);
+        check(&q, "GrossPerimeter", 20000.0, 1e-6);
+        check(&q, "Height", 3000.0, 1e-6);
+        check(&q, "GrossVolume", 72.0, 1e-6);
+    }
+
+    #[test]
+    fn columns_beams_and_roofs_carry_their_base_quantities() {
+        let mut s = Session::new();
+        let column = id(&run(&mut s, "structural_column", json!({"at": [0, 0]})));
+        let beam = id(&run(&mut s, "beam", json!({"points": [[0, 0], [6000, 0]], "offset": 3000})));
+        let roof = id(&run(
+            &mut s,
+            "roof",
+            json!({"boundary": [[0, 0], [8000, 0], [8000, 6000], [0, 6000]], "slope": 30, "overhang": 0, "level": "Level 2"}),
+        ));
+        let (c, b, r) = (element(&mut s, column), element(&mut s, beam), element(&mut s, roof));
+        let (_, text) = save_ifc(&mut s, "qto-structure.ifc");
+        let f = Step::of(&text);
+
+        // A column: how long, its section, and its volume.
+        let (cw, cd, ch) = (c["width"].as_f64().unwrap(), c["depth"].as_f64().unwrap(), c["height"].as_f64().unwrap());
+        let (name, q) = qto(&f, of(&f, "IFCCOLUMN", column));
+        assert_eq!(name, "Qto_ColumnBaseQuantities");
+        check(&q, "Length", ch, 1e-6);
+        check(&q, "CrossSectionArea", cw * cd / 1e6, 1e-6);
+        check(&q, "GrossVolume", cw * cd * ch / 1e9, 1e-6);
+        check(&q, "NetVolume", cw * cd * ch / 1e9, 1e-6);
+
+        // A beam: how long along its axis, its section, and its volume.
+        let (bw, bd) = (b["width"].as_f64().unwrap(), b["depth"].as_f64().unwrap());
+        let (name, q) = qto(&f, of(&f, "IFCBEAM", beam));
+        assert_eq!(name, "Qto_BeamBaseQuantities");
+        check(&q, "Length", 6000.0, 1e-6);
+        check(&q, "CrossSectionArea", bw * bd / 1e6, 1e-6);
+        check(&q, "GrossVolume", bw * bd * 6000.0 / 1e9, 1e-6);
+
+        // A hipped roof, every slope at 30°: its area on the slope, and the area it covers in plan.
+        let projected = r["area_m2"].as_f64().unwrap();
+        let (name, q) = qto(&f, of(&f, "IFCROOF", roof));
+        assert_eq!(name, "Qto_RoofBaseQuantities");
+        check(&q, "ProjectedArea", projected, 0.01);
+        check(&q, "GrossArea", projected / 30f64.to_radians().cos(), 0.02);
+        check(&q, "NetArea", projected / 30f64.to_radians().cos(), 0.02);
+    }
+
+    #[test]
+    fn a_room_that_isnt_enclosed_has_no_quantities_to_give() {
+        let mut s = Session::new();
+        let walls = run(&mut s, "wall", json!({"points": [[0, 0], [6000, 0], [6000, 4000], [0, 4000]], "closed": true}));
+        run(&mut s, "room", json!({"point": [3000, 2000]}));
+        run(&mut s, "delete", json!({"ids": [walls["ids"][3]]}));
+        let (_, text) = save_ifc(&mut s, "qto-open-room.ifc");
+        let f = Step::of(&text);
+        let space = f.all("IFCSPACE")[0];
+        assert!(
+            f.users(space)
+                .into_iter()
+                .filter(|r| f.kind(*r) == "IFCRELDEFINESBYPROPERTIES")
+                .all(|r| f.kind(f.at(r, 5)) != "IFCELEMENTQUANTITY"),
+            "no area to measure"
+        );
+    }
+}
