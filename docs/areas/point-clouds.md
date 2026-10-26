@@ -55,7 +55,9 @@ depth buffer, so what is nearer hides a scan and a scan hides what is behind it,
 it. A point's pixel holds its scan's slot after the triangles', so it picks, box-selects and tints as its element; it has no
 face to paint and draws no edge. Points are not lit: they keep the scan's colours, grey (`cloud::GREY`) for a scan with none,
 or the colour the view's projection fill gives. A picture draws at most `DRAWN` points, an even share of each scan's past
-that, as Revit's density does. The view fits round its scans, and a level's plane reaches past them (`Model::model_extent`).
+that, as Revit's density does. The view fits round what is built, and a level's plane reaches past that (`Model::model_extent`): a scan counts for
+neither (a survey of the site would leave the building tiny), but where nothing is built yet, the view fits round the scans and
+the levels reach past them. Sections without a crop span the levels, so the same holds for them.
 Views hide and override point clouds by element or by the category `pointcloud` (`graphics::SCANS`, apart from `MODEL`:
 Revit has a tab of its own for them in Visibility/Graphics, and Object Styles no row). The graphics card doesn't draw them
 yet: `gpu::Mesh::new` refuses a view that shows one, and the processor draws it. The wireframe style leaves them out.

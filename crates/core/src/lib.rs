@@ -61,3 +61,5 @@ mod purge_tests;
 mod structure_tests;
 #[cfg(test)]
 mod tests;
+#[cfg(test)]
+mod view_sheet_tests;

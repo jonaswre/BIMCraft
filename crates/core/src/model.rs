@@ -2168,18 +2168,27 @@ impl Model {
     }
 
     /// What a level stretches over without an extent of its own: every solid and grid in plan,
-    /// [`LEVEL_PAST`] past them (10 m each way of the origin in an empty project).
+    /// [`LEVEL_PAST`] past them (10 m each way of the origin in an empty project). The scans only
+    /// where nothing is built yet: a survey of the site round a building leaves its levels its own.
     pub fn model_extent(&self) -> [P2; 2] {
-        let pts = crate::view3d::solids(self)
+        let mut pts = crate::view3d::solids(self)
             .iter()
             .flat_map(|s| s.corners())
             .map(|p| P2(p[0], p[1]))
-            .chain(self.elements.iter().flat_map(|(id, e)| match e {
+            .chain(self.elements.values().flat_map(|e| match e {
                 Element::Grid(g) => vec![g.start, g.end],
-                Element::PointCloud(_) => self.cloud_box(*id).map_or(Vec::new(), |(lo, hi)| vec![P2(lo[0], lo[1]), P2(hi[0], hi[1])]),
                 _ => Vec::new(),
             }))
             .collect::<Vec<_>>();
+        if pts.is_empty() {
+            pts = self
+                .elements
+                .iter()
+                .filter(|(_, e)| matches!(e, Element::PointCloud(_)))
+                .filter_map(|(id, _)| self.cloud_box(*id))
+                .flat_map(|(lo, hi)| [P2(lo[0], lo[1]), P2(hi[0], hi[1])])
+                .collect();
+        }
         match pts.first() {
             Some(&first) => {
                 let (lo, hi) =

@@ -489,9 +489,11 @@ pub static ALL: &[Command] = &[
         "Place View",
         &[],
         "{sheet: number or id, view: a level's, section's, elevation's, schedule's or 3D view's name or id, at?: [x, y], \
-         scale?, azimuth?, elevation?} puts the view on the sheet at 1 : `scale` (by default the view's own, see `scale`, 1 : 100 when it has none of its own; a schedule keeps its size), \
-         its middle `at` mm from the paper's bottom left corner (by default right of the views there, or in the middle); a \
-         view goes on one sheet. A schedule (Room Schedule, Door Schedule…) or the 3D view ({3D}, seen from `azimuth` and \
+         scale?, azimuth?, elevation?} puts the view on the sheet at 1 : `scale` (by default the view's own, see `scale`, 1 : 100 when it has none of its own; \
+         the 3D view with none of its own at the finest of the project's scales from that up that fits the paper; a schedule \
+         keeps its size), its middle `at` mm from the paper's bottom left corner (by default in the middle when it's the \
+         first, else right of the views there, or the first spot from the top left where it lies on the paper clear of them \
+         and of the title box); a view goes on one sheet. Returns its id, `at` and `scale`. A schedule (Room Schedule, Door Schedule…) or the 3D view ({3D}, seen from `azimuth` and \
          `elevation` degrees) comes to be as it's first placed",
         place,
     ),
@@ -791,8 +793,9 @@ pub static ALL: &[Command] = &[
     other(
         "render",
         "Render",
-        "{view?: a level's, section's or elevation's name or id, a sheet's number, or {3D}, ceiling?, width?, height?, path?, \
-         azimuth?, elevation?} a level's floor plan (with `ceiling`, its reflected ceiling plan, looking up from 2300 mm), a section, an elevation, a sheet (at 5 px a paper mm), or the 3D view seen from \
+        "{view?: a level's, plan view's, section's or elevation's name or id, a sheet's number, or {3D}, ceiling?, width?, \
+         height?, path?, azimuth?, elevation?} a level's floor plan, or a plan view of it with its own graphics, range and crop \
+         (with `ceiling`, its reflected ceiling plan, looking up from 2300 mm), a section, an elevation, a sheet (at 5 px a paper mm), or the 3D view seen from \
          `azimuth` degrees round from east (counter-clockwise) and `elevation` degrees up (by default from the south-east, \
          30° up), as a PNG (pngBase64), or written to a path: .png, .svg for a plan, .pdf for a sheet",
         render_view,
@@ -1873,11 +1876,11 @@ fn render_view(s: &mut Session, p: &Value) -> R {
         let png = render::section_png(m, id, render::section_fit(m, id, w3, h3)).map_err(|e| bad(c, e))?;
         return png_reply(c, p, png, json!({"width": w3, "height": h3, "view": name, "kind": kind}));
     }
-    // A sheet, by number, name or id, unless a level is called that.
+    // A sheet, by number, name or id, unless a plan is called that.
     let level = match view {
         None => true,
-        Some(Value::String(n)) => m.levels().iter().any(|(_, l)| l.name == *n),
-        Some(v) => v.as_u64().is_some_and(|id| m.level(id).is_some()),
+        Some(Value::String(_)) => plan_param(c, m, p, "view").is_ok(),
+        Some(v) => v.as_u64().is_some_and(|id| m.plan_level(id).is_some()),
     };
     let named = |id: &Id, sh: &Sheet| {
         view.and_then(Value::as_str).is_some_and(|n| n == sh.number || n == sh.name) || view.and_then(Value::as_u64) == Some(*id)
@@ -1895,18 +1898,21 @@ fn render_view(s: &mut Session, p: &Value) -> R {
         }
         return png_reply(c, p, render::png(&d)?, info);
     }
-    let level = level_param(c, m, p, "view")?;
+    // A level's own plan or a plan view of it: drawn with the plan's own graphics, range and crop, named as it is.
+    let (level, plan) = plan_param(c, m, p, "view")?;
+    let plan = plan.unwrap_or(level);
     let (d, kind) = match flag(c, p, "ceiling")? {
-        true => (render::ceiling_plan(m, level, w, h), "ceiling plan"),
-        false => (render::plan(m, level, w, h), "plan"),
+        true => (render::ceiling_plan(m, plan, w, h), "ceiling plan"),
+        false => (render::plan(m, plan, w, h), "plan"),
     };
+    let name = m.view_name(plan).map_or_else(|| level_name(m, level), String::from);
     match string(c, p, "path")? {
         Some(path) => {
             let path = PathBuf::from(path);
             write_plan(&d, &path)?;
-            Ok(json!({"path": path, "width": w, "height": h, "view": level_name(m, level), "kind": kind}))
+            Ok(json!({"path": path, "width": w, "height": h, "view": name, "kind": kind}))
         }
-        None => Ok(json!({"pngBase64": base64(&render::png(&d)?), "width": w, "height": h, "view": level_name(m, level), "kind": kind})),
+        None => Ok(json!({"pngBase64": base64(&render::png(&d)?), "width": w, "height": h, "view": name, "kind": kind})),
     }
 }
 
@@ -4652,12 +4658,12 @@ fn place(s: &mut Session, p: &Value) -> R {
             .ok_or_else(|| bad(c, format!("`view`: {v} is not a plan, a section, an elevation, a schedule or a 3D view")))?,
         None => return Err(bad(c, "`view`, a level's, section's, elevation's, schedule's or 3D view's name or id, is required")),
     };
-    // The view's own scale, unless told another; 1 : 100 for a view with none.
-    let scale = scale.unwrap_or_else(|| graphics::scale_of(&s.model, view));
+    // The view's own scale, unless told another; the 3D view's, one that fits the paper.
+    let scale = scale.unwrap_or_else(|| sheet::default_scale(&s.model, sheet, view));
     let at = at.unwrap_or_else(|| sheet::spot(&s.model, sheet, view, scale));
     let (sheet, view) = (s.model.guid(sheet), s.model.guid(view));
     let id = s.model_mut().insert(Element::Viewport(Viewport { sheet, view, at, scale }));
-    Ok(json!({"id": id, "at": at}))
+    Ok(json!({"id": id, "at": at, "scale": scale}))
 }
 
 fn material(s: &mut Session, p: &Value) -> R {
