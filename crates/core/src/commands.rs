@@ -396,8 +396,8 @@ pub static ALL: &[Command] = &[
         &[],
         "{level?, boundary?: [[x,y],…], courtyards?: [[[x,y],…],…], slope?, overhang?, gables?: [edge, …], gable?, offset?, \
          extrusion?, openings?: [[[x,y],…],…], join?, type?} a roof on `level` (by default the one above the lowest), its \
-         base `offset` mm above it. Over `boundary` or else the walls of the level below, `overhang` mm (500) past their \
-         faces, round any `courtyards` (holes in it, inside it and apart, with eaves of their own; over the walls, by \
+         base `offset` mm above it. Over the walls of the level below, `overhang` mm (500) past their faces; or over \
+         `boundary`, drawn where the walls are: its eaves `overhang` mm (0) past it, its base at it; round any `courtyards` (holes in it, inside it and apart, with eaves of their own; over the walls, by \
          default each loop of them standing free inside, joined to none of the outer ones and with no room in it): flat \
          at `slope` 0, else every edge sloping up at `slope` degrees (30), hips, valleys and ridges where the slopes meet, \
          but the edges in `gables` (edge i runs from point i to the next, the courtyards' edges numbered on after the \
@@ -4060,17 +4060,34 @@ fn roof(s: &mut Session, p: &Value) -> R {
     let extrusion: Option<Extrusion> = shaped(c, p, "extrusion", "{line: [[x,y],[x,y]], profile: [[along, up],…], from?, to}")?;
     let given = !absent(p.get("boundary"));
     let overhang = num(c, p, "overhang")?.unwrap_or(if given || extrusion.is_some() { 0.0 } else { 500.0 });
-    let (boundary, found) = match (given, &extrusion) {
-        (true, _) => (points(c, p, "boundary")?, Vec::new()),
-        (false, Some(_)) => (Vec::new(), Vec::new()),
-        (false, None) => roof_footprint(m, level, overhang).map_err(|e| bad(c, e))?,
+    let courtyards: Option<Vec<Vec<P2>>> = shaped(c, p, "courtyards", "a list of outlines [[[x,y],…],…]")?;
+    let (boundary, courtyards) = match (given, &extrusion) {
+        // Drawn where the walls are, as Revit's footprint over walls: the eaves `overhang` past the boundary, out from it and
+        // into each courtyard, and the base at the boundary.
+        (true, None) => {
+            let eaves = |ring: &[P2], d: f64, what: &str| {
+                eaves(ring, d).ok_or_else(|| bad(c, format!("{what} is too small for an overhang of {overhang} mm; make it less")))
+            };
+            let boundary = eaves(&points(c, p, "boundary")?, overhang, "`boundary`")?;
+            let courtyards = match courtyards {
+                Some(cs) => cs.iter().map(|ring| eaves(ring, -overhang, "a courtyard")).collect::<Result<_, _>>()?,
+                None => Vec::new(),
+            };
+            (boundary, courtyards)
+        }
+        (true, Some(_)) => (points(c, p, "boundary")?, courtyards.unwrap_or_default()),
+        (false, Some(_)) => (Vec::new(), courtyards.unwrap_or_default()),
+        (false, None) => {
+            let (boundary, found) = roof_footprint(m, level, overhang).map_err(|e| bad(c, e))?;
+            (boundary, courtyards.unwrap_or(found))
+        }
     };
     let r = Roof {
         params: Default::default(),
         type_name,
         level,
         boundary,
-        courtyards: shaped(c, p, "courtyards", "a list of outlines [[[x,y],…],…]")?.unwrap_or(found),
+        courtyards,
         slope: if extrusion.is_some() { 0.0 } else { num(c, p, "slope")?.unwrap_or(30.0) },
         overhang,
         gable: flag(c, p, "gable")?,
@@ -4189,6 +4206,18 @@ fn shaped<T: serde::de::DeserializeOwned>(c: &str, p: &Value, key: &str, shape: 
         Some(_) => Err(bad(c, format!("`{key}` lists more than {MAX_POINTS}"))),
         None => Ok(None),
     }
+}
+
+/// A roof's eaves over `ring`, drawn where its walls are: each edge moved `d` mm out from what the ring encloses (in, for a
+/// negative `d`), whichever way round it runs, its points kept in their order so its edges keep their numbers; none when the
+/// ring is too small for that and would turn inside out.
+pub(crate) fn eaves(ring: &[P2], d: f64) -> Option<Vec<P2>> {
+    if d == 0.0 || ring.len() < 3 {
+        return Some(ring.to_vec());
+    }
+    let grown: Vec<P2> = geom::grow(ring, if geom::area(ring) < 0.0 { -d } else { d }).into_iter().map(micron).collect();
+    let kept = geom::ring_edges(ring).zip(geom::ring_edges(&grown)).all(|((p, q), (r, s))| (q - p).dot(s - r) > 0.0);
+    (kept && grown.iter().all(|q| q.0.is_finite() && q.1.is_finite())).then_some(grown)
 }
 
 /// The footprint `roof` gives a roof on `level` by default, over the walls of the level below: their

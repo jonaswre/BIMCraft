@@ -62,6 +62,8 @@ mod plan_view_tests;
 #[cfg(test)]
 mod purge_tests;
 #[cfg(test)]
+mod roof_overhang_tests;
+#[cfg(test)]
 mod script_tests;
 #[cfg(test)]
 mod structure_tests;

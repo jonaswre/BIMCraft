@@ -31,6 +31,10 @@ A roof by footprint is the straight skeleton of its outline and its `courtyards`
 counter-clockwise, the courtyards clockwise, the roof to the left of every edge): each edge moves in at speed 1, a gable's at
 0, and its slope rises from it, reaching the roof's base `overhang` in from its eaves; a courtyard's edges number on after
 the outline's, and every ring keeps its numbers whichever way round it runs, so `gables` stay put through a mirror.
+A `boundary` given to `roof` is drawn where the walls are, as Revit's footprint over walls: with an `overhang` the eaves
+(the roof's stored `boundary`) are moved that far out from it, and into each given courtyard, its points kept in their order
+so `gables` keep their edges (`commands::eaves`), and the base at `offset` is at the line drawn; a ring too small for the
+overhang is refused. `roof_by_face` and `update_by_face` give a mass's top face its eaves the same way.
 Over the walls (`floor_outline`, which `roof_footprint` grows by the overhang), a loop of them standing free inside the outer
 ones, joined to none of them and with no room in it, is a courtyard, open through the floor and the roof; one joined to them,
 or with a room in it, is rooms, and both run over it.
