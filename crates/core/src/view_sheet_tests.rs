@@ -67,3 +67,55 @@ fn a_duplicated_plan_placed_on_a_sheet_keeps_its_own_graphics() {
     let (cut, left) = (count(&own, POCHE), count(&copy, POCHE));
     assert!(cut > 1000 && left * 20 < cut, "{left} of {cut}");
 }
+
+// ---------- point clouds and the framing of views ----------
+
+/// A flat scan 185 m by 150 m, a point every 5 m, red.
+fn terrain(test: &str) -> String {
+    let path = std::env::temp_dir().join(format!("bimcraft-terrain-{}-{test}.xyz", std::process::id()));
+    let mut text = String::new();
+    for i in 0..=37 {
+        for k in 0..=30 {
+            text += &format!("{} {} 0 255 0 0\n", f64::from(i) * 5.0, f64::from(k) * 5.0);
+        }
+    }
+    std::fs::write(&path, text).unwrap();
+    path.to_string_lossy().into_owned()
+}
+
+/// How many pixels of a 3D picture are neither its background (its top left corner's) nor the scan's red.
+fn building(pm: &tiny_skia::Pixmap) -> usize {
+    let bg = pm.pixel(0, 0).unwrap();
+    let bg = (bg.red(), bg.green(), bg.blue());
+    pm.pixels().iter().map(|p| (p.red(), p.green(), p.blue())).filter(|&c| c != bg && !(c.0 > 200 && c.1 < 60 && c.2 < 60)).count()
+}
+
+#[test]
+fn a_scan_round_the_building_leaves_the_levels_sections_and_3d_view_framed_on_what_is_built() {
+    // Given a house, and a terrain scan far bigger than it lying behind it, north-west
+    let mut s = house();
+    let walls_only = run(&mut s, "render", json!({"view": "{3D}", "width": 400, "height": 300}));
+    let level = s.model.levels()[0].0;
+    let extent = s.model.level_extent(level);
+    let section = run(&mut s, "section", json!({"start": [-500, 3000], "end": [8500, 3000]}))["id"].as_u64().unwrap();
+    let across = crate::sheet::size(&s.model, section, 100.0).unwrap();
+    run(&mut s, "point_cloud", json!({"path": terrain("behind"), "at": [-112_500, 85_000]}));
+    // Then the levels stretch over the house, not the scan
+    assert_eq!(s.model.level_extent(level), extent);
+    // and a section with no crop is as wide as before
+    let now = crate::sheet::size(&s.model, section, 100.0).unwrap();
+    assert!((now.0 - across.0).abs() < 1.0, "{now:?} against {across:?}");
+    // and the 3D view frames the house as it did, not the scan
+    let with_scan = run(&mut s, "render", json!({"view": "{3D}", "width": 400, "height": 300}));
+    let (before, after) = (building(&picture(&walls_only)), building(&picture(&with_scan)));
+    assert!(after * 10 > before * 7, "{after} pixels of the house, {before} without the scan");
+}
+
+#[test]
+fn a_scan_alone_is_what_the_levels_frame() {
+    let mut s = Session::new();
+    run(&mut s, "point_cloud", json!({"path": terrain("alone"), "at": [0, 0]}));
+    let level = s.model.levels()[0].0;
+    let [lo, hi] = s.model.level_extent(level).unwrap();
+    assert!(hi.0 - lo.0 > 185_000.0 && hi.1 - lo.1 > 150_000.0, "{lo:?} to {hi:?}");
+}

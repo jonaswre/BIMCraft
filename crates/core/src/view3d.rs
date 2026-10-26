@@ -946,13 +946,15 @@ impl Scene {
         self.fit_in(azimuth, elevation, width, height, &Look::default())
     }
 
-    /// A view of what `look` shows of the model, fitted into the picture.
+    /// A view of what `look` shows of the model, fitted into the picture: what is built and its levels, or the scans where
+    /// it shows nothing built (a survey of the site round a building leaves the building the picture's).
     pub fn fit_in(&self, azimuth: f64, elevation: f64, width: u32, height: u32, look: &Look) -> Camera {
         let mut cam = Camera { azimuth, elevation: elevation.clamp(-89.0, 89.0), scale: 1.0, target: [0.0; 3], width, height };
         let room = |px: u32| (f64::from(px) - 2.0 * MARGIN).max(1.0);
+        let built = self.tris.iter().any(|t| look.shows(t.owner));
         let solids = self.tris.iter().filter(|t| look.shows(t.owner)).flat_map(|t| t.p);
         let levels = self.levels.iter().filter(|(id, ..)| look.shows(*id)).flat_map(|(.., c)| *c);
-        let scans = self.scans.iter().filter(|s| look.shows(s.owner)).flat_map(|s| s.corners);
+        let scans = self.scans.iter().filter(|s| !built && look.shows(s.owner)).flat_map(|s| s.corners);
         let mut pts: Vec<P3> = solids.chain(levels).chain(scans).collect();
         let Some((target, w, h)) = extent(&cam, &pts) else {
             cam.scale = room(width).min(room(height)) / 10_000.0;
