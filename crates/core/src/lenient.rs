@@ -42,6 +42,7 @@ pub fn element(category: &str, v: &Value) -> Vec<String> {
         "cable" => Run, "component" => Component, "stair" => Stair, "ramp" => Ramp, "railing" => Railing, "roof" => Roof,
         "text" => Note, "spot" => Spot, "schedule" => Schedule, "view3d" => View3D, "planview" => PlanView, "link" => Link,
         "pointcloud" => PointCloud, "roomseparator" => RoomSeparator,
+        "propertyline" => PropertyLine,
     }
 }
 

@@ -431,6 +431,7 @@ const OWN: &[(&str, usize, &[Own])] = &[
         &[("Mass", Kind::Text, From::Key("mass")), LEVEL, AREA, ("Perimeter", Kind::Length, From::Metres("perimeter_m")), VOLUME, COUNT],
     ),
     ("level", 2, &[("Elevation", Kind::Length, From::Key("elevation")), NAME, COUNT]),
+    ("propertyline", 3, &[NAME, AREA, ("Perimeter", Kind::Length, From::Metres("perimeter_m")), LEVEL, COUNT]),
 ];
 
 /// The categories schedules are of, as `OWN` lists them.

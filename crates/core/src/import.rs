@@ -20,8 +20,8 @@ use crate::library::Kind;
 use crate::model::{
     Ceiling, CeilingType, Column, ColumnType, Component, Element, Extrusion, FIRST_ID, Floor, FloorType, Function, Grid, Guid, Id, Justify,
     Landing, Layer, Level, MAX_COORD, MAX_LAYERS, MAX_POINTS, MAX_PROJECT_PARAMETERS, MAX_TEXT, Mass, Model, Opening, OpeningType,
-    PARAMETER_CATEGORIES, ParameterKind, ProjectParameter, Railing, RailingType, Ramp, Roof, RoofType, Room, RoomSeparator, Run, RunType,
-    Shaft, Side, Stair, TOL, Wall, WallType, culprit, heading,
+    PARAMETER_CATEGORIES, ParameterKind, ProjectParameter, PropertyLine, Railing, RailingType, Ramp, Roof, RoofType, Room, RoomSeparator,
+    Run, RunType, Shaft, Side, Stair, TOL, Wall, WallType, culprit, heading,
 };
 use crate::phasing;
 use crate::stairs;
@@ -2403,6 +2403,48 @@ pub fn ifc(bytes: &[u8], name: &str) -> Result<Imported, String> {
         origin.entry(id).or_insert(sid);
         elements_from.entry(id).or_default().push(sid);
         seen.insert(id);
+    }
+
+    // Property lines: the site's footprint, each closed curve a plot's boundary on the lowest level, named as BIMCraft's
+    // property set on the site names them, in order.
+    for site in named(&["IFCSITE"]) {
+        let Some(x) = e(site) else { continue };
+        let names: Vec<String> = named(&["IFCRELDEFINESBYPROPERTIES"])
+            .into_iter()
+            .filter_map(e)
+            .filter(|rel| refs(rel.args.get(4)).contains(&site))
+            .filter_map(|rel| {
+                reference(rel.args.get(5))
+                    .and_then(e)
+                    .filter(|x| x.name == "IFCPROPERTYSET" && text(x.args.get(2)) == Some(crate::ifc::PROPERTY_LINES))
+            })
+            .flat_map(|set| refs(set.args.get(4)))
+            .filter_map(e)
+            .filter(|p| text(p.args.first()) == Some("Names"))
+            .flat_map(|p| list(p.args.get(2)).iter().map(|v| text(Some(v)).map(clip).unwrap_or_default()).collect::<Vec<_>>())
+            .collect();
+        let f = r.frame(x);
+        let curves: Vec<u64> =
+            r.reps(x).into_iter().filter(|(i, _)| i.eq_ignore_ascii_case("FootPrint")).flat_map(|(_, items)| items).collect();
+        let mut found = 0;
+        for (k, item) in curves.into_iter().enumerate() {
+            let Some(pts) = r.curve(Some(item), 0) else { continue };
+            let mut points: Vec<P2> = pts.into_iter().map(|p| micron(r.flat(f.at(p)))).collect();
+            points.dedup_by(|a, b| a.dist(*b) <= TOL);
+            if points.len() > 3 && points.first().zip(points.last()).is_some_and(|(a, b)| a.dist(*b) <= TOL) {
+                points.pop();
+            }
+            if !(3..=MAX_POINTS).contains(&points.len()) || geom::area(&points).abs() <= TOL * TOL {
+                skipped.push(format!("{}: footprint curve {}: not an outline BIMCraft can read as a property line", who(site), k + 1));
+                continue;
+            }
+            found += 1;
+            let name = names.get(k).filter(|n| !n.is_empty()).cloned().unwrap_or_else(|| format!("Property Line {found}"));
+            let level = levels.first().map_or_else(Guid::default, |(id, _)| Guid::of_id(*id));
+            let pid = m.insert(Element::PropertyLine(PropertyLine { name, level, points }));
+            from.insert(pid, who(site));
+            elements_from.entry(site).or_default().push(pid);
+        }
     }
 
     // Grids: each axis a grid line.

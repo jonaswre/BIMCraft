@@ -611,6 +611,18 @@ pub struct RoomSeparator {
     pub points: Vec<P2>,
 }
 
+/// A property line: the boundary of a plot of land, a closed outline (counter-clockwise or not, its last point not its first
+/// again) with a name, as a survey or a land register gives it. Its level's plan (the site plan) draws it as the dash-dot
+/// line of a site plan, with its name and area; schedules list its area, and IFC has it as the site's footprint.
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct PropertyLine {
+    #[serde(default)]
+    pub name: String,
+    pub level: Guid,
+    pub points: Vec<P2>,
+}
+
 /// A spot elevation in a view: in a level's plan, the height of the top of `host` at `at`; in a
 /// section or an elevation, of its point `at`, along and up.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
@@ -1160,6 +1172,7 @@ macro_rules! visit_refs {
             }
             Element::PointCloud(pc) => f(& $($m)? pc.level),
             Element::RoomSeparator(rs) => f(& $($m)? rs.level),
+            Element::PropertyLine(pl) => f(& $($m)? pl.level),
         }
     }};
 }
@@ -1211,6 +1224,7 @@ pub enum Element {
     /// A scan placed in the model.
     PointCloud(PointCloud),
     RoomSeparator(RoomSeparator),
+    PropertyLine(PropertyLine),
 }
 
 impl Element {
@@ -1376,6 +1390,7 @@ impl Element {
             Element::Link(_) => "link",
             Element::PointCloud(_) => "pointcloud",
             Element::RoomSeparator(_) => "roomseparator",
+            Element::PropertyLine(_) => "propertyline",
             Element::Schedule(_) => "schedule",
             Element::View3D(_) => "view3d",
             Element::PlanView(_) => "planview",
@@ -2610,6 +2625,7 @@ impl Model {
         match e {
             Element::PointCloud(pc) => Some(pc.level),
             Element::RoomSeparator(rs) => Some(rs.level),
+            Element::PropertyLine(pl) => Some(pl.level),
             Element::Wall(w) => Some(w.level),
             Element::Floor(f) => Some(f.level),
             Element::Ceiling(c) => Some(c.level),
@@ -3795,6 +3811,11 @@ impl Model {
                     for (a, b) in rs.points.iter().zip(rs.points.iter().skip(1)) {
                         line(&who, *a, *b)?;
                     }
+                }
+                Element::PropertyLine(pl) => {
+                    level_ok(pl.level)?;
+                    boundary(&who, &pl.points)?;
+                    text(&who, "name", &pl.name)?;
                 }
                 Element::PointCloud(pc) => {
                     if !self.clouds.contains_key(&pc.cloud) {

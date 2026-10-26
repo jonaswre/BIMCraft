@@ -747,6 +747,7 @@ pub(crate) fn plan_shows(m: &Model, plan: impl Key) -> Vec<P2> {
             }
             Element::Room(r) if r.level == level => extent.push(r.point),
             Element::RoomSeparator(rs) if rs.level == level => extent.extend(&rs.points),
+            Element::PropertyLine(pl) if pl.level == level => extent.extend(&pl.points),
             Element::Mass(ms) if m.mass_cut_by(ms, r.cut) => extent.extend(m.mass_outline(ms, r.cut)),
             Element::Component(c) if c.level == level => extent.extend(m.component_pieces(c).into_iter().flat_map(|p| p.outline)),
             Element::Grid(g) => extent.extend([g.start, g.end]),
@@ -1497,6 +1498,7 @@ fn draw_plan(m: &Model, plan: impl Key, view: View, up: bool, k: f32, n: f64, ti
             }
             // A room separation line on the plan's level: thin, where the rooms part.
             Element::RoomSeparator(rs) if rs.level == level && !up => d.line(&rs.points, BY_CATEGORY, INK, false),
+            Element::PropertyLine(pl) if pl.level == level && !up => property_line(&mut d, m, pl),
             // A shaft the plane cuts: its outline, and a cross.
             Element::Shaft(sh) => {
                 let (bottom, top) = m.span(sh.level, sh.base_offset, sh.top_level, sh.height);
@@ -1598,6 +1600,58 @@ fn draw_plan(m: &Model, plan: impl Key, view: View, up: bool, k: f32, n: f64, ti
         d.text_turned(&title, at, 16.0, 0.0, INK);
     }
     d
+}
+
+/// The dash-dot line of a site plan's property line, px: a long dash, a gap, a dot, a gap.
+const DASH_DOT: [(f32, bool); 4] = [(24.0, true), (5.0, false), (2.0, true), (5.0, false)];
+
+/// A property line as a site plan draws it: its outline dash-dot, and its name and area in its middle.
+fn property_line(d: &mut Drawing, m: &Model, pl: &crate::model::PropertyLine) {
+    let px: Vec<(f32, f32)> = pl.points.iter().chain(pl.points.first()).map(|p| d.view.px(*p)).collect();
+    let length: f32 = px.windows(2).map(|w| w.first().zip(w.get(1)).map_or(0.0, |(a, b)| (b.0 - a.0).hypot(b.1 - a.1))).sum();
+    let round: f32 = DASH_DOT.iter().map(|(l, _)| l).sum();
+    // So close up that it would be tens of thousands of dashes: one line.
+    if !(length.is_finite() && length / round < 20_000.0) {
+        d.stroke(px, BY_CATEGORY, INK, None, true);
+    } else {
+        let (mut k, mut left) = (0, DASH_DOT[0].0);
+        let mut run: Vec<(f32, f32)> = px.first().copied().into_iter().collect();
+        for w in px.windows(2) {
+            let (Some(&a), Some(&b)) = (w.first(), w.get(1)) else { continue };
+            let len = (b.0 - a.0).hypot(b.1 - a.1);
+            let mut at = 0.0;
+            while at < len {
+                let step = (len - at).min(left);
+                at += step;
+                left -= step;
+                let q = (a.0 + (b.0 - a.0) * at / len, a.1 + (b.1 - a.1) * at / len);
+                let on = DASH_DOT.get(k).is_some_and(|x| x.1);
+                if on {
+                    run.push(q);
+                }
+                if left <= 1e-3 {
+                    if on && run.len() >= 2 {
+                        d.stroke(std::mem::take(&mut run), BY_CATEGORY, INK, None, false);
+                    }
+                    run.clear();
+                    if !on {
+                        run.push(q);
+                    }
+                    k = (k + 1) % DASH_DOT.len();
+                    left = DASH_DOT.get(k).map_or(1.0, |x| x.0);
+                }
+            }
+        }
+        if DASH_DOT.get(k).is_some_and(|x| x.1) && run.len() >= 2 {
+            d.stroke(run, BY_CATEGORY, INK, None, false);
+        }
+    }
+    let (area, unit) = m.units.area(geom::area(&pl.points).abs());
+    let (x, y) = d.view.px(crate::site::centroid(&pl.points));
+    let from = d.prims.len();
+    d.text(&pl.name, (x, y - 8.0), 13.0, INK);
+    d.text(&format!("{area:.2} {unit}"), (x, y + 8.0), 10.0, INK);
+    d.grow(from, (x, y));
 }
 
 /// A component seen from above: each of its forms' outlines, but where a higher form covers it (a

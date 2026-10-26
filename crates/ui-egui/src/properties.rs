@@ -285,6 +285,11 @@ fn rows(category: &str) -> &'static [Row] {
             ("Other", "at", "Origin", Point),
             ("Other", "angle", "Angle", Number),
         ],
+        "propertyline" => &[
+            ("Constraints", "level", "Level", Level),
+            ("Identity Data", "name", "Name", Text),
+            ("Dimensions", "area_m2", "Area", AreaShown),
+        ],
         "roomseparator" => &[("Constraints", "level", "Level", Level), ("Dimensions", "length", "Length", LengthShown)],
         "link" => &[
             ("Identity Data", "name", "Name", Text),

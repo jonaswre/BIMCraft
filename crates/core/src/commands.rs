@@ -20,8 +20,8 @@ use crate::model::{
     CEILING_HEIGHT, Ceiling, CeilingType, Column, ColumnType, Component, DEFAULT_HEIGHT, DimKind, Dimension, Element, Extrusion, Face,
     Facing, Floor, FloorType, Grid, Guid, Id, Key, Landing, Layer, Level, Line, Location, MAX_COORD, MAX_POINTS, MAX_SLOPE, MAX_TEXT, Mass,
     Model, NOTE_SIZE, Note, Opening, OpeningType, PARAMETER_CATEGORIES, ParameterKind, Pattern, PlanView, PointCloud, ProjectParameter,
-    RAMP_SLOPE, RAMP_WIDTH, RISER, Railing, RailingType, Ramp, Reference, Roof, RoofType, Room, RoomSeparator, STAIR_WIDTH, Schedule,
-    Section, Shaft, Sheet, Side, Spot, Stair, TOL, TREAD, Tag, View3D, Viewport, Wall, WallType, heading, paper,
+    PropertyLine, RAMP_SLOPE, RAMP_WIDTH, RISER, Railing, RailingType, Ramp, Reference, Roof, RoofType, Room, RoomSeparator, STAIR_WIDTH,
+    Schedule, Section, Shaft, Sheet, Side, Spot, Stair, TOL, TREAD, Tag, View3D, Viewport, Wall, WallType, heading, paper,
 };
 use crate::paint;
 use crate::phasing;
@@ -265,6 +265,13 @@ pub static ALL: &[Command] = &[
         &["RS"],
         "{points: [[x,y],…], level?, closed?} a room separation line on a level (the lowest by default): segments that bound          its rooms as walls do, where no wall stands (an open hall parted in two, a drive-through closed at its ends), with no          body: its plan draws it thin; 3D, sections and IFC's solids leave it out (IFC has it as an IfcVirtualElement). An end          drawn to a wall's face is carried on to its centre line, where rooms are measured. `closed` joins its last point to          its first",
         room_separator,
+    ),
+    edit(
+        "property_line",
+        "Property Line",
+        &[],
+        "{points: [[x,y],…], name?, level?} a property line, the boundary of a plot of land: a closed outline (its last point          joins its first), `name` its plot's (Property Line 1, 2… by default), on a level (the lowest by default, its site          plan), whose plan draws it as a site plan's dash-dot line with its name and area. `elements` gives its `area_m2`,          `perimeter_m` and `segments`, each with its `length`, its `bearing` as a survey writes it (N 45°30'00\" E) and its          `azimuth`; schedules of property lines list name, area and perimeter; IFC has it as the site's footprint (IfcSite's          FootPrint curve), its area as Pset_SiteCommon's TotalArea. Returns `id`, `name`, `area_m2`",
+        property_line,
     ),
     edit(
         "column",
@@ -1458,6 +1465,17 @@ pub fn element_json(m: &Model, id: Id) -> Value {
         }
         Element::Text(_) => {
             extra.insert("level".into(), json!(m.level_of(e)));
+        }
+        Element::PropertyLine(pl) => {
+            extra.insert("area_m2".into(), json!(m2(geom::area(&pl.points).abs())));
+            extra.insert("perimeter_m".into(), json!((geom::perimeter(&pl.points) / 10.0).round() / 100.0));
+            let segments: Vec<Value> = geom::ring_edges(&pl.points)
+                .map(|(a, b)| {
+                    let (bearing, azimuth) = crate::site::bearing(a, b);
+                    json!({"from": a, "to": b, "length": hundredth(a.dist(b)), "bearing": bearing, "azimuth": azimuth})
+                })
+                .collect();
+            extra.insert("segments".into(), json!(segments));
         }
         Element::RoomSeparator(rs) => {
             let length: f64 = rs.points.windows(2).map(|w| w.first().zip(w.get(1)).map_or(0.0, |(a, b)| a.dist(*b))).sum();
@@ -3569,6 +3587,29 @@ fn room_separator(s: &mut Session, p: &Value) -> R {
     Ok(json!({"id": id}))
 }
 
+fn property_line(s: &mut Session, p: &Value) -> R {
+    let c = "property_line";
+    let m = &s.model;
+    let level = level_param(c, m, p, "level")?;
+    let mut pts = points(c, p, "points")?;
+    // A ring given closed, its first point again at its end, is the same ring.
+    if pts.len() > 3 && pts.first() == pts.last() {
+        pts.pop();
+    }
+    let name = match string(c, p, "name")? {
+        Some(n) => n,
+        None => {
+            let word = m.language.word("Property Line");
+            let taken: BTreeSet<&str> =
+                m.elements.values().filter_map(|e| if let Element::PropertyLine(pl) = e { Some(pl.name.as_str()) } else { None }).collect();
+            (1..).map(|k| format!("{word} {k}")).find(|n| !taken.contains(n.as_str())).unwrap_or_default()
+        }
+    };
+    let area = m2(geom::area(&pts).abs());
+    let id = s.model_mut().insert(Element::PropertyLine(PropertyLine { name: name.clone(), level, points: pts }));
+    Ok(json!({"id": id, "name": name, "area_m2": area}))
+}
+
 fn room(s: &mut Session, p: &Value) -> R {
     let c = "room";
     let m = &s.model;
@@ -5646,6 +5687,7 @@ pub(crate) fn transformed(c: &str, m: &Model, id: Id, mo: &Motion, with: &BTreeS
         }
         Element::Room(r) => r.point = f(r.point),
         Element::RoomSeparator(rs) => rs.points.iter_mut().for_each(|q| *q = f(*q)),
+        Element::PropertyLine(pl) => pl.points.iter_mut().for_each(|q| *q = f(*q)),
         Element::Door(o) | Element::Window(o) if !within(o.host) => match (mo.slide, m.wall(o.host)) {
             (Some(by), Some(w)) => o.offset += by.dot((w.end - w.start).unit()),
             _ => return Err(bad(c, format!("{category} {id} turns and mirrors only with its wall; select the wall too"))),

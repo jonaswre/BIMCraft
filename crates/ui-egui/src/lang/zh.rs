@@ -1804,6 +1804,7 @@ pub(super) fn category(category: &str) -> Option<&'static str> {
         "view3d" => "三维视图",
         "pointcloud" => "点云",
         "roomseparator" => "房间分隔线",
+        "propertyline" => "建筑红线",
         _ => return None,
     })
 }

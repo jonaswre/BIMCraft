@@ -18,7 +18,7 @@ use crate::schedule;
 
 /// The categories a plan, a section or a 3D view draws, and so may hide and override: those of the
 /// model, then those of the annotation.
-pub const MODEL: [&str; 26] = [
+pub const MODEL: [&str; 27] = [
     "wall",
     "floor",
     "ceiling",
@@ -45,6 +45,7 @@ pub const MODEL: [&str; 26] = [
     "railing",
     "roof",
     "roomseparator",
+    "propertyline",
 ];
 pub const ANNOTATION: [&str; 8] = ["dimension", "tag", "text", "spot", "grid", "level", "section", "elevation"];
 /// The point clouds, which views hide and override as Revit's Visibility/Graphics does on a tab of their own: not a model

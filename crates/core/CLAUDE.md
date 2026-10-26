@@ -22,6 +22,7 @@ is in the root `CLAUDE.md`; the write-ups by area are in `docs/areas/`, which th
 |---|---|
 | Levels, walls, floors, roofs, ceilings, shafts, stairs | [levels, walls and roofs](../../docs/areas/levels-walls-roofs.md) |
 | Plans, sections, 3D, visibility and graphics, templates, scale and detail | [views and graphics](../../docs/areas/views-and-graphics.md), [performance](../../docs/performance.md) |
+| Property lines, topography, room separation lines | [the site](../../docs/areas/site.md), [levels, walls and roofs](../../docs/areas/levels-walls-roofs.md) |
 | Schedules and project parameters | [schedules](../../docs/areas/schedules.md) |
 | Phases and design options | [phasing](../../docs/areas/phasing.md) |
 | Masses and what they make | [masses](../../docs/areas/massing.md) |

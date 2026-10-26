@@ -39,6 +39,7 @@ pub mod runs;
 pub mod sample;
 pub mod schedule;
 pub mod sheet;
+pub mod site;
 pub mod skeleton;
 pub mod snap;
 pub mod stairs;
@@ -59,6 +60,8 @@ mod plan_view_tests;
 mod purge_tests;
 #[cfg(test)]
 mod separator_tests;
+#[cfg(test)]
+mod site_tests;
 #[cfg(test)]
 mod structure_tests;
 #[cfg(test)]
