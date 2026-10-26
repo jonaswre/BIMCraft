@@ -2380,12 +2380,13 @@ pub fn ifc(bytes: &[u8], name: &str) -> Result<Imported, String> {
         seen.insert(id);
     }
 
-    // Grids: each axis a grid line.
+    // Grids: each axis a grid line; an axis a grid repeats (as BIMCraft writes a lone grid, in U and in V), once.
     let mut grid_names = BTreeSet::new();
     for id in named(&["IFCGRID"]) {
         let Some(g) = e(id) else { continue };
         let f = r.frame(g);
         seen.insert(id);
+        let mut lines: Vec<(Option<&str>, P2, P2)> = Vec::new();
         for axis in [7, 8, 9].into_iter().flat_map(|i| refs(g.args.get(i))).filter_map(&e) {
             let Some(pts) = r.curve(reference(axis.args.get(1)), 0) else { continue };
             let (Some(p), Some(q)) = (pts.first(), pts.last()) else { continue };
@@ -2393,6 +2394,11 @@ pub fn ifc(bytes: &[u8], name: &str) -> Result<Imported, String> {
             if enumeration(axis.args.get(2)) == Some("F") {
                 (start, end) = (end, start);
             }
+            let line = (text(axis.args.first()), start, end);
+            if lines.iter().any(|(t, a, b)| *t == line.0 && (a.dist(start) + b.dist(end) < TOL || a.dist(end) + b.dist(start) < TOL)) {
+                continue;
+            }
+            lines.push(line);
             let tag = text(axis.args.first()).map_or_else(|| next_number(grid_names.iter().map(String::as_str)), String::from);
             let gid = m.insert(Element::Grid(Grid { name: fresh(&mut grid_names, &tag), start, end }));
             from.insert(gid, who(id));

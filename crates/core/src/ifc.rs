@@ -15,7 +15,7 @@ use std::fmt::Write;
 use crate::geom::{self, P2};
 use serde_json::Value;
 
-use crate::model::{DEFAULT_HEIGHT, Element, Function, Guid, Id, Layer, Model, ParameterKind, Railing, heading, mix};
+use crate::model::{DEFAULT_HEIGHT, Element, Function, Grid, Guid, Id, Layer, Model, ParameterKind, Railing, heading, mix};
 use crate::phasing;
 use crate::stairs;
 use crate::view3d::P3;
@@ -54,6 +54,8 @@ const SYSTEMS: u64 = 45;
 const SYSTEM_MEMBERS: u64 = 46;
 const LOFTED: u64 = 47;
 const LOFTED_DEFINES: u64 = 48;
+const GRID: u64 = 49;
+const GRID_CONTAINS: u64 = 50;
 
 /// The property set an element's values of the project's parameters go in.
 pub const PARAMETERS: &str = "Project Parameters";
@@ -426,6 +428,37 @@ impl Step {
         self.add(format!("IFCRAILING({},$,{name},$,{name},#{rat},#{shape},'{id}',.GUARDRAIL.)", self.guid(ELEMENT, id)))
     }
 
+    /// The project's grids as one IfcGrid placed in `at`: each grid an axis tagged with its name, its line a polyline in
+    /// plan; those along the first grid's direction its U axes, the rest its V axes. An IfcGrid holds at least one of each,
+    /// so of parallel grids the last is its V axis, and a lone grid is both (the reader takes it once). It has no
+    /// representation of its own: readers draw a grid's axes, and a curve-only shape is one IfcOpenShell won't build.
+    /// None without grids.
+    fn grid(&mut self, grids: &[&Grid], at: u64) -> Option<u64> {
+        let way = |g: &Grid| (g.end - g.start).unit();
+        let first = way(grids.first()?);
+        let (mut u, mut v): (Vec<&Grid>, Vec<&Grid>) = grids.iter().copied().partition(|g| way(g).cross(first).abs() < 1e-3);
+        if v.is_empty() {
+            match u.len() {
+                1 => v.clone_from(&u),
+                _ => v.extend(u.pop()),
+            }
+        }
+        let square = v.iter().all(|g| way(g).dot(first).abs() < 1e-3);
+        let axes = |w: &mut Step, gs: &[&Grid]| -> Vec<u64> {
+            gs.iter()
+                .map(|g| {
+                    let (a, b) = (w.point(g.start), w.point(g.end));
+                    let line = w.add(format!("IFCPOLYLINE((#{a},#{b}))"));
+                    w.add(format!("IFCGRIDAXIS({},#{line},.T.)", s(&g.name)))
+                })
+                .collect()
+        };
+        let (u, v) = (axes(self, &u), axes(self, &v));
+        let place = self.place(Some(at), (0.0, 0.0, 0.0), None);
+        let kind = if square { ".RECTANGULAR." } else { ".IRREGULAR." };
+        Some(self.add(format!("IFCGRID({},$,'Grid',$,$,#{place},$,({}),({}),$,{kind})", self.guid(GRID, 0), refs(&u), refs(&v))))
+    }
+
     /// A closed shell around the flat counter-clockwise `face` and its copy `rise` above, its
     /// faces turned out; heights from `base`.
     fn brep(&mut self, face: &[[f64; 3]], base: f64, rise: f64) -> u64 {
@@ -481,6 +514,12 @@ pub fn export(m: &Model) -> String {
     let building = w.add(format!("IFCBUILDING({},$,{},$,$,#{building_at},$,$,.ELEMENT.,$,$,$)", w.guid(BUILDING, 0), s(&m.name)));
     w.add(format!("IFCRELAGGREGATES({},$,$,$,#{project},(#{site}))", w.guid(AGGREGATES, PROJECT)));
     w.add(format!("IFCRELAGGREGATES({},$,$,$,#{site},(#{building}))", w.guid(AGGREGATES, SITE)));
+
+    // The grids, which run through every storey: in the building.
+    let grids: Vec<&Grid> = m.elements.values().filter_map(|e| if let Element::Grid(g) = e { Some(g) } else { None }).collect();
+    if let Some(grid) = w.grid(&grids, building_at) {
+        w.add(format!("IFCRELCONTAINEDINSPATIALSTRUCTURE({},$,$,$,(#{grid}),#{building})", w.guid(GRID_CONTAINS, 0)));
+    }
 
     // Storeys: (entity, placement) by level.
     let mut storeys: BTreeMap<Guid, (u64, u64)> = BTreeMap::new();
