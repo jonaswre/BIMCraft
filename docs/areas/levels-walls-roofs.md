@@ -17,6 +17,11 @@ raised above that height (a high side over a lower roof) neither bounds a room n
 that does. In a section or an elevation, points run along its line from its start, and up; on a sheet,
 they're paper mm from its bottom left corner; notes and spot elevations live in those terms in their view.
 A wall's `start` and `end` are on its location line: its centre line unless `location` says otherwise (`walls::faces`).
+IFC keeps it: a wall's axis is its location line, and the `BIMCraft_Wall` property set names the line (`Location`) and the
+GlobalIds of what its top and base are attached to (`AttachTop`, `AttachBase`); import puts such a wall back on that line with
+its ends as drawn, and a wall without the set on the middle of its body. A door or window placed `at` a point goes in the wall
+a plan of the level cuts there, else in any wall of the level there, whatever its height and base offset; openings in a wall
+may share a place along it, never a place in its elevation (along it and up it), so a window may stand over a door.
 Its exterior is to the left of start to end, as in Revit, so walls drawn clockwise face out; a compound type lists its
 layers from the exterior in, and a floor, roof or ceiling type from the top down (IFC import turns a wall round, or a slab's
 layers over, by the way its layer set's usage stacks them). A layer's material is a name in the project's library

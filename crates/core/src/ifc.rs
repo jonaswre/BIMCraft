@@ -54,6 +54,8 @@ const SYSTEMS: u64 = 45;
 const SYSTEM_MEMBERS: u64 = 46;
 const LOFTED: u64 = 47;
 const LOFTED_DEFINES: u64 = 48;
+const WALLED: u64 = 49;
+const WALLED_DEFINES: u64 = 50;
 
 /// The property set an element's values of the project's parameters go in.
 pub const PARAMETERS: &str = "Project Parameters";
@@ -64,6 +66,11 @@ pub const RUN: &str = "BIMCraft_Run";
 /// The property set a lofted mass records how its footprint and its top outline pair up in, corner for corner (the body is
 /// a closed face set that doesn't say): `Loft`, JSON `{bottom, top}`.
 pub const LOFT: &str = "BIMCraft_Mass";
+
+/// The property set a wall's location line and what its top and base are attached to go in, so they come back on import: its
+/// axis is its location line, and `Location` says which line of it that is (`centre`, `exterior-finish` and the like);
+/// `AttachTop` and `AttachBase` are the GlobalIds of the roof or floor.
+pub const WALL: &str = "BIMCraft_Wall";
 
 /// The property set an element's phase and design option go in; on the project, its phases and design option sets.
 pub const PHASING: &str = "BIMCraft_Phasing";
@@ -549,6 +556,15 @@ pub fn export(m: &Model) -> String {
                     s(&wl.type_name),
                     s(&wl.type_name)
                 ));
+                // Its location line and what it is attached to, which the body alone doesn't say.
+                let mut props = vec![w.text_property("Location", None, wl.location.name())];
+                for (name, to) in [("AttachTop", wl.attach_top), ("AttachBase", wl.attach_base)] {
+                    if let Some(to) = to.and_then(|g| m.elements.id(g)) {
+                        let global = w.guid(ELEMENT, to);
+                        props.push(w.add(format!("IFCPROPERTYSINGLEVALUE({},$,IFCIDENTIFIER({global}),$)", s(name))));
+                    }
+                }
+                w.define(ent, WALL, &props, (WALLED, WALLED_DEFINES), id);
                 contained.entry(wl.level).or_default().push(ent);
                 products.insert(id, ent);
                 placed.insert(id, (ent, at));

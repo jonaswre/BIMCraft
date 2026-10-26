@@ -151,3 +151,74 @@ fn a_window_at_a_point_finds_a_wall_raised_above_the_plan_cut() {
     let e = s.execute("window", &json!({"at": [5000, 2500], "level": level})).unwrap_err();
     assert!(e.contains("no wall at [5000, 2500]"), "{e}");
 }
+
+#[test]
+fn walls_on_a_face_come_back_from_ifc_on_that_face_with_their_points() {
+    // Given a hall drawn on the exterior faces of its walls, a partition on its interior face, and a wall on its centre
+    let mut s = Session::new();
+    let level = first_level(&s);
+    run(
+        &mut s,
+        "wall",
+        json!({"points": [[0, 0], [0, 6000], [10000, 6000], [10000, 0]], "closed": true, "level": level,
+               "location": "exterior-finish", "type": "Exterior - 300mm"}),
+    );
+    run(
+        &mut s,
+        "wall",
+        json!({"points": [[5000, 300], [5000, 5700]], "level": level, "location": "interior-finish", "type": "Generic - 200mm"}),
+    );
+    // And a partition standing on a raised floor
+    let floor =
+        id(&run(&mut s, "floor", json!({"level": level, "boundary": [[300, 300], [4900, 300], [4900, 5700], [300, 5700]], "offset": 300})));
+    run(&mut s, "wall", json!({"points": [[300, 3000], [5000, 3000]], "level": level, "type": "Interior - 100mm", "attach_base": floor}));
+    // And the hall's long walls attached to a gabled roof over it
+    let roof = id(&run(&mut s, "roof", json!({"gable": true})));
+    let long: Vec<u64> = run(&mut s, "elements", json!({"category": "wall"}))["elements"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .filter(|w| w["length"].as_f64().is_some_and(|l| l > 9000.0))
+        .map(|w| w["id"].as_u64().unwrap())
+        .collect();
+    assert_eq!(long.len(), 2);
+    run(&mut s, "modify", json!({"ids": long, "attach_top": roof}));
+    let walls = |s: &Session| {
+        let mut v: Vec<String> = s
+            .model
+            .elements
+            .values()
+            .filter_map(|e| match e {
+                crate::model::Element::Wall(w) => Some(format!(
+                    "{} [{:.1}, {:.1}] -> [{:.1}, {:.1}] {} mm, top attached to {}, base to {}",
+                    w.location.name(),
+                    w.start.0,
+                    w.start.1,
+                    w.end.0,
+                    w.end.1,
+                    s.model.thickness(w),
+                    w.attach_top.and_then(|g| s.model.elements.get(g)).map_or("nothing", |e| e.category()),
+                    w.attach_base.and_then(|g| s.model.elements.get(g)).map_or("nothing", |e| e.category())
+                )),
+                _ => None,
+            })
+            .collect();
+        v.sort();
+        v
+    };
+    // When it is saved as IFC and opened again
+    let path = std::env::temp_dir().join(format!("bimcraft-test-{}-located.ifc", std::process::id()));
+    run(&mut s, "save", json!({"path": path}));
+    let mut t = Session::new();
+    let opened = t.execute("open", &json!({"path": path}));
+    let _ = std::fs::remove_file(&path);
+    let opened = opened.unwrap_or_else(|e| panic!("{e}"));
+    assert_eq!(opened["skipped"], json!([]), "{opened}");
+    // Then every wall has its location line and its points as drawn
+    assert_eq!(walls(&t), walls(&s));
+    // And a room inside measures as before
+    let before = run(&mut s, "room", json!({"point": [2000, 1500], "level": level}))["area_m2"].clone();
+    let level_back = first_level(&t);
+    let after = run(&mut t, "room", json!({"point": [2000, 1500], "level": level_back}))["area_m2"].clone();
+    assert_eq!(after, before);
+}

@@ -19,9 +19,9 @@ use crate::geom::{self, P2};
 use crate::library::Kind;
 use crate::model::{
     Ceiling, CeilingType, Column, ColumnType, Component, Element, Extrusion, FIRST_ID, Floor, FloorType, Function, Grid, Guid, Id, Justify,
-    Landing, Layer, Level, MAX_COORD, MAX_LAYERS, MAX_POINTS, MAX_PROJECT_PARAMETERS, MAX_TEXT, Mass, Model, Opening, OpeningType,
-    PARAMETER_CATEGORIES, ParameterKind, ProjectParameter, Railing, RailingType, Ramp, Roof, RoofType, Room, Run, RunType, Shaft, Side,
-    Stair, TOL, Wall, WallType, culprit, heading,
+    Landing, Layer, Level, Location, MAX_COORD, MAX_LAYERS, MAX_POINTS, MAX_PROJECT_PARAMETERS, MAX_TEXT, Mass, Model, Opening,
+    OpeningType, PARAMETER_CATEGORIES, ParameterKind, ProjectParameter, Railing, RailingType, Ramp, Roof, RoofType, Room, Run, RunType,
+    Shaft, Side, Stair, TOL, Wall, WallType, culprit, heading,
 };
 use crate::phasing;
 use crate::stairs;
@@ -921,15 +921,18 @@ struct RawWall {
     peak: P2,
     level: Guid,
     type_name: String,
+    /// The line its ends are on, as BIMCraft wrote it: then its ends are as they were drawn, and stay put.
+    location: Option<Location>,
 }
 
 /// Walls that nearly meet, made to meet: an end within a wall's thickness of another wall's centre
-/// line moves onto it, so corners and T-junctions join as BIMCraft joins walls.
+/// line moves onto it, so corners and T-junctions join as BIMCraft joins walls. A wall BIMCraft wrote
+/// keeps its ends: they are where they were drawn.
 fn meet(walls: &mut [RawWall]) {
     for i in 0..walls.len() {
         for at_end in [false, true] {
             // Curved walls stay as the file has them.
-            let Some(w) = walls.get(i).filter(|w| w.arc == 0.0) else { continue };
+            let Some(w) = walls.get(i).filter(|w| w.arc == 0.0 && w.location.is_none()) else { continue };
             let (a, b, p, t, z) = (w.start, w.end, if at_end { w.end } else { w.start }, w.t, w.z);
             if walls.iter().enumerate().any(|(j, o)| j != i && (o.start.dist(p) <= TOL || o.end.dist(p) <= TOL)) {
                 continue;
@@ -1287,6 +1290,37 @@ pub fn ifc(bytes: &[u8], name: &str) -> Result<Imported, String> {
         .flatten()
         .collect();
 
+    // What BIMCraft's property set on a wall says, by product: its location line (its axis is that line), and the GlobalIds of
+    // what its top and its base are attached to.
+    let mut wall_props: HashMap<u64, HashMap<String, String>> = HashMap::new();
+    for rel in named(&["IFCRELDEFINESBYPROPERTIES"]).into_iter().filter_map(e) {
+        let Some(set) =
+            reference(rel.args.get(5)).and_then(e).filter(|x| x.name == "IFCPROPERTYSET" && text(x.args.get(2)) == Some(crate::ifc::WALL))
+        else {
+            continue;
+        };
+        let said: HashMap<String, String> = refs(set.args.get(4))
+            .into_iter()
+            .filter_map(e)
+            .filter(|p| p.name == "IFCPROPERTYSINGLEVALUE")
+            .filter_map(|p| match p.args.get(2) {
+                Some(V::Typed(_, v)) => match &**v {
+                    V::Str(s) => Some((text(p.args.first())?.to_string(), s.clone())),
+                    _ => None,
+                },
+                _ => None,
+            })
+            .collect();
+        for product in refs(rel.args.get(4)) {
+            wall_props.insert(product, said.clone());
+        }
+    }
+    // The location line a wall written by BIMCraft is on: its axis.
+    let located = |id: u64| -> Option<Location> {
+        let name = wall_props.get(&id)?.get("Location")?;
+        Location::ALL.into_iter().find(|l| l.name() == name)
+    };
+
     // What BIMCraft's property set on a run says: its justification and its category, by product.
     let mut run_props: HashMap<u64, (Option<Justify>, Option<String>)> = HashMap::new();
     for rel in named(&["IFCRELDEFINESBYPROPERTIES"]).into_iter().filter_map(e) {
@@ -1399,6 +1433,7 @@ pub fn ifc(bytes: &[u8], name: &str) -> Result<Imported, String> {
             && bent.iter().any(|x| geom::dist_to_segment(*x, *p, *q) > 1.0)
         {
             let mid = bent.get(bent.len() / 2).copied().unwrap_or(*p);
+            let turned = faced(*p, *q) != (*p, *q);
             let (p, q) = faced(*p, *q);
             let arc = walls::sweep_through(p, mid, q);
             let radii = Axis::new(p, q, arc).centre().and_then(|c| Some((c, arc_faces(pts.iter().map(|x| r.flat(*x).dist(c)))?)));
@@ -1415,10 +1450,13 @@ pub fn ifc(bytes: &[u8], name: &str) -> Result<Imported, String> {
                 |k| (k.thickness - t).abs() < 0.05 && k.layers == layers,
                 WallType { thickness: t, layers: layers.clone() },
             );
-            let on = |x: P2| micron(c + (x - c).unit() * ((r0 + r1) / 2.0));
+            // Its location line as BIMCraft wrote it, its axis; else the middle of its body.
+            let location = located(id).filter(|_| !turned);
+            let on = |x: P2| micron(if location.is_some() { x } else { c + (x - c).unit() * ((r0 + r1) / 2.0) });
             let arc = (arc * 1e6).round() / 1e6;
             raw.push(RawWall {
                 ifc: id,
+                location,
                 start: on(p),
                 end: on(q),
                 arc,
@@ -1452,7 +1490,11 @@ pub fn ifc(bytes: &[u8], name: &str) -> Result<Imported, String> {
             leave(&mut skipped, &mut seen, id, "it has no length or thickness BIMCraft can read");
             continue;
         }
-        let mid = n * ((c0 + c1) / 2.0);
+        // Its location line as BIMCraft wrote it, its axis, unless it's turned round; else the middle of its body.
+        let location = located(id).filter(|_| {
+            axis.as_deref().is_some_and(|x| matches!(x, [p, .., q] if faced(r.flat(*p), r.flat(*q)) == (r.flat(*p), r.flat(*q))))
+        });
+        let mid = if location.is_some() { P2(0.0, 0.0) } else { n * ((c0 + c1) / 2.0) };
         let t = (c1 - c0) * 100.0;
         let t = t.round() / 100.0;
         let base = label(id).unwrap_or_else(|| format!("Imported - {}mm", num(t)));
@@ -1465,6 +1507,7 @@ pub fn ifc(bytes: &[u8], name: &str) -> Result<Imported, String> {
         );
         raw.push(RawWall {
             ifc: id,
+            location,
             start: micron(a + mid),
             end: micron(b + mid),
             arc: 0.0,
@@ -1491,7 +1534,7 @@ pub fn ifc(bytes: &[u8], name: &str) -> Result<Imported, String> {
             height: (height * 1000.0).round() / 1000.0,
             base_offset: ((w.z.0 - elevation(w.level)) * 1000.0).round() / 1000.0,
             arc: w.arc,
-            location: Default::default(),
+            location: w.location.unwrap_or_default(),
             attach_top: None,
             attach_base: None,
         };
@@ -1717,6 +1760,20 @@ pub fn ifc(bytes: &[u8], name: &str) -> Result<Imported, String> {
             && let Some(Element::Wall(w)) = m.elements.get_mut(wid)
         {
             w.attach_top = Some(Guid::of_id(rid));
+        }
+    }
+    // What BIMCraft wrote a wall's top and base attached to: the roof or the floor of that GlobalId.
+    let by_global: HashMap<&str, Id> = origin.iter().filter_map(|(step, id)| Some((text(e(*step)?.args.first())?, *id))).collect();
+    for (ifc, (wid, ..)) in &walls {
+        let Some(said) = wall_props.get(ifc) else { continue };
+        let to = |name: &str| {
+            let id = *by_global.get(said.get(name)?.as_str())?;
+            matches!(m.elements.get(id), Some(Element::Roof(_) | Element::Floor(_))).then(|| Guid::of_id(id))
+        };
+        let (top, base) = (to("AttachTop"), to("AttachBase"));
+        if let Some(Element::Wall(w)) = m.elements.get_mut(*wid) {
+            w.attach_top = top.or(w.attach_top);
+            w.attach_base = base.or(w.attach_base);
         }
     }
 
@@ -3095,7 +3152,9 @@ ENDSEC;END-ISO-10303-21;",
             s.execute("modify", &json!({"id": id, "params": values})).unwrap();
         }
         let file = crate::ifc::export(&s.model);
-        assert_eq!(file.matches("IFCRELDEFINESBYPROPERTIES(").count(), 4);
+        // One set of the project's parameters for each element holding values, besides each wall's own `BIMCraft_Wall`.
+        assert_eq!(file.matches("IFCRELDEFINESBYPROPERTIES(").count(), 4 + 4);
+        assert_eq!(file.matches("'Project Parameters'").count(), 4);
         assert!(file.contains("IFCPROPERTYSINGLEVALUE('Finish Height',$,IFCLENGTHMEASURE(2400.),$)"), "{file}");
         assert!(file.contains("IFCPROPERTYSINGLEVALUE('Accessible',$,IFCBOOLEAN(.T.),$)"));
         let i = ifc(file.as_bytes(), "x").unwrap();
