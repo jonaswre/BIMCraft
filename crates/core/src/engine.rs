@@ -204,7 +204,7 @@ impl Session {
         let mut names: Vec<(&str, usize, usize)> = Vec::new();
         for (n, line) in text.lines().enumerate() {
             let at = |e: String| format!("line {}: {e}", n + 1);
-            let Some((name, id, rest)) = script_line(line).map_err(at)? else { continue };
+            let Some(ScriptLine { name, command: id, params: rest }) = script_line(line).map_err(at)? else { continue };
             if let Some(&(_, _, first)) = names.iter().find(|(m, _, _)| Some(*m) == name) {
                 return Err(at(format!("`@{}` already names line {first}", name.unwrap_or_default())));
             }
@@ -317,9 +317,17 @@ impl Session {
     }
 }
 
-/// A script's line read: the name it is given (`@name = `), its command, and the text of its params; none for a blank
-/// line or a comment.
-pub fn script_line(line: &str) -> Result<Option<(Option<&str>, &str, &str)>, String> {
+/// A script's line, read.
+pub struct ScriptLine<'a> {
+    /// The name it is given, `@name = `.
+    pub name: Option<&'a str>,
+    pub command: &'a str,
+    /// The text of its params, JSON, or nothing.
+    pub params: &'a str,
+}
+
+/// A script's line read; none for a blank line or a comment.
+pub fn script_line(line: &str) -> Result<Option<ScriptLine<'_>>, String> {
     let line = line.trim();
     if line.is_empty() || line.starts_with('#') {
         return Ok(None);
@@ -338,8 +346,8 @@ pub fn script_line(line: &str) -> Result<Option<(Option<&str>, &str, &str)>, Str
     if command.is_empty() {
         return Err("no command after the line's name".into());
     }
-    let (id, rest) = command.split_once(char::is_whitespace).unwrap_or((command, ""));
-    Ok(Some((name, id, rest)))
+    let (command, params) = command.split_once(char::is_whitespace).unwrap_or((command, ""));
+    Ok(Some(ScriptLine { name, command, params }))
 }
 
 fn is_name(s: &str) -> bool {
@@ -433,10 +441,10 @@ fn warn_unlettered(params: &Value, reply: &mut Value) {
     if found.is_empty() {
         return;
     }
-    if let Some(o) = reply.as_object_mut() {
-        if let Value::Array(w) = o.entry("warnings").or_insert_with(|| Value::Array(Vec::new())) {
-            w.extend(found.into_iter().map(Value::from));
-        }
+    if let Some(o) = reply.as_object_mut()
+        && let Value::Array(w) = o.entry("warnings").or_insert_with(|| Value::Array(Vec::new()))
+    {
+        w.extend(found.into_iter().map(Value::from));
     }
 }
 

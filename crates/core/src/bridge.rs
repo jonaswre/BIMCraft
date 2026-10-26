@@ -115,8 +115,8 @@ pub fn run(session: &mut Session, request: &Request) -> Result<Value, String> {
         Request::Script { text, atomic } => {
             for (n, line) in text.lines().enumerate() {
                 // A line that doesn't read stops the script there, before it runs.
-                if let Ok(Some((_, id, _))) = crate::engine::script_line(line) {
-                    refuse(id).map_err(|e| format!("line {}: {e}", n + 1))?;
+                if let Ok(Some(l)) = crate::engine::script_line(line) {
+                    refuse(l.command).map_err(|e| format!("line {}: {e}", n + 1))?;
                 }
             }
             let results = if *atomic { session.script_atomic(text) } else { session.script(text) }?;
