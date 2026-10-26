@@ -139,9 +139,7 @@ pub static ALL: &[Command] = &[
         "door",
         "Door",
         &["DR"],
-        "{at: [x,y] | wall: id, offset?, type?, family?, level?, mark?, flip_facing?, flip_hand?} in the wall under `at`, \
-         or in `wall` centred `offset` mm from its start; without `level`, on the lowest level at or above ground (elevation          0) with a wall under `at`, else the highest below it; with `family`, a door family's `type` (its first by default), \
-         which sizes the opening and draws the door",
+        "{at: [x,y] | wall: id, offset?, type?, family?, level?, mark?, flip_facing?, flip_hand?} in the wall under `at`          (one a plan of `level` cuts, else any on `level` whatever its base offset, a wall raised above the cut too),          or in `wall` centred `offset` mm from its start; without `level`, on the lowest level at or above ground (elevation          0) with a wall under `at`, else the highest below it; with `family`, a door family's `type` (its first by default),          which sizes the opening and draws the door. Openings in a wall may share a place along it, one over another,          never a place in its elevation (along it and up it)",
         door,
     ),
     edit(
@@ -1185,18 +1183,23 @@ fn off_centre(m: &Model, w: &Wall, p: P2) -> f64 {
     Axis::of(w).distance(p, walls::centre(m, w))
 }
 
-/// The wall a plan of `level` cuts nearest `at`, within its half thickness plus 100 mm of its centre
-/// line, and how far along it `at` lies.
+/// The wall nearest `at`, within its half thickness plus 100 mm of its centre line, and how far along
+/// it `at` lies: of the walls a plan of `level` cuts, else of the walls on `level` whatever their
+/// height and base offset (a parapet below the cut, a wall raised above it).
 fn wall_at(m: &Model, level: impl Key, at: P2) -> Option<(Guid, f64)> {
-    m.elements
-        .with_guids()
-        .filter_map(|(_, id, e)| match e {
-            Element::Wall(w) if m.cut_by(w, level) => Some((id, w, off_centre(m, w, at))),
-            _ => None,
-        })
-        .filter(|(_, w, d)| *d <= m.thickness(w) / 2.0 + 100.0)
-        .min_by(|a, b| a.2.total_cmp(&b.2))
-        .map(|(id, w, _)| (id, along(w, at)))
+    let level = m.guid(level);
+    let nearest = |keep: &dyn Fn(&Wall) -> bool| {
+        m.elements
+            .with_guids()
+            .filter_map(|(_, id, e)| match e {
+                Element::Wall(w) if keep(w) => Some((id, w, off_centre(m, w, at))),
+                _ => None,
+            })
+            .filter(|(_, w, d)| *d <= m.thickness(w) / 2.0 + 100.0)
+            .min_by(|a, b| a.2.total_cmp(&b.2))
+            .map(|(id, w, _)| (id, along(w, at)))
+    };
+    nearest(&|w| m.cut_by(w, level)).or_else(|| nearest(&|w| w.level == level))
 }
 
 /// The wall under `at` when no level is named: on the lowest level at or above ground (elevation 0) that has one there, else

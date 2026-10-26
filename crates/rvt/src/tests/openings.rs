@@ -221,6 +221,24 @@ fn neighbours_that_overlap_a_little_are_narrowed_to_fit_and_ones_that_overlap_mu
 }
 
 #[test]
+fn openings_stacked_one_over_the_other_in_a_wall_come_in_whole() {
+    // A 4 ft window from 1 to 3 ft up, and another of the same width from 4 to 7 ft, over it and a little along: they share a
+    // place along the wall, not a height, as Revit allows and BIMCraft does too, so neither is narrowed.
+    let mut p = project(2024);
+    for (id, at, z0, z1) in [(201, 5.0, 1.0, 3.0), (202, 8.8, 4.0, 7.0)] {
+        p.recs.push(Rec::new(id, WINDOWS).at([at - 2.0, -0.4, z0, at + 2.0, 0.4, z1], &[100, 601, u64::from(id)]));
+    }
+    let i = import(&p);
+    let ops = openings(&i);
+    assert_eq!(ops.len(), 2, "{:?}", i.skipped);
+    for (_, _, o) in &ops {
+        let w = i.model.types.window[&o.type_name].width;
+        assert!((w - 4.0 * 304.8).abs() < 1e-6, "{w} wide at {}", o.offset);
+    }
+    assert!(!i.skipped.iter().any(|s| s.contains("narrowed") || s.contains("overlap")), "{:?}", i.skipped);
+}
+
+#[test]
 fn an_opening_whose_box_overruns_its_wall_comes_in_as_far_as_the_wall_goes() {
     let mut p = project(2024);
     door(&mut p, 200, 5.0, &[100]);

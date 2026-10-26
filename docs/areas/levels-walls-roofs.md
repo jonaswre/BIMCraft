@@ -12,12 +12,19 @@ A section or an elevation cropped shows its line's length and its crop's heights
 (`render::crop_region` is none, and there are no grips).
 A level is also its plan: its view range (`Model::plan_range`)
 cuts 1200 mm above it unless set, and its crop region bounds what the plan shows. Rooms find their walls at 1200 mm whatever
-a plan cuts (`Model::bounding`). In a section or an elevation, points run along its line from its start, and up; on a sheet,
+a plan cuts (`Model::bounding`), and those walls' centre lines run on to meet only each other's (`walls::centre_line`): a wall
+raised above that height (a high side over a lower roof) neither bounds a room nor breaks one where it meets, higher up, a wall
+that does. In a section or an elevation, points run along its line from its start, and up; on a sheet,
 they're paper mm from its bottom left corner; notes and spot elevations live in those terms in their view.
 A door or window put `at` a point goes in the wall its level's plan cuts there (`wall_at`); with no `level`, the lowest level
 at or above ground (elevation 0) with one there, else the highest below ground with one (`wall_on_any_level`), so a
 foundation level under the ground floor isn't where it looks first. A `level` given is the only one it looks on.
 A wall's `start` and `end` are on its location line: its centre line unless `location` says otherwise (`walls::faces`).
+IFC keeps it: a wall's axis is its location line, and the `BIMCraft_Wall` property set names the line (`Location`) and the
+GlobalIds of what its top and base are attached to (`AttachTop`, `AttachBase`); import puts such a wall back on that line with
+its ends as drawn, and a wall without the set on the middle of its body. A door or window placed `at` a point goes in the wall
+a plan of the level cuts there, else in any wall of the level there, whatever its height and base offset; openings in a wall
+may share a place along it, never a place in its elevation (along it and up it), so a window may stand over a door.
 Its exterior is to the left of start to end, as in Revit, so walls drawn clockwise face out; a compound type lists its
 layers from the exterior in, and a floor, roof or ceiling type from the top down (IFC import turns a wall round, or a slab's
 layers over, by the way its layer set's usage stacks them). A layer's material is a name in the project's library

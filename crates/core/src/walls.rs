@@ -222,9 +222,9 @@ fn arm(m: &Model, w: &Wall, at_end: bool, mine: bool) -> Arm {
 }
 
 /// The walls at wall `id`'s start (or `at_end`, its end), round the node counter-clockwise, its own
-/// among them: those ending there, and a wall it ends on, both ways from where it does. Whether it
-/// ends on one, too.
-fn arms(m: &Model, id: Id, at_end: bool, index: Option<&Index>) -> (Vec<Arm>, bool) {
+/// among them: those ending there, and a wall it ends on, both ways from where it does, of those
+/// `keep` takes. Whether it ends on one, too.
+fn arms(m: &Model, id: Id, at_end: bool, index: Option<&Index>, keep: &dyn Fn(&Wall) -> bool) -> (Vec<Arm>, bool) {
     let Some(w) = m.wall(id) else { return (Vec::new(), false) };
     let node = if at_end { w.end } else { w.start };
     let mut arms = vec![arm(m, w, at_end, true)];
@@ -237,7 +237,7 @@ fn arms(m: &Model, id: Id, at_end: bool, index: Option<&Index>) -> (Vec<Arm>, bo
         })),
     };
     for (other, o) in candidates {
-        if other == id || !stacked(m, w, o) {
+        if other == id || !stacked(m, w, o) || !keep(o) {
             continue;
         }
         if o.start.dist(node) <= TOL {
@@ -272,7 +272,7 @@ pub fn cap(m: &Model, id: Id, at_end: bool) -> Vec<P2> {
 
 fn cap_in(m: &Model, id: Id, at_end: bool, index: Option<&Index>) -> Vec<P2> {
     let Some(w) = m.wall(id) else { return Vec::new() };
-    let (arms, through) = arms(m, id, at_end, index);
+    let (arms, through) = arms(m, id, at_end, index, &|_| true);
     let n = arms.len();
     let Some(i) = arms.iter().position(|a| a.mine) else { return Vec::new() };
     let (prev, me, next) = (&arms[(i + n - 1) % n], &arms[i], &arms[(i + 1) % n]);
@@ -291,14 +291,16 @@ fn cap_in(m: &Model, id: Id, at_end: bool, index: Option<&Index>) -> Vec<P2> {
     if through { vec![cw, ccw] } else { vec![cw, node, ccw] }
 }
 
-/// Wall `id`'s centre line, an arc as chords: each end it joins others at run on (or back) to the
-/// nearest of their centre lines, so rooms close at the centre lines whatever line walls stand on.
-pub fn centre_line(m: &Model, id: Id) -> Vec<P2> {
+/// Wall `id`'s centre line, an arc as chords: each end it joins others that bound the rooms of
+/// `level` at run on (or back) to the nearest of their centre lines, so rooms close at the centre
+/// lines whatever line walls stand on. A wall that doesn't reach down (or up) to the height rooms
+/// are found at on `level`, though it joins this one higher up, takes no part.
+pub fn centre_line(m: &Model, id: Id, level: Guid) -> Vec<P2> {
     let Some(w) = m.wall(id) else { return Vec::new() };
     let axis = Axis::of(w);
     let mut line = axis.points(0.0, axis.length(), centre(m, w));
     for at_end in [false, true] {
-        let (arms, _) = arms(m, id, at_end, None);
+        let (arms, _) = arms(m, id, at_end, None, &|o| m.bounding(o, level));
         let Some(me) = arms.iter().find(|a| a.mine) else { continue };
         let reach = 2.0 * arms.iter().map(|a| a.thick).fold(1.0, f64::max);
         let crossing = arms
