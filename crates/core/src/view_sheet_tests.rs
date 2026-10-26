@@ -68,6 +68,32 @@ fn a_duplicated_plan_placed_on_a_sheet_keeps_its_own_graphics() {
     assert!(cut > 1000 && left * 20 < cut, "{left} of {cut}");
 }
 
+// ---------- the title block ----------
+
+/// Whether any pixel of an A3 sheet's picture between paper points `lo` and `hi` (mm) is inked.
+fn inked(pm: &tiny_skia::Pixmap, lo: (f64, f64), hi: (f64, f64)) -> bool {
+    let d = crate::sheet::DENSITY;
+    let (x0, x1) = ((lo.0 * d).ceil() as u32, (hi.0 * d).floor() as u32);
+    let (y0, y1) = (((297.0 - hi.1) * d).ceil() as u32, ((297.0 - lo.1) * d).floor() as u32);
+    (x0..=x1).flat_map(|x| (y0..=y1).map(move |y| (x, y))).filter_map(|(x, y)| pm.pixel(x, y)).any(|c| c.red() < 200)
+}
+
+#[test]
+fn a_long_sheet_name_stays_out_of_the_sheet_numbers_field() {
+    for name in ["Grundriss EG (Bestand halbtonig / Erweiterung)".to_string(), "Erweiterung".repeat(12)] {
+        // Given a sheet with a name far wider than its field
+        let mut s = house();
+        run(&mut s, "sheet", json!({"number": "A101", "name": name}));
+        // When it is drawn
+        let pm = picture(&run(&mut s, "render", json!({"view": "A101"})));
+        // Then the name is lettered left of the number's field, and nothing of it crosses into it: between the field's
+        // rule (50 mm in from the title box's right edge, 410 mm) and where the number begins
+        let number = f64::from(crate::font::width("A101", 35.0)) / crate::sheet::DENSITY;
+        assert!(inked(&pm, (234.0, 20.0), (300.0, 35.0)), "{name}: its name is lettered");
+        assert!(!inked(&pm, (361.0, 11.0), (385.0 - number / 2.0 - 1.0, 35.0)), "{name}: it runs into the number's field");
+    }
+}
+
 // ---------- point clouds and the framing of views ----------
 
 /// A flat scan 185 m by 150 m, a point every 5 m, red.

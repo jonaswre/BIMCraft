@@ -120,12 +120,38 @@ fn title_block(d: &mut Drawing, project: &str, sheet: &Sheet, paper: P2, scale: 
     d.line(&rect(P2(x0, y0), P2(x1, y1)), Pen::BORDER, INK, true);
     d.line(&[P2(x0, y0 + 26.0), P2(x1, y0 + 26.0)], Pen::PROJECTION, INK, false);
     d.line(&[P2(x1 - 50.0, y0), P2(x1 - 50.0, y0 + 26.0)], Pen::PROJECTION, INK, false);
-    left(d, project, P2(x0 + 4.0, y0 + 33.0), 5.0);
-    left(d, &sheet.name, P2(x0 + 4.0, y0 + 17.0), 3.5);
-    left(d, scale, P2(x0 + 4.0, y0 + 7.0), 2.0);
-    let number = (7.0 * DENSITY) as f32;
+    // Each field's lettering stays in its field: smaller where it would run past, a long name on two lines.
+    left(d, project, P2(x0 + 4.0, y0 + 33.0), shrunk(project, 5.0, width - 8.0));
+    let (lines, height) = name_lines(&sheet.name, 3.5, width - 58.0);
+    let rows: &[f64] = if lines.len() > 1 { &[20.0, 14.0] } else { &[17.0] };
+    for (line, row) in lines.iter().zip(rows) {
+        left(d, line, P2(x0 + 4.0, y0 + row), height);
+    }
+    left(d, scale, P2(x0 + 4.0, y0 + 7.0), shrunk(scale, 2.0, width - 58.0));
+    let number = (shrunk(&sheet.number, 7.0, 46.0) * DENSITY) as f32;
     let at = d.view.px(P2(x1 - 25.0, y0 + 13.0));
     d.text(&sheet.number, at, number, INK);
+}
+
+/// How tall, mm, `text`'s capitals are lettered to be no wider than `room` mm: `height`, or less where that is too wide.
+fn shrunk(text: &str, height: f64, room: f64) -> f64 {
+    let wide = f64::from(font::width(text, (height * DENSITY) as f32)) / DENSITY;
+    if wide > room && room > 0.0 { height * room / wide } else { height }
+}
+
+/// A sheet's name in its field `room` mm wide: one line where it fits at `height` mm, else broken at the space that
+/// makes its two lines the most even; and how tall it is lettered, less than `height` where even its longer line is too wide.
+fn name_lines(name: &str, height: f64, room: f64) -> (Vec<String>, f64) {
+    if shrunk(name, height, room) >= height {
+        return (vec![name.to_string()], height);
+    }
+    let longer = |i: usize| name[..i].trim_end().chars().count().max(name[i..].trim_start().chars().count());
+    let lines = match name.char_indices().filter(|(_, c)| *c == ' ').map(|(i, _)| i).min_by_key(|i| longer(*i)) {
+        Some(i) => vec![name[..i].trim_end().to_string(), name[i..].trim_start().to_string()],
+        None => vec![name.to_string()],
+    };
+    let height = lines.iter().map(|l| shrunk(l, height, room)).fold(height, f64::min);
+    (lines, height)
 }
 
 /// A schedule's table: its headings; its rows' cells as shown, its totals' last; each column's
