@@ -21,7 +21,7 @@ use crate::model::{
     Ceiling, CeilingType, Column, ColumnType, Component, Element, Extrusion, FIRST_ID, Floor, FloorType, Function, Grid, Guid, Id, Justify,
     Landing, Layer, Level, MAX_COORD, MAX_LAYERS, MAX_POINTS, MAX_PROJECT_PARAMETERS, MAX_TEXT, Mass, Model, Opening, OpeningType,
     PARAMETER_CATEGORIES, ParameterKind, ProjectParameter, PropertyLine, Railing, RailingType, Ramp, Roof, RoofType, Room, RoomSeparator,
-    Run, RunType, Shaft, Side, Stair, TOL, Wall, WallType, culprit, heading,
+    Run, RunType, Shaft, Side, Stair, TOL, Topography, Wall, WallType, culprit, heading,
 };
 use crate::phasing;
 use crate::stairs;
@@ -2402,6 +2402,57 @@ pub fn ifc(bytes: &[u8], name: &str) -> Result<Imported, String> {
         from.insert(sid, who(id));
         origin.entry(id).or_insert(sid);
         elements_from.entry(id).or_default().push(sid);
+        seen.insert(id);
+    }
+
+    // Terrains: geographic elements (TERRAIN, or saying nothing of what they are), and a site's own body, as IFC2x3 files
+    // have one: the corners of their surfaces, each place in plan once, triangulated again.
+    let terrains: Vec<u64> = named(&["IFCGEOGRAPHICELEMENT", "IFCSITE"])
+        .into_iter()
+        .filter(|id| {
+            e(*id).is_some_and(|x| match x.name.as_str() {
+                "IFCSITE" => r.reps(x).iter().any(|(i, _)| i.eq_ignore_ascii_case("Body")),
+                _ => enumeration(x.args.get(8)).is_none_or(|k| matches!(k, "TERRAIN" | "NOTDEFINED" | "USERDEFINED")),
+            })
+        })
+        .collect();
+    for id in terrains {
+        let Some(x) = e(id) else { continue };
+        let mut places = HashSet::new();
+        let points: Vec<[f64; 3]> = r
+            .body(x)
+            .into_iter()
+            .flatten()
+            .filter_map(|p| {
+                let q = micron(r.flat(p));
+                let z = (p[2] * 1000.0).round() / 1000.0 + 0.0;
+                places.insert(((q.0 * 1e3).round() as i64, (q.1 * 1e3).round() as i64)).then_some([q.0, q.1, z])
+            })
+            .collect();
+        if points.len() < 3 || !crate::site::spread(&points) {
+            if x.name != "IFCSITE" {
+                leave(&mut skipped, &mut seen, id, "it has no surface BIMCraft can read as a terrain");
+            }
+            continue;
+        }
+        if points.len() > crate::model::MAX_TERRAIN_POINTS {
+            leave(
+                &mut skipped,
+                &mut seen,
+                id,
+                &format!("its surface has more than the {} points a terrain holds", crate::model::MAX_TERRAIN_POINTS),
+            );
+            continue;
+        }
+        let name = text(x.args.get(2)).filter(|_| x.name != "IFCSITE").map(clip).unwrap_or_default();
+        let level = levels.first().map_or_else(Guid::default, |(lid, _)| Guid::of_id(*lid));
+        let material = element_material(&r, &l, id);
+        let tid = m.insert(Element::Topography(Topography { name, level, points, material, contours: crate::model::CONTOURS }));
+        from.insert(tid, who(id));
+        if x.name != "IFCSITE" {
+            origin.entry(id).or_insert(tid);
+        }
+        elements_from.entry(id).or_default().push(tid);
         seen.insert(id);
     }
 

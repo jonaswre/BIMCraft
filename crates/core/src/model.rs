@@ -52,6 +52,13 @@ pub const MAX_BALUSTERS: f64 = 10_000.0;
 pub const MAX_TEXT: usize = 256;
 /// Points one command or floor outline may carry.
 pub const MAX_POINTS: usize = 10_000;
+
+/// The most points a terrain holds (a 1 m grid of half a kilometre square), and all of a project's terrains together.
+pub const MAX_TERRAIN_POINTS: usize = 250_000;
+pub const MAX_TERRAIN_TOTAL: usize = 1_000_000;
+
+/// How far apart a terrain's contour lines are unless it says, mm.
+pub const CONTOURS: f64 = 1000.0;
 /// Height of a reflected ceiling plan's cut plane above its level: it looks up from there.
 pub const CEILING_CUT: f64 = 2300.0;
 /// Height of a ceiling's underside above its level, unless told otherwise.
@@ -623,6 +630,27 @@ pub struct PropertyLine {
     pub points: Vec<P2>,
 }
 
+/// A terrain (Revit's Toposurface): its `points` in the project's coordinates, mm, each `[x, y, z]` with `z` an elevation as
+/// levels' are, triangulated in plan (Delaunay, [`crate::site::triangles`]) into a surface in `material` (if one). Its
+/// level's plan draws its edge and its contour lines every `contours` mm (none at 0); sections cut it, the ground below
+/// filled; 3D views show its surface; IFC has it as an IfcGeographicElement (TERRAIN) with an IfcTriangulatedFaceSet.
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct Topography {
+    #[serde(default, skip_serializing_if = "String::is_empty")]
+    pub name: String,
+    pub level: Guid,
+    pub points: Vec<[f64; 3]>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub material: Option<String>,
+    #[serde(default = "contours")]
+    pub contours: f64,
+}
+
+fn contours() -> f64 {
+    CONTOURS
+}
+
 /// A spot elevation in a view: in a level's plan, the height of the top of `host` at `at`; in a
 /// section or an elevation, of its point `at`, along and up.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
@@ -1173,6 +1201,7 @@ macro_rules! visit_refs {
             Element::PointCloud(pc) => f(& $($m)? pc.level),
             Element::RoomSeparator(rs) => f(& $($m)? rs.level),
             Element::PropertyLine(pl) => f(& $($m)? pl.level),
+            Element::Topography(t) => f(& $($m)? t.level),
         }
     }};
 }
@@ -1225,6 +1254,7 @@ pub enum Element {
     PointCloud(PointCloud),
     RoomSeparator(RoomSeparator),
     PropertyLine(PropertyLine),
+    Topography(Topography),
 }
 
 impl Element {
@@ -1391,6 +1421,7 @@ impl Element {
             Element::PointCloud(_) => "pointcloud",
             Element::RoomSeparator(_) => "roomseparator",
             Element::PropertyLine(_) => "propertyline",
+            Element::Topography(_) => "topography",
             Element::Schedule(_) => "schedule",
             Element::View3D(_) => "view3d",
             Element::PlanView(_) => "planview",
@@ -1890,6 +1921,7 @@ impl Model {
         named.extend(self.families.values().flat_map(|f| f.materials()).map(String::from));
         named.extend(self.types.runs.values().flat_map(|t| t.values().map(|t| t.material.clone())));
         named.extend(self.elements.values().flat_map(|e| self.component_materials(e)).map(String::from));
+        named.extend(self.elements.values().filter_map(|e| if let Element::Topography(t) = e { t.material.clone() } else { None }));
         for n in named.into_iter().filter(|n| !n.is_empty()) {
             self.materials.entry(n).or_default();
         }
@@ -2197,8 +2229,10 @@ impl Model {
     /// What a level stretches over without an extent of its own: every solid and grid in plan,
     /// [`LEVEL_PAST`] past them (10 m each way of the origin in an empty project).
     pub fn model_extent(&self) -> [P2; 2] {
+        // A terrain is the site round the building: the levels stretch over the building, not over all of it.
         let pts = crate::view3d::solids(self)
             .iter()
+            .filter(|s| !matches!(self.elements.get(s.owner()), Some(Element::Topography(_))))
             .flat_map(|s| s.corners())
             .map(|p| P2(p[0], p[1]))
             .chain(self.elements.iter().flat_map(|(id, e)| match e {
@@ -2626,6 +2660,7 @@ impl Model {
             Element::PointCloud(pc) => Some(pc.level),
             Element::RoomSeparator(rs) => Some(rs.level),
             Element::PropertyLine(pl) => Some(pl.level),
+            Element::Topography(t) => Some(t.level),
             Element::Wall(w) => Some(w.level),
             Element::Floor(f) => Some(f.level),
             Element::Ceiling(c) => Some(c.level),
@@ -3540,6 +3575,8 @@ impl Model {
         let mut placed: BTreeMap<Guid, Guid> = BTreeMap::new();
         // Openings by host wall: (start, end, id) along it.
         let mut spans: BTreeMap<Guid, Vec<(f64, f64, Id)>> = BTreeMap::new();
+        // The points the terrains hold so far.
+        let mut terrain_points = 0;
         for (&id, e) in &self.elements {
             let who = format!("{} {id}", e.category());
             let level_ok = |l: Guid| self.level(l).map(|_| ()).ok_or(format!("{who}: level {} doesn't exist", self.shown(l)));
@@ -3810,6 +3847,32 @@ impl Model {
                     }
                     for (a, b) in rs.points.iter().zip(rs.points.iter().skip(1)) {
                         line(&who, *a, *b)?;
+                    }
+                }
+                Element::Topography(t) => {
+                    level_ok(t.level)?;
+                    text(&who, "name", &t.name)?;
+                    if !(3..=MAX_TERRAIN_POINTS).contains(&t.points.len()) {
+                        return Err(format!("{who}: a terrain has 3 to {MAX_TERRAIN_POINTS} points, not {}", t.points.len()));
+                    }
+                    terrain_points += t.points.len();
+                    if terrain_points > MAX_TERRAIN_TOTAL {
+                        return Err(format!("{who}: the project's terrains hold more than {MAX_TERRAIN_TOTAL} points between them"));
+                    }
+                    for p in &t.points {
+                        point(&who, P2(p[0], p[1]))?;
+                        coord(&format!("{who} z"), p[2])?;
+                    }
+                    if !crate::site::spread(&t.points) {
+                        return Err(format!("{who}: its points lie on one line (or on one point): a terrain needs points across an area"));
+                    }
+                    if let Some(x) = &t.material
+                        && !self.materials.contains_key(x)
+                    {
+                        return Err(format!("{who}: the project has no material `{x}`"));
+                    }
+                    if !(t.contours == 0.0 || (t.contours.is_finite() && (10.0..=MAX_COORD).contains(&t.contours))) {
+                        return Err(format!("{who}: contours {} mm apart isn't 0 (none) or 10 mm and more", t.contours));
                     }
                 }
                 Element::PropertyLine(pl) => {

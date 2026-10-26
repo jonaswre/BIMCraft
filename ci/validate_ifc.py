@@ -1,4 +1,4 @@
-"""Validate IFC files as CI does: IfcOpenShell's schema check with the EXPRESS rules, then a shape for every product.
+"""Validate IFC files as CI does: IfcOpenShell's schema check with the EXPRESS rules, then a shape (a body, or a curve) for every product.
 
 Usage: python ci/validate_ifc.py FILE.ifc...  Exits 1 if any file breaks a rule or has a product whose shape won't build.
 """
@@ -18,6 +18,8 @@ def check(path):
     ifcopenshell.validate.validate(f, logger, express_rules=True)
     problems += [f"rule: {s.get('message', s)}" for s in logger.statements]
     settings = ifcopenshell.geom.settings()
+    # Curves are shapes too: a room separation line (IfcVirtualElement) or the site's footprint has only a curve.
+    settings.set("dimensionality", ifcopenshell.ifcopenshell_wrapper.CURVES_SURFACES_AND_SOLIDS)
     shapes = 0
     for product in f.by_type("IfcProduct"):
         if product.Representation is None:

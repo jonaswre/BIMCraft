@@ -771,6 +771,16 @@ pub(crate) fn plan_shows(m: &Model, plan: impl Key) -> Vec<P2> {
             _ => {}
         }
     }
+    // A terrain is the site round what the plan shows: the plan frames it only when it shows nothing else.
+    if extent.is_empty() {
+        for (_, e) in m.elements.iter().filter(|(id, _)| look.shows(**id)) {
+            if let Element::Topography(t) = e
+                && t.level == level
+            {
+                extent.extend(t.points.iter().map(|p| P2(p[0], p[1])));
+            }
+        }
+    }
     extent
 }
 
@@ -862,7 +872,12 @@ fn span(m: &Model, v: &Section, look: &Look) -> (f64, f64) {
     }
     let u = (v.end - v.start).unit();
     let along = |q: P2| (q - v.start).dot(u);
-    let solids = view3d::solids(m).into_iter().filter(|s| look.shows(s.owner())).flat_map(|s| s.corners()).map(|p| along(P2(p[0], p[1])));
+    // A terrain is cut where the rest is; it doesn't stretch the section over the whole site.
+    let solids = view3d::solids(m)
+        .into_iter()
+        .filter(|s| look.shows(s.owner()) && !matches!(m.elements.get(s.owner()), Some(Element::Topography(_))))
+        .flat_map(|s| s.corners())
+        .map(|p| along(P2(p[0], p[1])));
     let levels = level_spans(m, v, look).into_iter().flat_map(|(_, a, b)| [a, b]);
     let grids = m.elements.iter().filter(|(id, _)| look.shows(**id)).filter_map(|(_, e)| match e {
         Element::Grid(g) => geom::line_intersection(v.start, v.end, g.start, g.end).map(along),
@@ -1344,9 +1359,18 @@ fn draw_plan(m: &Model, plan: impl Key, view: View, up: bool, k: f32, n: f64, ti
         range.cut = m.elevation(level) + CEILING_CUT;
         range.top = range.top.max(range.cut);
     }
-    // The scans it sees, under all the rest.
+    // The scans it sees, under all the rest; then the terrains on its level.
     if !up {
         scans(&mut d, m, &range, &look);
+        for (&id, e) in m.elements.iter().filter(|(id, _)| shown(**id)) {
+            if let Element::Topography(t) = e
+                && t.level == level
+            {
+                d.owner = Some(id);
+                topography(&mut d, t);
+            }
+        }
+        d.owner = None;
     }
     // Floors whose tops it sees, from the cut plane down to the view depth: their outlines and their
     // openings', the holes shafts cut in them, and a sloped one's slope arrow.
@@ -1600,6 +1624,35 @@ fn draw_plan(m: &Model, plan: impl Key, view: View, up: bool, k: f32, n: f64, ti
         d.text_turned(&title, at, 16.0, 0.0, INK);
     }
     d
+}
+
+/// The most contour heights a plan draws of a terrain: past them, every second, fourth… of them.
+const MAX_CONTOURS: f64 = 400.0;
+
+/// A terrain in its level's plan: its edge, and its contour lines every `contours` mm, every fifth heavier.
+fn topography(d: &mut Drawing, t: &crate::model::Topography) {
+    let tris = crate::site::triangles(&t.points);
+    for ring in crate::site::edge(&t.points, &tris) {
+        d.line(&ring, BY_CATEGORY, INK, true);
+    }
+    if t.contours <= 0.0 {
+        return;
+    }
+    let (lo, hi) = t.points.iter().fold((f64::INFINITY, f64::NEG_INFINITY), |(lo, hi), p| (lo.min(p[2]), hi.max(p[2])));
+    let mut step = t.contours;
+    while (hi - lo) / step > MAX_CONTOURS {
+        step *= 2.0;
+    }
+    for (z, lines) in crate::site::contours(&t.points, &tris, step) {
+        let major = ((z / step).round() as i64) % 5 == 0;
+        for line in lines {
+            if major {
+                d.line(&line, Pen::PROJECTION, INK, false);
+            } else {
+                d.line(&line, Pen::FINE, FAINT, false);
+            }
+        }
+    }
 }
 
 /// The dash-dot line of a site plan's property line, px: a long dash, a gap, a dot, a gap.

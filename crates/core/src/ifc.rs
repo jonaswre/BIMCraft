@@ -58,6 +58,8 @@ const PLOT_PROPERTIES: u64 = 60;
 const PLOT_DEFINES: u64 = 61;
 const PLOT_NAMES: u64 = 62;
 const PLOT_NAMES_DEFINES: u64 = 63;
+const SITE_CONTAINS: u64 = 64;
+const TERRAIN_MATERIALS: u64 = 65;
 
 /// The property set an element's values of the project's parameters go in.
 pub const PARAMETERS: &str = "Project Parameters";
@@ -528,6 +530,8 @@ pub fn export(m: &Model) -> String {
 
     let mut contained: BTreeMap<Guid, Vec<u64>> = BTreeMap::new();
     let mut spaces: BTreeMap<Guid, Vec<u64>> = BTreeMap::new();
+    // What stands in the site itself rather than in a storey: the terrains.
+    let mut in_site: Vec<u64> = Vec::new();
     // Each element's own entity, for what it holds of the project's parameters.
     let mut products: BTreeMap<Id, u64> = BTreeMap::new();
     // Walls as (entity, placement), for the openings in them.
@@ -646,6 +650,31 @@ pub fn export(m: &Model) -> String {
                     s(&r.name)
                 ));
                 spaces.entry(r.level).or_default().push(ent);
+                products.insert(id, ent);
+            }
+            // A terrain: an IfcGeographicElement (TERRAIN) in the site, its surface an open IfcTriangulatedFaceSet over its
+            // points, in its material's colour.
+            Element::Topography(t) => {
+                let tris = crate::site::triangles(&t.points);
+                if tris.is_empty() {
+                    continue;
+                }
+                let at = w.place(Some(site_at), (0.0, 0.0, 0.0), None);
+                let coords: Vec<String> = t.points.iter().map(|p| format!("({},{},{})", real(p[0]), real(p[1]), real(p[2]))).collect();
+                let list = w.add(format!("IFCCARTESIANPOINTLIST3D(({}))", coords.join(",")));
+                let faces: Vec<String> = tris.iter().map(|[a, b, c]| format!("({},{},{})", a + 1, b + 1, c + 1)).collect();
+                let set = w.add(format!("IFCTRIANGULATEDFACESET(#{list},$,.F.,({}),$)", faces.join(",")));
+                let shape = w.tessellated(&[set]);
+                let ent =
+                    w.add(format!("IFCGEOGRAPHICELEMENT({},$,{},$,$,#{at},#{shape},'{id}',.TERRAIN.)", w.guid(ELEMENT, id), s(&t.name)));
+                if let Some(x) = t.material.as_deref().filter(|x| !x.trim().is_empty()) {
+                    let (material, style) = w.material_style(m, x);
+                    if let Some(style) = style {
+                        w.add(format!("IFCSTYLEDITEM(#{set},(#{style}),$)"));
+                    }
+                    w.add(format!("IFCRELASSOCIATESMATERIAL({},$,$,$,(#{ent}),#{material})", w.guid(TERRAIN_MATERIALS, id)));
+                }
+                in_site.push(ent);
                 products.insert(id, ent);
             }
             // A room separation line: an IfcVirtualElement, IFC's imaginary boundary between spaces that no wall parts, its
@@ -1084,6 +1113,9 @@ pub fn export(m: &Model) -> String {
         let key = name.bytes().fold(0xcbf2_9ce4_8422_2325_u64, |h, b| (h ^ u64::from(b)).wrapping_mul(0x0100_0000_01b3));
         let system = w.add(format!("IFCSYSTEM({},$,{},$,$)", w.guid(SYSTEMS, key), s(name)));
         w.add(format!("IFCRELASSIGNSTOGROUP({},$,$,$,({}),$,#{system})", w.guid(SYSTEM_MEMBERS, key), refs(members)));
+    }
+    if !in_site.is_empty() {
+        w.add(format!("IFCRELCONTAINEDINSPATIALSTRUCTURE({},$,$,$,({}),#{site})", w.guid(SITE_CONTAINS, 0), refs(&in_site)));
     }
     for (level, (storey, _)) in &storeys {
         if let Some(items) = contained.get(level) {

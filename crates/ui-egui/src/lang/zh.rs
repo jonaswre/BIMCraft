@@ -1805,6 +1805,7 @@ pub(super) fn category(category: &str) -> Option<&'static str> {
         "pointcloud" => "点云",
         "roomseparator" => "房间分隔线",
         "propertyline" => "建筑红线",
+        "topography" => "地形",
         _ => return None,
     })
 }

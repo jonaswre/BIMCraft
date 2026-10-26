@@ -162,3 +162,203 @@ fn a_property_line_moves_and_is_saved_with_the_project() {
     assert!(left_out.is_empty(), "{left_out:?}");
     assert_eq!(m.elements, s.model.elements);
 }
+
+// ---------- topography ----------
+
+/// A slope 40 m by 20 m, 10 m apart, rising 1 m every 10 m to the east: 15 points, 16 triangles.
+fn slope() -> Vec<[f64; 3]> {
+    (0..3).flat_map(|j| (0..5).map(move |i| [i as f64 * 10_000.0, j as f64 * 10_000.0, i as f64 * 1000.0])).collect()
+}
+
+fn terrain(s: &mut Session) -> Id {
+    id(&run(s, "topography", json!({"points": slope(), "name": "Ground"})))
+}
+
+#[test]
+fn a_small_terrain_from_points_has_the_right_number_of_triangles() {
+    let mut s = Session::new();
+    let r = run(&mut s, "topography", json!({"points": slope(), "name": "Ground"}));
+    assert!(matches!(s.model.elements.get(id(&r)), Some(Element::Topography(_))), "{r}");
+    assert_eq!((r["point_count"].as_u64(), r["triangles"].as_u64()), (Some(15), Some(16)), "{r}");
+    assert_eq!(s.history().last().copied(), Some("Topography"));
+    let e = one(&mut s, "topography");
+    assert_eq!(e["triangles"], 16);
+    assert_eq!(e["area_m2"], 800.0);
+    assert_eq!(e["elevations"], json!([0.0, 4000.0]));
+    // A square and its middle, raised: four triangles.
+    let r = run(&mut s, "topography", json!({"points": [[0, 0, 0], [1000, 0, 0], [1000, 1000, 0], [0, 1000, 0], [500, 500, 300]]}));
+    assert_eq!(r["triangles"], 4);
+    // A schedule of them.
+    let t = run(&mut s, "schedule", json!({"name": "Topography", "category": "topography"}));
+    assert_eq!(t["rows"].as_array().map(Vec::len), Some(2), "{t}");
+}
+
+#[test]
+fn what_isnt_a_terrain_is_refused_and_changes_nothing() {
+    let mut s = Session::new();
+    let before = s.model.clone();
+    for (p, says) in [
+        (json!({}), "points"),
+        (json!({"points": [[0, 0, 0], [1, 1, 0]]}), "3 to"),
+        (json!({"points": [[0, 0], [1000, 0], [0, 1000]]}), "[x, y, z]"),
+        (json!({"points": [[0, 0, 0], [1000, 0, 0], [2000, 0, 5]]}), "one line"),
+        (json!({"points": [[0, 0, 0], [1000, 0, 0], [0, 1e300, 0]]}), "[x, y, z]"),
+        (json!({"points": slope(), "material": "Unobtainium"}), "material"),
+        (json!({"points": slope(), "contours": -5}), "contours"),
+        (json!({"points": slope(), "path": "x.xyz"}), "not both"),
+        (json!({"path": "/nonexistent/terrain.xyz"}), "terrain.xyz"),
+        (json!({"path": "terrain.dwg"}), ".dwg"),
+    ] {
+        let e = fails(&mut s, "topography", p.clone());
+        assert!(e.contains(says), "{p}: {e}");
+    }
+    assert_eq!(*s.model, *before);
+}
+
+#[test]
+fn a_terrain_is_drawn_in_its_levels_plan_with_its_edge_and_contours() {
+    let mut s = Session::new();
+    run(&mut s, "wall", json!({"points": [[5000, 5000], [15000, 5000], [15000, 15000], [5000, 15000]], "closed": true}));
+    let t = terrain(&mut s);
+    let (l1, l2) = (s.model.levels()[0].0, s.model.levels()[1].0);
+    let d = render::plan(&s.model, l1, 1000, 800);
+    let lines = lines_of(&d, t);
+    // Its edge, and a contour at every metre: 0 and 4 m lie on its edge, so 1, 2 and 3 m between.
+    assert!(lines.len() >= 4, "{} lines", lines.len());
+    let at = |x: f64| {
+        lines.iter().any(|p| match p {
+            Prim::Line { pts, .. } => pts.len() >= 2 && pts.iter().all(|q| (d.view.mm(*q).0 - x).abs() < 1.0),
+            _ => false,
+        })
+    };
+    assert!(at(10_000.0) && at(20_000.0) && at(30_000.0), "contours at 1, 2 and 3 m");
+    // Not on Level 2; no contours with none asked for.
+    assert!(lines_of(&render::plan(&s.model, l2, 1000, 800), t).is_empty());
+    run(&mut s, "modify", json!({"id": t, "contours": 0}));
+    let d = render::plan(&s.model, l1, 1000, 800);
+    assert_eq!(lines_of(&d, t).len(), 1, "its edge alone");
+    // The plan frames the building, not the whole site: a big terrain doesn't zoom it out, nor stretch the levels.
+    let small = s.model.level_extent(l1).unwrap();
+    assert!(small[1].0 - small[0].0 < 15_000.0, "{small:?}");
+}
+
+#[test]
+fn a_section_cuts_a_terrain_at_its_height_and_fills_the_ground_below() {
+    let mut s = Session::new();
+    let t = terrain(&mut s);
+    // Across the slope, west to east along y = 5 m.
+    let v = id(&run(&mut s, "section", json!({"start": [0, 5000], "end": [40000, 5000]})));
+    let view = render::section_fit(&s.model, v, 1200, 600);
+    let d = render::section(&s.model, v, view);
+    assert!(d.owners.contains(&Some(t)), "the terrain is cut");
+    let png = tiny_skia::Pixmap::decode_png(&render::png(&d).unwrap()).unwrap();
+    let shade = |along: f64, up: f64| {
+        let (x, y) = d.view.px(P2(along, up));
+        png.pixel(x.round() as u32, y.round() as u32).map(|c| c.red()).unwrap_or(255)
+    };
+    // At 25 m along the ground is 2.5 m up: poché just below it, paper above.
+    assert!(shade(25_000.0, 2200.0) < 220, "ground below 2.5 m: {}", shade(25_000.0, 2200.0));
+    assert!(shade(25_000.0, 3000.0) > 240, "air above: {}", shade(25_000.0, 3000.0));
+    assert!(shade(5_000.0, 200.0) < 220 && shade(5_000.0, 800.0) > 240, "0.5 m at 5 m along");
+    // It is a surface in 3D: the view from above sees it in the middle.
+    let scene = crate::view3d::Scene::new(&s.model);
+    let cam = scene.fit(0.0, 89.0, 400, 300);
+    assert_eq!(scene.render(&cam, &[]).pick(200.0, 150.0), Some(t));
+}
+
+#[test]
+fn a_terrain_goes_to_ifc_as_a_geographic_element_with_a_triangulated_face_set_and_comes_back() {
+    let mut s = Session::new();
+    run(&mut s, "topography", json!({"points": slope(), "name": "Ground", "material": "Concrete"}));
+    let ifc = crate::ifc::export(&s.model);
+    let geo = ifc.lines().find(|l| l.contains("=IFCGEOGRAPHICELEMENT(")).unwrap_or_else(|| panic!("{ifc}"));
+    assert!(geo.ends_with(".TERRAIN.);"), "{geo}");
+    let set = ifc.lines().find(|l| l.contains("=IFCTRIANGULATEDFACESET(")).unwrap();
+    assert!(set.contains(",.F.,"), "an open surface: {set}");
+    assert_eq!(set.matches("),(").count() + 1, 16, "{set}");
+    // Contained in the site.
+    let site = ifc.lines().find(|l| l.contains("=IFCSITE(")).unwrap().split('=').next().unwrap().to_string();
+    let ent = geo.split('=').next().unwrap();
+    assert!(ifc.lines().any(|l| l.contains("IFCRELCONTAINEDINSPATIALSTRUCTURE(") && l.contains(ent) && l.ends_with(&format!(",{site});"))));
+    let i = crate::import::ifc(ifc.as_bytes(), "terrain").unwrap();
+    let back: Vec<&Element> = i.model.elements.values().filter(|e| matches!(e, Element::Topography(_))).collect();
+    assert_eq!(back.len(), 1, "{:?}", i.skipped);
+    let Element::Topography(t) = back[0] else { panic!() };
+    assert_eq!((t.name.as_str(), t.points.len()), ("Ground", 15));
+    assert!(t.points.contains(&[40_000.0, 20_000.0, 4000.0]), "{:?}", t.points);
+}
+
+/// A terrain file in a folder of this test's own.
+fn file(test: &str, name: &str, text: &str) -> String {
+    let dir = std::env::temp_dir().join(format!("bimcraft-site-{}-{test}", std::process::id()));
+    std::fs::create_dir_all(&dir).unwrap();
+    let path = dir.join(name);
+    std::fs::write(&path, text).unwrap();
+    path.to_string_lossy().into_owned()
+}
+
+#[test]
+fn a_terrain_comes_in_from_a_file_of_points_thinned_and_placed() {
+    let mut s = Session::new();
+    // A 1 m grid, 11 by 11, in survey metres, as a DGM's XYZ file has it: it rises 0.1 m a metre to the north.
+    let mut xyz = String::new();
+    for j in 0..11 {
+        for i in 0..11 {
+            xyz += &format!("{} {} {:.1}\n", 500_000 + i, 5_700_000 + j, 95.0 + j as f64 * 0.1);
+        }
+    }
+    let path = file("xyz", "dgm.xyz", &xyz);
+    // By default its middle on the origin and its lowest point on the level.
+    let r = run(&mut s, "topography", json!({"path": path}));
+    assert_eq!(r["point_count"], 121, "{r}");
+    let Some(Element::Topography(t)) = s.model.elements.get(id(&r)) else { panic!() };
+    let lowest = t.points.iter().map(|p| p[2]).fold(f64::INFINITY, f64::min);
+    assert!((lowest - 0.0).abs() < 1e-6 && t.points.contains(&[-5000.0, -5000.0, 0.0]), "{:?}", &t.points[..3]);
+    // Thinned to a point every 2 m; a file point put on the project's origin, heights kept from it.
+    let r = run(&mut s, "topography", json!({"path": path, "spacing": 2000, "origin": [500_005, 5_700_005, 94]}));
+    assert_eq!(r["point_count"], 36, "{r}");
+    let Some(Element::Topography(t)) = s.model.elements.get(id(&r)) else { panic!() };
+    assert!(t.points.contains(&[-5000.0, -5000.0, 1000.0]), "{:?}", &t.points[..3]);
+    // A CSV with a header row.
+    let csv = file("csv", "dgm.csv", "x,y,z\n0,0,1\n10,0,1\n10,10,2\n0,10,2\n");
+    let r = run(&mut s, "topography", json!({"path": csv, "origin": "file"}));
+    assert_eq!(r["triangles"], 2, "{r}");
+}
+
+#[test]
+fn a_dgm_grid_of_27750_points_comes_in_and_draws_in_reasonable_time() {
+    // 185 m by 150 m, a point every metre, gently rolling.
+    let pts: Vec<[f64; 3]> = (0..150)
+        .flat_map(|j| (0..185).map(move |i| [i as f64 * 1000.0, j as f64 * 1000.0, 2000.0 * ((i as f64) / 30.0).sin() + 15.0 * j as f64]))
+        .collect();
+    assert_eq!(pts.len(), 27_750);
+    let mut s = Session::new();
+    let clock = std::time::Instant::now();
+    let r = run(&mut s, "topography", json!({"points": pts}));
+    let made = clock.elapsed();
+    assert_eq!(r["triangles"], 2 * 184 * 149, "{r}");
+    let level = s.model.levels()[0].0;
+    let clock = std::time::Instant::now();
+    let d = render::plan(&s.model, level, 1200, 900);
+    let drawn = clock.elapsed();
+    assert!(d.owners.contains(&Some(id(&r))));
+    let v = id(&run(&mut s, "section", json!({"start": [0, 75000], "end": [185000, 75000]})));
+    let clock = std::time::Instant::now();
+    let d = render::section(&s.model, v, render::section_fit(&s.model, v, 1200, 600));
+    let cut = clock.elapsed();
+    assert!(d.owners.contains(&Some(id(&r))));
+    eprintln!("27,750 points: made in {made:?}, plan in {drawn:?}, section in {cut:?}");
+    assert!((made + drawn + cut).as_secs() < 120, "{made:?} {drawn:?} {cut:?}");
+}
+
+#[test]
+fn a_terrain_moves_and_is_saved_with_the_project() {
+    let mut s = Session::new();
+    let t = terrain(&mut s);
+    run(&mut s, "move", json!({"ids": [t], "by": [1000, 0]}));
+    let Some(Element::Topography(x)) = s.model.elements.get(t) else { panic!() };
+    assert_eq!(x.points[0], [1000.0, 0.0, 0.0]);
+    let (m, left_out) = crate::model::Model::read(&s.model.to_json().unwrap()).unwrap();
+    assert!(left_out.is_empty(), "{left_out:?}");
+    assert_eq!(m.elements, s.model.elements);
+}

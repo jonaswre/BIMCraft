@@ -2,6 +2,7 @@
 //! contour lines in plan, its ground line in a section), its edge, and how a property line reads (its bearings).
 
 use std::collections::HashMap;
+use std::sync::{Arc, Mutex};
 
 use crate::geom::{self, P2};
 
@@ -9,6 +10,39 @@ use crate::geom::{self, P2};
 pub type P3 = [f64; 3];
 
 const NONE: usize = usize::MAX;
+
+/// Whether a terrain's points spread over an area in plan: not all on one line, or one point.
+pub fn spread(pts: &[P3]) -> bool {
+    let flat = |p: &P3| P2(p[0], p[1]);
+    let Some(a) = pts.first().map(flat) else { return false };
+    let Some(b) = pts.iter().map(flat).max_by(|x, y| x.dist(a).total_cmp(&y.dist(a))) else { return false };
+    let len = a.dist(b);
+    len > 1e-6 && pts.iter().any(|p| ((b - a).cross(flat(p) - a) / len).abs() > 1e-3)
+}
+
+/// Triangles kept: their points' key and count, and the triangles.
+type Kept = (u64, usize, Arc<Vec<[usize; 3]>>);
+
+/// A terrain's triangles ([`delaunay`] of its points in plan), kept for the last few terrains asked for: a plan, a section
+/// and the 3D view each ask for them, and a big terrain takes a while to triangulate.
+pub fn triangles(pts: &[P3]) -> Arc<Vec<[usize; 3]>> {
+    static KEPT: Mutex<Vec<Kept>> = Mutex::new(Vec::new());
+    let key = pts.iter().fold(0xcbf2_9ce4_8422_2325_u64, |h, p| {
+        [p[0].to_bits(), p[1].to_bits()].into_iter().fold(h, |h, b| (h ^ b).wrapping_mul(0x0100_0000_01b3))
+    });
+    if let Ok(kept) = KEPT.lock()
+        && let Some((.., t)) = kept.iter().find(|(k, n, _)| *k == key && *n == pts.len())
+    {
+        return Arc::clone(t);
+    }
+    let flat: Vec<P2> = pts.iter().map(|p| P2(p[0], p[1])).collect();
+    let t = Arc::new(delaunay(&flat));
+    if let Ok(mut kept) = KEPT.lock() {
+        kept.insert(0, (key, pts.len(), Arc::clone(&t)));
+        kept.truncate(8);
+    }
+    t
+}
 
 /// The Delaunay triangulation of `pts` in plan: triangles as indices into `pts`, each counter-clockwise, the circle through
 /// each holding no other point. A point on one taken already is left out, and so are all of them when they lie on one line.
