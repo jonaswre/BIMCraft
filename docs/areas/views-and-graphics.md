@@ -102,6 +102,14 @@ on a full sheet, right of them all, off the paper but over none. A viewport with
 default up that fits it on the paper above the title box. The title box keeps each field's lettering inside it: a name too wide
 for its field breaks at a space onto two lines, and lettering still too wide is drawn smaller (`name_lines`, `shrunk`).
 
+Lettering (`font.rs`, drawn in code) has capitals (lower case is drawn as them), digits, all of ASCII's marks, the typographic ones
+drawings use (primes ′ ″ for secondary grids, dashes – —, the ellipsis, ° ± × · ¹ ² ³, quotes, « », €), German's ß (one letter, never
+SS) and Ä Ö Ü, Ø, and the accents of Latin languages (acute, grave, circumflex, tilde, diaeresis, cedilla, ring, caron). A character
+it has no glyph for is drawn as a box crossed corner to corner, which reads as no letter (a `?` small read as a 7: grid 1′ printed
+as 17). `font::missing` names them, and every command that changed the model adds a `warnings` entry to its reply for each `name`,
+`number`, `text`, `mark`, `title` or `rename` among its params (at any depth, so `modify` too) holding one, naming each character
+and its code point; the text is kept as given. A new glyph is a row in `glyph`, or an accent in `accent` over its base letter.
+
 ## Linked models
 
 A `Link` element (`link.rs`; commands `link` and `reload`) is another project shown in this one as a reference. The file holds its name, its

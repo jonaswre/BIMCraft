@@ -134,7 +134,10 @@ pub fn follow(e: &mut Element, ms: &Mass, mass: Id, face: Option<usize>) -> Resu
             Ok(())
         }
         (Element::Roof(r), None) => {
-            (r.boundary, (r.level, r.offset)) = (ms.top_ring(), ms.top_face());
+            // As `roof` made it: the eaves `overhang` past the face's edges.
+            let ring = ms.top_ring();
+            r.boundary = crate::commands::eaves(&ring, r.overhang).unwrap_or(ring);
+            (r.level, r.offset) = ms.top_face();
             Ok(())
         }
         (e, _) => Err(format!("is a {}, which holds no such face of mass {mass}", e.category())),

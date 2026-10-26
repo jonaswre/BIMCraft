@@ -14,6 +14,9 @@ A level is also its plan: its view range (`Model::plan_range`)
 cuts 1200 mm above it unless set, and its crop region bounds what the plan shows. Rooms find their walls at 1200 mm whatever
 a plan cuts (`Model::bounding`). In a section or an elevation, points run along its line from its start, and up; on a sheet,
 they're paper mm from its bottom left corner; notes and spot elevations live in those terms in their view.
+A door or window put `at` a point goes in the wall its level's plan cuts there (`wall_at`); with no `level`, the lowest level
+at or above ground (elevation 0) with one there, else the highest below ground with one (`wall_on_any_level`), so a
+foundation level under the ground floor isn't where it looks first. A `level` given is the only one it looks on.
 A wall's `start` and `end` are on its location line: its centre line unless `location` says otherwise (`walls::faces`).
 Its exterior is to the left of start to end, as in Revit, so walls drawn clockwise face out; a compound type lists its
 layers from the exterior in, and a floor, roof or ceiling type from the top down (IFC import turns a wall round, or a slab's
@@ -28,6 +31,10 @@ A roof by footprint is the straight skeleton of its outline and its `courtyards`
 counter-clockwise, the courtyards clockwise, the roof to the left of every edge): each edge moves in at speed 1, a gable's at
 0, and its slope rises from it, reaching the roof's base `overhang` in from its eaves; a courtyard's edges number on after
 the outline's, and every ring keeps its numbers whichever way round it runs, so `gables` stay put through a mirror.
+A `boundary` given to `roof` is drawn where the walls are, as Revit's footprint over walls: with an `overhang` the eaves
+(the roof's stored `boundary`) are moved that far out from it, and into each given courtyard, its points kept in their order
+so `gables` keep their edges (`commands::eaves`), and the base at `offset` is at the line drawn; a ring too small for the
+overhang is refused. `roof_by_face` and `update_by_face` give a mass's top face its eaves the same way.
 Over the walls (`floor_outline`, which `roof_footprint` grows by the overhang), a loop of them standing free inside the outer
 ones, joined to none of them and with no room in it, is a courtyard, open through the floor and the roof; one joined to them,
 or with a room in it, is rooms, and both run over it.

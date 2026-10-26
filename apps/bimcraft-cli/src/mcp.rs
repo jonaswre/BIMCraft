@@ -93,7 +93,9 @@ fn tools() -> Value {
         {"name": "execute", "description": "Run any BIMCraft command with JSON params, e.g. wall {points: [[0,0],[5000,0]]}, door {at: [2500, 0]}, \
             room {point: [x, y], name}, modify {id, …fields}, delete {ids}, undo. list_commands shows them all with their parameters.",
          "inputSchema": {"type": "object", "properties": {"command": {"type": "string"}, "params": {"type": "object"}}, "required": ["command"]}},
-        {"name": "script", "description": "Run several commands, one per line: `wall {\"points\": [[0,0],[4000,0]]}`. Stops at the first failing line and names it; the lines before it stay done, each its own undo step. \
+        {"name": "script", "description": "Run several commands, one per line: `wall {\"points\": [[0,0],[4000,0]]}`. \
+            Name a line `@name = command {…}` and a later line's params can say \"@name\" for the id it returned (\"$last\": the line before's, \"$-2\": the one before that; \"@name.ids.0\": a field of the reply). \
+            Stops at the first failing line and names it; the lines before it stay done, each its own undo step. \
             With `atomic`, all or nothing: a failing line takes back the lines before it, and a script that goes through is one undo step.",
          "inputSchema": {"type": "object", "properties": {"text": {"type": "string"}, "atomic": {"type": "boolean"}}, "required": ["text"]}},
         {"name": "list_commands", "description": "Every command with its id, label, Revit-style shortcut and parameters. `filter` matches part of an id, label or shortcut.",
