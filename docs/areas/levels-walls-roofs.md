@@ -12,7 +12,11 @@ A section or an elevation cropped shows its line's length and its crop's heights
 (`render::crop_region` is none, and there are no grips).
 A level is also its plan: its view range (`Model::plan_range`)
 cuts 1200 mm above it unless set, and its crop region bounds what the plan shows. Rooms find their walls at 1200 mm whatever
-a plan cuts (`Model::bounding`). In a section or an elevation, points run along its line from its start, and up; on a sheet,
+a plan cuts (`Model::bounding`), and their level's room separation lines too (`RoomSeparator`, Revit's Room Separator), which
+`Model::bounding_lines` adds to the walls' centre lines, an end drawn within a wall carried on to its centre line (rooms are
+measured there); floors drawn round the walls (`Model::wall_lines`) and ceilings round a room's faces leave them out. A
+separator has no body: its plan draws it in its category's thin pen, 3D, sections and schedules leave it out, and IFC has it
+as an IfcVirtualElement (IFC's imaginary boundary between spaces) with an Axis curve, which import reads back. In a section or an elevation, points run along its line from its start, and up; on a sheet,
 they're paper mm from its bottom left corner; notes and spot elevations live in those terms in their view.
 A wall's `start` and `end` are on its location line: its centre line unless `location` says otherwise (`walls::faces`).
 Its exterior is to the left of start to end, as in Revit, so walls drawn clockwise face out; a compound type lists its

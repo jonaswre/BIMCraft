@@ -746,6 +746,7 @@ pub(crate) fn plan_shows(m: &Model, plan: impl Key) -> Vec<P2> {
                 extent.extend(boundary)
             }
             Element::Room(r) if r.level == level => extent.push(r.point),
+            Element::RoomSeparator(rs) if rs.level == level => extent.extend(&rs.points),
             Element::Mass(ms) if m.mass_cut_by(ms, r.cut) => extent.extend(m.mass_outline(ms, r.cut)),
             Element::Component(c) if c.level == level => extent.extend(m.component_pieces(c).into_iter().flat_map(|p| p.outline)),
             Element::Grid(g) => extent.extend([g.start, g.end]),
@@ -1494,6 +1495,8 @@ fn draw_plan(m: &Model, plan: impl Key, view: View, up: bool, k: f32, n: f64, ti
                 d.text(&area, (x, y + 14.0), 10.0, INK);
                 d.grow(from, (x, y));
             }
+            // A room separation line on the plan's level: thin, where the rooms part.
+            Element::RoomSeparator(rs) if rs.level == level && !up => d.line(&rs.points, BY_CATEGORY, INK, false),
             // A shaft the plane cuts: its outline, and a cross.
             Element::Shaft(sh) => {
                 let (bottom, top) = m.span(sh.level, sh.base_offset, sh.top_level, sh.height);

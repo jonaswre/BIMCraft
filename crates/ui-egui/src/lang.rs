@@ -222,6 +222,10 @@ pub fn category(category: &str, several: bool) -> String {
         "view3d" => (["3D View", "Vista 3D", "Vista 3D"], ["3D Views", "Vistas 3D", "Vistas 3D"]),
         "link" => (["Linked Model", "Modelo vinculado", "Modelo vinculado"], ["Linked Models", "Modelos vinculados", "Modelos vinculados"]),
         "pointcloud" => (["Point Cloud", "Nuvem de pontos", "Nube de puntos"], ["Point Clouds", "Nuvens de pontos", "Nubes de puntos"]),
+        "roomseparator" => (
+            ["Room Separation Line", "Linha de separação de ambiente", "Línea de separación de habitación"],
+            ["Room Separation Lines", "Linhas de separação de ambiente", "Líneas de separación de habitación"],
+        ),
         other => return other.to_string(),
     };
     get().project().of(if several { many } else { one }).to_string()

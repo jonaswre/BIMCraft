@@ -58,6 +58,8 @@ mod plan_view_tests;
 #[cfg(test)]
 mod purge_tests;
 #[cfg(test)]
+mod separator_tests;
+#[cfg(test)]
 mod structure_tests;
 #[cfg(test)]
 mod tests;

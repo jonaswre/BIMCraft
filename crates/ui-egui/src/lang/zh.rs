@@ -1803,6 +1803,7 @@ pub(super) fn category(category: &str) -> Option<&'static str> {
         "schedule" => "明细表",
         "view3d" => "三维视图",
         "pointcloud" => "点云",
+        "roomseparator" => "房间分隔线",
         _ => return None,
     })
 }

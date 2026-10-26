@@ -31,6 +31,8 @@ pub fn default_of(category: &str) -> ObjectStyle {
         "mass" => ObjectStyle { projection: Pen::PROJECTION, cut: Pen::PROJECTION },
         "door" | "window" => ObjectStyle { projection: Pen::PROJECTION, cut: Pen::MEDIUM },
         "railing" => ObjectStyle { projection: Pen::MEDIUM, cut: Pen::CUT },
+        // A line with no body, drawn thin whatever cuts it.
+        "roomseparator" => ObjectStyle { projection: Pen::FINE, cut: Pen::FINE },
         _ => ObjectStyle { projection: Pen::PROJECTION, cut: Pen::CUT },
     }
 }

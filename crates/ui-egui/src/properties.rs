@@ -285,6 +285,7 @@ fn rows(category: &str) -> &'static [Row] {
             ("Other", "at", "Origin", Point),
             ("Other", "angle", "Angle", Number),
         ],
+        "roomseparator" => &[("Constraints", "level", "Level", Level), ("Dimensions", "length", "Length", LengthShown)],
         "link" => &[
             ("Identity Data", "name", "Name", Text),
             ("Identity Data", "path", "File", Shown),
@@ -358,7 +359,7 @@ fn icon(category: &str) -> Icon {
         "wall" => Icon::Wall,
         "door" => Icon::Door,
         "window" => Icon::Window,
-        "room" => Icon::Room,
+        "room" | "roomseparator" => Icon::Room,
         "level" => Icon::Level,
         "grid" => Icon::Grid,
         "dimension" => Icon::Dimension,

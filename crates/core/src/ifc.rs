@@ -616,6 +616,19 @@ pub fn export(m: &Model) -> String {
                 spaces.entry(r.level).or_default().push(ent);
                 products.insert(id, ent);
             }
+            // A room separation line: an IfcVirtualElement, IFC's imaginary boundary between spaces that no wall parts, its
+            // line a curve on its storey and no body.
+            Element::RoomSeparator(rs) => {
+                let Some(&(_, storey)) = storeys.get(&rs.level) else { continue };
+                let at = w.place(Some(storey), (0.0, 0.0, 0.0), None);
+                let pts: Vec<u64> = rs.points.iter().map(|p| w.point(*p)).collect();
+                let line = w.add(format!("IFCPOLYLINE(({}))", refs(&pts)));
+                let rep = w.add(format!("IFCSHAPEREPRESENTATION(#{axis},'Axis','Curve2D',(#{line}))"));
+                let shape = w.add(format!("IFCPRODUCTDEFINITIONSHAPE($,$,(#{rep}))"));
+                let ent = w.add(format!("IFCVIRTUALELEMENT({},$,'Room Separation Line',$,$,#{at},#{shape},'{id}')", w.guid(ELEMENT, id)));
+                contained.entry(rs.level).or_default().push(ent);
+                products.insert(id, ent);
+            }
             // A mass: a proxy of object type `Mass`, as Revit writes them, its footprint swept up from its base to its top; lofted,
             // a closed face set, with a property set to say which corner pairs with which.
             Element::Mass(ms) => {

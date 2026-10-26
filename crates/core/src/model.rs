@@ -602,6 +602,15 @@ pub struct PointCloud {
     pub angle: f64,
 }
 
+/// A room separation line, Revit's Room Separator: a line of segments on `level` that bounds its rooms as a wall does, with no
+/// body: its plan draws it thin; 3D views, sections and IFC's solids leave it out.
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct RoomSeparator {
+    pub level: Guid,
+    pub points: Vec<P2>,
+}
+
 /// A spot elevation in a view: in a level's plan, the height of the top of `host` at `at`; in a
 /// section or an elevation, of its point `at`, along and up.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
@@ -1150,6 +1159,7 @@ macro_rules! visit_refs {
                 if let Some(g) = & $($m)? s.host { f(g) }
             }
             Element::PointCloud(pc) => f(& $($m)? pc.level),
+            Element::RoomSeparator(rs) => f(& $($m)? rs.level),
         }
     }};
 }
@@ -1200,6 +1210,7 @@ pub enum Element {
     Link(Link),
     /// A scan placed in the model.
     PointCloud(PointCloud),
+    RoomSeparator(RoomSeparator),
 }
 
 impl Element {
@@ -1364,6 +1375,7 @@ impl Element {
             Element::Spot(_) => "spot",
             Element::Link(_) => "link",
             Element::PointCloud(_) => "pointcloud",
+            Element::RoomSeparator(_) => "roomseparator",
             Element::Schedule(_) => "schedule",
             Element::View3D(_) => "view3d",
             Element::PlanView(_) => "planview",
@@ -2597,6 +2609,7 @@ impl Model {
         let wall_level = |o: &Opening| self.wall(o.host).map(|w| w.level);
         match e {
             Element::PointCloud(pc) => Some(pc.level),
+            Element::RoomSeparator(rs) => Some(rs.level),
             Element::Wall(w) => Some(w.level),
             Element::Floor(f) => Some(f.level),
             Element::Ceiling(c) => Some(c.level),
@@ -3306,14 +3319,43 @@ impl Model {
         }
     }
 
-    /// Centre lines of the walls that bound the rooms of `level`, arcs as chords.
+    /// What bounds the rooms of `level`: the centre lines of its walls that bound them, arcs as chords
+    /// ([`Model::wall_lines`]), and its room separation lines, each end within a wall carried on along it to the wall's
+    /// centre line, as Revit measures a room drawn up to a wall's face.
     pub fn bounding_lines(&self, level: impl Key) -> Vec<(P2, P2)> {
+        let level = self.guid(level);
+        let walls = self.wall_lines(level);
+        let mut all = walls.iter().map(|(a, b, _)| (*a, *b)).collect::<Vec<_>>();
+        for e in self.elements.values() {
+            let Element::RoomSeparator(rs) = e else { continue };
+            if rs.level != level {
+                continue;
+            }
+            let mut pts = rs.points.clone();
+            let n = pts.len();
+            for (end, from) in [(0, 1), (n.wrapping_sub(1), n.wrapping_sub(2))] {
+                let (Some(&p), Some(&q)) = (pts.get(end), pts.get(from)) else { continue };
+                if let Some(x) = onto_centre(&walls, p, q)
+                    && let Some(slot) = pts.get_mut(end)
+                {
+                    *slot = x;
+                }
+            }
+            all.extend(pts.windows(2).filter_map(|s| s.first().zip(s.get(1)).map(|(a, b)| (*a, *b))).filter(|(a, b)| a.dist(*b) > TOL));
+        }
+        all
+    }
+
+    /// The centre lines of the walls that bound the rooms of `level`, arcs as chords, each segment with half its wall's
+    /// thickness: what a floor drawn round the walls follows.
+    pub fn wall_lines(&self, level: impl Key) -> Vec<(P2, P2, f64)> {
         self.elements
             .iter()
             .filter(|(_, e)| matches!(e, Element::Wall(w) if self.bounding(w, level)))
-            .flat_map(|(&id, _)| {
+            .flat_map(|(&id, e)| {
+                let half = if let Element::Wall(w) = e { self.thickness(w) / 2.0 } else { 0.0 };
                 let line = walls::centre_line(self, id);
-                line.windows(2).filter_map(|s| s.first().zip(s.get(1)).map(|(a, b)| (*a, *b))).collect::<Vec<_>>()
+                line.windows(2).filter_map(|s| s.first().zip(s.get(1)).map(|(a, b)| (*a, *b, half))).collect::<Vec<_>>()
             })
             .collect()
     }
@@ -3743,6 +3785,15 @@ impl Model {
                     coord(&format!("{who} angle"), n.angle)?;
                     if let Some(l) = n.leader {
                         point(&format!("{who} leader"), l)?;
+                    }
+                }
+                Element::RoomSeparator(rs) => {
+                    level_ok(rs.level)?;
+                    if !(2..=MAX_POINTS).contains(&rs.points.len()) {
+                        return Err(format!("{who}: a room separation line has 2 to {MAX_POINTS} points"));
+                    }
+                    for (a, b) in rs.points.iter().zip(rs.points.iter().skip(1)) {
+                        line(&who, *a, *b)?;
                     }
                 }
                 Element::PointCloud(pc) => {
@@ -4214,6 +4265,20 @@ fn ccw(ring: &[P2]) -> Vec<P2> {
 fn solid(loops: &[Vec<P2>], holes: &[Vec<P2>]) -> Vec<Vec<P2>> {
     let Some((outline, inner)) = loops.split_first() else { return Vec::new() };
     inner.iter().chain(holes).fold(vec![outline.clone()], |parts, hole| walls::minus(&parts, hole))
+}
+
+/// Where a line from `q` to its end `p` reaches the centre line of a wall of `walls` that `p` lies within (a separator
+/// drawn up to its face): on along it from `p`, no farther than the wall is thick. None when `p` lies within no wall.
+fn onto_centre(walls: &[(P2, P2, f64)], p: P2, q: P2) -> Option<P2> {
+    walls
+        .iter()
+        .filter(|(a, b, half)| geom::dist_to_segment(p, *a, *b) <= half + TOL)
+        .filter_map(|(a, b, half)| {
+            let x = geom::line_intersection(q, p, *a, *b)?;
+            let ahead = (x - p).dot((p - q).unit());
+            (ahead > -TOL && x.dist(p) <= 2.0 * half + TOL && geom::dist_to_segment(x, *a, *b) <= TOL).then_some(x)
+        })
+        .min_by(|x, y| x.dist(p).total_cmp(&y.dist(p)))
 }
 
 /// An outline: 3 to [`MAX_POINTS`] points around some area.

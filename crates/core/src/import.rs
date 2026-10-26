@@ -20,8 +20,8 @@ use crate::library::Kind;
 use crate::model::{
     Ceiling, CeilingType, Column, ColumnType, Component, Element, Extrusion, FIRST_ID, Floor, FloorType, Function, Grid, Guid, Id, Justify,
     Landing, Layer, Level, MAX_COORD, MAX_LAYERS, MAX_POINTS, MAX_PROJECT_PARAMETERS, MAX_TEXT, Mass, Model, Opening, OpeningType,
-    PARAMETER_CATEGORIES, ParameterKind, ProjectParameter, Railing, RailingType, Ramp, Roof, RoofType, Room, Run, RunType, Shaft, Side,
-    Stair, TOL, Wall, WallType, culprit, heading,
+    PARAMETER_CATEGORIES, ParameterKind, ProjectParameter, Railing, RailingType, Ramp, Roof, RoofType, Room, RoomSeparator, Run, RunType,
+    Shaft, Side, Stair, TOL, Wall, WallType, culprit, heading,
 };
 use crate::phasing;
 use crate::stairs;
@@ -2377,6 +2377,31 @@ pub fn ifc(bytes: &[u8], name: &str) -> Result<Imported, String> {
         from.insert(rid, who(id));
         origin.entry(id).or_insert(rid);
         elements_from.entry(id).or_default().push(rid);
+        seen.insert(id);
+    }
+
+    // Room separation lines: virtual elements, IFC's imaginary boundaries between spaces, each the line its Axis (or its
+    // FootPrint) curve draws, on its storey.
+    for id in named(&["IFCVIRTUALELEMENT"]) {
+        let Some(x) = e(id) else { continue };
+        let f = r.frame(x);
+        let line = r
+            .reps(x)
+            .into_iter()
+            .filter(|(i, _)| i.eq_ignore_ascii_case("Axis") || i.eq_ignore_ascii_case("FootPrint"))
+            .find_map(|(_, items)| r.curve(items.first().copied(), 0))
+            .map(|pts| pts.into_iter().map(|p| f.at(p)).collect::<Vec<P3>>());
+        let Some(pts) = line.filter(|p| (2..=MAX_POINTS).contains(&p.len())) else {
+            leave(&mut skipped, &mut seen, id, "it has no line BIMCraft can read as a room separation line");
+            continue;
+        };
+        let z = pts.iter().map(|p| p[2]).fold(f64::INFINITY, f64::min);
+        let mut points: Vec<P2> = pts.iter().map(|p| micron(r.flat(*p))).collect();
+        points.dedup_by(|a, b| a.dist(*b) <= TOL);
+        let sid = m.insert(Element::RoomSeparator(RoomSeparator { level: level_for(id, z), points }));
+        from.insert(sid, who(id));
+        origin.entry(id).or_insert(sid);
+        elements_from.entry(id).or_default().push(sid);
         seen.insert(id);
     }
 
