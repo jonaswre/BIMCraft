@@ -3480,8 +3480,9 @@ impl Model {
         let mut sheet_numbers = BTreeSet::new();
         // Each view on a sheet: the sheet.
         let mut placed: BTreeMap<Guid, Guid> = BTreeMap::new();
-        // Openings by host wall: (start, end, id) along it.
-        let mut spans: BTreeMap<Guid, Vec<(f64, f64, Id)>> = BTreeMap::new();
+        // Openings by host wall: where each is in the wall's elevation, (start, end) along it and (sill, head) up it, and its id.
+        type Place = ((f64, f64), (f64, f64), Id);
+        let mut spans: BTreeMap<Guid, Vec<Place>> = BTreeMap::new();
         for (&id, e) in &self.elements {
             let who = format!("{} {id}", e.category());
             let level_ok = |l: Guid| self.level(l).map(|_| ()).ok_or(format!("{who}: level {} doesn't exist", self.shown(l)));
@@ -3680,7 +3681,7 @@ impl Model {
                             self.shown(o.host)
                         ));
                     }
-                    spans.entry(o.host).or_default().push((a, b, id));
+                    spans.entry(o.host).or_default().push(((a, b), (o.sill, o.sill + t.height), id));
                 }
                 Element::Room(r) => {
                     level_ok(r.level)?;
@@ -4098,12 +4099,12 @@ impl Model {
         if let Some(n) = view_names.intersection(&level_names).next() {
             return Err(format!("a view is named `{n}`, as a level is; name it otherwise"));
         }
+        // Openings overlap where they overlap in the wall's elevation: along it and up it, so a window may stand over a door.
         for (host, mut v) in spans {
-            v.sort_by(|x, y| x.0.total_cmp(&y.0));
-            for pair in v.windows(2) {
-                if let [(_, end, a), (start, _, b)] = pair
-                    && *end > start + TOL
-                {
+            v.sort_by(|x, y| x.0.0.total_cmp(&y.0.0));
+            for (i, ((_, end), (sill, head), a)) in v.iter().enumerate() {
+                let later = v.iter().skip(i + 1).take_while(|((start, _), ..)| *end > start + TOL);
+                if let Some((_, _, b)) = later.into_iter().find(|(_, (s, h), _)| *head > s + TOL && *h > sill + TOL) {
                     return Err(format!("{} {a} and {} {b} overlap in wall {host}", self.cat(*a), self.cat(*b)));
                 }
             }

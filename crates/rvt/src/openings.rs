@@ -115,7 +115,7 @@ struct Pending {
 }
 
 /// The most two neighbouring holes may overlap and be fitted, as a share of the narrower one: Revit lets windows overlap, BIMCraft
-/// does not.
+/// does not (where they share a height too: one over the other is no overlap).
 const MAX_FITTED_OVERLAP: f64 = 0.1;
 
 pub(crate) fn import(cx: &mut Import, f: &Facts, g: &Gathered) {
@@ -213,14 +213,15 @@ pub(crate) fn import(cx: &mut Import, f: &Facts, g: &Gathered) {
             }
         }
     }
-    // Neighbours in a wall that overlap a little are fitted: each gives up half the overlap.
+    // Neighbours in a wall that overlap a little are fitted: each gives up half the overlap. One over the other doesn't overlap.
     let mut order: Vec<usize> = (0..pending.len()).collect();
     order.sort_by(|&a, &b| {
         (pending[a].host, pending[a].span.0).partial_cmp(&(pending[b].host, pending[b].span.0)).unwrap_or(std::cmp::Ordering::Equal)
     });
     for pair in order.windows(2) {
         let (a, b) = (pair[0], pair[1]);
-        if pending[a].host != pending[b].host {
+        let apart = |x: &Pending, y: &Pending| x.sill + x.height <= y.sill;
+        if pending[a].host != pending[b].host || apart(&pending[a], &pending[b]) || apart(&pending[b], &pending[a]) {
             continue;
         }
         let overlap = pending[a].span.1 - pending[b].span.0;

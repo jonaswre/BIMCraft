@@ -343,9 +343,9 @@ Left out and counted: a window set in a roof or a floor (a skylight; BIMCraft's 
 (Revit's own not-enclosed room, or one bounded by room separation lines, which BIMCraft has none of: it comes in again when the
 walls enclose its box), a level inside another element (a group's, a family's), and an opening the model's rules refuse where it
 overlaps a neighbour in its wall. The last is the rule `Model::check` applies to every project: it counts two openings as
-overlapping where they share a place along the wall, whatever their heights, so a window over a door is refused. Letting openings
-overlap only where they also share a height would bring the 46 of the Snowdon sample in; that is a change of the model's rule,
-for every project, and is made on its own.
+overlapping where they share a place in the wall's elevation, along it and up it, so a window over a door comes in, and a pair
+that overlaps along the wall only, one over the other, is not narrowed. (The rule once counted any shared place along the wall,
+whatever the heights; the counts above are from then, and some of the Snowdon sample's 46 may now come in.)
 
 ## Not verified
 

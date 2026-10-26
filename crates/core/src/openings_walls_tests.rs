@@ -65,3 +65,63 @@ fn a_raised_wall_meeting_a_roof_attached_wall_leaves_the_room_below_enclosed() {
     let again = run(&mut s, "room", json!({"point": [15000, 4000], "level": level}));
     assert_eq!(again["area_m2"].as_f64(), Some(area));
 }
+
+#[test]
+fn a_window_above_a_door_in_the_same_stretch_of_wall_is_placed() {
+    // Given a tall wall with a door in it, 2.1 m high
+    let mut s = Session::new();
+    let level = first_level(&s);
+    run(&mut s, "wall", json!({"points": [[0, 0], [0, 20000]], "height": 6000, "level": level}));
+    let door = run(&mut s, "door", json!({"at": [0, 5000], "level": level}));
+    // When a window goes over it, its sill at 2.5 m
+    let transom = s.execute("window", &json!({"at": [0, 5000], "level": level, "sill": 2500}));
+    // Then both are in the wall
+    let transom = transom.unwrap_or_else(|e| panic!("{e}"));
+    assert_eq!(transom["host"], door["host"]);
+    // And a window over that one, as an upper floor's, too
+    run(&mut s, "window", json!({"at": [0, 5000], "level": level, "sill": 4000}));
+    assert_eq!(run(&mut s, "elements", json!({"category": "window"}))["elements"].as_array().unwrap().len(), 2);
+    // But a window that would cut into the door, or into another window, is still refused
+    let e = s.execute("window", &json!({"at": [0, 5300], "level": level, "sill": 1500})).unwrap_err();
+    assert!(e.contains("overlap"), "{e}");
+    let e = s.execute("window", &json!({"at": [0, 5300], "level": level, "sill": 3000})).unwrap_err();
+    assert!(e.contains("overlap"), "{e}");
+    // And moving the upper window down onto the transom is refused too
+    let upper = run(&mut s, "elements", json!({"category": "window"}))["elements"][1]["id"].as_u64().unwrap();
+    let e = s.execute("modify", &json!({"id": upper, "sill": 2800})).unwrap_err();
+    assert!(e.contains("overlap"), "{e}");
+}
+
+#[test]
+fn stacked_openings_are_each_cut_drawn_and_exported() {
+    // Given a door with a window above it in one wall
+    let mut s = Session::new();
+    let level = first_level(&s);
+    let wall = run(&mut s, "wall", json!({"points": [[0, 0], [8000, 0]], "height": 6000, "level": level}))["ids"][0].as_u64().unwrap();
+    let door = id(&run(&mut s, "door", json!({"at": [4000, 0], "level": level})));
+    let window = id(&run(&mut s, "window", json!({"at": [4000, 0], "level": level, "sill": 2500})));
+    // Then the 3D wall is open through the door and through the window, and solid between them
+    let open_at = |s: &Session, z: f64| {
+        crate::walls::prisms(&s.model, wall, true).iter().all(|p| {
+            !(crate::geom::contains(&p.ring, crate::geom::P2(4000.0, 0.0))
+                && p.bottom.at(crate::geom::P2(4000.0, 0.0)) <= z
+                && z <= p.top.at(crate::geom::P2(4000.0, 0.0)))
+        })
+    };
+    assert!(open_at(&s, 1000.0), "through the door");
+    assert!(!open_at(&s, 2300.0), "the wall between door and window");
+    assert!(open_at(&s, 3000.0), "through the window");
+    // And the plan, cut at 1.2 m, shows the door's swing but not the window above the cut
+    let plan = crate::render::draw(&s.model, level, crate::render::plan(&s.model, level, 800, 600).view);
+    assert!(plan.owners.contains(&Some(door)));
+    assert!(!plan.owners.contains(&Some(window)));
+    // And IFC has an opening element for each, voiding the wall, filled by its door or window
+    let file = crate::ifc::export(&s.model);
+    assert_eq!(file.matches("IFCOPENINGELEMENT(").count(), 2);
+    assert_eq!(file.matches("IFCRELVOIDSELEMENT(").count(), 2);
+    assert_eq!(file.matches("IFCRELFILLSELEMENT(").count(), 2);
+    // And the schedules list both
+    let doors = run(&mut s, "elements", json!({"category": "door"}));
+    let windows = run(&mut s, "elements", json!({"category": "window"}));
+    assert_eq!((doors["elements"].as_array().unwrap().len(), windows["elements"].as_array().unwrap().len()), (1, 1));
+}
