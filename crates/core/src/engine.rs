@@ -178,7 +178,10 @@ impl Session {
                 (self.phase, self.option) = session;
                 Err(e)
             }
-            Ok(v) => {
+            Ok(mut v) => {
+                if !Arc::ptr_eq(&before, &self.model) {
+                    warn_unlettered(params, &mut v);
+                }
                 if cmd.undoable && !Arc::ptr_eq(&before, &self.model) {
                     self.undo.push((Step::new(cmd.label, &before, &self.model), before));
                     if self.undo.len() > UNDO_LIMIT {
@@ -303,6 +306,47 @@ impl Session {
             to.push((step, std::mem::replace(&mut self.model, model)));
         }
         Ok(json!({ key: label, "count": count }))
+    }
+}
+
+/// The params whose text drawings letter: names (grids, levels, rooms, sheets, views), numbers, notes, marks.
+const LETTERED: [&str; 6] = ["name", "number", "text", "mark", "title", "rename"];
+
+/// Adds to a command's reply a warning for each text it was given, at any depth of its params, that drawings will letter
+/// with characters the lettering can't draw ([`crate::font::missing`]): they are kept as given, and drawn as a crossed box.
+fn warn_unlettered(params: &Value, reply: &mut Value) {
+    fn walk(v: &Value, out: &mut Vec<String>) {
+        match v {
+            Value::Object(o) => {
+                for (k, x) in o {
+                    match x.as_str() {
+                        Some(text) if LETTERED.contains(&k.as_str()) => {
+                            let missing = crate::font::missing(text);
+                            if !missing.is_empty() {
+                                let list: Vec<String> = missing.iter().map(|c| format!("{c} (U+{:04X})", u32::from(*c))).collect();
+                                out.push(format!(
+                                    "`{k}` {text:?} has characters drawings can't letter, drawn as a crossed box: {}",
+                                    list.join(", ")
+                                ));
+                            }
+                        }
+                        _ => walk(x, out),
+                    }
+                }
+            }
+            Value::Array(a) => a.iter().for_each(|x| walk(x, out)),
+            _ => {}
+        }
+    }
+    let mut found = Vec::new();
+    walk(params, &mut found);
+    if found.is_empty() {
+        return;
+    }
+    if let Some(o) = reply.as_object_mut() {
+        if let Value::Array(w) = o.entry("warnings").or_insert_with(|| Value::Array(Vec::new())) {
+            w.extend(found.into_iter().map(Value::from));
+        }
     }
 }
 

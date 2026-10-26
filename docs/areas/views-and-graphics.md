@@ -93,6 +93,14 @@ of its own and draws its parent's annotation as well as its own. Deleting a view
 takes its plan views with it. A project that has none writes the same file as before. A plan's own name, lettered at its bottom left, is in the drawings that make an image (`plan`, `ceiling_plan`: `titled`), not in the window's (`draw`, `draw_ceiling`) or a sheet's (`draw_at`), where the tab and the viewport's title say it. The desktop: View > Duplicate View, DP, and the Project
 Browser's right-click, which also has Delete for a plan view; `Sheet::Plan` and `Sheet::Ceiling` hold the key.
 
+Lettering (`font.rs`, drawn in code) has capitals (lower case is drawn as them), digits, all of ASCII's marks, the typographic ones
+drawings use (primes ′ ″ for secondary grids, dashes – —, the ellipsis, ° ± × · ¹ ² ³, quotes, « », €), German's ß (one letter, never
+SS) and Ä Ö Ü, Ø, and the accents of Latin languages (acute, grave, circumflex, tilde, diaeresis, cedilla, ring, caron). A character
+it has no glyph for is drawn as a box crossed corner to corner, which reads as no letter (a `?` small read as a 7: grid 1′ printed
+as 17). `font::missing` names them, and every command that changed the model adds a `warnings` entry to its reply for each `name`,
+`number`, `text`, `mark`, `title` or `rename` among its params (at any depth, so `modify` too) holding one, naming each character
+and its code point; the text is kept as given. A new glyph is a row in `glyph`, or an accent in `accent` over its base letter.
+
 ## Linked models
 
 A `Link` element (`link.rs`; commands `link` and `reload`) is another project shown in this one as a reference. The file holds its name, its
