@@ -3101,7 +3101,7 @@ ENDSEC;END-ISO-10303-21;",
             s.execute("modify", &json!({"id": id, "params": values})).unwrap();
         }
         let file = crate::ifc::export(&s.model);
-        assert_eq!(file.matches("IFCRELDEFINESBYPROPERTIES(").count(), 4);
+        assert_eq!(file.matches("'Project Parameters'").count(), 4, "a set for each element holding a value");
         assert!(file.contains("IFCPROPERTYSINGLEVALUE('Finish Height',$,IFCLENGTHMEASURE(2400.),$)"), "{file}");
         assert!(file.contains("IFCPROPERTYSINGLEVALUE('Accessible',$,IFCBOOLEAN(.T.),$)"));
         let i = ifc(file.as_bytes(), "x").unwrap();
