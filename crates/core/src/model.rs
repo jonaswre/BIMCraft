@@ -3312,7 +3312,7 @@ impl Model {
             .iter()
             .filter(|(_, e)| matches!(e, Element::Wall(w) if self.bounding(w, level)))
             .flat_map(|(&id, _)| {
-                let line = walls::centre_line(self, id);
+                let line = walls::centre_line(self, id, self.guid(level));
                 line.windows(2).filter_map(|s| s.first().zip(s.get(1)).map(|(a, b)| (*a, *b))).collect::<Vec<_>>()
             })
             .collect()

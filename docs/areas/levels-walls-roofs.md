@@ -12,7 +12,9 @@ A section or an elevation cropped shows its line's length and its crop's heights
 (`render::crop_region` is none, and there are no grips).
 A level is also its plan: its view range (`Model::plan_range`)
 cuts 1200 mm above it unless set, and its crop region bounds what the plan shows. Rooms find their walls at 1200 mm whatever
-a plan cuts (`Model::bounding`). In a section or an elevation, points run along its line from its start, and up; on a sheet,
+a plan cuts (`Model::bounding`), and those walls' centre lines run on to meet only each other's (`walls::centre_line`): a wall
+raised above that height (a high side over a lower roof) neither bounds a room nor breaks one where it meets, higher up, a wall
+that does. In a section or an elevation, points run along its line from its start, and up; on a sheet,
 they're paper mm from its bottom left corner; notes and spot elevations live in those terms in their view.
 A wall's `start` and `end` are on its location line: its centre line unless `location` says otherwise (`walls::faces`).
 Its exterior is to the left of start to end, as in Revit, so walls drawn clockwise face out; a compound type lists its
