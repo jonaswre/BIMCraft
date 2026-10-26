@@ -41,3 +41,29 @@ isn't a finite size is left out, and so is a set with nothing in it. `Step::quan
 
 Import ignores them: what an element measures comes from its geometry. Pipes, conduits, trays, stairs, ramps, railings,
 masses and components have none yet.
+
+## Georeference
+
+Where the project stands on the earth is `Model::georeference` (`georef.rs`), set by the `location` command (Revit's
+Manage > Location and its shared coordinates): the map (`crs`, an EPSG code or a name, with its geodetic and vertical datums,
+projection and zone), where the model's origin lies on it (`eastings`, `northings`, `orthogonal_height`, in mm like every
+length), how far the model's +y is turned clockwise from the map's grid north (`rotation`, or given as `x_axis`, the way its
++x runs on the map), true north (`true_north`, clockwise from it to the model's +y; grid north's when not given), and the
+site's `latitude`, `longitude` (decimal degrees) and `elevation`. `inspect` shows it. The model's own coordinates never
+change. `Georeference::check` (called by `Model::check`) keeps every number finite and in range and refuses a position on a
+map without the map's name. A file holds it as an optional field, so an older BIMCraft opens the file without it (it is
+listed as left out); `FORMAT` didn't change.
+
+IFC4: an `IfcMapConversion` from the model's `IfcGeometricRepresentationContext` to an `IfcProjectedCRS` whose `MapUnit` is
+the metre, `Eastings`, `Northings` and `OrthogonalHeight` in metres and `Scale` 0.001 (the model's millimetres to the
+map's metres), `XAxisAbscissa` and `XAxisOrdinate` the cosine and sine of minus the rotation; the context's `TrueNorth` the
+2D direction to true north in the model's plan; the site's `RefLatitude` and `RefLongitude` as compound plane angles
+(degrees, minutes, seconds, millionths, each with the angle's sign) and `RefElevation` in mm. IfcOpenShell's
+`ifcopenshell.util.geolocation` reads them as written (`auto_xyz2enh` of the model's origin gives the eastings and
+northings). Import reads them back: the map's unit from `MapUnit` (or the project's over `Scale`), the rotation from the
+x axis, true north kept only where it isn't grid north, and the georeference moved with the model when a far-off file is
+brought near the origin.
+
+A scan in map coordinates comes in with `point_cloud {origin: map}`: its middle placed where the georeference puts it,
+its height over the vertical datum less the orthogonal height, and turned by the rotation (see
+[point clouds](point-clouds.md)).

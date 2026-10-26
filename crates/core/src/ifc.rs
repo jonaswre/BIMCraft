@@ -7,7 +7,9 @@
 //! material layer set. A stair or a ramp is the sum of its parts: its flights, its landings and
 //! the railings along it; a railing carries its rail's top line as its axis. What an element holds
 //! of the project's parameters, and of its phase and design option, goes in property sets of its own;
-//! the project's phases and design option sets in one on the project.
+//! the project's phases and design option sets in one on the project. The grids are one IfcGrid; each element carries its
+//! IFC4 base quantities; where the project stands on the earth is a map conversion, true north and the site's latitude
+//! and longitude (docs/areas/ifc-exchange.md).
 
 use std::collections::BTreeMap;
 use std::fmt::Write;
@@ -539,7 +541,16 @@ pub fn export(m: &Model) -> String {
     let origin = w.add("IFCCARTESIANPOINT((0.,0.,0.))");
     w.z = w.add("IFCDIRECTION((0.,0.,1.))");
     w.world = w.add(format!("IFCAXIS2PLACEMENT3D(#{origin},$,$)"));
-    let ctx = w.add(format!("IFCGEOMETRICREPRESENTATIONCONTEXT($,'Model',3,1.E-05,#{},$)", w.world));
+    // True north, where the project stands somewhere: its own, or the map's grid north.
+    let geo = m.georeference.as_ref();
+    let north = match geo.filter(|g| g.mapped() || g.true_north.is_some()) {
+        Some(g) => {
+            let n = g.true_north_way();
+            format!("#{}", w.add(format!("IFCDIRECTION(({},{}))", ratio(n.0), ratio(n.1))))
+        }
+        None => "$".into(),
+    };
+    let ctx = w.add(format!("IFCGEOMETRICREPRESENTATIONCONTEXT($,'Model',3,1.E-05,#{},{north})", w.world));
     w.context = ctx;
     w.body = w.add(format!("IFCGEOMETRICREPRESENTATIONSUBCONTEXT('Body','Model',*,*,*,*,#{ctx},$,.MODEL_VIEW.,$)"));
     let axis = w.add(format!("IFCGEOMETRICREPRESENTATIONSUBCONTEXT('Axis','Model',*,*,*,*,#{ctx},$,.GRAPH_VIEW.,$)"));
@@ -552,8 +563,38 @@ pub fn export(m: &Model) -> String {
     .map(|u| w.add(u));
     let units = w.add(format!("IFCUNITASSIGNMENT(({}))", refs(&units)));
     let project = w.add(format!("IFCPROJECT({},$,{},$,$,$,$,(#{ctx}),#{units})", w.guid(PROJECT, 0), s(&m.name)));
+    // On a map: the model's context converted to it, in the map's metres (the model's millimetres times 0.001).
+    if let Some(g) = geo.filter(|g| g.mapped()) {
+        let metre = w.add("IFCSIUNIT(*,.LENGTHUNIT.,$,.METRE.)");
+        let or_none = |t: &str| if t.trim().is_empty() { "$".to_string() } else { s(t) };
+        let crs = w.add(format!(
+            "IFCPROJECTEDCRS({},$,{},{},{},{},#{metre})",
+            s(&g.crs),
+            or_none(&g.geodetic_datum),
+            or_none(&g.vertical_datum),
+            or_none(&g.map_projection),
+            or_none(&g.map_zone)
+        ));
+        let x = g.x_axis();
+        w.add(format!(
+            "IFCMAPCONVERSION(#{ctx},#{crs},{},{},{},{},{},0.001)",
+            real(g.eastings / 1000.0),
+            real(g.northings / 1000.0),
+            real(g.orthogonal_height / 1000.0),
+            ratio(x.0),
+            ratio(x.1)
+        ));
+    }
+    // The site's latitude and longitude, in degrees, minutes, seconds and millionths, and its elevation.
+    let angle =
+        |a: Option<f64>| a.map_or_else(|| "$".to_string(), |a| format!("({})", crate::georef::dms(a).map(|x| x.to_string()).join(",")));
+    let (lat, long, elevation) = (
+        angle(geo.and_then(|g| g.latitude)),
+        angle(geo.and_then(|g| g.longitude)),
+        geo.and_then(|g| g.elevation).map_or_else(|| "$".to_string(), real),
+    );
     let site_at = w.place(None, (0.0, 0.0, 0.0), None);
-    let site = w.add(format!("IFCSITE({},$,'Site',$,$,#{site_at},$,$,.ELEMENT.,$,$,$,$,$)", w.guid(SITE, 0)));
+    let site = w.add(format!("IFCSITE({},$,'Site',$,$,#{site_at},$,$,.ELEMENT.,{lat},{long},{elevation},$,$)", w.guid(SITE, 0)));
     let building_at = w.place(Some(site_at), (0.0, 0.0, 0.0), None);
     let building = w.add(format!("IFCBUILDING({},$,{},$,$,#{building_at},$,$,.ELEMENT.,$,$,$)", w.guid(BUILDING, 0), s(&m.name)));
     w.add(format!("IFCRELAGGREGATES({},$,$,$,#{project},(#{site}))", w.guid(AGGREGATES, PROJECT)));

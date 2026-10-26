@@ -1638,6 +1638,10 @@ pub struct Model {
     /// has set apart from what a project starts with ([`Model::object_style`]).
     #[serde(default, skip_serializing_if = "BTreeMap::is_empty")]
     pub object_styles: BTreeMap<String, crate::styles::ObjectStyle>,
+    /// Where it stands on the earth (Manage > Location): the map its origin is placed on, true north, the site's latitude
+    /// and longitude; none until set.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub georeference: Option<crate::georef::Georeference>,
     pub elements: Elements,
     /// The ids and GUIDs of the library: its types, materials, pictures, families, parameters, view filters and
     /// templates, phases, phase filters and design options.
@@ -1686,6 +1690,7 @@ impl Model {
             option_sets: BTreeMap::new(),
             line_weights: None,
             object_styles: BTreeMap::new(),
+            georeference: None,
             elements: Elements::new(),
             library: crate::library::Library::default(),
             loaded: BTreeMap::new(),
@@ -3338,6 +3343,9 @@ impl Model {
     pub fn check(&self) -> Result<(), String> {
         if let Some(lw) = &self.line_weights {
             lw.check()?;
+        }
+        if let Some(g) = &self.georeference {
+            g.check()?;
         }
         for (c, style) in &self.object_styles {
             crate::styles::known(c)?;

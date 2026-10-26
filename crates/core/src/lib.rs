@@ -18,6 +18,7 @@ pub mod favorites;
 mod fixtures;
 mod font;
 pub mod geom;
+pub mod georef;
 pub mod graphics;
 pub mod ids;
 pub mod ifc;

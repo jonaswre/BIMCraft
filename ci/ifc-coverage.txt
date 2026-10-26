@@ -23,3 +23,8 @@ phase {"now": "Stage 2"}
 option {"set": "Entrance", "options": ["Glass", "Brick"]}
 option {"now": "Entrance: Brick"}
 wall {"points": [[0,-5000],[6000,-5000]]}
+# Where it stands: a map conversion to ETRS89 / UTM 32N, true north and the site's latitude and longitude; grids running both ways.
+location {"crs": "EPSG:25832", "geodetic_datum": "ETRS89", "vertical_datum": "DHHN2016", "map_projection": "UTM", "map_zone": "32N", "eastings": 568689650, "northings": 6003865660, "orthogonal_height": 27575, "rotation": 21.9, "latitude": 54.1753, "longitude": 9.5, "elevation": 27575}
+grid {"start": [0, -6000], "end": [0, 9000]}
+grid {"start": [6000, -6000], "end": [6000, 9000]}
+grid {"start": [-2000, 8000], "end": [27000, 8000], "name": "A"}

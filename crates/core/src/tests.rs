@@ -1480,6 +1480,7 @@ fn hostile_params_never_panic_or_break_the_model() {
         json!({"path": 5}),
         json!({"path": "/nonexistent/scan.las", "units": "furlong", "spacing": -1}),
         json!({"cloud": "nope", "origin": "file", "at": [1e300, 0]}),
+        json!({"cloud": "nope", "origin": "map", "crs": 5, "latitude": 1e300, "x_axis": [0, 0], "eastings": f64::MAX}),
         json!({"id": 100002, "level": [], "start": "x"}),
         json!({"id": 100002, "top_level": 100002}),
         json!({"limit": -1, "offset": 1e30}),

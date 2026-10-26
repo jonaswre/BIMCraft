@@ -428,3 +428,197 @@ mod quantities {
         );
     }
 }
+
+mod georeference {
+    use super::*;
+
+    /// Werk 4: the model's origin at ETRS89 / UTM 32N E 568689.65 N 6003865.66, its ±0.00 at 27.575 m NHN, its +y
+    /// turned 21.9° clockwise from grid north.
+    fn werk4() -> Value {
+        json!({
+            "crs": "EPSG:25832", "geodetic_datum": "ETRS89", "vertical_datum": "DHHN2016", "map_projection": "UTM",
+            "map_zone": "32N", "eastings": 568_689_650.0, "northings": 6_003_865_660.0, "orthogonal_height": 27_575.0,
+            "rotation": 21.9,
+        })
+    }
+
+    fn located() -> Session {
+        let mut s = Session::new();
+        run(&mut s, "wall", json!({"points": [[0, 0], [8000, 0]]}));
+        run(&mut s, "location", werk4());
+        s
+    }
+
+    #[test]
+    fn location_sets_the_georeference_inspect_shows_it_and_undo_takes_it_back() {
+        let mut s = Session::new();
+        assert_eq!(run(&mut s, "inspect", json!({}))["georeference"], Value::Null, "a new project stands nowhere in particular");
+        let reply = run(&mut s, "location", werk4());
+        assert_eq!(reply["georeference"]["crs"], "EPSG:25832");
+        let shown = run(&mut s, "inspect", json!({}))["georeference"].clone();
+        for (k, v) in werk4().as_object().unwrap() {
+            assert_eq!(&shown[k], v, "{k}");
+        }
+        // What isn't given is kept.
+        run(&mut s, "location", json!({"latitude": 54.1753, "longitude": 9.5, "elevation": 27575}));
+        let shown = run(&mut s, "inspect", json!({}))["georeference"].clone();
+        assert_eq!((shown["eastings"].as_f64(), shown["latitude"].as_f64()), (Some(568_689_650.0), Some(54.1753)));
+        // Asked with nothing, it says what it is.
+        assert_eq!(run(&mut s, "location", json!({}))["georeference"], shown);
+        run(&mut s, "undo", json!({}));
+        assert_eq!(run(&mut s, "inspect", json!({}))["georeference"]["latitude"], Value::Null);
+        run(&mut s, "location", json!({"clear": true}));
+        assert_eq!(run(&mut s, "inspect", json!({}))["georeference"], Value::Null);
+    }
+
+    #[test]
+    fn x_axis_is_another_way_to_give_the_rotation() {
+        let mut s = Session::new();
+        let a = 21.9f64.to_radians();
+        let reply = run(&mut s, "location", json!({"crs": "EPSG:25832", "x_axis": [a.cos(), -a.sin()]}));
+        assert!(near(reply["georeference"]["rotation"].as_f64().unwrap(), 21.9, 1e-9), "{reply}");
+        assert!(s.execute("location", &json!({"rotation": 10, "x_axis": [1, 0]})).is_err(), "one or the other");
+    }
+
+    #[test]
+    fn a_georeference_that_breaks_a_rule_is_refused_and_the_project_stays_as_it_was() {
+        let mut s = located();
+        for bad in [
+            json!({"latitude": 91}),
+            json!({"longitude": -181}),
+            json!({"eastings": 1e300}),
+            json!({"rotation": "north"}),
+            json!({"x_axis": [0, 0]}),
+            json!({"crs": 25832}),
+            json!({"elevation": f64::MAX}),
+            json!({"unknown": 1}),
+        ] {
+            assert!(s.execute("location", &bad).is_err(), "{bad}");
+        }
+        let mut t = Session::new();
+        let err = t.execute("location", &json!({"eastings": 568_689_650.0})).unwrap_err();
+        assert!(err.contains("crs"), "a map position needs its map: {err}");
+        assert_eq!(run(&mut s, "inspect", json!({}))["georeference"]["eastings"], 568_689_650.0);
+    }
+
+    #[test]
+    fn the_map_conversion_true_north_and_site_reference_go_out_to_ifc() {
+        let mut s = located();
+        run(&mut s, "location", json!({"latitude": 54.1753, "longitude": 9.5, "elevation": 27575}));
+        let (_, text) = save_ifc(&mut s, "georef.ifc");
+        let f = Step::of(&text);
+        let conv = f.all("IFCMAPCONVERSION");
+        assert_eq!(conv.len(), 1, "{text}");
+        let c = conv[0];
+        // From the model's context to the map, in the map's metres: the model's millimetres times 0.001.
+        let ctx = f.at(c, 0);
+        assert_eq!(f.kind(ctx), "IFCGEOMETRICREPRESENTATIONCONTEXT");
+        assert_eq!(f.list(f.all("IFCPROJECT")[0], 7), [ctx]);
+        let crs = f.at(c, 1);
+        assert_eq!(f.kind(crs), "IFCPROJECTEDCRS");
+        assert_eq!(
+            (f.text(crs, 0), f.text(crs, 2), f.text(crs, 3), f.text(crs, 4), f.text(crs, 5)),
+            ("EPSG:25832".into(), "ETRS89".into(), "DHHN2016".into(), "UTM".into(), "32N".into())
+        );
+        let unit = f.at(crs, 6);
+        assert_eq!(f.0[&unit], ("IFCSIUNIT".to_string(), vec!["*".into(), ".LENGTHUNIT.".into(), "$".into(), ".METRE.".into()]));
+        assert!(near(f.real(c, 2), 568_689.65, 1e-6) && near(f.real(c, 3), 6_003_865.66, 1e-6) && near(f.real(c, 4), 27.575, 1e-9));
+        let a = 21.9f64.to_radians();
+        assert!(near(f.real(c, 5), a.cos(), 1e-9) && near(f.real(c, 6), -a.sin(), 1e-9), "its +x runs east, a little south");
+        assert!(near(f.real(c, 7), 0.001, 1e-12));
+        // True north: grid north, 21.9° to the left of the model's +y.
+        let north = f.at(ctx, 5);
+        let n = f.arg(north, 0);
+        let n: Vec<f64> = split(&n[1..n.len() - 1]).iter().map(|x| number(x)).collect();
+        assert!(near(n[0], -a.sin(), 1e-9) && near(n[1], a.cos(), 1e-9), "{n:?}");
+        // The site's latitude, longitude and elevation.
+        let site = f.all("IFCSITE")[0];
+        assert_eq!(f.arg(site, 9), "(54,10,31,80000)");
+        assert_eq!(f.arg(site, 10), "(9,30,0,0)");
+        assert!(near(f.real(site, 11), 27575.0, 1e-9));
+    }
+
+    #[test]
+    fn a_true_north_of_its_own_goes_out_as_the_contexts_true_north() {
+        let mut s = located();
+        run(&mut s, "location", json!({"true_north": 20.5}));
+        let (_, text) = save_ifc(&mut s, "true-north.ifc");
+        let f = Step::of(&text);
+        let ctx = f.at(f.all("IFCMAPCONVERSION")[0], 0);
+        let n = f.arg(f.at(ctx, 5), 0).to_string();
+        let n: Vec<f64> = split(&n[1..n.len() - 1]).iter().map(|x| number(x)).collect();
+        let a = 20.5f64.to_radians();
+        assert!(near(n[0], -a.sin(), 1e-9) && near(n[1], a.cos(), 1e-9), "{n:?}");
+    }
+
+    #[test]
+    fn a_project_that_stands_nowhere_writes_no_map_conversion() {
+        let mut s = Session::new();
+        let (_, text) = save_ifc(&mut s, "nowhere.ifc");
+        assert!(!text.contains("IFCMAPCONVERSION") && !text.contains("IFCPROJECTEDCRS"));
+        let f = Step::of(&text);
+        assert_eq!(f.arg(f.all("IFCGEOMETRICREPRESENTATIONCONTEXT")[0], 5), "$");
+        // Only latitude and longitude: the site's, with no map.
+        run(&mut s, "location", json!({"latitude": -23.5, "longitude": -46.625}));
+        let (_, text) = save_ifc(&mut s, "latlong.ifc");
+        let f = Step::of(&text);
+        assert!(!text.contains("IFCMAPCONVERSION"));
+        let site = f.all("IFCSITE")[0];
+        assert_eq!((f.arg(site, 9), f.arg(site, 10)), ("(-23,-30,0,0)", "(-46,-37,-30,0)"));
+    }
+
+    #[test]
+    fn the_georeference_comes_back_from_ifc_and_from_a_project_file() {
+        let mut s = located();
+        run(&mut s, "location", json!({"latitude": 54.1753, "longitude": 9.5, "elevation": 27575, "true_north": 20.5}));
+        let want = run(&mut s, "inspect", json!({}))["georeference"].clone();
+        let (path, _) = save_ifc(&mut s, "georef-back.ifc");
+        let (mut t, _) = open_ifc(&path);
+        let back = run(&mut t, "inspect", json!({}))["georeference"].clone();
+        for (k, v) in want.as_object().unwrap() {
+            match v.as_f64() {
+                Some(x) => assert!(near(back[k].as_f64().unwrap_or(f64::NAN), x, 1e-6), "{k}: {} not {x}", back[k]),
+                None => assert_eq!(&back[k], v, "{k}"),
+            }
+        }
+        // Grid north standing for true north stays so.
+        let mut s = located();
+        let (path, _) = save_ifc(&mut s, "georef-grid-north.ifc");
+        let (mut t, _) = open_ifc(&path);
+        assert_eq!(run(&mut t, "inspect", json!({}))["georeference"]["true_north"], Value::Null);
+        // A project file holds it.
+        let file = temp("georef.bimcraft");
+        let mut s = located();
+        run(&mut s, "save", json!({"path": file}));
+        let mut t = Session::new();
+        let reply = run(&mut t, "open", json!({"path": file}));
+        assert_eq!(reply.get("left_out"), None, "{reply}");
+        assert_eq!(run(&mut t, "inspect", json!({}))["georeference"], run(&mut s, "inspect", json!({}))["georeference"]);
+    }
+
+    #[test]
+    fn a_scan_in_map_coordinates_is_placed_by_the_georeference() {
+        // A scan of 4 points round E 568700.65 N 6003875.66, 3 m over ±0.00, in metres.
+        let path = temp("map-scan.xyz");
+        let (e, n, h) = (568_700.65, 6_003_875.66, 30.575);
+        let pts: Vec<String> = [(-1.0, -1.0, -0.5), (1.0, -1.0, 0.5), (1.0, 1.0, -0.5), (-1.0, 1.0, 0.5)]
+            .iter()
+            .map(|(x, y, z)| format!("{} {} {}", e + x, n + y, h + z))
+            .collect();
+        std::fs::write(&path, pts.join("\n")).unwrap();
+        let mut s = Session::new();
+        let err = s.execute("point_cloud", &json!({"path": path, "origin": "map"})).unwrap_err();
+        assert!(err.contains("location"), "no georeference to place it by: {err}");
+        run(&mut s, "location", werk4());
+        let pc = run(&mut s, "point_cloud", json!({"path": path, "origin": "map"}));
+        let el = run(&mut s, "elements", json!({"category": "pointcloud"}))["elements"][0].clone();
+        // 11 m east and 10 m north of the origin on the map, in the model turned 21.9° back.
+        let a = 21.9f64.to_radians();
+        let (dx, dy) = (11_000.0, 10_000.0);
+        let want = (dx * a.cos() - dy * a.sin(), dx * a.sin() + dy * a.cos());
+        let at = &el["at"];
+        assert!(near(at[0].as_f64().unwrap(), want.0, 1.0) && near(at[1].as_f64().unwrap(), want.1, 1.0), "{el} {pc}");
+        assert!(near(el["offset"].as_f64().unwrap(), 3000.0, 1.0), "{el}");
+        assert!(near(el["angle"].as_f64().unwrap(), 21.9, 1e-9), "{el}");
+    }
+}
