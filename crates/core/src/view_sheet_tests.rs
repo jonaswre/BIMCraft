@@ -68,6 +68,93 @@ fn a_duplicated_plan_placed_on_a_sheet_keeps_its_own_graphics() {
     assert!(cut > 1000 && left * 20 < cut, "{left} of {cut}");
 }
 
+// ---------- placing views on sheets ----------
+
+/// Viewport `vp`'s frame on its sheet, paper mm: its left, bottom (with its title's room under it), right and top.
+fn on_paper(s: &Session, vp: u64) -> [f64; 4] {
+    let (view, (x, y)) = crate::sheet::frame(&s.model, vp).unwrap();
+    let height = match s.model.elements.get(vp) {
+        Some(crate::model::Element::Viewport(v)) => crate::model::paper(&s.model.sheet(v.sheet).unwrap().size).unwrap().1,
+        _ => panic!("{vp} is no viewport"),
+    };
+    let mm = |px: f32| f64::from(px) / crate::sheet::DENSITY;
+    let (left, top) = (mm(x), height - mm(y));
+    [left, top - mm(view.height as f32) - 13.0, left + mm(view.width as f32), top]
+}
+
+fn overlap(a: [f64; 4], b: [f64; 4]) -> bool {
+    a[0] < b[2] && b[0] < a[2] && a[1] < b[3] && b[1] < a[3]
+}
+
+/// A hall 49 m long and 20 m deep, and `n` sections across it along its length.
+fn hall(n: usize) -> Session {
+    let mut s = Session::new();
+    s.script(r#"wall {"points": [[0,0],[49000,0],[49000,20000],[0,20000]], "closed": true, "height": 8000}"#).unwrap();
+    for i in 0..n {
+        let y = 2000.0 + 4000.0 * i as f64;
+        run(&mut s, "section", json!({"start": [-500, y], "end": [49500, y], "name": format!("Section {i}")}));
+    }
+    s
+}
+
+#[test]
+fn views_placed_without_a_spot_go_where_nothing_else_is_and_stay_on_the_paper() {
+    // Given an A1 sheet and four sections, each some 300 mm long at 1 : 200
+    let mut s = hall(4);
+    run(&mut s, "sheet", json!({"name": "Sections", "size": "A1"}));
+    // When each is placed with no spot given
+    let placed: Vec<u64> = (0..4)
+        .map(|i| run(&mut s, "place", json!({"sheet": "A101", "view": format!("Section {i}"), "scale": 200}))["id"].as_u64().unwrap())
+        .collect();
+    // Then no two overlap, titles and all, and each lies inside the border clear of the title box
+    let frames: Vec<[f64; 4]> = placed.iter().map(|vp| on_paper(&s, *vp)).collect();
+    for (i, a) in frames.iter().enumerate() {
+        for b in &frames[i + 1..] {
+            assert!(!overlap(*a, *b), "{a:?} overlaps {b:?}");
+        }
+        assert!(a[0] >= 20.0 && a[1] >= 10.0 && a[2] <= 831.0 && a[3] <= 584.0, "{a:?} runs off the A1 sheet");
+        assert!(!overlap(*a, [841.0 - 10.0 - 180.0, 10.0, 831.0, 50.0]), "{a:?} is over the title box");
+    }
+}
+
+#[test]
+fn the_first_view_placed_goes_in_the_middle_and_the_next_right_of_it_where_there_is_room() {
+    let mut s = hall(2);
+    run(&mut s, "sheet", json!({"name": "Sections", "size": "A0"}));
+    let first = run(&mut s, "place", json!({"sheet": "A101", "view": "Section 0", "scale": 200}));
+    let second = run(&mut s, "place", json!({"sheet": "A101", "view": "Section 1", "scale": 200}));
+    let x = |r: &Value| r["at"][0].as_f64().unwrap();
+    let y = |r: &Value| r["at"][1].as_f64().unwrap();
+    assert!((x(&first) - (20.0 + 1189.0 - 10.0) / 2.0).abs() < 1e-6, "{first}");
+    assert!(x(&second) > x(&first) && (y(&second) - y(&first)).abs() < 1e-6, "{second}");
+}
+
+#[test]
+fn the_3d_view_placed_with_no_scale_fits_the_paper() {
+    // Given a hall 95 m long and an A1 sheet
+    let mut s = Session::new();
+    s.script(r#"wall {"points": [[0,0],[95000,0],[95000,40000],[0,40000]], "closed": true, "height": 12000}"#).unwrap();
+    run(&mut s, "sheet", json!({"name": "3D", "size": "A1"}));
+    // When the 3D view is placed with no scale
+    let r = run(&mut s, "place", json!({"sheet": "A101", "view": "{3D}"}));
+    // Then it comes at a scale the project offers, coarser than 1 : 100, and lies inside the border
+    let scale = r["scale"].as_f64().unwrap();
+    assert!(scale > 100.0 && crate::units::Units::Millimetres.scales().contains(&scale), "{r}");
+    let f = on_paper(&s, r["id"].as_u64().unwrap());
+    assert!(f[0] >= 20.0 && f[1] >= 10.0 && f[2] <= 831.0 && f[3] <= 584.0, "{f:?} runs off the A1 sheet");
+    // A scale given is kept
+    run(&mut s, "delete", json!({"ids": [r["id"]]}));
+    let r = run(&mut s, "place", json!({"sheet": "A101", "view": "{3D}", "scale": 100, "at": [400, 300]}));
+    assert_eq!(r["scale"], 100.0);
+}
+
+#[test]
+fn a_small_models_3d_view_keeps_1_to_100() {
+    let mut s = house();
+    run(&mut s, "sheet", json!({"name": "3D"}));
+    assert_eq!(run(&mut s, "place", json!({"sheet": "A101", "view": "{3D}"}))["scale"], 100.0);
+}
+
 // ---------- the title block ----------
 
 /// Whether any pixel of an A3 sheet's picture between paper points `lo` and `hi` (mm) is inked.

@@ -489,9 +489,11 @@ pub static ALL: &[Command] = &[
         "Place View",
         &[],
         "{sheet: number or id, view: a level's, section's, elevation's, schedule's or 3D view's name or id, at?: [x, y], \
-         scale?, azimuth?, elevation?} puts the view on the sheet at 1 : `scale` (by default the view's own, see `scale`, 1 : 100 when it has none of its own; a schedule keeps its size), \
-         its middle `at` mm from the paper's bottom left corner (by default right of the views there, or in the middle); a \
-         view goes on one sheet. A schedule (Room Schedule, Door Schedule…) or the 3D view ({3D}, seen from `azimuth` and \
+         scale?, azimuth?, elevation?} puts the view on the sheet at 1 : `scale` (by default the view's own, see `scale`, 1 : 100 when it has none of its own; \
+         the 3D view with none of its own at the finest of the project's scales from that up that fits the paper; a schedule \
+         keeps its size), its middle `at` mm from the paper's bottom left corner (by default in the middle when it's the \
+         first, else right of the views there, or the first spot from the top left where it lies on the paper clear of them \
+         and of the title box); a view goes on one sheet. Returns its id, `at` and `scale`. A schedule (Room Schedule, Door Schedule…) or the 3D view ({3D}, seen from `azimuth` and \
          `elevation` degrees) comes to be as it's first placed",
         place,
     ),
@@ -4656,12 +4658,12 @@ fn place(s: &mut Session, p: &Value) -> R {
             .ok_or_else(|| bad(c, format!("`view`: {v} is not a plan, a section, an elevation, a schedule or a 3D view")))?,
         None => return Err(bad(c, "`view`, a level's, section's, elevation's, schedule's or 3D view's name or id, is required")),
     };
-    // The view's own scale, unless told another; 1 : 100 for a view with none.
-    let scale = scale.unwrap_or_else(|| graphics::scale_of(&s.model, view));
+    // The view's own scale, unless told another; the 3D view's, one that fits the paper.
+    let scale = scale.unwrap_or_else(|| sheet::default_scale(&s.model, sheet, view));
     let at = at.unwrap_or_else(|| sheet::spot(&s.model, sheet, view, scale));
     let (sheet, view) = (s.model.guid(sheet), s.model.guid(view));
     let id = s.model_mut().insert(Element::Viewport(Viewport { sheet, view, at, scale }));
-    Ok(json!({"id": id, "at": at}))
+    Ok(json!({"id": id, "at": at, "scale": scale}))
 }
 
 fn material(s: &mut Session, p: &Value) -> R {

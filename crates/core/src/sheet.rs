@@ -78,29 +78,71 @@ pub fn frame(m: &Model, id: impl Key) -> Option<(View, (f32, f32))> {
     Some((view, (x - view.width as f32 / 2.0, y - view.height as f32 / 2.0)))
 }
 
-/// Where view `view` at 1 : `scale` goes on sheet `sheet` by default: right of the views on it,
-/// else in the middle of the paper above the title box; when there's no room left on the right,
-/// in the paper's top right corner.
+/// The room between views on a sheet, and between a view and the title box, mm; and the room a view's title takes under it.
+const GAP: f64 = 10.0;
+const UNDER: f64 = 15.0;
+
+/// What view `view` at 1 : `scale` takes on paper with its title under it, standing at `at`: its left, bottom, right and top.
+fn footprint(taken: P2, at: P2) -> [f64; 4] {
+    [at.0 - taken.0 / 2.0, at.1 - taken.1 / 2.0 - UNDER, at.0 + taken.0 / 2.0, at.1 + taken.1 / 2.0]
+}
+
+/// Where view `view` at 1 : `scale` goes on sheet `sheet` by default: in the middle of the paper above the title box when
+/// it is the first; right of the views on it where there's room; else the first spot, from the top left, where it lies on
+/// the paper clear of the views there (titles and all) and of the title box: right of a view or under it, or in a corner. On
+/// a sheet with no room left, right of them all, off the paper but over none.
 pub fn spot(m: &Model, sheet: impl Key, view: impl Key, scale: f64) -> P2 {
     let sheet = m.guid(sheet);
     let paper = m.sheet(sheet).and_then(|s| paper(&s.size)).unwrap_or(P2(420.0, 297.0));
     let middle = P2((20.0 + paper.0 - 10.0) / 2.0, (10.0 + TITLE.1 + paper.1 - 10.0) / 2.0);
     let taken = size(m, view, scale).unwrap_or(P2(0.0, 0.0));
-    let right = m
+    let placed: Vec<[f64; 4]> = m
         .elements
         .values()
         .filter_map(|e| match e {
-            Element::Viewport(v) if v.sheet == sheet => Some(v.at.0 + size(m, v.view, v.scale)?.0 / 2.0),
+            Element::Viewport(v) if v.sheet == sheet => Some(footprint(size(m, v.view, v.scale)?, v.at)),
             _ => None,
         })
-        .fold(None, |r: Option<f64>, x| Some(r.map_or(x, |r| r.max(x))));
-    // Inside the border, 5 mm clear of it.
-    let (east, north) = (paper.0 - 15.0, paper.1 - 15.0);
-    match right {
-        None => middle,
-        Some(r) if r + 10.0 + taken.0 <= east => P2(r + 10.0 + taken.0 / 2.0, middle.1),
-        Some(_) => P2(east - taken.0 / 2.0, north - taken.1 / 2.0),
+        .collect();
+    let Some(right) = placed.iter().map(|b| b[2]).reduce(f64::max) else { return middle };
+    // Inside the border, 5 mm clear of it, and clear of the title box.
+    let (west, south, east, north) = (25.0, 15.0, paper.0 - 15.0, paper.1 - 15.0);
+    let title = [paper.0 - 10.0 - TITLE.0.min(paper.0 - 30.0), 10.0, paper.0 - 10.0, 10.0 + TITLE.1];
+    let apart = |a: [f64; 4], b: &[f64; 4]| a[2] + GAP <= b[0] || b[2] + GAP <= a[0] || a[3] + GAP <= b[1] || b[3] + GAP <= a[1];
+    let free = |at: &P2| {
+        let b = footprint(taken, *at);
+        b[0] >= west && b[1] >= south && b[2] <= east && b[3] <= north && placed.iter().chain([&title]).all(|o| apart(b, o))
+    };
+    let beside = P2(right + GAP + taken.0 / 2.0, middle.1);
+    if free(&beside) {
+        return beside;
     }
+    let (half_w, half_h) = (taken.0 / 2.0, taken.1 / 2.0);
+    let mut spots: Vec<P2> = placed
+        .iter()
+        .flat_map(|o| [P2(o[2] + GAP + half_w, o[3] - half_h), P2(o[0] + half_w, o[1] - GAP - half_h)])
+        .chain([P2(west + half_w, north - half_h), P2(west + half_w, south + UNDER + half_h), P2(east - half_w, north - half_h)])
+        .collect();
+    // From the top down, then from the left.
+    spots.sort_by(|a, b| b.1.total_cmp(&a.1).then(a.0.total_cmp(&b.0)));
+    spots.into_iter().find(free).unwrap_or(beside)
+}
+
+/// The scale view `view` goes on sheet `sheet` at when none is given: the view's own; but the 3D view, which has none
+/// until it is given one, at the finest scale the project offers from its default up that fits it on the paper above the
+/// title box (the coarsest, when none does).
+pub fn default_scale(m: &Model, sheet: impl Key, view: impl Key) -> f64 {
+    let own = crate::graphics::scale_of(m, view);
+    let given = crate::graphics::graphics_of(m, view).is_some_and(|g| g.resolved(m).scale.is_some());
+    if given || !matches!(m.elements.get(view), Some(Element::View3D(_))) {
+        return own;
+    }
+    let paper = m.sheet(sheet).and_then(|s| paper(&s.size)).unwrap_or(P2(420.0, 297.0));
+    let room = P2(paper.0 - 30.0 - GAP, paper.1 - 20.0 - TITLE.1 - GAP - 2.0 * UNDER);
+    let mut scales: Vec<f64> = m.units.scales().iter().copied().filter(|n| *n >= own).collect();
+    scales.sort_by(f64::total_cmp);
+    let fits = |n: &f64| size(m, view, *n).is_some_and(|t| t.0 <= room.0 && t.1 <= room.1);
+    scales.iter().copied().find(fits).or(scales.last().copied()).unwrap_or(own)
 }
 
 /// `text` with its left end at paper point `at` (mm), capitals `height` mm tall.

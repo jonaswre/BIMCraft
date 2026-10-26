@@ -94,6 +94,14 @@ takes its plan views with it. A project that has none writes the same file as be
 Browser's right-click, which also has Delete for a plan view; `Sheet::Plan` and `Sheet::Ceiling` hold the key. The `render` command takes the key too: a plan view, by its name or id, is drawn with its own graphics, view range and crop
 (not its level's), and the reply names it; `place` puts it on a sheet the same way.
 
+Sheets (`sheet.rs`). A view placed with no `at` goes where `sheet::spot` finds room: the middle of the paper above the title box when
+it's the first, else right of the views there at that height, else the first spot from the top left (right of a view, under it, or a
+corner of the paper) where it, with its title under it, lies inside the border and `GAP` clear of the other views and the title box;
+on a full sheet, right of them all, off the paper but over none. A viewport with no `scale` takes its view's
+(`sheet::default_scale`), but the 3D view, which has none until it is given one, takes the finest of the project's scales from the
+default up that fits it on the paper above the title box. The title box keeps each field's lettering inside it: a name too wide
+for its field breaks at a space onto two lines, and lettering still too wide is drawn smaller (`name_lines`, `shrunk`).
+
 ## Linked models
 
 A `Link` element (`link.rs`; commands `link` and `reload`) is another project shown in this one as a reference. The file holds its name, its
