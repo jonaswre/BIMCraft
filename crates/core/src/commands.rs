@@ -140,7 +140,7 @@ pub static ALL: &[Command] = &[
         "Door",
         &["DR"],
         "{at: [x,y] | wall: id, offset?, type?, family?, level?, mark?, flip_facing?, flip_hand?} in the wall under `at`, \
-         or in `wall` centred `offset` mm from its start; with `family`, a door family's `type` (its first by default), \
+         or in `wall` centred `offset` mm from its start; without `level`, on the lowest level at or above ground (elevation          0) with a wall under `at`, else the highest below it; with `family`, a door family's `type` (its first by default), \
          which sizes the opening and draws the door",
         door,
     ),
@@ -1194,6 +1194,14 @@ fn wall_at(m: &Model, level: impl Key, at: P2) -> Option<(Guid, f64)> {
         .filter(|(_, w, d)| *d <= m.thickness(w) / 2.0 + 100.0)
         .min_by(|a, b| a.2.total_cmp(&b.2))
         .map(|(id, w, _)| (id, along(w, at)))
+}
+
+/// The wall under `at` when no level is named: on the lowest level at or above ground (elevation 0) that has one there, else
+/// on the highest below ground that has one, so a door goes in the ground floor's wall, not a foundation's under it.
+fn wall_on_any_level(m: &Model, at: P2) -> Option<(Guid, f64)> {
+    let levels = m.levels();
+    let (below, above): (Vec<_>, Vec<_>) = levels.iter().partition(|(_, l)| l.elevation < 0.0);
+    above.iter().chain(below.iter().rev()).find_map(|(id, _)| wall_at(m, *id, at))
 }
 
 /// The outline `floor` gives a floor on `level` by default, along the centre lines of the walls
@@ -3172,8 +3180,13 @@ fn build_opening(m: &Model, p: &Value, is_door: bool) -> Result<Opening, String>
         }
         None => {
             let at = at.ok_or_else(|| bad(c, "give `at` [x, y] on a wall, or `wall` with `offset`"))?;
-            let level = level_param(c, m, p, "level")?;
-            wall_at(m, level, at).ok_or_else(|| bad(c, format!("no wall at [{}, {}] on {}", at.0, at.1, level_name(m, level))))?
+            if absent(p.get("level")) {
+                wall_on_any_level(m, at)
+                    .ok_or_else(|| bad(c, format!("no wall at [{}, {}] on any level; give `wall` with `offset`", at.0, at.1)))?
+            } else {
+                let level = level_param(c, m, p, "level")?;
+                wall_at(m, level, at).ok_or_else(|| bad(c, format!("no wall at [{}, {}] on {}", at.0, at.1, level_name(m, level))))?
+            }
         }
     };
     let offset = num(c, p, "offset")?.unwrap_or(along_at);
