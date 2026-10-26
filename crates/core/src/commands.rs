@@ -118,7 +118,8 @@ pub static ALL: &[Command] = &[
          PTS, XYZ, PLY, LAS or E57 (each of its scans placed by its pose), or a list of the files of one scan's stations, brought in as one; `units` of its coordinates mm, \
          cm, m (the default), in or ft; one point kept in each cube `spacing` mm wide) or places one the project holds again \
          (`cloud`, its name), as an element: its middle on `at` (the origin) and its foot on the level, or with `origin: file` \
-         where its file's coordinates put it; `offset` raises its middle over the level, `angle` turns it. Returns its id, the \
+         where its file's coordinates put it, or with `origin: map` where the project's georeference (`location`) puts its map \
+         coordinates, turned to the model; `offset` raises its middle over the level, `angle` turns it. Returns its id, the \
          scan's name, the points kept and read, and where its middle was in the file",
         point_cloud,
     ),
@@ -777,6 +778,24 @@ pub static ALL: &[Command] = &[
          millimetres, centimetres, metres, fractional inches, decimal feet, or feet and fractional inches (to 1/16\"); areas \
          in m², or ft² with inches and feet. The model, and every command, keep millimetres",
         units,
+    ),
+    edit(
+        "location",
+        "Location",
+        &[],
+        "{crs?, geodetic_datum?, vertical_datum?, map_projection?, map_zone?, eastings?, northings?, orthogonal_height?, \
+         rotation? | x_axis?: [abscissa, ordinate], true_north?, latitude?, longitude?, elevation?, clear?} where the project \
+         stands on the earth, its georeference (Revit's Location and shared coordinates): `crs` the map, its coordinate \
+         reference system (an EPSG code, `EPSG:25832` for ETRS89 / UTM 32N, with its datums, projection and zone if its name \
+         doesn't say them); `eastings`, `northings` where the model's origin lies on it and `orthogonal_height` the height of \
+         its 0 over the vertical datum, all in mm like every length (E 568689.65 m is 568689650); `rotation` degrees its +y \
+         (project north) is turned clockwise from the map's grid north, or `x_axis` the way its +x runs on the map; \
+         `true_north` degrees its +y is turned clockwise from true north (grid north's by default); `latitude`, `longitude` \
+         the site's, decimal degrees, and `elevation` its height, mm. What isn't given is kept; `clear` takes it all away. \
+         IFC writes it as an IfcMapConversion to an IfcProjectedCRS, the context's TrueNorth and the site's RefLatitude, \
+         RefLongitude and RefElevation, and reads it back; `point_cloud` with `origin: map` places a scan in map coordinates \
+         by it. Returns `georeference`",
+        location,
     ),
     edit(
         "language",
@@ -2984,6 +3003,8 @@ fn point_cloud(s: &mut Session, p: &Value) -> R {
     };
     let (lo, _) = scan.bounds();
     let origin = scan.origin();
+    // How far a scan in map coordinates is turned to stand in the model.
+    let mut turned = 0.0;
     let (mut at, mut offset) = match string(c, p, "origin")?.as_deref() {
         None | Some("centre" | "center") => (P2(0.0, 0.0), -lo[2]),
         Some("file") => {
@@ -2998,10 +3019,27 @@ fn point_cloud(s: &mut Session, p: &Value) -> R {
             }
             (P2(origin[0], origin[1]), z)
         }
+        // Its file's coordinates are the map's: where the project's georeference puts them, turned as it is.
+        Some("map") => {
+            let g = m.georeference.as_ref().filter(|g| g.mapped()).ok_or_else(|| {
+                bad(c, "`origin: map` places the scan by the project's georeference, and it has none: set one with `location`")
+            })?;
+            let (at, z) = (g.to_model(P2(origin[0], origin[1])), origin[2] - g.orthogonal_height - m.elevation(level));
+            if !(at.0.abs() <= MAX_COORD && at.1.abs() <= MAX_COORD && z.abs() <= MAX_COORD) {
+                return Err(bad(
+                    c,
+                    format!("the scan's middle lies {at:?} mm from the model's origin, {z} mm up, past the {MAX_COORD} mm a model reaches"),
+                ));
+            }
+            turned = g.rotation;
+            (at, z)
+        }
         Some(o) => {
             return Err(bad(
                 c,
-                format!("`origin` is centre (its middle on `at`, its foot on the level) or file (where its file puts it), not {o}"),
+                format!(
+                    "`origin` is centre (its middle on `at`, its foot on the level), file (where its file puts it) or map (where the georeference puts its map coordinates), not {o}"
+                ),
             ));
         }
     };
@@ -3011,7 +3049,7 @@ fn point_cloud(s: &mut Session, p: &Value) -> R {
     if let Some(o) = num(c, p, "offset")? {
         offset = o;
     }
-    let angle = num(c, p, "angle")?.unwrap_or(0.0);
+    let angle = crate::georef::turn(num(c, p, "angle")?.unwrap_or(0.0) + turned);
     let (points, read) = (scan.len(), scan.read());
     let m = s.model_mut();
     if new {
@@ -6296,6 +6334,86 @@ fn units(s: &mut Session, p: &Value) -> R {
     Ok(json!({"length": s.model.units.name()}))
 }
 
+fn location(s: &mut Session, p: &Value) -> R {
+    use crate::georef::{Georeference, turn};
+    let c = "location";
+    /// What it is given: each field it sets.
+    #[derive(serde::Deserialize, Default)]
+    #[serde(deny_unknown_fields)]
+    struct Given {
+        crs: Option<String>,
+        geodetic_datum: Option<String>,
+        vertical_datum: Option<String>,
+        map_projection: Option<String>,
+        map_zone: Option<String>,
+        eastings: Option<f64>,
+        northings: Option<f64>,
+        orthogonal_height: Option<f64>,
+        rotation: Option<f64>,
+        x_axis: Option<[f64; 2]>,
+        true_north: Option<f64>,
+        latitude: Option<f64>,
+        longitude: Option<f64>,
+        elevation: Option<f64>,
+        clear: Option<bool>,
+    }
+    let given: Given = match p {
+        Value::Null => Given::default(),
+        v => serde_json::from_value(v.clone()).map_err(|e| bad(c, format!("{e}: see its params")))?,
+    };
+    if given.clear == Some(true) {
+        if s.model.georeference.is_some() {
+            s.model_mut().georeference = None;
+        }
+        return Ok(json!({"georeference": null}));
+    }
+    let mut g = s.model.georeference.clone().unwrap_or_default();
+    for (to, from) in [
+        (&mut g.crs, given.crs),
+        (&mut g.geodetic_datum, given.geodetic_datum),
+        (&mut g.vertical_datum, given.vertical_datum),
+        (&mut g.map_projection, given.map_projection),
+        (&mut g.map_zone, given.map_zone),
+    ] {
+        if let Some(t) = from {
+            *to = t.trim().to_string();
+        }
+    }
+    for (to, from) in
+        [(&mut g.eastings, given.eastings), (&mut g.northings, given.northings), (&mut g.orthogonal_height, given.orthogonal_height)]
+    {
+        if let Some(x) = from {
+            *to = x;
+        }
+    }
+    g.rotation = match (given.rotation, given.x_axis) {
+        (Some(_), Some(_)) => return Err(bad(c, "give the `rotation` or the `x_axis`, not both")),
+        (Some(r), None) if r.is_finite() => turn(r),
+        (Some(r), None) => return Err(bad(c, format!("`rotation` must be degrees, not {r}"))),
+        (None, Some([a, o])) => {
+            if !(a.is_finite() && o.is_finite() && a.hypot(o) > 1e-9) {
+                return Err(bad(c, "`x_axis` is the way the model's +x runs on the map: [abscissa, ordinate], not both 0"));
+            }
+            Georeference::rotation_of(a, o)
+        }
+        (None, None) => g.rotation,
+    };
+    if let Some(t) = given.true_north {
+        g.true_north = Some(if t.is_finite() { turn(t) } else { t });
+    }
+    for (to, from) in [(&mut g.latitude, given.latitude), (&mut g.longitude, given.longitude), (&mut g.elevation, given.elevation)] {
+        if from.is_some() {
+            *to = from;
+        }
+    }
+    g.check().map_err(|e| bad(c, e))?;
+    let now = (!g.is_empty()).then_some(g);
+    if now != s.model.georeference {
+        s.model_mut().georeference = now;
+    }
+    Ok(json!({"georeference": s.model.georeference}))
+}
+
 fn line_weights(s: &mut Session, p: &Value) -> R {
     let c = "line_weights";
     let reset = match p.get("reset") {
@@ -6400,7 +6518,7 @@ fn inspect(s: &mut Session, _: &Value) -> R {
         "counts": counts,
         "types": m.types, "materials": m.materials, "images": images(m), "families": families(m), "parameters": m.parameters,
         "view_filters": m.view_filters, "view_templates": m.view_templates, "phases": m.phases, "phase_filters": m.phase_filters,
-        "phase_overrides": m.phase_overrides, "option_sets": m.option_sets, "warnings": warnings,
+        "phase_overrides": m.phase_overrides, "option_sets": m.option_sets, "georeference": m.georeference, "warnings": warnings,
         "history": s.history(),
     }))
 }

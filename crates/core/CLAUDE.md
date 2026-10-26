@@ -27,7 +27,7 @@ is in the root `CLAUDE.md`; the write-ups by area are in `docs/areas/`, which th
 | Masses and what they make | [masses](../../docs/areas/massing.md) |
 | Families, forms, materials, textures, paint, favorites | [families](../../docs/areas/families.md) |
 | Beams, columns, footings, pipes, conduits, fixtures | [structure and MEP](../../docs/areas/structure-and-mep.md), [disciplines](../../docs/disciplines.md) |
-| IFC export or import | [looking at the result](../../docs/areas/looking-at-results.md): the IfcOpenShell checks |
+| IFC export or import | [IFC exchange](../../docs/areas/ifc-exchange.md) (grids, base quantities, georeference); [looking at the result](../../docs/areas/looking-at-results.md): the IfcOpenShell checks |
 | Autosave and recovery | [autosave](../../docs/autosave.md) |
 
 ## Testing

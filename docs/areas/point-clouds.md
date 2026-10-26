@@ -45,7 +45,9 @@ its middle at `at` and `offset` over the level, turned `angle` degrees about it;
 `Model::cloud_box` the box round what it places. It holds no `params`, so phases, design options and paint don't reach it. It moves,
 turns and copies as any element; it doesn't mirror, since a scan is what was measured. The `point_cloud` command brings a file in
 (`path`) or places a held scan again (`cloud`); by default its middle goes on `at` and its foot on the level (Revit's Auto - Center
-to Center), and with `origin: file` where the file's coordinates put it (Origin to Origin) when that is within `MAX_COORD`. A scan
+to Center), and with `origin: file` where the file's coordinates put it (Origin to Origin) when that is within `MAX_COORD`, or with `origin: map` where the project's georeference puts the file's map
+coordinates (Revit's By Shared Coordinates): its middle `Georeference::to_model`, its height less the orthogonal height, turned by the
+rotation ([IFC exchange](ifc-exchange.md)). A scan
 that nothing places any more goes after the command that left it so (`Model::unplaced_clouds`, in `Session::execute`), and undo
 brings it back with its element. Insert from File brings the scan with the element. IFC export leaves scans out.
 

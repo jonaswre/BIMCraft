@@ -769,8 +769,8 @@ impl<'a> Reader<'a> {
     }
 }
 
-/// The project's length unit in mm, and its plane angle unit in radians.
-fn units(f: &File) -> Result<(f64, f64), String> {
+/// A unit's kind, and its size in SI base units (metres, radians).
+fn unit_of(f: &File, id: Option<u64>, depth: usize) -> Option<(String, f64)> {
     fn si(prefix: Option<&str>) -> f64 {
         match prefix {
             Some("EXA") => 1e18,
@@ -789,27 +789,91 @@ fn units(f: &File) -> Result<(f64, f64), String> {
             _ => 1.0,
         }
     }
-    // A unit's kind, and its size in SI base units (metres, radians).
-    fn unit(f: &File, id: Option<u64>, depth: usize) -> Option<(String, f64)> {
-        let e = f.entities.get(&id?)?;
-        let kind = enumeration(e.args.get(1)).unwrap_or("").to_string();
-        match e.name.as_str() {
-            "IFCSIUNIT" => Some((kind, si(enumeration(e.args.get(2))))),
-            "IFCCONVERSIONBASEDUNIT" | "IFCCONVERSIONBASEDUNITWITHOFFSET" if depth < 8 => {
-                let measure = f.entities.get(&reference(e.args.get(3))?)?;
-                let (_, base) = unit(f, reference(measure.args.get(1)), depth + 1)?;
-                Some((kind, real(measure.args.first())? * base))
-            }
-            _ => None,
+    let e = f.entities.get(&id?)?;
+    let kind = enumeration(e.args.get(1)).unwrap_or("").to_string();
+    match e.name.as_str() {
+        "IFCSIUNIT" => Some((kind, si(enumeration(e.args.get(2))))),
+        "IFCCONVERSIONBASEDUNIT" | "IFCCONVERSIONBASEDUNITWITHOFFSET" if depth < 8 => {
+            let measure = f.entities.get(&reference(e.args.get(3))?)?;
+            let (_, base) = unit_of(f, reference(measure.args.get(1)), depth + 1)?;
+            Some((kind, real(measure.args.first())? * base))
+        }
+        _ => None,
+    }
+}
+
+/// Where a file's project stands on the earth: its context's map conversion to a projected CRS (its lengths in the map's
+/// unit, or the project's over the conversion's scale), its true north, and its site's latitude, longitude and elevation;
+/// none where it says nothing of it. `mm` the size of the project's length unit; `shift` how far the model was moved
+/// (`Reader::shift`), which moves its origin on the map the other way.
+fn georeference(f: &File, ids: &[u64], mm: f64, shift: P2) -> Option<crate::georef::Georeference> {
+    use crate::georef::Georeference;
+    let e = |id: u64| f.entities.get(&id);
+    let first = |name: &str| ids.iter().filter_map(|id| e(*id)).find(|x| x.name == name);
+    let mut g = Georeference::default();
+    if let Some(c) = first("IFCMAPCONVERSION") {
+        let crs = reference(c.args.get(1)).and_then(e).filter(|x| x.name == "IFCPROJECTEDCRS");
+        let said = |i: usize| crs.and_then(|x| text(x.args.get(i))).map(clip).unwrap_or_default();
+        let scale = real(c.args.get(7)).filter(|s| *s > 0.0).unwrap_or(1.0);
+        let map_mm = crs
+            .and_then(|x| unit_of(f, reference(x.args.get(6)), 0))
+            .filter(|(kind, _)| kind == "LENGTHUNIT")
+            .map_or(mm / scale, |(_, size)| size * 1000.0);
+        let at = |i: usize| real(c.args.get(i)).unwrap_or(0.0) * map_mm;
+        let (a, o) = (real(c.args.get(5)).unwrap_or(1.0), real(c.args.get(6)).unwrap_or(0.0));
+        let (a, o) = if a.hypot(o) > 1e-12 { (a, o) } else { (1.0, 0.0) };
+        g.crs = said(0);
+        if g.crs.is_empty() {
+            g.crs = "unnamed".into();
+        }
+        (g.geodetic_datum, g.vertical_datum, g.map_projection, g.map_zone) = (said(2), said(3), said(4), said(5));
+        g.rotation = Georeference::rotation_of(a, o);
+        // The model's origin moved by `shift`: on the map, where that point was.
+        let x = g.x_axis();
+        let moved = P2(shift.0 * x.0 - shift.1 * x.1, shift.0 * x.1 + shift.1 * x.0);
+        (g.eastings, g.northings, g.orthogonal_height) = (at(2) + moved.0, at(3) + moved.1, at(4));
+    }
+    let north = ids
+        .iter()
+        .filter_map(|id| e(*id))
+        .filter(|x| x.name == "IFCGEOMETRICREPRESENTATIONCONTEXT")
+        .find_map(|x| reference(x.args.get(5)).and_then(e))
+        .map(|d| list(d.args.first()).iter().filter_map(|v| real(Some(v))).collect::<Vec<f64>>());
+    if let Some([x, y, ..]) = north.as_deref()
+        && x.hypot(*y) > 1e-12
+    {
+        let t = Georeference::turned_from(P2(*x, *y));
+        // Grid north standing for true north stays so.
+        if !(g.mapped() && (t - g.rotation).abs() < 1e-6) && (g.mapped() || t != 0.0) {
+            g.true_north = Some(t);
         }
     }
+    if let Some(site) = first("IFCSITE") {
+        let angle = |i: usize| {
+            let parts: Vec<i64> = list(site.args.get(i))
+                .iter()
+                .filter_map(|v| match v {
+                    V::Int(n) => Some(*n),
+                    _ => None,
+                })
+                .collect();
+            crate::georef::degrees(&parts)
+        };
+        (g.latitude, g.longitude) = (angle(9), angle(10));
+        g.elevation = real(site.args.get(11)).map(|z| z * mm);
+    }
+    (!g.is_empty()).then_some(g)
+}
+
+/// The project's length unit in mm, and its plane angle unit in radians.
+fn units(f: &File) -> Result<(f64, f64), String> {
     // The first project, the one the name comes from.
     let projects = f.entities.iter().filter(|(_, e)| e.name == "IFCPROJECT");
     let (_, project) = projects.min_by_key(|(id, _)| **id).ok_or("it has no IfcProject")?;
     let assignment = reference(project.args.get(8)).and_then(|a| f.entities.get(&a));
     let (mut mm, mut rad) = (1.0, 1.0);
     for u in refs(assignment.and_then(|a| a.args.first())) {
-        match unit(f, Some(u), 0) {
+        match unit_of(f, Some(u), 0) {
             Some((kind, size)) if kind == "LENGTHUNIT" => mm = size * 1000.0,
             Some((kind, size)) if kind == "PLANEANGLEUNIT" => rad = size,
             _ => {}
@@ -1354,6 +1418,13 @@ pub fn ifc(bytes: &[u8], name: &str) -> Result<Imported, String> {
     m.elements.clear();
     m.next_id = FIRST_ID;
     let (mut skipped, mut seen): (Vec<String>, HashSet<u64>) = (Vec::new(), HashSet::new());
+    // Where it stands on the earth, unless that breaks a rule.
+    if let Some(g) = georeference(&file, &ids, mm, shift) {
+        match g.check() {
+            Ok(()) => m.georeference = Some(g),
+            Err(why) => skipped.push(format!("the georeference: {why}")),
+        }
+    }
     // Each element made, and what it was in the file.
     let mut from: HashMap<Id, String> = HashMap::new();
     // The first element made of each in the file, which takes its GlobalId for its GUID.
@@ -2437,12 +2508,13 @@ pub fn ifc(bytes: &[u8], name: &str) -> Result<Imported, String> {
         seen.insert(id);
     }
 
-    // Grids: each axis a grid line.
+    // Grids: each axis a grid line; an axis a grid repeats (as BIMCraft writes a lone grid, in U and in V), once.
     let mut grid_names = BTreeSet::new();
     for id in named(&["IFCGRID"]) {
         let Some(g) = e(id) else { continue };
         let f = r.frame(g);
         seen.insert(id);
+        let mut lines: Vec<(Option<&str>, P2, P2)> = Vec::new();
         for axis in [7, 8, 9].into_iter().flat_map(|i| refs(g.args.get(i))).filter_map(&e) {
             let Some(pts) = r.curve(reference(axis.args.get(1)), 0) else { continue };
             let (Some(p), Some(q)) = (pts.first(), pts.last()) else { continue };
@@ -2450,6 +2522,11 @@ pub fn ifc(bytes: &[u8], name: &str) -> Result<Imported, String> {
             if enumeration(axis.args.get(2)) == Some("F") {
                 (start, end) = (end, start);
             }
+            let line = (text(axis.args.first()), start, end);
+            if lines.iter().any(|(t, a, b)| *t == line.0 && (a.dist(start) + b.dist(end) < TOL || a.dist(end) + b.dist(start) < TOL)) {
+                continue;
+            }
+            lines.push(line);
             let tag = text(axis.args.first()).map_or_else(|| next_number(grid_names.iter().map(String::as_str)), String::from);
             let gid = m.insert(Element::Grid(Grid { name: fresh(&mut grid_names, &tag), start, end }));
             from.insert(gid, who(id));
@@ -3152,9 +3229,9 @@ ENDSEC;END-ISO-10303-21;",
             s.execute("modify", &json!({"id": id, "params": values})).unwrap();
         }
         let file = crate::ifc::export(&s.model);
-        // One set of the project's parameters for each element holding values, besides each wall's own `BIMCraft_Wall`.
-        assert_eq!(file.matches("IFCRELDEFINESBYPROPERTIES(").count(), 4 + 4);
-        assert_eq!(file.matches("'Project Parameters'").count(), 4);
+        // One set of the project's parameters for each element holding values (each wall has its own `BIMCraft_Wall` set and
+        // its base quantities besides, so the links are not counted here).
+        assert_eq!(file.matches("'Project Parameters'").count(), 4, "a set for each element holding a value");
         assert!(file.contains("IFCPROPERTYSINGLEVALUE('Finish Height',$,IFCLENGTHMEASURE(2400.),$)"), "{file}");
         assert!(file.contains("IFCPROPERTYSINGLEVALUE('Accessible',$,IFCBOOLEAN(.T.),$)"));
         let i = ifc(file.as_bytes(), "x").unwrap();

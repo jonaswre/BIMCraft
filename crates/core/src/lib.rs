@@ -18,6 +18,7 @@ pub mod favorites;
 mod fixtures;
 mod font;
 pub mod geom;
+pub mod georef;
 pub mod graphics;
 pub mod ids;
 pub mod ifc;
@@ -51,6 +52,8 @@ pub mod walls;
 
 pub use commands::{command_of, element_json, floor_outline, opening_of, roof_footprint, run_category_of, runs_of, stood_of};
 
+#[cfg(test)]
+mod ifc_exchange_tests;
 #[cfg(test)]
 mod lettering_tests;
 #[cfg(test)]
