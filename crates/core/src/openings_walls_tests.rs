@@ -125,3 +125,29 @@ fn stacked_openings_are_each_cut_drawn_and_exported() {
     let windows = run(&mut s, "elements", json!({"category": "window"}));
     assert_eq!((doors["elements"].as_array().unwrap().len(), windows["elements"].as_array().unwrap().len()), (1, 1));
 }
+
+#[test]
+fn a_window_at_a_point_finds_a_wall_raised_above_the_plan_cut() {
+    // Given a wall standing 7.2 m above its level, 3 m tall
+    let mut s = Session::new();
+    let level = first_level(&s);
+    let raised = run(&mut s, "wall", json!({"points": [[0, 0], [10000, 0]], "level": level, "base_offset": 7200, "height": 3000}))["ids"]
+        [0]
+    .as_u64()
+    .unwrap();
+    // When a window is placed at a point on its line, on either face, or inside it
+    for (k, at) in [[2000, 0], [4000, 100], [6000, -100], [8000, 50]].into_iter().enumerate() {
+        let w = s.execute("window", &json!({"at": at, "level": level, "mark": format!("R{k}")}));
+        // Then it goes in that wall
+        let w = w.unwrap_or_else(|e| panic!("{at:?}: {e}"));
+        assert_eq!(w["host"].as_u64(), Some(raised), "{at:?}");
+    }
+    // And a low parapet, below the cut, is found too
+    let parapet =
+        run(&mut s, "wall", json!({"points": [[0, 5000], [10000, 5000]], "level": level, "height": 900}))["ids"][0].as_u64().unwrap();
+    let w = run(&mut s, "window", json!({"at": [5000, 5000], "level": level, "sill": 0, "type": "Fixed 600 x 900"}));
+    assert_eq!(w["host"].as_u64(), Some(parapet));
+    // But far from any wall, it says so
+    let e = s.execute("window", &json!({"at": [5000, 2500], "level": level})).unwrap_err();
+    assert!(e.contains("no wall at [5000, 2500]"), "{e}");
+}
