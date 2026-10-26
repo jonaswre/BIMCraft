@@ -315,6 +315,18 @@ floor {}
 roof {}
 ```
 
+A line can point at what an earlier one made. Name a line `@name = command {…}`, and a later line's params can say
+`"@name"` for the id it returned; `"$last"` is the line before's, `"$-2"` the one before that; a path picks a field of the
+reply, as `"@box.ids.1"` for the second wall a `wall` line made. A reference is a whole string; to write one that starts with
+`@` or `$` as text, double the character (`"@@home"` is `@home`).
+
+```text
+@gable = wall {"points": [[19290,0],[0,0]], "height": 7000}
+level {"elevation": 7200, "name": "Roof"}
+@hall = roof {"level": "Roof", "boundary": [[0,0],[19290,0],[19290,40480],[0,40480]], "slope": 5, "gables": [0,1,2]}
+modify {"id": "@gable.ids.0", "attach_top": "@hall"}
+```
+
 A script stops at its first failing line and names it. Through MCP, `script {"text": …, "atomic": true}` runs it all or nothing:
 a line that fails takes back the lines before it, and one that goes through is a single undo step.
 

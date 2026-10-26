@@ -15,7 +15,8 @@ use serde_json::{Value, json};
 const USAGE: &str = "USAGE:
   bimcraft-cli run [FILE] [--sample | --highrise] [--cmd 'ID {json}']… [--script FILE]… [--save PATH]…
       Open FILE (a .bimcraft project, or an .ifc or Revit .rvt file to import) or start empty, then in order: build the sample house, run
-      commands and scripts (one `ID {json}` per line), save. --save writes by extension:
+      commands and scripts (one `ID {json}` per line; `@name = ID {json}` names one, and @name, $last or
+      $-2 (as JSON strings) in a later line's params is the id it returned), save. --save writes by extension:
       .bimcraft (the project), .ifc (IFC4), .svg or .png (the lowest level's plan).
       --highrise builds an original 20-storey performance sample (about 10,000 elements).
   bimcraft-cli info FILE         levels, element counts, types and warnings of a project or an IFC file; of a Revit .rvt or
