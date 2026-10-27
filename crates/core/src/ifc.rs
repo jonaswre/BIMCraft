@@ -62,6 +62,9 @@ const QUANTITIES: u64 = 51;
 const QUANTITY_DEFINES: u64 = 52;
 const WALLED: u64 = 53;
 const WALLED_DEFINES: u64 = 54;
+const PROFILE_MATERIALS: u64 = 55;
+const DOOR_TYPE: u64 = 56;
+const DOOR_TYPED: u64 = 57;
 
 /// The property set an element's values of the project's parameters go in.
 pub const PARAMETERS: &str = "Project Parameters";
@@ -200,6 +203,42 @@ fn prism_volume(ring: &[P2], bottom: &walls::Plane, top: &walls::Plane) -> f64 {
 /// The area of a section `width` by `depth`, or round `width` across.
 fn section_area(width: f64, depth: f64, round: bool) -> f64 {
     if round { std::f64::consts::PI * width * width / 4.0 } else { width * depth }
+}
+
+/// A name folded to 64 bits (FNV-1a), to seed the GlobalIds of what it names.
+fn name_key(name: &str) -> u64 {
+    name.bytes().fold(0xcbf2_9ce4_8422_2325_u64, |h, b| (h ^ u64::from(b)).wrapping_mul(0x0100_0000_01b3))
+}
+
+/// A steel type's section as written: its profile, its material profile set, and the members that use them.
+struct Section {
+    profile: u64,
+    set: u64,
+    members: Vec<u64>,
+}
+
+/// The profile of steel type `key` (its category and name), written with its material profile set the first time it is
+/// asked for: the profile named for its catalogue section, else for its type; the set of that profile in `material` (one of
+/// the library's), or in none.
+fn steel_section(
+    w: &mut Step,
+    m: &Model,
+    sections: &mut BTreeMap<(String, String), Section>,
+    key: &(String, String),
+    p: &crate::model::Profile,
+    size: (f64, f64),
+    material: &str,
+) -> u64 {
+    if let Some(done) = sections.get(key) {
+        return done.profile;
+    }
+    let name = if p.name.is_empty() { key.1.as_str() } else { p.name.as_str() };
+    let profile = w.section(p, name, size);
+    let made_of = if material.trim().is_empty() { "$".to_string() } else { format!("#{}", w.material(m, material.trim())) };
+    let part = w.add(format!("IFCMATERIALPROFILE({},$,{made_of},#{profile},$,$)", s(name)));
+    let set = w.add(format!("IFCMATERIALPROFILESET({},$,(#{part}),$)", s(&key.1)));
+    sections.insert(key.clone(), Section { profile, set, members: Vec::new() });
+    profile
 }
 
 fn refs(ids: &[u64]) -> String {
@@ -373,6 +412,28 @@ impl Step {
         let c = self.point(centre);
         let at = self.add(format!("IFCAXIS2PLACEMENT2D(#{c},$)"));
         self.add(format!("IFCRECTANGLEPROFILEDEF(.AREA.,$,#{at},{},{})", real(size.0), real(size.1)))
+    }
+
+    /// A steel section `width` by `depth` as IFC's parameterized profile of its shape, named `name`, centred on the box round
+    /// it, as BIMCraft's are.
+    fn section(&mut self, p: &crate::model::Profile, name: &str, (width, depth): (f64, f64)) -> u64 {
+        use crate::profiles::Shape;
+        let c = self.point(P2(0.0, 0.0));
+        let at = self.add(format!("IFCAXIS2PLACEMENT2D(#{c},$)"));
+        let name = if name.is_empty() { "$".to_string() } else { s(name) };
+        let radius = if p.radius > 0.0 { real(p.radius) } else { "$".into() };
+        let (w, d) = (real(width), real(depth));
+        self.add(match p.shape {
+            Shape::I => {
+                format!("IFCISHAPEPROFILEDEF(.AREA.,{name},#{at},{w},{d},{},{},{radius},$,$)", real(p.web), real(p.flange))
+            }
+            Shape::U => {
+                format!("IFCUSHAPEPROFILEDEF(.AREA.,{name},#{at},{d},{w},{},{},{radius},$,$)", real(p.web), real(p.flange))
+            }
+            Shape::L => format!("IFCLSHAPEPROFILEDEF(.AREA.,{name},#{at},{d},{w},{},{radius},$,$)", real(p.thickness)),
+            Shape::Rhs => format!("IFCRECTANGLEHOLLOWPROFILEDEF(.AREA.,{name},#{at},{w},{d},{},$,$)", real(p.thickness)),
+            Shape::Chs => format!("IFCCIRCLEHOLLOWPROFILEDEF(.AREA.,{name},#{at},{},{})", real(width / 2.0), real(p.thickness)),
+        })
     }
 
     /// A profile around `outer`, less `holes`.
@@ -637,6 +698,9 @@ pub fn export(m: &Model) -> String {
     let mut wholes: BTreeMap<Id, (u64, u64, f64, Vec<u64>)> = BTreeMap::new();
     // The runs in each system, by its name, for the IfcSystem they are assigned to.
     let mut systems: BTreeMap<&str, Vec<u64>> = BTreeMap::new();
+    // Each steel type's section, written once, by category and type name: the profile its members sweep and the material
+    // profile set they use.
+    let mut sections: BTreeMap<(String, String), Section> = BTreeMap::new();
     for (&id, e) in &m.elements {
         match e {
             Element::Wall(wl) => {
@@ -858,7 +922,11 @@ pub fn export(m: &Model) -> String {
                 let (Some(&(_, storey)), Some(t)) = (storeys.get(&col.level), m.column_type(e)) else { continue };
                 let (bottom, top) = m.span(col.level, col.base_offset, col.top_level, col.height);
                 let at = w.place(Some(storey), (col.at.0, col.at.1, col.base_offset), Some(heading(col.angle)));
-                let profile = if t.round {
+                let key = ("structuralcolumn".to_string(), col.type_name.clone());
+                let steel = t.profile.as_ref().map(|p| steel_section(&mut w, m, &mut sections, &key, p, (t.width, t.depth), ""));
+                let profile = if let Some(profile) = steel {
+                    profile
+                } else if t.round {
                     let c = w.point(P2(0.0, 0.0));
                     let centre = w.add(format!("IFCAXIS2PLACEMENT2D(#{c},$)"));
                     w.add(format!("IFCCIRCLEPROFILEDEF(.AREA.,$,#{centre},{})", real(t.width / 2.0)))
@@ -876,12 +944,15 @@ pub fn export(m: &Model) -> String {
                 ));
                 contained.entry(col.level).or_default().push(ent);
                 products.insert(id, ent);
+                if let Some(section) = sections.get_mut(&key).filter(|_| steel.is_some()) {
+                    section.members.push(ent);
+                }
                 match e {
                     Element::StructuralColumn(_) => w.load_bearing(ent, "Pset_ColumnCommon", id),
                     Element::Footing(_) => w.load_bearing(ent, "Pset_FootingCommon", id),
                     _ => {}
                 }
-                let (section, length) = (section_area(t.width, t.depth, t.round), top - bottom);
+                let (section, length) = (t.profile.as_ref().map_or_else(|| section_area(t.width, t.depth, t.round), |p| p.area(t.width, t.depth)), top - bottom);
                 if matches!(e, Element::Footing(_)) {
                     let width = if t.round { t.width } else { t.depth };
                     w.quantities(
@@ -921,7 +992,11 @@ pub fn export(m: &Model) -> String {
                 // Placed at the start of its centre line; its section's x across it, level, its y up.
                 let at = w.place(Some(storey), (g.a[0], g.a[1], g.a[2] - m.elevation(r.level)), None);
                 let across = if g.vertical() { [1.0, 0.0, 0.0] } else { crate::view3d::unit([-axis[1], axis[0], 0.0]) };
-                let profile = if g.round {
+                let key = (e.category().to_string(), r.type_name.clone());
+                let steel = t.profile.as_ref().map(|p| steel_section(&mut w, m, &mut sections, &key, p, (t.width, t.depth), &t.material));
+                let profile = if let Some(profile) = steel {
+                    profile
+                } else if g.round {
                     let c = w.point(P2(0.0, 0.0));
                     let centre = w.add(format!("IFCAXIS2PLACEMENT2D(#{c},$)"));
                     w.add(format!("IFCCIRCLEPROFILEDEF(.AREA.,$,#{centre},{})", real(g.width / 2.0)))
@@ -943,7 +1018,7 @@ pub fn export(m: &Model) -> String {
                     Element::StripFooting(_) => w.load_bearing(ent, "Pset_FootingCommon", id),
                     _ => {}
                 }
-                let (section, length) = (section_area(g.width, g.depth, g.round), g.length());
+                let (section, length) = (t.profile.as_ref().map_or_else(|| section_area(g.width, g.depth, g.round), |p| p.area(g.width, g.depth)), g.length());
                 match e {
                     Element::Beam(_) => w.quantities(
                         ent,
@@ -971,7 +1046,10 @@ pub fn export(m: &Model) -> String {
                     ),
                     _ => {}
                 }
-                if !t.material.is_empty() {
+                                // A steel section's material is its type's profile set's, which its members use together.
+                if let Some(section) = sections.get_mut(&key).filter(|_| steel.is_some()) {
+                    section.members.push(ent);
+                } else if !t.material.is_empty() {
                     let material = w.material(m, &t.material);
                     w.add(format!("IFCRELASSOCIATESMATERIAL({},$,$,$,(#{ent}),#{material})", w.guid(RUN_MATERIALS, id)));
                 }
@@ -1175,6 +1253,8 @@ pub fn export(m: &Model) -> String {
             w.add(format!("IFCRELVOIDSELEMENT({},$,$,$,#{ent},#{opening})", w.guid(SHAFT_VOIDS, key)));
         }
     }
+    // The doors of each of the project's own door types, for the IfcDoorType that defines them.
+    let mut door_types: BTreeMap<&str, Vec<u64>> = BTreeMap::new();
     for (&id, e) in &m.elements {
         let (Element::Door(o) | Element::Window(o)) = e else { continue };
         let (Some(t), Some(wl), Some(&(wall, wall_at))) =
@@ -1218,21 +1298,38 @@ pub fn export(m: &Model) -> String {
                 let rep = w.add(format!("IFCSHAPEREPRESENTATION(#{},'Body','Tessellation',({}))", w.body, refs(&items)));
                 (w.place(Some(at), (t.width / 2.0, 0.0, 0.0), None), w.add(format!("IFCPRODUCTDEFINITIONSHAPE($,$,(#{rep}))")))
             }
+            // A project's own type: its kind's parts (a door's leaves, rails, coil box…; a window's glass), each a box.
             None => {
-                let profile = w.rectangle(P2(t.width / 2.0, 0.0), P2(t.width, 50.0));
-                (w.place(Some(at), (0.0, 0.0, 0.0), None), w.body(profile, 0.0, t.height, &[]))
+                let operation = if matches!(e, Element::Door(_)) { t.operation } else { crate::doors::Operation::Swing };
+                let solids: Vec<(u64, f64, f64)> = m
+                    .door_parts(o, &t, wl, operation)
+                    .iter()
+                    .map(|p| {
+                        let centre = P2((p.along.0 + p.along.1) / 2.0 + t.width / 2.0, (p.across.0 + p.across.1) / 2.0);
+                        let size = P2(p.along.1 - p.along.0, p.across.1 - p.across.0);
+                        (w.rectangle(centre, size), p.z.0, p.z.1 - p.z.0)
+                    })
+                    .collect();
+                (w.place(Some(at), (0.0, 0.0, 0.0), None), w.bodies(&solids, &[]))
             }
         };
         let (h, wd) = (real(t.height), real(t.width));
         // Named `Family:Type` as Revit names them; a project's own type, by its name.
         let name = s(&o.family.as_ref().map_or_else(|| o.type_name.clone(), |f| format!("{f}:{}", o.type_name)));
         let ent = if matches!(e, Element::Door(_)) {
-            let swing = if o.flip_hand { ".SINGLE_SWING_RIGHT." } else { ".SINGLE_SWING_LEFT." };
-            w.add(format!(
-                "IFCDOOR({},$,{name},$,{name},#{fill_at},#{shape},{},{h},{wd},.DOOR.,{swing},$)",
+            // How it opens: a family's door as a swing door; a project type's as its kind does.
+            let kind = if o.family.is_some() { crate::doors::Operation::Swing } else { t.operation };
+            let (operation, user) = kind.ifc(o.flip_hand);
+            let ent = w.add(format!(
+                "IFCDOOR({},$,{name},$,{name},#{fill_at},#{shape},{},{h},{wd},.DOOR.,{operation},{})",
                 w.guid(ELEMENT, id),
-                s(&o.mark)
-            ))
+                s(&o.mark),
+                user.map_or_else(|| "$".to_string(), s)
+            ));
+            if o.family.is_none() {
+                door_types.entry(o.type_name.as_str()).or_default().push(ent);
+            }
+            ent
         } else {
             w.add(format!(
                 "IFCWINDOW({},$,{name},$,{name},#{fill_at},#{shape},{},{h},{wd},.WINDOW.,.SINGLE_PANEL.,$)",
@@ -1267,6 +1364,17 @@ pub fn export(m: &Model) -> String {
         }
         contained.entry(wl.level).or_default().push(ent);
         products.insert(id, ent);
+    }
+    // Each door type used, of its kind's operation (as hung on its start's jamb: each door says its own hand).
+    for (name, doors) in &door_types {
+        let Some(t) = m.types.door.get(*name) else { continue };
+        let guid = m.library.guid(&crate::library::Kind::Type("door".into()), name);
+        let key = guid.map_or_else(|| name_key(name), fold);
+        let global = guid.map_or_else(|| w.guid(DOOR_TYPE, key), |g| s(&compress(g.as_u128())));
+        let (operation, user) = t.operation.ifc(false);
+        let user = user.map_or_else(|| "$".to_string(), s);
+        let kind = w.add(format!("IFCDOORTYPE({global},$,{},$,$,$,$,$,$,.DOOR.,{operation},.F.,{user})", s(name)));
+        w.add(format!("IFCRELDEFINESBYTYPE({},$,$,$,({}),#{kind})", w.guid(DOOR_TYPED, key), refs(doors)));
     }
     // Compound types' layers: a layer set for each type used, each layer's material once, with its
     // colour for viewers to shade it in; for each wall type and line its walls stand on, the set's
@@ -1336,9 +1444,15 @@ pub fn export(m: &Model) -> String {
         let usage = w.add(format!("IFCMATERIALLAYERSETUSAGE(#{set},.AXIS2.,.NEGATIVE.,{offset},$)"));
         w.add(format!("IFCRELASSOCIATESMATERIAL({},$,$,$,({}),#{usage})", w.guid(MATERIALS, k as u64), refs(&ents)));
     }
+    // A steel type's members use its material profile set at their middle, the line their bodies are swept along.
+    for ((cat, name), section) in &sections {
+        let key = m.library.guid(&crate::library::Kind::Type(cat.clone()), name).map_or_else(|| name_key(&format!("{cat}/{name}")), fold);
+        let usage = w.add(format!("IFCMATERIALPROFILESETUSAGE(#{},5,$)", section.set));
+        w.add(format!("IFCRELASSOCIATESMATERIAL({},$,$,$,({}),#{usage})", w.guid(PROFILE_MATERIALS, key), refs(&section.members)));
+    }
     // A system is an IfcSystem its runs are assigned to; its GlobalIds follow its name, so they stay when another is added.
     for (name, members) in &systems {
-        let key = name.bytes().fold(0xcbf2_9ce4_8422_2325_u64, |h, b| (h ^ u64::from(b)).wrapping_mul(0x0100_0000_01b3));
+        let key = name_key(name);
         let system = w.add(format!("IFCSYSTEM({},$,{},$,$)", w.guid(SYSTEMS, key), s(name)));
         w.add(format!("IFCRELASSIGNSTOGROUP({},$,$,$,({}),$,#{system})", w.guid(SYSTEM_MEMBERS, key), refs(members)));
     }

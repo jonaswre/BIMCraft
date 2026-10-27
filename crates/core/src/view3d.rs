@@ -496,15 +496,30 @@ fn solids_in(m: &Model, elements: &[(Id, &Element)], index: Option<&walls::Index
             Element::Column(col) => {
                 out.push(slab(id, WALL, &m.column_outline(e), m.span(col.level, col.base_offset, col.top_level, col.height)))
             }
+            // A steel section's: its outline up its height, or a tube's pieces round its hole.
             Element::StructuralColumn(col) | Element::Footing(col) => {
-                out.push(slab(id, STRUCTURE, &m.column_outline(e), m.span(col.level, col.base_offset, col.top_level, col.height)))
+                let span = m.span(col.level, col.base_offset, col.top_level, col.height);
+                out.extend(m.column_pieces(e).iter().map(|ring| slab(id, STRUCTURE, ring, span)));
             }
-            // A rectangular run is a sloped prism, which a section cuts; a round one a tube, shown beyond its line.
+            // A rectangular run is a sloped prism, which a section cuts; a round one a tube, shown beyond its line; a steel
+            // section, its pieces swept along it, which a section cuts.
             crate::model::run_arm!(_) => {
                 if let (Some(t), Some(g)) = (m.run_type(e), m.run_geom(e)) {
                     let color = m.materials.get(&t.material).map_or(STRUCTURE, |x| Rgb(x.color[0], x.color[1], x.color[2]));
                     let tex = skin(m, &t.material);
-                    if g.round {
+                    let swept = t.profile.as_ref().map(|p| g.swept(&p.pieces(t.width, t.depth))).unwrap_or_default();
+                    if !swept.is_empty() {
+                        for piece in swept {
+                            out.push(match piece {
+                                crate::runs::Swept::Prism(ring, bottom, top) => {
+                                    Solid::Prism { owner: id, color, tex, ring, bottom, top, curve: None }
+                                }
+                                crate::runs::Swept::Mesh(tris, caps) => {
+                                    Solid::Mesh { owner: id, color, tex, tris, caps, round: false, cut: true }
+                                }
+                            });
+                        }
+                    } else if g.round {
                         let (tris, caps) = g.tube();
                         out.push(Solid::Mesh { owner: id, color, tex, tris, caps, round: true, cut: true });
                     } else {
@@ -604,8 +619,11 @@ fn solids_in(m: &Model, elements: &[(Id, &Element)], index: Option<&walls::Index
                     let axis = Axis::of(w);
                     let u = axis.tangent(o.offset);
                     let frame = Frame { o: axis.at(o.offset, walls::centre(m, w)), u, n: u.perp() };
-                    let a = (-t.width / 2.0, t.width / 2.0);
-                    out.push(Solid::Box { owner: id, color, tex: 0, frame, a, c: (-25.0, 25.0), z: (z, z + t.height) });
+                    // A door's parts as its kind has them; a window's glass, a panel as a swing door's leaf is.
+                    let operation = if matches!(e, Element::Door(_)) { t.operation } else { crate::doors::Operation::Swing };
+                    for p in m.door_parts(o, &t, w, operation) {
+                        out.push(Solid::Box { owner: id, color, tex: 0, frame, a: p.along, c: p.across, z: (z + p.z.0, z + p.z.1) });
+                    }
                 }
             }
             _ => {}
