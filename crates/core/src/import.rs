@@ -20,8 +20,8 @@ use crate::library::Kind;
 use crate::model::{
     Ceiling, CeilingType, Column, ColumnType, Component, Element, Extrusion, FIRST_ID, Floor, FloorType, Function, Grid, Guid, Id, Justify,
     Landing, Layer, Level, Location, MAX_COORD, MAX_LAYERS, MAX_POINTS, MAX_PROJECT_PARAMETERS, MAX_TEXT, Mass, Model, Opening,
-    OpeningType, PARAMETER_CATEGORIES, ParameterKind, ProjectParameter, PropertyLine, Railing, RailingType, Ramp, Roof, RoofType,
-    Room, RoomSeparator, Run, RunType, Shaft, Side, Stair, TOL, Topography, Wall, WallType, culprit, heading,
+    OpeningType, PARAMETER_CATEGORIES, ParameterKind, ProjectParameter, PropertyLine, Railing, RailingType, Ramp, Roof, RoofType, Room,
+    RoomSeparator, Run, RunType, Shaft, Side, Stair, TOL, Topography, Wall, WallType, culprit, heading,
 };
 use crate::phasing;
 use crate::stairs;

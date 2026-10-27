@@ -371,6 +371,27 @@ mod quantities {
     }
 
     #[test]
+    fn steel_members_carry_their_sections_true_area_not_their_boxes() {
+        // Given an IPE 300 beam and an HEB 300 column from the steel catalogue.
+        let mut s = Session::new();
+        let beam = id(&run(&mut s, "beam", json!({"points": [[0, 0], [6000, 0]], "type": "IPE 300", "offset": 3000})));
+        let column = id(&run(&mut s, "structural_column", json!({"at": [0, 3000], "type": "HEB 300"})));
+
+        // When it is saved as IFC.
+        let (_, text) = save_ifc(&mut s, "steel-qto.ifc");
+        let f = Step::of(&text);
+
+        // Then their cross-section areas (m²) are the sections' (EN 10365: IPE 300 53.81 cm², HEB 300 149.1 cm²), not the
+        // boxes round them, and the beam's volume follows.
+        let (name, q) = qto(&f, of(&f, "IFCBEAM", beam));
+        assert_eq!(name, "Qto_BeamBaseQuantities");
+        check(&q, "CrossSectionArea", 0.005381, 2e-6);
+        check(&q, "GrossVolume", 0.005381 * 6.0, 2e-5);
+        let (_, q) = qto(&f, of(&f, "IFCCOLUMN", column));
+        check(&q, "CrossSectionArea", 0.01491, 2e-5);
+    }
+
+    #[test]
     fn columns_beams_and_roofs_carry_their_base_quantities() {
         let mut s = Session::new();
         let column = id(&run(&mut s, "structural_column", json!({"at": [0, 0]})));

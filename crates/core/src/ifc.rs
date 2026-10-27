@@ -1025,7 +1025,10 @@ pub fn export(m: &Model) -> String {
                     Element::Footing(_) => w.load_bearing(ent, "Pset_FootingCommon", id),
                     _ => {}
                 }
-                let (section, length) = (t.profile.as_ref().map_or_else(|| section_area(t.width, t.depth, t.round), |p| p.area(t.width, t.depth)), top - bottom);
+                let (section, length) = (
+                    t.profile.as_ref().map_or_else(|| section_area(t.width, t.depth, t.round), |p| p.area(t.width, t.depth)),
+                    top - bottom,
+                );
                 if matches!(e, Element::Footing(_)) {
                     let width = if t.round { t.width } else { t.depth };
                     w.quantities(
@@ -1091,7 +1094,8 @@ pub fn export(m: &Model) -> String {
                     Element::StripFooting(_) => w.load_bearing(ent, "Pset_FootingCommon", id),
                     _ => {}
                 }
-                let (section, length) = (t.profile.as_ref().map_or_else(|| section_area(g.width, g.depth, g.round), |p| p.area(g.width, g.depth)), g.length());
+                let (section, length) =
+                    (t.profile.as_ref().map_or_else(|| section_area(g.width, g.depth, g.round), |p| p.area(g.width, g.depth)), g.length());
                 match e {
                     Element::Beam(_) => w.quantities(
                         ent,
@@ -1119,7 +1123,7 @@ pub fn export(m: &Model) -> String {
                     ),
                     _ => {}
                 }
-                                // A steel section's material is its type's profile set's, which its members use together.
+                // A steel section's material is its type's profile set's, which its members use together.
                 if let Some(section) = sections.get_mut(&key).filter(|_| steel.is_some()) {
                     section.members.push(ent);
                 } else if !t.material.is_empty() {
