@@ -91,6 +91,8 @@ const WORDS: &[[&str; 3]] = &[
     ["Unnamed", "Sem nome", "Sin nombre"],
     ["Room", "Ambiente", "Habitación"],
     ["Mass", "Massa", "Masa"],
+    ["Property Line", "Linha de divisa", "Lindero"],
+    ["Topography", "Topografia", "Topografía"],
     ["Room Schedule", "Tabela de ambientes", "Tabla de habitaciones"],
     ["Door Schedule", "Tabela de portas", "Tabla de puertas"],
     ["Window Schedule", "Tabela de janelas", "Tabla de ventanas"],

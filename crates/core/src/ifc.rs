@@ -65,6 +65,12 @@ const WALLED_DEFINES: u64 = 54;
 const PROFILE_MATERIALS: u64 = 55;
 const DOOR_TYPE: u64 = 56;
 const DOOR_TYPED: u64 = 57;
+const PLOT_PROPERTIES: u64 = 60;
+const PLOT_DEFINES: u64 = 61;
+const PLOT_NAMES: u64 = 62;
+const PLOT_NAMES_DEFINES: u64 = 63;
+const SITE_CONTAINS: u64 = 64;
+const TERRAIN_MATERIALS: u64 = 65;
 
 /// The property set an element's values of the project's parameters go in.
 pub const PARAMETERS: &str = "Project Parameters";
@@ -80,6 +86,8 @@ pub const LOFT: &str = "BIMCraft_Mass";
 /// axis is its location line, and `Location` says which line of it that is (`centre`, `exterior-finish` and the like);
 /// `AttachTop` and `AttachBase` are the GlobalIds of the roof or floor.
 pub const WALL: &str = "BIMCraft_Wall";
+/// The property set on the site that names its property lines, in the order its footprint's curves are.
+pub const PROPERTY_LINES: &str = "BIMCraft_PropertyLines";
 
 /// The property set an element's phase and design option go in; on the project, its phases and design option sets.
 pub const PHASING: &str = "BIMCraft_Phasing";
@@ -662,7 +670,32 @@ pub fn export(m: &Model) -> String {
         geo.and_then(|g| g.elevation).map_or_else(|| "$".to_string(), real),
     );
     let site_at = w.place(None, (0.0, 0.0, 0.0), None);
-    let site = w.add(format!("IFCSITE({},$,'Site',$,$,#{site_at},$,$,.ELEMENT.,{lat},{long},{elevation},$,$)", w.guid(SITE, 0)));
+    // The property lines: the site's footprint, a closed curve each, as the plot's boundary (and their area its TotalArea).
+    let plots: Vec<&crate::model::PropertyLine> =
+        m.elements.values().filter_map(|e| if let Element::PropertyLine(pl) = e { Some(pl) } else { None }).collect();
+    let footprint = if plots.is_empty() {
+        "$".to_string()
+    } else {
+        let plan = w.add(format!("IFCGEOMETRICREPRESENTATIONSUBCONTEXT('FootPrint','Model',*,*,*,*,#{ctx},$,.PLAN_VIEW.,$)"));
+        let curves: Vec<u64> = plots
+            .iter()
+            .map(|pl| {
+                let pts: Vec<u64> = pl.points.iter().chain(pl.points.first()).map(|p| w.point(*p)).collect();
+                w.add(format!("IFCPOLYLINE(({}))", refs(&pts)))
+            })
+            .collect();
+        let rep = w.add(format!("IFCSHAPEREPRESENTATION(#{plan},'FootPrint','Curve2D',({}))", refs(&curves)));
+        format!("#{}", w.add(format!("IFCPRODUCTDEFINITIONSHAPE($,$,(#{rep}))")))
+    };
+    let site = w.add(format!("IFCSITE({},$,'Site',$,$,#{site_at},{footprint},$,.ELEMENT.,{lat},{long},{elevation},$,$)", w.guid(SITE, 0)));
+    if !plots.is_empty() {
+        let total: f64 = plots.iter().map(|pl| geom::area(&pl.points).abs()).sum::<f64>() / 1e6;
+        let area = w.add(format!("IFCPROPERTYSINGLEVALUE('TotalArea',$,IFCAREAMEASURE({}),$)", real((total * 100.0).round() / 100.0)));
+        w.define(site, "Pset_SiteCommon", &[area], (PLOT_PROPERTIES, PLOT_DEFINES), 0);
+        let names: Vec<String> = plots.iter().map(|pl| format!("IFCLABEL({})", s(&pl.name))).collect();
+        let list = w.add(format!("IFCPROPERTYLISTVALUE('Names',$,({}),$)", names.join(",")));
+        w.define(site, PROPERTY_LINES, &[list], (PLOT_NAMES, PLOT_NAMES_DEFINES), 0);
+    }
     let building_at = w.place(Some(site_at), (0.0, 0.0, 0.0), None);
     let building = w.add(format!("IFCBUILDING({},$,{},$,$,#{building_at},$,$,.ELEMENT.,$,$,$)", w.guid(BUILDING, 0), s(&m.name)));
     w.add(format!("IFCRELAGGREGATES({},$,$,$,#{project},(#{site}))", w.guid(AGGREGATES, PROJECT)));
@@ -688,6 +721,8 @@ pub fn export(m: &Model) -> String {
 
     let mut contained: BTreeMap<Guid, Vec<u64>> = BTreeMap::new();
     let mut spaces: BTreeMap<Guid, Vec<u64>> = BTreeMap::new();
+    // What stands in the site itself rather than in a storey: the terrains.
+    let mut in_site: Vec<u64> = Vec::new();
     // Each element's own entity, for what it holds of the project's parameters.
     let mut products: BTreeMap<Id, u64> = BTreeMap::new();
     // Walls as (entity, placement), for the openings in them.
@@ -888,6 +923,44 @@ pub fn export(m: &Model) -> String {
                         id,
                     );
                 }
+            }
+            // A terrain: an IfcGeographicElement (TERRAIN) in the site, its surface an open IfcTriangulatedFaceSet over its
+            // points, in its material's colour.
+            Element::Topography(t) => {
+                let tris = crate::site::triangles(&t.points);
+                if tris.is_empty() {
+                    continue;
+                }
+                let at = w.place(Some(site_at), (0.0, 0.0, 0.0), None);
+                let coords: Vec<String> = t.points.iter().map(|p| format!("({},{},{})", real(p[0]), real(p[1]), real(p[2]))).collect();
+                let list = w.add(format!("IFCCARTESIANPOINTLIST3D(({}))", coords.join(",")));
+                let faces: Vec<String> = tris.iter().map(|[a, b, c]| format!("({},{},{})", a + 1, b + 1, c + 1)).collect();
+                let set = w.add(format!("IFCTRIANGULATEDFACESET(#{list},$,.F.,({}),$)", faces.join(",")));
+                let shape = w.tessellated(&[set]);
+                let ent =
+                    w.add(format!("IFCGEOGRAPHICELEMENT({},$,{},$,$,#{at},#{shape},'{id}',.TERRAIN.)", w.guid(ELEMENT, id), s(&t.name)));
+                if let Some(x) = t.material.as_deref().filter(|x| !x.trim().is_empty()) {
+                    let (material, style) = w.material_style(m, x);
+                    if let Some(style) = style {
+                        w.add(format!("IFCSTYLEDITEM(#{set},(#{style}),$)"));
+                    }
+                    w.add(format!("IFCRELASSOCIATESMATERIAL({},$,$,$,(#{ent}),#{material})", w.guid(TERRAIN_MATERIALS, id)));
+                }
+                in_site.push(ent);
+                products.insert(id, ent);
+            }
+            // A room separation line: an IfcVirtualElement, IFC's imaginary boundary between spaces that no wall parts, its
+            // line a curve on its storey and no body.
+            Element::RoomSeparator(rs) => {
+                let Some(&(_, storey)) = storeys.get(&rs.level) else { continue };
+                let at = w.place(Some(storey), (0.0, 0.0, 0.0), None);
+                let pts: Vec<u64> = rs.points.iter().map(|p| w.point(*p)).collect();
+                let line = w.add(format!("IFCPOLYLINE(({}))", refs(&pts)));
+                let rep = w.add(format!("IFCSHAPEREPRESENTATION(#{axis},'Axis','Curve2D',(#{line}))"));
+                let shape = w.add(format!("IFCPRODUCTDEFINITIONSHAPE($,$,(#{rep}))"));
+                let ent = w.add(format!("IFCVIRTUALELEMENT({},$,'Room Separation Line',$,$,#{at},#{shape},'{id}')", w.guid(ELEMENT, id)));
+                contained.entry(rs.level).or_default().push(ent);
+                products.insert(id, ent);
             }
             // A mass: a proxy of object type `Mass`, as Revit writes them, its footprint swept up from its base to its top; lofted,
             // a closed face set, with a property set to say which corner pairs with which.
@@ -1455,6 +1528,9 @@ pub fn export(m: &Model) -> String {
         let key = name_key(name);
         let system = w.add(format!("IFCSYSTEM({},$,{},$,$)", w.guid(SYSTEMS, key), s(name)));
         w.add(format!("IFCRELASSIGNSTOGROUP({},$,$,$,({}),$,#{system})", w.guid(SYSTEM_MEMBERS, key), refs(members)));
+    }
+    if !in_site.is_empty() {
+        w.add(format!("IFCRELCONTAINEDINSPATIALSTRUCTURE({},$,$,$,({}),#{site})", w.guid(SITE_CONTAINS, 0), refs(&in_site)));
     }
     for (level, (storey, _)) in &storeys {
         if let Some(items) = contained.get(level) {

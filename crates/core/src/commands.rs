@@ -20,8 +20,8 @@ use crate::model::{
     CEILING_HEIGHT, Ceiling, CeilingType, Column, ColumnType, Component, DEFAULT_HEIGHT, DimKind, Dimension, Element, Extrusion, Face,
     Facing, Floor, FloorType, Grid, Guid, Id, Key, Landing, Layer, Level, Line, Location, MAX_COORD, MAX_POINTS, MAX_SLOPE, MAX_TEXT, Mass,
     Model, NOTE_SIZE, Note, Opening, OpeningType, PARAMETER_CATEGORIES, ParameterKind, Pattern, PlanView, PointCloud, ProjectParameter,
-    RAMP_SLOPE, RAMP_WIDTH, RISER, Railing, RailingType, Ramp, Reference, Roof, RoofType, Room, STAIR_WIDTH, Schedule, Section, Shaft,
-    Sheet, Side, Spot, Stair, TOL, TREAD, Tag, View3D, Viewport, Wall, WallType, heading, paper,
+    PropertyLine, RAMP_SLOPE, RAMP_WIDTH, RISER, Railing, RailingType, Ramp, Reference, Roof, RoofType, Room, RoomSeparator, STAIR_WIDTH,
+    Schedule, Section, Shaft, Sheet, Side, Spot, Stair, TOL, TREAD, Tag, View3D, Viewport, Wall, WallType, heading, paper,
 };
 use crate::paint;
 use crate::phasing;
@@ -251,7 +251,54 @@ pub static ALL: &[Command] = &[
          the view hides. Revit's Show Mass has no default shortcut; MH is BIMCraft's",
         show_mass,
     ),
-    edit("room", "Room", &["RM"], "{point: [x,y], level?, name?, number?} bounded by the walls around the point", room),
+    edit(
+        "room",
+        "Room",
+        &["RM"],
+        "{point: [x,y], level?, name?, number?} bounded by the walls and room separation lines around the point",
+        room,
+    ),
+    edit(
+        "room_separator",
+        "Room Separator",
+        &[],
+        "{points: [[x,y],…], level?, closed?} a room separation line on a level (the lowest by default): segments that bound \
+         its rooms as walls do, where no wall stands (an open hall parted in two, a drive-through closed at its ends), with no \
+         body: its plan draws it thin; 3D, sections and IFC's solids leave it out (IFC has it as an IfcVirtualElement). An end \
+         drawn to a wall's face is carried on to its centre line, where rooms are measured. `closed` joins its last point to \
+         its first",
+        room_separator,
+    ),
+    edit(
+        "property_line",
+        "Property Line",
+        &[],
+        "{points: [[x,y],…], name?, level?} a property line, the boundary of a plot of land: a closed outline (its last point \
+         joins its first), `name` its plot's (Property Line 1, 2… by default), on a level (the lowest by default, its site \
+         plan), whose plan draws it as a site plan's dash-dot line with its name and area. `elements` gives its `area_m2`, \
+         `perimeter_m` and `segments`, each with its `length`, its `bearing` as a survey writes it (N 45°30'00\" E) and its \
+         `azimuth`; schedules of property lines list name, area and perimeter; IFC has it as the site's footprint (IfcSite's \
+         FootPrint curve), its area as Pset_SiteCommon's TotalArea. Returns `id`, `name`, `area_m2`",
+        property_line,
+    ),
+    edit(
+        "topography",
+        "Topography",
+        &[],
+        "{points: [[x,y,z],…] | path, name?, level?, material?, contours?, units?, spacing?, origin?, at?: [x, y], offset?} a \
+         terrain (Revit's Toposurface): its points (mm, z an elevation as levels' are), or a file of them (`path`: XYZ or TXT, \
+         CSV (a header row is skipped), PTS, PLY, LAS or E57, as `point_cloud` reads them; `units` of its coordinates mm, cm, m \
+         (the default), in or ft), triangulated in plan (Delaunay) into a surface. `spacing` keeps one point in each square that \
+         wide, mm (a 1 m DGM thinned to 2 m keeps a quarter). From a file it stands with the middle of its points on `at` (the \
+         origin) and its lowest point `offset` mm over its level; `origin: file` keeps the file's coordinates; `origin: \
+         [x, y, z]` (in the file's units) puts that point of the file on the project's origin, heights from it, `offset` \
+         raising them. Up to 250,000 points (thin a bigger survey with `spacing`). On a level (the lowest by default), whose \
+         plan draws its edge and its contour lines every `contours` mm (1000 by default, every fifth heavier; 0 draws none); \
+         sections cut it, the ground filled 1 m below its lowest point; 3D views show it in its `material` (a library \
+         material's name); IFC has it as an IfcGeographicElement (TERRAIN) with an IfcTriangulatedFaceSet, in the site. \
+         Returns `id`, `name`, `point_count`, `triangles`",
+        topography,
+    ),
     edit(
         "column",
         "Column",
@@ -1249,7 +1296,9 @@ fn wall_on_any_level(m: &Model, at: P2) -> Option<(Guid, f64)> {
 pub fn floor_outline(m: &Model, level: impl Key) -> Option<(Vec<P2>, Vec<Vec<P2>>)> {
     let level = m.guid(level);
     // Each piece's outline, clockwise, the largest first.
-    let mut pieces: Vec<Vec<P2>> = geom::faces(&m.bounding_lines(level), TOL).into_iter().filter(|f| geom::area(f) < -TOL * TOL).collect();
+    // The walls only: room separation lines part rooms, not floors.
+    let walls: Vec<(P2, P2)> = m.wall_lines(level).into_iter().map(|(a, b, _)| (a, b)).collect();
+    let mut pieces: Vec<Vec<P2>> = geom::faces(&walls, TOL).into_iter().filter(|f| geom::area(f) < -TOL * TOL).collect();
     pieces.sort_by(|a, b| geom::area(a).total_cmp(&geom::area(b)));
     let (outer, inner) = pieces.split_first()?;
     // The loops standing free inside the outline: the other pieces, inside it. Whether loop `a`
@@ -1498,6 +1547,28 @@ pub fn element_json(m: &Model, id: Id) -> Value {
         }
         Element::Text(_) => {
             extra.insert("level".into(), json!(m.level_of(e)));
+        }
+        Element::Topography(t) => {
+            let (count, triangles, area, heights) = terrain_facts(t);
+            extra.insert("point_count".into(), json!(count));
+            extra.insert("triangles".into(), json!(triangles));
+            extra.insert("area_m2".into(), json!(area));
+            extra.insert("elevations".into(), json!(heights));
+        }
+        Element::PropertyLine(pl) => {
+            extra.insert("area_m2".into(), json!(m2(geom::area(&pl.points).abs())));
+            extra.insert("perimeter_m".into(), json!((geom::perimeter(&pl.points) / 10.0).round() / 100.0));
+            let segments: Vec<Value> = geom::ring_edges(&pl.points)
+                .map(|(a, b)| {
+                    let (bearing, azimuth) = crate::site::bearing(a, b);
+                    json!({"from": a, "to": b, "length": hundredth(a.dist(b)), "bearing": bearing, "azimuth": azimuth})
+                })
+                .collect();
+            extra.insert("segments".into(), json!(segments));
+        }
+        Element::RoomSeparator(rs) => {
+            let length: f64 = rs.points.windows(2).map(|w| w.first().zip(w.get(1)).map_or(0.0, |(a, b)| a.dist(*b))).sum();
+            extra.insert("length".into(), json!(hundredth(length)));
         }
         Element::Spot(sp) => {
             extra.insert("elevation".into(), json!(m.spot_value(sp).map(hundredth)));
@@ -3614,6 +3685,198 @@ fn update_by_face(s: &mut Session, p: &Value) -> R {
         s.model_mut().elements.insert(id, e);
     }
     Ok(json!({"updated": updated, "unchanged": same}))
+}
+
+fn room_separator(s: &mut Session, p: &Value) -> R {
+    let c = "room_separator";
+    let m = &s.model;
+    let level = level_param(c, m, p, "level")?;
+    let mut pts = points(c, p, "points")?;
+    if flag(c, p, "closed")?
+        && let Some(&first) = pts.first()
+        && pts.len() > 2
+        && pts.last() != Some(&first)
+    {
+        pts.push(first);
+    }
+    let id = s.model_mut().insert(Element::RoomSeparator(RoomSeparator { level, points: pts }));
+    Ok(json!({"id": id}))
+}
+
+/// A terrain's points, triangles, area in plan (m²) and lowest and highest heights.
+fn terrain_facts(t: &crate::model::Topography) -> (usize, usize, f64, [f64; 2]) {
+    let tris = crate::site::triangles(&t.points);
+    let at = |i: usize| t.points.get(i).map_or(P2(0.0, 0.0), |p| P2(p[0], p[1]));
+    let area: f64 = tris.iter().map(|&[a, b, c]| (at(b) - at(a)).cross(at(c) - at(a)).abs() / 2.0).sum();
+    let (lo, hi) = t.points.iter().fold((f64::INFINITY, f64::NEG_INFINITY), |(lo, hi), p| (lo.min(p[2]), hi.max(p[2])));
+    (t.points.len(), tris.len(), m2(area), [hundredth(lo), hundredth(hi)])
+}
+
+/// `[x, y, z]` in mm, finite and within the model's limits.
+fn point3(v: &Value) -> Option<[f64; 3]> {
+    let p = match v.as_array()?.as_slice() {
+        [x, y, z] => [x.as_f64()?, y.as_f64()?, z.as_f64()?],
+        _ => return None,
+    };
+    p.iter().all(|x| x.is_finite() && x.abs() <= MAX_COORD).then_some(p)
+}
+
+/// The points of a terrain's file, mm, in the file's own coordinates, and the unit it's in (mm to one).
+fn terrain_file(c: &str, p: &Value, path: &str) -> Result<(Vec<[f64; 3]>, f64), String> {
+    let path = PathBuf::from(path);
+    let ext = path.extension().map(|e| e.to_string_lossy().to_ascii_lowercase()).unwrap_or_default();
+    let csv = ext == "csv";
+    let format = if csv { cloud::Format::Xyz } else { cloud::Format::from_extension(&ext).map_err(|e| bad(c, e))? };
+    let scale = match string(c, p, "units")? {
+        None => 1000.0,
+        Some(u) => cloud::unit(&u).ok_or_else(|| bad(c, format!("`units` is one of mm, cm, m, in, ft, not {u}")))?,
+    };
+    let len = std::fs::metadata(&path).map_err(|e| bad(c, format!("{}: {e}", path.display())))?.len();
+    if len > cloud::MAX_BYTES as u64 {
+        return Err(bad(c, format!("{} is too large ({len} bytes; up to {})", path.display(), cloud::MAX_BYTES)));
+    }
+    let mut bytes = std::fs::read(&path).map_err(|e| bad(c, format!("{}: {e}", path.display())))?;
+    // A CSV's header row: its first line, when it isn't numbers.
+    if csv
+        && let Some(first) = bytes.split(|b| *b == b'\n').find(|l| !l.trim_ascii().is_empty())
+        && String::from_utf8_lossy(first)
+            .split([',', ';', '\t', ' '])
+            .filter(|w| !w.trim().is_empty())
+            .any(|w| w.trim().parse::<f64>().is_err())
+    {
+        let at = bytes.iter().position(|b| *b == b'\n').map_or(bytes.len(), |i| i + 1);
+        bytes.drain(..at);
+    }
+    let options = cloud::Options { scale, spacing: 0.0, cap: cloud::MAX_CLOUD_POINTS };
+    let scan = cloud::read(&bytes, format, &options).map_err(|e| bad(c, format!("{}: {e}", path.display())))?;
+    let pts = (0..scan.points.len()).filter_map(|i| scan.absolute(i)).collect();
+    Ok((pts, scale))
+}
+
+fn topography(s: &mut Session, p: &Value) -> R {
+    let c = "topography";
+    let m = &s.model;
+    let level = level_param(c, m, p, "level")?;
+    let material = string(c, p, "material")?;
+    let contours = num(c, p, "contours")?.unwrap_or(crate::model::CONTOURS);
+    let spacing = num(c, p, "spacing")?.unwrap_or(0.0);
+    if spacing < 0.0 {
+        return Err(bad(c, format!("`spacing` is how far apart the points kept are, mm, 0 or more, not {spacing}")));
+    }
+    let (at, offset) = (point_opt(c, p, "at")?, num(c, p, "offset")?);
+    let mut pts: Vec<[f64; 3]> = match (absent(p.get("points")), string(c, p, "path")?) {
+        (false, Some(_)) => return Err(bad(c, "give `points` or `path`, not both")),
+        (true, None) => {
+            return Err(bad(c, "`points` [[x, y, z], …] or `path` (an XYZ, CSV, PTS, PLY, LAS or E57 file of points) is required"));
+        }
+        (false, None) => {
+            let a = p.get("points").and_then(Value::as_array).ok_or_else(|| bad(c, "`points` is [[x, y, z], …] in mm"))?;
+            if a.len() > crate::model::MAX_TERRAIN_POINTS {
+                return Err(bad(c, format!("`points` has more than {} points", crate::model::MAX_TERRAIN_POINTS)));
+            }
+            a.iter()
+                .map(|v| point3(v).ok_or_else(|| bad(c, format!("`points`: {v} is not a point [x, y, z] in mm"))))
+                .collect::<Result<_, _>>()?
+        }
+        (true, Some(path)) => {
+            let (mut pts, scale) = terrain_file(c, p, &path)?;
+            let (lo, hi) = pts.iter().fold(([f64::INFINITY; 3], [f64::NEG_INFINITY; 3]), |(mut lo, mut hi), q| {
+                for k in 0..3 {
+                    lo[k] = lo[k].min(q[k]);
+                    hi[k] = hi[k].max(q[k]);
+                }
+                (lo, hi)
+            });
+            let lift = offset.unwrap_or(0.0);
+            let shift = match p.get("origin") {
+                v if absent(v) => [(lo[0] + hi[0]) / 2.0, (lo[1] + hi[1]) / 2.0, lo[2] - m.elevation(level) - lift],
+                Some(Value::String(o)) if matches!(o.as_str(), "centre" | "center") => {
+                    [(lo[0] + hi[0]) / 2.0, (lo[1] + hi[1]) / 2.0, lo[2] - m.elevation(level) - lift]
+                }
+                Some(Value::String(o)) if o == "file" => [0.0, 0.0, -lift],
+                Some(v) => match v.as_array().map(|a| a.iter().map(Value::as_f64).collect::<Option<Vec<f64>>>()) {
+                    Some(Some(o)) if o.len() == 3 && o.iter().all(|x| x.is_finite() && (x * scale).abs() <= cloud::MAX_FILE_COORD) => {
+                        [o[0] * scale, o[1] * scale, o[2] * scale - lift]
+                    }
+                    _ => {
+                        return Err(bad(
+                            c,
+                            format!(
+                                "`origin` is centre, file, or [x, y, z]: the point of the file (in its units) on the project's origin, not {v}"
+                            ),
+                        ));
+                    }
+                },
+                None => [0.0; 3],
+            };
+            let to = at.unwrap_or(P2(0.0, 0.0));
+            for q in &mut pts {
+                *q = [q[0] - shift[0] + to.0, q[1] - shift[1] + to.1, q[2] - shift[2]].map(|x| (x * 1e3).round() / 1e3 + 0.0);
+            }
+            if let Some(far) = pts.iter().find(|q| q.iter().any(|x| x.abs() > MAX_COORD)) {
+                return Err(bad(
+                    c,
+                    format!(
+                        "a point lies at {far:?} mm, past the {MAX_COORD} mm a model reaches: place it by its `centre` or an `origin` near it"
+                    ),
+                ));
+            }
+            pts
+        }
+    };
+    // One point in each square `spacing` wide, and one at each place in plan.
+    let mut seen = BTreeSet::new();
+    let (x0, y0) = pts.iter().fold((f64::INFINITY, f64::INFINITY), |(x, y), q| (x.min(q[0]), y.min(q[1])));
+    pts.retain(|q| {
+        let cell = if spacing > 0.0 {
+            (((q[0] - x0) / spacing).floor() as i64, ((q[1] - y0) / spacing).floor() as i64)
+        } else {
+            ((q[0] * 1e3).round() as i64, (q[1] * 1e3).round() as i64)
+        };
+        seen.insert(cell)
+    });
+    if pts.len() > crate::model::MAX_TERRAIN_POINTS {
+        return Err(bad(
+            c,
+            format!("{} points are more than a terrain holds ({}); keep fewer with `spacing`", pts.len(), crate::model::MAX_TERRAIN_POINTS),
+        ));
+    }
+    let name = match string(c, p, "name")? {
+        Some(n) => n,
+        None => {
+            let word = m.language.word("Topography");
+            let taken: BTreeSet<&str> =
+                m.elements.values().filter_map(|e| if let Element::Topography(t) = e { Some(t.name.as_str()) } else { None }).collect();
+            (1..).map(|k| format!("{word} {k}")).find(|n| !taken.contains(n.as_str())).unwrap_or_default()
+        }
+    };
+    let t = crate::model::Topography { name: name.clone(), level, points: pts, material, contours };
+    let (count, triangles, ..) = terrain_facts(&t);
+    let id = s.model_mut().insert(Element::Topography(t));
+    Ok(json!({"id": id, "name": name, "point_count": count, "triangles": triangles}))
+}
+
+fn property_line(s: &mut Session, p: &Value) -> R {
+    let c = "property_line";
+    let m = &s.model;
+    let level = level_param(c, m, p, "level")?;
+    let mut pts = points(c, p, "points")?;
+    // A ring given closed, its first point again at its end, is the same ring.
+    if pts.len() > 3 && pts.first() == pts.last() {
+        pts.pop();
+    }
+    let name = match string(c, p, "name")? {
+        Some(n) => n,
+        None => {
+            let word = m.language.word("Property Line");
+            let taken: BTreeSet<&str> =
+                m.elements.values().filter_map(|e| if let Element::PropertyLine(pl) = e { Some(pl.name.as_str()) } else { None }).collect();
+            (1..).map(|k| format!("{word} {k}")).find(|n| !taken.contains(n.as_str())).unwrap_or_default()
+        }
+    };
+    let area = m2(geom::area(&pts).abs());
+    let id = s.model_mut().insert(Element::PropertyLine(PropertyLine { name: name.clone(), level, points: pts }));
+    Ok(json!({"id": id, "name": name, "area_m2": area}))
 }
 
 fn room(s: &mut Session, p: &Value) -> R {
@@ -5915,6 +6178,15 @@ pub(crate) fn transformed(c: &str, m: &Model, id: Id, mo: &Motion, with: &BTreeS
             }
         }
         Element::Room(r) => r.point = f(r.point),
+        Element::RoomSeparator(rs) => rs.points.iter_mut().for_each(|q| *q = f(*q)),
+        Element::PropertyLine(pl) => pl.points.iter_mut().for_each(|q| *q = f(*q)),
+        // Moved in plan; its heights stay.
+        Element::Topography(t) => {
+            for q in &mut t.points {
+                let P2(x, y) = f(P2(q[0], q[1]));
+                (q[0], q[1]) = (x, y);
+            }
+        }
         Element::Door(o) | Element::Window(o) if !within(o.host) => match (mo.slide, m.wall(o.host)) {
             (Some(by), Some(w)) => o.offset += by.dot((w.end - w.start).unit()),
             _ => return Err(bad(c, format!("{category} {id} turns and mirrors only with its wall; select the wall too"))),

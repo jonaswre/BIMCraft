@@ -746,6 +746,8 @@ pub(crate) fn plan_shows(m: &Model, plan: impl Key) -> Vec<P2> {
                 extent.extend(boundary)
             }
             Element::Room(r) if r.level == level => extent.push(r.point),
+            Element::RoomSeparator(rs) if rs.level == level => extent.extend(&rs.points),
+            Element::PropertyLine(pl) if pl.level == level => extent.extend(&pl.points),
             Element::Mass(ms) if m.mass_cut_by(ms, r.cut) => extent.extend(m.mass_outline(ms, r.cut)),
             Element::Component(c) if c.level == level => extent.extend(m.component_pieces(c).into_iter().flat_map(|p| p.outline)),
             Element::Grid(g) => extent.extend([g.start, g.end]),
@@ -767,6 +769,16 @@ pub(crate) fn plan_shows(m: &Model, plan: impl Key) -> Vec<P2> {
             Element::Text(n) if m.annotation_in(e, key) => extent.extend([Some(n.at), n.leader].into_iter().flatten()),
             Element::Spot(sp) if m.annotation_in(e, key) => extent.push(sp.at),
             _ => {}
+        }
+    }
+    // A terrain is the site round what the plan shows: the plan frames it only when it shows nothing else.
+    if extent.is_empty() {
+        for (_, e) in m.elements.iter().filter(|(id, _)| look.shows(**id)) {
+            if let Element::Topography(t) = e
+                && t.level == level
+            {
+                extent.extend(t.points.iter().map(|p| P2(p[0], p[1])));
+            }
         }
     }
     extent
@@ -864,7 +876,12 @@ fn span(m: &Model, v: &Section, look: &Look) -> (f64, f64) {
     }
     let u = (v.end - v.start).unit();
     let along = |q: P2| (q - v.start).dot(u);
-    let solids = view3d::solids(m).into_iter().filter(|s| look.shows(s.owner())).flat_map(|s| s.corners()).map(|p| along(P2(p[0], p[1])));
+    // A terrain is cut where the rest is; it doesn't stretch the section over the whole site.
+    let solids = view3d::solids(m)
+        .into_iter()
+        .filter(|s| look.shows(s.owner()) && !matches!(m.elements.get(s.owner()), Some(Element::Topography(_))))
+        .flat_map(|s| s.corners())
+        .map(|p| along(P2(p[0], p[1])));
     let levels = level_spans(m, v, look).into_iter().flat_map(|(_, a, b)| [a, b]);
     let grids = m.elements.iter().filter(|(id, _)| look.shows(**id)).filter_map(|(_, e)| match e {
         Element::Grid(g) => geom::line_intersection(v.start, v.end, g.start, g.end).map(along),
@@ -1346,9 +1363,18 @@ fn draw_plan(m: &Model, plan: impl Key, view: View, up: bool, k: f32, n: f64, ti
         range.cut = m.elevation(level) + CEILING_CUT;
         range.top = range.top.max(range.cut);
     }
-    // The scans it sees, under all the rest.
+    // The scans it sees, under all the rest; then the terrains on its level.
     if !up {
         scans(&mut d, m, &range, &look);
+        for (&id, e) in m.elements.iter().filter(|(id, _)| shown(**id)) {
+            if let Element::Topography(t) = e
+                && t.level == level
+            {
+                d.owner = Some(id);
+                topography(&mut d, t);
+            }
+        }
+        d.owner = None;
     }
     // Floors whose tops it sees, from the cut plane down to the view depth: their outlines and their
     // openings', the holes shafts cut in them, and a sloped one's slope arrow.
@@ -1509,6 +1535,9 @@ fn draw_plan(m: &Model, plan: impl Key, view: View, up: bool, k: f32, n: f64, ti
                 d.text(&area, (x, y + 14.0), 10.0, INK);
                 d.grow(from, (x, y));
             }
+            // A room separation line on the plan's level: thin, where the rooms part.
+            Element::RoomSeparator(rs) if rs.level == level && !up => d.line(&rs.points, BY_CATEGORY, INK, false),
+            Element::PropertyLine(pl) if pl.level == level && !up => property_line(&mut d, m, pl),
             // A shaft the plane cuts: its outline, and a cross.
             Element::Shaft(sh) => {
                 let (bottom, top) = m.span(sh.level, sh.base_offset, sh.top_level, sh.height);
@@ -1610,6 +1639,87 @@ fn draw_plan(m: &Model, plan: impl Key, view: View, up: bool, k: f32, n: f64, ti
         d.text_turned(&title, at, 16.0, 0.0, INK);
     }
     d
+}
+
+/// The most contour heights a plan draws of a terrain: past them, every second, fourth… of them.
+const MAX_CONTOURS: f64 = 400.0;
+
+/// A terrain in its level's plan: its edge, and its contour lines every `contours` mm, every fifth heavier.
+fn topography(d: &mut Drawing, t: &crate::model::Topography) {
+    let tris = crate::site::triangles(&t.points);
+    for ring in crate::site::edge(&t.points, &tris) {
+        d.line(&ring, BY_CATEGORY, INK, true);
+    }
+    if t.contours <= 0.0 {
+        return;
+    }
+    let (lo, hi) = t.points.iter().fold((f64::INFINITY, f64::NEG_INFINITY), |(lo, hi), p| (lo.min(p[2]), hi.max(p[2])));
+    let mut step = t.contours;
+    while (hi - lo) / step > MAX_CONTOURS {
+        step *= 2.0;
+    }
+    for (z, lines) in crate::site::contours(&t.points, &tris, step) {
+        let major = ((z / step).round() as i64) % 5 == 0;
+        for line in lines {
+            if major {
+                d.line(&line, Pen::PROJECTION, INK, false);
+            } else {
+                d.line(&line, Pen::FINE, FAINT, false);
+            }
+        }
+    }
+}
+
+/// The dash-dot line of a site plan's property line, px: a long dash, a gap, a dot, a gap.
+const DASH_DOT: [(f32, bool); 4] = [(24.0, true), (5.0, false), (2.0, true), (5.0, false)];
+
+/// A property line as a site plan draws it: its outline dash-dot, and its name and area in its middle.
+fn property_line(d: &mut Drawing, m: &Model, pl: &crate::model::PropertyLine) {
+    let px: Vec<(f32, f32)> = pl.points.iter().chain(pl.points.first()).map(|p| d.view.px(*p)).collect();
+    let length: f32 = px.windows(2).map(|w| w.first().zip(w.get(1)).map_or(0.0, |(a, b)| (b.0 - a.0).hypot(b.1 - a.1))).sum();
+    let round: f32 = DASH_DOT.iter().map(|(l, _)| l).sum();
+    // So close up that it would be tens of thousands of dashes: one line.
+    if !(length.is_finite() && length / round < 20_000.0) {
+        d.stroke(px, BY_CATEGORY, INK, None, true);
+    } else {
+        let (mut k, mut left) = (0, DASH_DOT[0].0);
+        let mut run: Vec<(f32, f32)> = px.first().copied().into_iter().collect();
+        for w in px.windows(2) {
+            let (Some(&a), Some(&b)) = (w.first(), w.get(1)) else { continue };
+            let len = (b.0 - a.0).hypot(b.1 - a.1);
+            let mut at = 0.0;
+            while at < len {
+                let step = (len - at).min(left);
+                at += step;
+                left -= step;
+                let q = (a.0 + (b.0 - a.0) * at / len, a.1 + (b.1 - a.1) * at / len);
+                let on = DASH_DOT.get(k).is_some_and(|x| x.1);
+                if on {
+                    run.push(q);
+                }
+                if left <= 1e-3 {
+                    if on && run.len() >= 2 {
+                        d.stroke(std::mem::take(&mut run), BY_CATEGORY, INK, None, false);
+                    }
+                    run.clear();
+                    if !on {
+                        run.push(q);
+                    }
+                    k = (k + 1) % DASH_DOT.len();
+                    left = DASH_DOT.get(k).map_or(1.0, |x| x.0);
+                }
+            }
+        }
+        if DASH_DOT.get(k).is_some_and(|x| x.1) && run.len() >= 2 {
+            d.stroke(run, BY_CATEGORY, INK, None, false);
+        }
+    }
+    let (area, unit) = m.units.area(geom::area(&pl.points).abs());
+    let (x, y) = d.view.px(crate::site::centroid(&pl.points));
+    let from = d.prims.len();
+    d.text(&pl.name, (x, y - 8.0), 13.0, INK);
+    d.text(&format!("{area:.2} {unit}"), (x, y + 8.0), 10.0, INK);
+    d.grow(from, (x, y));
 }
 
 /// A component seen from above: each of its forms' outlines, but where a higher form covers it (a

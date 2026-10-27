@@ -242,6 +242,14 @@ impl Scene {
                 Element::Stair(st) if st.level == level && near(&[st.start]) => s.points.push((st.start, Kind::Endpoint)),
                 Element::Ramp(r) if r.level == level && near(&[r.start]) => s.points.push((r.start, Kind::Endpoint)),
                 Element::Railing(r) if r.level == level => s.points.extend(ring(&r.path)),
+                Element::PropertyLine(pl) if pl.level == level => {
+                    s.points.extend(ring(&pl.points));
+                    s.lines.extend(geom::ring_edges(&pl.points));
+                }
+                Element::RoomSeparator(rs) if rs.level == level => {
+                    s.points.extend(ring(&rs.points));
+                    s.lines.extend(rs.points.windows(2).filter_map(|w| w.first().zip(w.get(1)).map(|(a, b)| (*a, *b))));
+                }
                 _ => {}
             }
         }

@@ -54,6 +54,10 @@ const RAIL: Rgb = Rgb(120, 122, 128);
 const STRUCTURE: Rgb = Rgb(182, 184, 190);
 /// A component's form made of nothing the library has.
 const COMPONENT: Rgb = Rgb(214, 204, 188);
+/// A terrain with no material of its own.
+const GROUND: Rgb = Rgb(168, 182, 138);
+/// How far below a terrain's lowest point a section fills its ground, mm.
+pub(crate) const GROUND_DEPTH: f64 = 1000.0;
 /// Room around a fitted model, px.
 const MARGIN: f64 = 30.0;
 
@@ -129,10 +133,50 @@ impl Frame {
 /// (a component's form, which sections show and don't cut; a round run's tube, convex, which they do, as `cut` says): a round
 /// one's sides, past `caps`, are one curved surface; any other's facets that turn little where they meet are ([`facets`]).
 pub(crate) enum Solid {
-    Box { owner: Id, color: Rgb, tex: u32, frame: Frame, a: (f64, f64), c: (f64, f64), z: (f64, f64) },
-    Slab { owner: Id, color: Rgb, tex: u32, face: Vec<P3>, rise: f64 },
-    Prism { owner: Id, color: Rgb, tex: u32, ring: Vec<P2>, bottom: Plane, top: Plane, curve: Option<(P2, f64)> },
-    Mesh { owner: Id, color: Rgb, tex: u32, tris: Vec<[P3; 3]>, caps: usize, round: bool, cut: bool },
+    Box {
+        owner: Id,
+        color: Rgb,
+        tex: u32,
+        frame: Frame,
+        a: (f64, f64),
+        c: (f64, f64),
+        z: (f64, f64),
+    },
+    Slab {
+        owner: Id,
+        color: Rgb,
+        tex: u32,
+        face: Vec<P3>,
+        rise: f64,
+    },
+    Prism {
+        owner: Id,
+        color: Rgb,
+        tex: u32,
+        ring: Vec<P2>,
+        bottom: Plane,
+        top: Plane,
+        curve: Option<(P2, f64)>,
+    },
+    Mesh {
+        owner: Id,
+        color: Rgb,
+        tex: u32,
+        tris: Vec<[P3; 3]>,
+        caps: usize,
+        round: bool,
+        cut: bool,
+    },
+    /// A terrain: a surface of triangles over its points (indices into `pts`), the ground under it down to `base`, which a
+    /// section fills below its ground line.
+    Ground {
+        owner: Id,
+        color: Rgb,
+        tex: u32,
+        pts: Vec<P3>,
+        tris: Arc<Vec<[usize; 3]>>,
+        base: f64,
+    },
 }
 
 /// A level slab: `ring` from `z.0` up to `z.1`.
@@ -147,14 +191,22 @@ fn plan(face: &[P3]) -> Vec<P2> {
 impl Solid {
     pub(crate) fn owner(&self) -> Id {
         match self {
-            Solid::Box { owner, .. } | Solid::Slab { owner, .. } | Solid::Prism { owner, .. } | Solid::Mesh { owner, .. } => *owner,
+            Solid::Box { owner, .. }
+            | Solid::Slab { owner, .. }
+            | Solid::Prism { owner, .. }
+            | Solid::Mesh { owner, .. }
+            | Solid::Ground { owner, .. } => *owner,
         }
     }
 
     #[cfg(test)]
     pub(crate) fn color(&self) -> Rgb {
         match self {
-            Solid::Box { color, .. } | Solid::Slab { color, .. } | Solid::Prism { color, .. } | Solid::Mesh { color, .. } => *color,
+            Solid::Box { color, .. }
+            | Solid::Slab { color, .. }
+            | Solid::Prism { color, .. }
+            | Solid::Mesh { color, .. }
+            | Solid::Ground { color, .. } => *color,
         }
     }
 
@@ -170,7 +222,15 @@ impl Solid {
                 ring.iter().fold((f64::MAX, f64::MIN), |(lo, hi), q| (lo.min(bottom.at(*q)), hi.max(top.at(*q))))
             }
             Solid::Mesh { tris, .. } => tris.iter().flatten().fold((f64::MAX, f64::MIN), |(lo, hi), p| (lo.min(p[2]), hi.max(p[2]))),
+            Solid::Ground { pts, base, .. } => (*base, pts.iter().fold(*base, |hi, p| hi.max(p[2]))),
         }
+    }
+
+    /// A terrain's triangles' corners, each triangle's in turn; none for anything else.
+    fn ground_tris(&self) -> Vec<[P3; 3]> {
+        let Solid::Ground { pts, tris, .. } = self else { return Vec::new() };
+        let at = |i: usize| pts.get(i).copied().unwrap_or_default();
+        tris.iter().map(|t| t.map(at)).collect()
     }
 
     /// Its bottom and top over plan point `q`.
@@ -199,6 +259,11 @@ impl Solid {
                 let (lo, hi) = zs.fold((f64::MAX, f64::MIN), |(lo, hi), z| (lo.min(z), hi.max(z)));
                 if lo <= hi { (lo, hi) } else { self.heights() }
             }
+            // From its base up to its surface over `q`; off it, all of it.
+            Solid::Ground { base, .. } => {
+                let top = self.ground_tris().into_iter().find_map(|[a, b, c]| over_tri(a, b, c, q));
+                top.map_or_else(|| self.heights(), |z| (*base, z))
+            }
         }
     }
 
@@ -212,6 +277,7 @@ impl Solid {
             Solid::Slab { face, .. } => geom::contains(&plan(face), q),
             Solid::Prism { ring, .. } => geom::contains(ring, q),
             Solid::Mesh { tris, .. } => tris.iter().any(|[a, b, c]| geom::contains(&[P2(a[0], a[1]), P2(b[0], b[1]), P2(c[0], c[1])], q)),
+            Solid::Ground { .. } => self.ground_tris().into_iter().any(|[a, b, c]| over_tri(a, b, c, q).is_some()),
         }
     }
 
@@ -230,6 +296,23 @@ impl Solid {
                 out.extend(ring.iter().flat_map(|q| [[q.0, q.1, bottom.at(*q)], [q.0, q.1, top.at(*q)]]))
             }
             Solid::Mesh { tris, .. } => out.extend(tris.iter().flatten()),
+            // The box round it: a big terrain's corners are all that fitting a view to it needs.
+            Solid::Ground { pts, base, .. } => {
+                let (mut lo, mut hi) = ([f64::INFINITY; 3], [f64::NEG_INFINITY; 3]);
+                for p in pts {
+                    for k in 0..3 {
+                        lo[k] = lo[k].min(p[k]);
+                        hi[k] = hi[k].max(p[k]);
+                    }
+                }
+                if lo[0] <= hi[0] {
+                    for x in [lo[0], hi[0]] {
+                        for y in [lo[1], hi[1]] {
+                            out.extend([[x, y, *base], [x, y, hi[2]]]);
+                        }
+                    }
+                }
+            }
         }
         out
     }
@@ -255,7 +338,7 @@ impl Solid {
             Solid::Slab { face, .. } => crossings(&plan(face), p, u),
             Solid::Prism { ring, .. } => crossings(ring, p, u),
             // Shown beyond a section's line, as Revit shows furniture, and never cut.
-            Solid::Mesh { .. } => Vec::new(),
+            Solid::Mesh { .. } | Solid::Ground { .. } => Vec::new(),
         }
     }
 
@@ -263,6 +346,16 @@ impl Solid {
     /// line, level or along a sloped face; a convex mesh that `cut` allows is cut by the plane through the line, where its
     /// edges cross it (a tube across is its ring, an ellipse if it is oblique).
     pub(crate) fn cuts(&self, p: P2, u: P2, len: f64) -> Vec<Vec<P2>> {
+        // A terrain: under each of its ground lines down to its base.
+        if let Solid::Ground { pts, tris, base, .. } = self {
+            return crate::site::profile(pts, tris, p, u, len)
+                .into_iter()
+                .filter_map(|line| {
+                    let (first, last) = (*line.first()?, *line.last()?);
+                    (last.0 - first.0 > 1e-6).then(|| line.into_iter().chain([P2(last.0, *base), P2(first.0, *base)]).collect())
+                })
+                .collect();
+        }
         if let Solid::Mesh { tris, cut: true, .. } = self {
             let side = |q: P3| (P2(q[0], q[1]) - p).dot(u.perp());
             let at = |q: P3| P2((P2(q[0], q[1]) - p).dot(u), q[2]);
@@ -321,6 +414,12 @@ impl Solid {
                     out.push(Tri { p: [a0, b1, a1], owner, color, tex, curve });
                 }
             }
+            // One surface, shaded smoothly across its triangles.
+            Solid::Ground { owner, color, tex, .. } => {
+                for p in self.ground_tris() {
+                    out.push(Tri { p, owner: *owner, color: *color, tex: *tex, curve: Some((*owner, usize::MAX)) });
+                }
+            }
             // Each surface keyed by its first triangle's place in `out`, which no other form's shares.
             // ponytail: worked out again for each component of a family; keep it per form if many big meshes slow a scene.
             Solid::Mesh { owner, color, tex, tris, caps, round, .. } => {
@@ -332,6 +431,17 @@ impl Solid {
             }
         }
     }
+}
+
+/// The height over plan point `q` of the triangle `a`, `b`, `c`, when `q` lies over it.
+fn over_tri(a: P3, b: P3, c: P3, q: P2) -> Option<f64> {
+    let (pa, pb, pc) = (P2(a[0], a[1]), P2(b[0], b[1]), P2(c[0], c[1]));
+    let det = (pb - pa).cross(pc - pa);
+    if det.abs() < 1e-9 {
+        return None;
+    }
+    let (u, v) = ((q - pa).cross(pc - pa) / det, (pb - pa).cross(q - pa) / det);
+    (u >= -1e-9 && v >= -1e-9 && u + v <= 1.0 + 1e-9).then(|| a[2] + u * (b[2] - a[2]) + v * (c[2] - a[2]))
 }
 
 /// How far, in degrees, two triangles may turn at the edge they share and still be one surface:
@@ -581,6 +691,17 @@ fn solids_in(m: &Model, elements: &[(Id, &Element)], index: Option<&walls::Index
                     });
                 }
                 out.extend(l.pads.iter().map(|p| slab(id, SLAB, &p.ring, (base, p.z))));
+            }
+            Element::Topography(t) => {
+                let tris = crate::site::triangles(&t.points);
+                let base = t.points.iter().map(|p| p[2]).fold(f64::INFINITY, f64::min) - GROUND_DEPTH;
+                let (color, tex) = match t.material.as_deref().and_then(|n| Some((n, m.materials.get(n)?))) {
+                    Some((n, x)) => (Rgb(x.color[0], x.color[1], x.color[2]), skin(m, n)),
+                    None => (GROUND, 0),
+                };
+                if !tris.is_empty() && base.is_finite() {
+                    out.push(Solid::Ground { owner: id, color, tex, pts: t.points.clone(), tris, base });
+                }
             }
             Element::Railing(rl) => out.extend(stairs::railing_parts(m, rl).into_iter().map(|(ring, bottom, top)| Solid::Prism {
                 owner: id,

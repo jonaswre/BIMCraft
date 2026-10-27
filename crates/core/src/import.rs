@@ -20,8 +20,8 @@ use crate::library::Kind;
 use crate::model::{
     Ceiling, CeilingType, Column, ColumnType, Component, Element, Extrusion, FIRST_ID, Floor, FloorType, Function, Grid, Guid, Id, Justify,
     Landing, Layer, Level, Location, MAX_COORD, MAX_LAYERS, MAX_POINTS, MAX_PROJECT_PARAMETERS, MAX_TEXT, Mass, Model, Opening,
-    OpeningType, PARAMETER_CATEGORIES, ParameterKind, ProjectParameter, Railing, RailingType, Ramp, Roof, RoofType, Room, Run, RunType,
-    Shaft, Side, Stair, TOL, Wall, WallType, culprit, heading,
+    OpeningType, PARAMETER_CATEGORIES, ParameterKind, ProjectParameter, PropertyLine, Railing, RailingType, Ramp, Roof, RoofType,
+    Room, RoomSeparator, Run, RunType, Shaft, Side, Stair, TOL, Topography, Wall, WallType, culprit, heading,
 };
 use crate::phasing;
 use crate::stairs;
@@ -2586,6 +2586,124 @@ pub fn ifc(bytes: &[u8], name: &str) -> Result<Imported, String> {
         origin.entry(id).or_insert(rid);
         elements_from.entry(id).or_default().push(rid);
         seen.insert(id);
+    }
+
+    // Room separation lines: virtual elements, IFC's imaginary boundaries between spaces, each the line its Axis (or its
+    // FootPrint) curve draws, on its storey.
+    for id in named(&["IFCVIRTUALELEMENT"]) {
+        let Some(x) = e(id) else { continue };
+        let f = r.frame(x);
+        let line = r
+            .reps(x)
+            .into_iter()
+            .filter(|(i, _)| i.eq_ignore_ascii_case("Axis") || i.eq_ignore_ascii_case("FootPrint"))
+            .find_map(|(_, items)| r.curve(items.first().copied(), 0))
+            .map(|pts| pts.into_iter().map(|p| f.at(p)).collect::<Vec<P3>>());
+        let Some(pts) = line.filter(|p| (2..=MAX_POINTS).contains(&p.len())) else {
+            leave(&mut skipped, &mut seen, id, "it has no line BIMCraft can read as a room separation line");
+            continue;
+        };
+        let z = pts.iter().map(|p| p[2]).fold(f64::INFINITY, f64::min);
+        let mut points: Vec<P2> = pts.iter().map(|p| micron(r.flat(*p))).collect();
+        points.dedup_by(|a, b| a.dist(*b) <= TOL);
+        let sid = m.insert(Element::RoomSeparator(RoomSeparator { level: level_for(id, z), points }));
+        from.insert(sid, who(id));
+        origin.entry(id).or_insert(sid);
+        elements_from.entry(id).or_default().push(sid);
+        seen.insert(id);
+    }
+
+    // Terrains: geographic elements (TERRAIN, or saying nothing of what they are), and a site's own body, as IFC2x3 files
+    // have one: the corners of their surfaces, each place in plan once, triangulated again.
+    let terrains: Vec<u64> = named(&["IFCGEOGRAPHICELEMENT", "IFCSITE"])
+        .into_iter()
+        .filter(|id| {
+            e(*id).is_some_and(|x| match x.name.as_str() {
+                "IFCSITE" => r.reps(x).iter().any(|(i, _)| i.eq_ignore_ascii_case("Body")),
+                _ => enumeration(x.args.get(8)).is_none_or(|k| matches!(k, "TERRAIN" | "NOTDEFINED" | "USERDEFINED")),
+            })
+        })
+        .collect();
+    for id in terrains {
+        let Some(x) = e(id) else { continue };
+        let mut places = HashSet::new();
+        let points: Vec<[f64; 3]> = r
+            .body(x)
+            .into_iter()
+            .flatten()
+            .filter_map(|p| {
+                let q = micron(r.flat(p));
+                let z = (p[2] * 1000.0).round() / 1000.0 + 0.0;
+                places.insert(((q.0 * 1e3).round() as i64, (q.1 * 1e3).round() as i64)).then_some([q.0, q.1, z])
+            })
+            .collect();
+        if points.len() < 3 || !crate::site::spread(&points) {
+            if x.name != "IFCSITE" {
+                leave(&mut skipped, &mut seen, id, "it has no surface BIMCraft can read as a terrain");
+            }
+            continue;
+        }
+        if points.len() > crate::model::MAX_TERRAIN_POINTS {
+            leave(
+                &mut skipped,
+                &mut seen,
+                id,
+                &format!("its surface has more than the {} points a terrain holds", crate::model::MAX_TERRAIN_POINTS),
+            );
+            continue;
+        }
+        let name = text(x.args.get(2)).filter(|_| x.name != "IFCSITE").map(clip).unwrap_or_default();
+        let level = levels.first().map_or_else(Guid::default, |(lid, _)| Guid::of_id(*lid));
+        let material = element_material(&r, &l, id);
+        let tid = m.insert(Element::Topography(Topography { name, level, points, material, contours: crate::model::CONTOURS }));
+        from.insert(tid, who(id));
+        if x.name != "IFCSITE" {
+            origin.entry(id).or_insert(tid);
+        }
+        elements_from.entry(id).or_default().push(tid);
+        seen.insert(id);
+    }
+
+    // Property lines: the site's footprint, each closed curve a plot's boundary on the lowest level, named as BIMCraft's
+    // property set on the site names them, in order.
+    for site in named(&["IFCSITE"]) {
+        let Some(x) = e(site) else { continue };
+        let names: Vec<String> = named(&["IFCRELDEFINESBYPROPERTIES"])
+            .into_iter()
+            .filter_map(e)
+            .filter(|rel| refs(rel.args.get(4)).contains(&site))
+            .filter_map(|rel| {
+                reference(rel.args.get(5))
+                    .and_then(e)
+                    .filter(|x| x.name == "IFCPROPERTYSET" && text(x.args.get(2)) == Some(crate::ifc::PROPERTY_LINES))
+            })
+            .flat_map(|set| refs(set.args.get(4)))
+            .filter_map(e)
+            .filter(|p| text(p.args.first()) == Some("Names"))
+            .flat_map(|p| list(p.args.get(2)).iter().map(|v| text(Some(v)).map(clip).unwrap_or_default()).collect::<Vec<_>>())
+            .collect();
+        let f = r.frame(x);
+        let curves: Vec<u64> =
+            r.reps(x).into_iter().filter(|(i, _)| i.eq_ignore_ascii_case("FootPrint")).flat_map(|(_, items)| items).collect();
+        let mut found = 0;
+        for (k, item) in curves.into_iter().enumerate() {
+            let Some(pts) = r.curve(Some(item), 0) else { continue };
+            let mut points: Vec<P2> = pts.into_iter().map(|p| micron(r.flat(f.at(p)))).collect();
+            points.dedup_by(|a, b| a.dist(*b) <= TOL);
+            if points.len() > 3 && points.first().zip(points.last()).is_some_and(|(a, b)| a.dist(*b) <= TOL) {
+                points.pop();
+            }
+            if !(3..=MAX_POINTS).contains(&points.len()) || geom::area(&points).abs() <= TOL * TOL {
+                skipped.push(format!("{}: footprint curve {}: not an outline BIMCraft can read as a property line", who(site), k + 1));
+                continue;
+            }
+            found += 1;
+            let name = names.get(k).filter(|n| !n.is_empty()).cloned().unwrap_or_else(|| format!("Property Line {found}"));
+            let level = levels.first().map_or_else(Guid::default, |(id, _)| Guid::of_id(*id));
+            let pid = m.insert(Element::PropertyLine(PropertyLine { name, level, points }));
+            from.insert(pid, who(site));
+            elements_from.entry(site).or_default().push(pid);
+        }
     }
 
     // Grids: each axis a grid line; an axis a grid repeats (as BIMCraft writes a lone grid, in U and in V), once.
