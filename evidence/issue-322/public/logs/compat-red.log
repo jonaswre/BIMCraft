@@ -1,0 +1,31 @@
+   Compiling bimcraft-i18n v0.11.0 (<comparison-checkout>\crates\i18n)
+   Compiling bimcraft-core v0.11.0 (<comparison-checkout>\crates\core)
+    Finished `test` profile [unoptimized] target(s) in 2m 20s
+     Running tests\compat_script_references.rs (<target>\debug\deps\compat_script_references-7085288f350dbae1.exe)
+
+running 3 tests
+test tests::named_file_commands_are_refused_before_creating_files_or_mutating ... FAILED
+test tests::named_replacements_are_refused_before_any_line_executes_in_a_dry_run ... FAILED
+test tests::named_dry_run_previews_hosted_geometry_and_keeps_model_ids_and_history ... ok
+
+failures:
+
+---- tests::named_file_commands_are_refused_before_creating_files_or_mutating stdout ----
+
+thread 'tests::named_file_commands_are_refused_before_creating_files_or_mutating' (49396) panicked at crates\core\tests\compat_script_references.rs:36:13:
+named save wrote a file during dry_run: Ok(Object {"changed": Array [], "dry_run": Bool(true), "made": Array [Object {"category": String("grid"), "id": Number(100002)}], "other_changes": Bool(false), "removed": Array [], "results": Array [Object {"id": Number(100002), "name": String("1")}, Object {"format": String("bimcraft"), "path": String("<synthetic-temp>\\.tmp0szbIa\\forbidden.bimcraft")}], "warnings": Array []})
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- tests::named_replacements_are_refused_before_any_line_executes_in_a_dry_run stdout ----
+
+thread 'tests::named_replacements_are_refused_before_any_line_executes_in_a_dry_run' (25276) panicked at crates\core\tests\compat_script_references.rs:50:9:
+named new bypassed dry_run preflight: Ok(Object {"changed": Array [Object {"category": String("level"), "guid": String("eada8901-f4d0-42ff-850a-c7b7ef028945"), "id": Number(100000)}, Object {"category": String("level"), "guid": String("cb535998-7525-46c4-8ca5-26d81bc05e08"), "id": Number(100001)}], "dry_run": Bool(true), "made": Array [], "other_changes": Bool(true), "removed": Array [], "results": Array [Object {"id": Number(100002), "name": String("1")}, Object {"language": String("en"), "name": String("Project")}], "warnings": Array []})
+
+
+failures:
+    tests::named_file_commands_are_refused_before_creating_files_or_mutating
+    tests::named_replacements_are_refused_before_any_line_executes_in_a_dry_run
+
+test result: FAILED. 1 passed; 2 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.12s
+
+error: test failed, to rerun pass `-p bimcraft-core --test compat_script_references`

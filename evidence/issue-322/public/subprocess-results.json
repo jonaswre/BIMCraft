@@ -1,0 +1,7 @@
+{
+  "version": "0.11.0",
+  "cli_hosted_door": true,
+  "mcp_atomic_rollback_retry_save_reopen": true,
+  "mcp_read_only_edit_and_own_file_refused": true,
+  "read_only_file_sha256": "78b45b1b5ba2126b3327519f46c5b8e725538f0ad6e641b41e86a66207c41d3e"
+}

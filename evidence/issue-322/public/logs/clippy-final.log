@@ -1,0 +1,6 @@
+    Checking bimcraft-core v0.11.0 (<checkout>\crates\core)
+    Checking bimcraft-dwg v0.11.0 (<checkout>\crates\dwg)
+    Checking bimcraft-rvt v0.11.0 (<checkout>\crates\rvt)
+    Checking bimcraft-plugin v0.11.0 (<checkout>\crates\plugin)
+    Checking bimcraft-cli v0.11.0 (<checkout>\apps\bimcraft-cli)
+    Finished `dev` profile [unoptimized] target(s) in 1m 21s

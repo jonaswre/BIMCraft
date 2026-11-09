@@ -1,0 +1,38 @@
+   Compiling bimcraft-core v0.11.0 (<checkout>\crates\core)
+   Compiling bimcraft-rvt v0.11.0 (<checkout>\crates\rvt)
+   Compiling bimcraft-plugin v0.11.0 (<checkout>\crates\plugin)
+   Compiling bimcraft-dwg v0.11.0 (<checkout>\crates\dwg)
+   Compiling bimcraft-cli v0.11.0 (<checkout>\apps\bimcraft-cli)
+    Finished `test` profile [unoptimized] target(s) in 1m 16s
+     Running unittests src\main.rs (<target>\debug\deps\bimcraft_cli-3867ba8065bf177a.exe)
+
+running 27 tests
+test mcp::tests::a_window_that_has_gone_is_a_tool_error_and_the_server_goes_on ... ok
+test mcp::tests::a_server_attached_read_only_asks_the_window_to_only_read_and_says_so_when_the_window_does ... ok
+test mcp::tests::a_server_attached_to_a_window_works_on_its_project_and_leaves_starting_and_opening_to_it ... ok
+test mcp::tests::failures_are_tool_errors_and_bad_calls_are_protocol_errors ... ok
+test mcp::tests::lifecycle_and_tool_list ... ok
+test mcp::tests::list_commands_says_where_the_command_sits_in_the_interface ... ok
+test mcp::tests::a_read_only_server_reads_the_project_it_opened_and_changes_nothing_of_it ... ok
+test mcp::tests::open_imports_a_revit_file_through_the_same_importer_as_the_command_line ... ok
+test mcp::tests::an_atomic_script_through_mcp_is_all_or_nothing_and_one_undo_step ... ok
+test mcp::tests::serve_answers_each_request_on_its_own_line ... ok
+test mcp::tests::script_result_references_through_mcp_roll_back_and_retry_atomically ... ok
+test mcp::tests::an_agent_models_a_house_and_checks_it_through_mcp_only ... ok
+test tests::bad_usage_and_failing_commands_are_errors ... ok
+test tests::a_read_only_mcp_server_starts_on_the_file_it_is_given_and_a_file_that_is_not_there_stops_it ... ok
+test tests::info_of_a_file_that_is_not_a_project_or_not_revit_says_what_is_wrong ... ok
+test mcp::tests::render_draws_a_family_on_its_own_and_the_project_keeps_nothing_of_it ... ok
+test tests::mcp_is_headless_on_a_file_or_none_or_connects_to_a_window_and_may_only_read_either ... ok
+test tests::info_of_a_revit_file_shows_the_release_the_last_save_the_levels_and_the_counts ... ok
+test tests::run_and_convert_open_a_revit_file_and_save_it_as_a_project_or_ifc ... ok
+test tests::a_revit_file_that_does_not_open_is_an_error_that_names_it_and_saves_nothing ... ok
+test tests::version_names_the_release ... ok
+test window::tests::a_window_is_asked_and_what_it_says_is_a_value_or_an_error ... ok
+test tests::highrise_option_builds_the_shareable_performance_fixture ... ok
+test window::tests::the_bridge_file_names_the_window_and_a_port_that_is_not_its_own_is_refused ... ok
+test tests::script_result_references_create_save_and_reopen_a_hosted_door ... ok
+test tests::run_builds_the_sample_and_saves_each_format ... ok
+test window::tests::a_wrong_token_a_closed_window_and_a_port_nobody_has_are_said_in_words ... ok
+
+test result: ok. 27 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 3.34s

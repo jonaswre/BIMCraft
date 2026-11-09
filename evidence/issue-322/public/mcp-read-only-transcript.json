@@ -1,0 +1,82 @@
+[
+  {
+    "request": {
+      "jsonrpc": "2.0",
+      "id": 1,
+      "method": "tools/call",
+      "params": {
+        "name": "script",
+        "arguments": {
+          "text": "@walls = wall {\"points\":[[0,0],[8000,0]]}",
+          "atomic": true
+        }
+      }
+    },
+    "response": {
+      "id": 1,
+      "jsonrpc": "2.0",
+      "result": {
+        "content": [
+          {
+            "text": "line 1 (wall): `wall` would change the project, which is read-only for agents: this MCP server was started with --read-only: start it without to edit",
+            "type": "text"
+          }
+        ],
+        "isError": true
+      }
+    }
+  },
+  {
+    "request": {
+      "jsonrpc": "2.0",
+      "id": 2,
+      "method": "tools/call",
+      "params": {
+        "name": "script",
+        "arguments": {
+          "text": "@file = save {\"path\": \"mcp-references.bimcraft\"}",
+          "atomic": true
+        }
+      }
+    },
+    "response": {
+      "id": 2,
+      "jsonrpc": "2.0",
+      "result": {
+        "content": [
+          {
+            "text": "line 1 (save): `save` would write over the project's own file, which is read-only for agents: this MCP server was started with --read-only: start it without to edit",
+            "type": "text"
+          }
+        ],
+        "isError": true
+      }
+    }
+  },
+  {
+    "request": {
+      "jsonrpc": "2.0",
+      "id": 3,
+      "method": "tools/call",
+      "params": {
+        "name": "script",
+        "arguments": {
+          "text": "@walls = elements {\"category\":\"walls\"}\nelements {\"level\":\"@walls.elements.0.level\",\"category\":\"walls\"}",
+          "atomic": true
+        }
+      }
+    },
+    "response": {
+      "id": 3,
+      "jsonrpc": "2.0",
+      "result": {
+        "content": [
+          {
+            "text": "{\n  \"results\": [\n    {\n      \"count\": 2,\n      \"elements\": [\n        {\n          \"base_offset\": 0.0,\n          \"category\": \"wall\",\n          \"end\": [\n            8000.0,\n            0.0\n          ],\n          \"guid\": \"19e4c4df-74c5-4faa-b9fc-f6dec412f65c\",\n          \"height\": 3000.0,\n          \"id\": 100002,\n          \"length\": 8000.0,\n          \"level\": \"88fba73a-965f-439f-8225-3a2627dbddd4\",\n          \"room_bounding\": true,\n          \"start\": [\n            0.0,\n            0.0\n          ],\n          \"thickness\": 200.0,\n          \"top_level\": \"02037d5c-bd10-47cc-bfd1-f835d993e47c\",\n          \"type\": \"Generic - 200mm\",\n          \"type_guid\": \"c805a74a-6800-4838-a918-d8eef67cc48e\"\n        },\n        {\n          \"base_offset\": 0.0,\n          \"category\": \"wall\",\n          \"end\": [\n            8000.0,\n            6000.0\n          ],\n          \"guid\": \"d4b13c27-fc6d-4186-be8e-e9eba02f848a\",\n          \"height\": 3000.0,\n          \"id\": 100003,\n          \"length\": 6000.0,\n          \"level\": \"88fba73a-965f-439f-8225-3a2627dbddd4\",\n          \"room_bounding\": true,\n          \"start\": [\n            8000.0,\n            0.0\n          ],\n          \"thickness\": 200.0,\n          \"top_level\": \"02037d5c-bd10-47cc-bfd1-f835d993e47c\",\n          \"type\": \"Generic - 200mm\",\n          \"type_guid\": \"c805a74a-6800-4838-a918-d8eef67cc48e\"\n        }\n      ],\n      \"returned\": 2\n    },\n    {\n      \"count\": 2,\n      \"elements\": [\n        {\n          \"base_offset\": 0.0,\n          \"category\": \"wall\",\n          \"end\": [\n            8000.0,\n            0.0\n          ],\n          \"guid\": \"19e4c4df-74c5-4faa-b9fc-f6dec412f65c\",\n          \"height\": 3000.0,\n          \"id\": 100002,\n          \"length\": 8000.0,\n          \"level\": \"88fba73a-965f-439f-8225-3a2627dbddd4\",\n          \"room_bounding\": true,\n          \"start\": [\n            0.0,\n            0.0\n          ],\n          \"thickness\": 200.0,\n          \"top_level\": \"02037d5c-bd10-47cc-bfd1-f835d993e47c\",\n          \"type\": \"Generic - 200mm\",\n          \"type_guid\": \"c805a74a-6800-4838-a918-d8eef67cc48e\"\n        },\n        {\n          \"base_offset\": 0.0,\n          \"category\": \"wall\",\n          \"end\": [\n            8000.0,\n            6000.0\n          ],\n          \"guid\": \"d4b13c27-fc6d-4186-be8e-e9eba02f848a\",\n          \"height\": 3000.0,\n          \"id\": 100003,\n          \"length\": 6000.0,\n          \"level\": \"88fba73a-965f-439f-8225-3a2627dbddd4\",\n          \"room_bounding\": true,\n          \"start\": [\n            8000.0,\n            0.0\n          ],\n          \"thickness\": 200.0,\n          \"top_level\": \"02037d5c-bd10-47cc-bfd1-f835d993e47c\",\n          \"type\": \"Generic - 200mm\",\n          \"type_guid\": \"c805a74a-6800-4838-a918-d8eef67cc48e\"\n        }\n      ],\n      \"returned\": 2\n    }\n  ]\n}",
+            "type": "text"
+          }
+        ]
+      }
+    }
+  }
+]

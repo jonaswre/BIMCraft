@@ -1,0 +1,108 @@
+   Compiling cfg-if v1.0.5
+   Compiling proc-macro2 v1.0.107
+   Compiling simd-adler32 v0.3.10
+   Compiling crossbeam-utils v0.8.23
+   Compiling rustversion v1.0.23
+   Compiling quote v1.0.47
+   Compiling unicode-ident v1.0.27
+   Compiling crc32fast v1.5.2
+   Compiling crossbeam-epoch v0.9.21
+   Compiling adler2 v2.0.1
+   Compiling serde_core v1.0.229
+   Compiling crossbeam-deque v0.8.8
+   Compiling miniz_oxide v0.9.1
+   Compiling getrandom v0.4.3
+   Compiling rayon-core v1.13.0
+   Compiling zmij v1.0.23
+   Compiling flate2 v1.1.10
+   Compiling encoding_rs v0.8.42
+   Compiling syn v3.0.9
+   Compiling miniz_oxide v0.8.9
+   Compiling fdeflate v0.3.7
+   Compiling getrandom v0.3.4
+   Compiling arrayref v0.3.9
+   Compiling strict-num v0.1.1
+   Compiling bytemuck v1.25.2
+   Compiling serde v1.0.229
+   Compiling windows-link v0.2.1
+   Compiling serde_json v1.0.154
+   Compiling bimcraft-i18n v0.11.0 (<checkout>\crates\i18n)
+   Compiling bitflags v1.3.2
+   Compiling png v0.17.16
+   Compiling bimcraft-core v0.11.0 (<checkout>\crates\core)
+   Compiling windows-sys v0.61.2
+   Compiling tiny-skia-path v0.11.4
+   Compiling serde_derive v1.0.229
+   Compiling itoa v1.0.18
+   Compiling simdutf8 v0.1.5
+   Compiling multiversion_no_op v1.0.0
+   Compiling scopeguard v1.2.0
+   Compiling once_cell v1.21.4
+   Compiling core_detect v1.0.0
+   Compiling arrayvec v0.7.8
+   Compiling either v1.19.0
+   Compiling zune-core v0.5.3
+   Compiling log v0.4.34
+   Compiling fastrand v2.5.0
+   Compiling memchr v2.8.3
+   Compiling tempfile v3.27.0
+   Compiling tiny-skia v0.11.4
+   Compiling zune-jpeg v0.5.15
+   Compiling rayon v1.12.0
+   Compiling ttf-parser v0.25.1
+    Finished `test` profile [unoptimized] target(s) in 2m 38s
+     Running tests\script_references.rs (<target>\debug\deps\script_references-b188a05a433d565e.exe)
+
+running 6 tests
+test tests::bad_references_name_the_failing_line_and_non_atomic_scripts_keep_prior_results ... FAILED
+test tests::named_lines_validate_names_and_allow_literal_at_and_dollar_text ... FAILED
+test tests::named_script_results_create_a_hosted_door_and_survive_save_reopen ... FAILED
+test tests::named_control_port_lines_cannot_replace_the_project_or_bypass_read_only ... FAILED
+test tests::relative_script_result_references_skip_comments_and_blank_lines ... FAILED
+test tests::atomic_reference_errors_restore_history_ids_and_allow_a_clean_retry ... FAILED
+
+failures:
+
+---- tests::bad_references_name_the_failing_line_and_non_atomic_scripts_keep_prior_results stdout ----
+
+thread 'tests::bad_references_name_the_failing_line_and_non_atomic_scripts_keep_prior_results' (22952) panicked at crates\core\tests\script_references.rs:84:9:
+@missing: line 1: bad JSON after `@walls`: expected value at line 1 column 1
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- tests::named_lines_validate_names_and_allow_literal_at_and_dollar_text stdout ----
+
+thread 'tests::named_lines_validate_names_and_allow_literal_at_and_dollar_text' (30228) panicked at crates\core\tests\script_references.rs:96:9:
+@ = inspect: line 1: bad JSON after `@`: expected value at line 1 column 1
+
+---- tests::named_script_results_create_a_hosted_door_and_survive_save_reopen stdout ----
+
+thread 'tests::named_script_results_create_a_hosted_door_and_survive_save_reopen' (53480) panicked at crates\core\tests\script_references.rs:12:44:
+called `Result::unwrap()` on an `Err` value: "line 1: bad JSON after `@walls`: expected value at line 1 column 1"
+
+---- tests::named_control_port_lines_cannot_replace_the_project_or_bypass_read_only stdout ----
+
+thread 'tests::named_control_port_lines_cannot_replace_the_project_or_bypass_read_only' (42484) panicked at crates\core\tests\script_references.rs:115:13:
+line 2: bad JSON after `@project`: expected value at line 1 column 1
+
+---- tests::relative_script_result_references_skip_comments_and_blank_lines stdout ----
+
+thread 'tests::relative_script_result_references_skip_comments_and_blank_lines' (17164) panicked at crates\core\tests\script_references.rs:37:36:
+called `Result::unwrap()` on an `Err` value: "line 5 (modify): modify: \"$last\" is not an element id or GUID"
+
+---- tests::atomic_reference_errors_restore_history_ids_and_allow_a_clean_retry stdout ----
+
+thread 'tests::atomic_reference_errors_restore_history_ids_and_allow_a_clean_retry' (45608) panicked at crates\core\tests\script_references.rs:54:5:
+line 1: bad JSON after `@walls`: expected value at line 1 column 1
+
+
+failures:
+    tests::atomic_reference_errors_restore_history_ids_and_allow_a_clean_retry
+    tests::bad_references_name_the_failing_line_and_non_atomic_scripts_keep_prior_results
+    tests::named_control_port_lines_cannot_replace_the_project_or_bypass_read_only
+    tests::named_lines_validate_names_and_allow_literal_at_and_dollar_text
+    tests::named_script_results_create_a_hosted_door_and_survive_save_reopen
+    tests::relative_script_result_references_skip_comments_and_blank_lines
+
+test result: FAILED. 0 passed; 6 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.10s
+
+error: test failed, to rerun pass `-p bimcraft-core --test script_references`

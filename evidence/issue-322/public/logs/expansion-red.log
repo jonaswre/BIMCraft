@@ -1,0 +1,37 @@
+   Compiling bimcraft-core v0.11.0 (<checkout>\crates\core)
+    Finished `test` profile [unoptimized] target(s) in 1m 50s
+     Running tests\script_references.rs (<target>\debug\deps\script_references-b188a05a433d565e.exe)
+
+running 4 tests
+test tests::reference_expansion_rejects_deep_external_results_before_execution ... FAILED
+test tests::reference_expansion_diagnostics_do_not_copy_large_prior_replies ... FAILED
+test tests::reference_expansion_budget_refuses_amplification_before_execution_and_rolls_back_for_retry ... FAILED
+test tests::reference_expansion_accepts_an_id_list_at_the_existing_command_cap ... ok
+
+failures:
+
+---- tests::reference_expansion_rejects_deep_external_results_before_execution stdout ----
+
+thread 'tests::reference_expansion_rejects_deep_external_results_before_execution' (33180) panicked at crates\core\tests\script_references.rs:259:9:
+an excessively nested external result reached the recipient
+
+---- tests::reference_expansion_diagnostics_do_not_copy_large_prior_replies stdout ----
+
+thread 'tests::reference_expansion_diagnostics_do_not_copy_large_prior_replies' (28200) panicked at crates\core\tests\script_references.rs:247:13:
+reference diagnostic grew to 61575 bytes
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- tests::reference_expansion_budget_refuses_amplification_before_execution_and_rolls_back_for_retry stdout ----
+
+thread 'tests::reference_expansion_budget_refuses_amplification_before_execution_and_rolls_back_for_retry' (53956) panicked at crates\core\tests\script_references.rs:230:9:
+unbounded expansion executed the recipient 1 times
+
+
+failures:
+    tests::reference_expansion_budget_refuses_amplification_before_execution_and_rolls_back_for_retry
+    tests::reference_expansion_diagnostics_do_not_copy_large_prior_replies
+    tests::reference_expansion_rejects_deep_external_results_before_execution
+
+test result: FAILED. 1 passed; 3 failed; 0 ignored; 0 measured; 9 filtered out; finished in 0.18s
+
+error: test failed, to rerun pass `-p bimcraft-core --test script_references`

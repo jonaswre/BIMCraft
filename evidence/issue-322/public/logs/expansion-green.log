@@ -1,0 +1,20 @@
+   Compiling bimcraft-core v0.11.0 (<checkout>\crates\core)
+    Finished `test` profile [unoptimized] target(s) in 1m 07s
+     Running tests\script_references.rs (<target>\debug\deps\script_references-b188a05a433d565e.exe)
+
+running 13 tests
+test tests::external_command_results_resolve_nested_values_once_without_interpolating_keys ... ok
+test tests::named_control_port_lines_cannot_replace_the_project_or_bypass_read_only ... ok
+test tests::atomic_reference_errors_restore_history_ids_and_allow_a_clean_retry ... ok
+test tests::named_ids_and_array_results_attach_a_wall_and_delete_selected_grids ... ok
+test tests::named_lines_validate_names_and_allow_literal_at_and_dollar_text ... ok
+test tests::non_atomic_control_port_scripts_keep_completed_lines_before_a_malformed_name ... ok
+test tests::reference_expansion_accepts_an_id_list_at_the_existing_command_cap ... ok
+test tests::named_script_results_create_a_hosted_door_and_survive_save_reopen ... ok
+test tests::reference_expansion_diagnostics_do_not_copy_large_prior_replies ... ok
+test tests::reference_expansion_budget_refuses_amplification_before_execution_and_rolls_back_for_retry ... ok
+test tests::reference_expansion_rejects_deep_external_results_before_execution ... ok
+test tests::bad_references_name_the_failing_line_and_non_atomic_scripts_keep_prior_results ... ok
+test tests::relative_script_result_references_skip_comments_and_blank_lines ... ok
+
+test result: ok. 13 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.46s

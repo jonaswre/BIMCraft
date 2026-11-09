@@ -1,0 +1,23 @@
+ Downloading crates ...
+  Downloaded wasm-encoder v0.263.0
+  Downloaded wat v1.263.0
+  Downloaded wast v263.0.0
+  Downloaded wasmparser v0.263.0
+   Compiling leb128fmt v0.1.0
+   Compiling unicode-width v0.2.2
+   Compiling wasm-encoder v0.263.0
+   Compiling bumpalo v3.20.3
+   Compiling wasmi v2.0.0
+   Compiling wast v263.0.0
+   Compiling bimcraft-core v0.11.0 (<bimcraft>\upstream-14-script-references\crates\core)
+   Compiling wat v1.263.0
+   Compiling bimcraft-plugin v0.11.0 (<bimcraft>\upstream-14-script-references\crates\plugin)
+    Finished `test` profile [unoptimized] target(s) in 2m 21s
+     Running tests\plugins.rs (<bimcraft>/.targets/issue-14\debug\deps\plugins-6b3a950fa2c6f553.exe)
+
+running 3 tests
+test a_plugin_that_does_not_ask_cannot_be_granted_the_files_permission ... ok
+test the_files_permission_is_checked_before_the_command_runs ... ok
+test the_commands_that_reach_the_disk_are_refused_without_the_files_permission ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 22 filtered out; finished in 0.11s

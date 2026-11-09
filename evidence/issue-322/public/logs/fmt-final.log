@@ -1,0 +1,1 @@
+cargo fmt --check exit=0; reviewed HEAD=c8683ecbebf28c90230f9ac8189de3bc355ef6ff

@@ -1,0 +1,34 @@
+--- a/crates/core/src/engine.rs
++++ b/crates/core/src/engine.rs
+@@ -597,11 +597,12 @@
+     /// or name a file (a `path` or `save`), start or replace the project, save, undo or redo is refused before any line runs.
+     /// It only reads the project, so a session that may only read ([`Session::read_only`]) may try a script too.
+     pub fn script_dry_run(&mut self, text: &str) -> Result<Value, String> {
+-        for (n, line) in text.lines().map(str::trim).enumerate() {
+-            let Some(id) = line.split_whitespace().next().filter(|id| !id.starts_with('#')) else { continue };
++        for (n, line) in text.lines().enumerate() {
++            let Some(ScriptLine { command: id, params: rest, .. }) = script_line(line).map_err(|e| format!("line {}: {e}", n + 1))? else {
++                continue;
++            };
+             let Some(cmd) = find(id) else { continue };
+-            let rest = line[id.len()..].trim();
+-            let params: Value = if rest.is_empty() { json!({}) } else { serde_json::from_str(rest).unwrap_or(Value::Null) };
++            let params: Value = if rest.trim().is_empty() { json!({}) } else { serde_json::from_str(rest).unwrap_or(Value::Null) };
+             let files = ["path", "save"].into_iter().find(|key| params.get(key).is_some_and(|v| !v.is_null()));
+             let what = if REPLACES.contains(&cmd.id) {
+                 Some("replace the project".to_string())
+--- a/crates/core/src/bridge.rs
++++ b/crates/core/src/bridge.rs
+@@ -177,9 +177,9 @@
+         }
+         Request::Catalog => Ok(session.catalog()),
+         Request::Script { text, atomic, dry_run, .. } => {
+-            for (n, line) in text.lines().map(str::trim).enumerate() {
+-                if let Some(id) = line.split_whitespace().next().filter(|id| !id.starts_with('#')) {
+-                    refuse(id).map_err(|e| format!("line {}: {e}", n + 1))?;
++            for (n, line) in text.lines().enumerate() {
++                if let Ok(Some(line)) = crate::engine::script_line(line) {
++                    refuse(line.command).map_err(|e| format!("line {}: {e}", n + 1))?;
+                 }
+             }
+             if *dry_run {

@@ -1,0 +1,1 @@
+PASS: actual CLI script/save/reopen/render; MCP atomic rollback/retry/save/reopen/undo; read-only references and own-file protection

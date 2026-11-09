@@ -1,0 +1,66 @@
+{
+  "made": [
+    {
+      "ids": [
+        100002,
+        100003
+      ]
+    },
+    {
+      "host": 100003,
+      "id": 100004,
+      "mark": "1",
+      "offset": 3000.0
+    },
+    {
+      "at": [
+        8000.0,
+        3000.0
+      ],
+      "category": "door",
+      "flip_facing": false,
+      "flip_hand": false,
+      "guid": "772c11b0-28a0-488d-a305-b565605c51dc",
+      "height": 2100.0,
+      "host": "048445a5-4e04-4ad2-8cee-eecd78bd1775",
+      "id": 100004,
+      "level": "246de846-ce64-4604-9f81-bd9265084388",
+      "mark": "Entry",
+      "offset": 3000.0,
+      "sill": 0.0,
+      "type": "Single 900 x 2100",
+      "type_guid": "7130c3ba-fe58-4058-b44b-a8b368ebf888",
+      "width": 900.0
+    },
+    {
+      "format": "bimcraft",
+      "path": "references.bimcraft"
+    }
+  ],
+  "reopened": {
+    "count": 1,
+    "elements": [
+      {
+        "at": [
+          8000.0,
+          3000.0
+        ],
+        "category": "door",
+        "flip_facing": false,
+        "flip_hand": false,
+        "guid": "772c11b0-28a0-488d-a305-b565605c51dc",
+        "height": 2100.0,
+        "host": "048445a5-4e04-4ad2-8cee-eecd78bd1775",
+        "id": 100004,
+        "level": "246de846-ce64-4604-9f81-bd9265084388",
+        "mark": "Entry",
+        "offset": 3000.0,
+        "sill": 0.0,
+        "type": "Single 900 x 2100",
+        "type_guid": "7130c3ba-fe58-4058-b44b-a8b368ebf888",
+        "width": 900.0
+      }
+    ],
+    "returned": 1
+  }
+}
