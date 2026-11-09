@@ -1,0 +1,5 @@
+modify {"id": 100009, "view_range": {"cut": 500}}
+render {"view": "Level 1", "width": 400, "height": 300, "path": "native-0-before.png"}
+render {"view": "No walls", "width": 400, "height": 300, "path": "native-1-before.png"}
+render {"view": "Interior", "width": 400, "height": 300, "path": "native-2-before.png"}
+render {"view": "Low cut", "width": 400, "height": 300, "path": "native-3-before.png"}

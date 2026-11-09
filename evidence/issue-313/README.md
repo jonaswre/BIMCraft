@@ -17,6 +17,8 @@ Reproduction base: upstream `30527e323e9c2e59abff927e4b76fe3ce0f83e15` (0.11.0).
 
 The driver also checks selected view names and byte-identical parent PNGs before/after. It prints `All CLI journeys passed.`. The montage and crop below were visually inspected.
 
+`verify_plan_native.py` performs a second actual CLI journey: configure the three duplicates, save a native project, reopen it, and compare the four rendered plans byte for byte. It also checks the reported view names. `native-verification.log` records this passing; the `native-*.txt` scripts and stdout files contain the commands and results.
+
 ![Parent and hidden-wall duplicate, then ordinary and lower-cut views](montage.png)
 
 ![Interior-only cropped duplicate](crop.png)

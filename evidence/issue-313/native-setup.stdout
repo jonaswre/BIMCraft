@@ -1,0 +1,8 @@
+{"ids":[100002,100003,100004,100005]}
+{"ids":[100006]}
+{"annotations":0,"id":100007,"level":100000,"name":"No walls"}
+{"background_grid":{"divisions":[5,5],"main":{"color":[230,230,230],"enabled":false,"pen":0},"rotation":0.0,"spacing":[1000.0,1000.0],"sub":{"color":[245,245,245],"enabled":false,"pen":0},"visible":true},"categories":{"wall":{"hidden":true}},"controlled":[],"detail":"fine","elements":{},"filters":[],"hidden":["wall"],"hidden_elements":[],"layers":{},"name":"No walls","options":{},"phase":null,"phase_filter":null,"scale":null,"template":null,"view":100007,"visual_style":"shaded"}
+{"annotations":0,"id":100008,"level":100000,"name":"Interior"}
+{"crop":[[1000.0,1000.0],[3000.0,2000.0]],"view":100008}
+{"annotations":0,"id":100009,"level":100000,"name":"Low cut"}
+{"format":"bimcraft","path":"configured.bimcraft"}

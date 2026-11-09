@@ -1,0 +1,4 @@
+render {"view": "Level 1", "width": 400, "height": 300, "path": "native-0-after.png"}
+render {"view": "No walls", "width": 400, "height": 300, "path": "native-1-after.png"}
+render {"view": "Interior", "width": 400, "height": 300, "path": "native-2-after.png"}
+render {"view": "Low cut", "width": 400, "height": 300, "path": "native-3-after.png"}

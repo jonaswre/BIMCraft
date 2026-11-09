@@ -1,0 +1,7 @@
+wall {"points":[[0,0],[8000,0],[8000,6000],[0,6000]],"closed":true}
+wall {"points":[[0,8000],[4000,8000]],"height":900}
+duplicate_view {"view":"Level 1","name":"No walls"}
+graphics {"view":"No walls","hide":["wall"]}
+duplicate_view {"view":"Level 1","name":"Interior"}
+crop {"view":"Interior","region":[[1000,1000],[3000,2000]]}
+duplicate_view {"view":"Level 1","name":"Low cut"}

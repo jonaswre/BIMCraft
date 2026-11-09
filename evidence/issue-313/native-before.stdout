@@ -1,0 +1,7 @@
+{"name":"Project","path":"configured.bimcraft"}
+{"category":"planview","guid":"50f3c7e1-51ce-4510-b85e-be6930a2539f","id":100009,"level":"802255e5-4460-468a-b7b3-687360226928","name":"Low cut","view_range":{"bottom":0.0,"cut":500.0,"depth":0.0,"top":null}}
+{"height":300,"kind":"plan","path":"native-0-before.png","view":"Level 1","width":400}
+{"height":300,"kind":"plan","path":"native-1-before.png","view":"No walls","width":400}
+{"height":300,"kind":"plan","path":"native-2-before.png","view":"Interior","width":400}
+{"height":300,"kind":"plan","path":"native-3-before.png","view":"Low cut","width":400}
+{"format":"bimcraft","path":"saved.bimcraft"}
