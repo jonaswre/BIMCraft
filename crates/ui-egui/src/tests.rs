@@ -6742,3 +6742,4 @@ fn room_area_computation_is_set_from_manage_and_undone() {
 }
 
 mod background_grid;
+mod sheet_fit;
