@@ -1,0 +1,10 @@
+{
+  "native_reopen_all_ifc_roles_stable": true,
+  "ifc_reopen_native_stair_railing_guids_stable": true,
+  "derived_subproduct_guids_regenerate_after_ifc_import_in_baseline18_and_new_branch": true,
+  "metadata_categories": [
+    67,
+    68
+  ],
+  "closed_IFC_DATA_matches_baseline18": true
+}

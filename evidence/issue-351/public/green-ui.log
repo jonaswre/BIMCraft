@@ -1,0 +1,29 @@
+Command: cargo --config 'profile.dev.package.bimcraft-core.opt-level=0' --config 'profile.dev.debug=0' test -p bimcraft-ui-egui tests::control -- --test-threads=4
+Exit code: 0
+Environment: CARGO_BUILD_JOBS=2, RAYON_NUM_THREADS=2, CARGO_TARGET_DIR=<target>
+
+   Compiling bimcraft-core v0.11.0 (<checkout>\crates\core)
+   Compiling bimcraft-plugin v0.11.0 (<checkout>\crates\plugin)
+   Compiling bimcraft-ui-egui v0.11.0 (<checkout>\crates\ui-egui)
+    Finished `test` profile [unoptimized] target(s) in 33.17s
+     Running unittests src\lib.rs (<target>\debug\deps\bimcraft_ui_egui-846a33bfdb14fa4e.exe)
+
+running 16 tests
+test tests::control::a_port_in_use_is_an_error_and_the_bridge_file_is_left_alone ... ok
+test tests::control::a_request_line_over_the_limit_is_an_error_and_a_line_at_it_is_read ... ok
+test tests::control::a_connection_that_trickles_its_first_line_or_speaks_another_protocol_is_closed ... ok
+test tests::control::a_request_whose_agent_has_given_up_is_not_done_and_the_next_one_is ... ok
+test tests::control::an_agent_works_on_the_project_the_window_has_open_and_the_user_sees_it_and_can_undo_it ... ok
+test tests::control::a_connected_agent_reads_the_users_current_selection_and_active_view ... ok
+test tests::control::desktop_context_does_not_disclose_selection_or_view_without_the_token ... ok
+test tests::control::desktop_context_is_read_only_and_home_has_no_active_view ... ok
+test tests::control::desktop_context_follows_clearing_deletion_and_the_users_new_project ... ok
+test tests::control::desktop_context_waits_for_model_replacement_and_omits_deleted_elements_before_tidy ... ok
+test tests::control::desktop_context_identifies_ceiling_3d_sections_sheets_and_dependent_plan_views ... ok
+test tests::control::only_a_few_agents_are_held_at_once_and_a_connection_that_says_nothing_holds_a_place_only_for_a_while ... ok
+test tests::control::settings_let_agents_only_read_and_an_agents_edit_comes_back_as_an_error_that_names_the_box ... ok
+test tests::control::what_would_replace_the_project_an_error_and_a_wrong_token_are_each_turned_away ... ok
+test tests::control::the_settings_file_keeps_the_agents_port_and_a_window_opens_the_port_it_keeps ... ok
+test tests::control::settings_open_the_port_and_close_it_and_the_view_control_bar_says_how_it_is_in_both_profiles ... ok
+
+test result: ok. 16 passed; 0 failed; 0 ignored; 0 measured; 845 filtered out; finished in 9.57s

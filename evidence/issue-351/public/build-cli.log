@@ -1,0 +1,26 @@
+Command: cargo --config 'profile.dev.package.bimcraft-core.opt-level=0' --config 'profile.dev.debug=0' build -p bimcraft-cli --no-default-features
+Exit code: 0
+Environment: CARGO_BUILD_JOBS=2, RAYON_NUM_THREADS=2, CARGO_TARGET_DIR=<target>
+
+   Compiling proc-macro2 v1.0.107
+   Compiling quote v1.0.47
+   Compiling serde_core v1.0.229
+   Compiling libm v0.2.16
+   Compiling syn v3.0.9
+   Compiling bytemuck v1.25.2
+   Compiling tiny-skia-path v0.11.4
+   Compiling wasmi_core v2.0.0
+   Compiling windows-sys v0.61.2
+   Compiling serde_derive v1.0.229
+   Compiling either v1.19.0
+   Compiling serde_json v1.0.154
+   Compiling tiny-skia v0.11.4
+   Compiling serde v1.0.229
+   Compiling tempfile v3.27.0
+   Compiling rayon v1.12.0
+   Compiling wasmi_ir v2.0.0
+   Compiling wasmi v2.0.0
+   Compiling bimcraft-core v0.11.0 (<checkout>\crates\core)
+   Compiling bimcraft-plugin v0.11.0 (<checkout>\crates\plugin)
+   Compiling bimcraft-cli v0.11.0 (<checkout>\apps\bimcraft-cli)
+    Finished `dev` profile [unoptimized] target(s) in 2m 31s

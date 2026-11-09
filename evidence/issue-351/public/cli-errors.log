@@ -1,0 +1,9 @@
+Command: Actual standalone CLI mcp --read-only; JSON-RPC array/extra/empty arguments assertions
+Exit code: 0
+Environment: CARGO_BUILD_JOBS=2, RAYON_NUM_THREADS=2, CARGO_TARGET_DIR=<target>
+
+{"error":{"code":-32602,"message":"the arguments of `desktop_context` must be an object"},"id":1,"jsonrpc":"2.0"}
+{"error":{"code":-32602,"message":"`desktop_context` takes no arguments"},"id":2,"jsonrpc":"2.0"}
+{"id":3,"jsonrpc":"2.0","result":{"content":[{"text":"desktop context requires a connected window: start bimcraft --control 0 and use bimcraft-cli mcp --connect","type":"text"}],"isError":true}}
+
+Actual standalone CLI: all 3 argument/headless assertions passed.

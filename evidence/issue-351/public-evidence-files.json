@@ -1,0 +1,18 @@
+[
+  "README.md",
+  "public/red-ui.log",
+  "public/green-ui.log",
+  "public/build-cli.log",
+  "public/cli-probe.log",
+  "public/cli-errors.log",
+  "public/core-bridge.log",
+  "public/core-read-only.log",
+  "public/agent-docs.log",
+  "public/clippy.log",
+  "public/i18n-update.log",
+  "public/i18n-check.log",
+  "public/fmt.log",
+  "public/catalog-audit.log",
+  "public/cli-probe-test.rs",
+  "public/run-cli-probe.py"
+]

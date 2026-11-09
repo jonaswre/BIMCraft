@@ -1,0 +1,160 @@
+{
+  "ifcopenshell_version": "0.8.5",
+  "checks": [
+    {
+      "file": "open-stair.ifc",
+      "schema": "IFC4",
+      "express_problems": 0,
+      "unique_globalids": 19,
+      "product_shapes": 5,
+      "flights": 2,
+      "landings": 1,
+      "railings": 2,
+      "flight_volume_m3": 0.0931,
+      "landing_volume_m3": 0.25,
+      "sample_z_m": [
+        [
+          1.6800000000000002,
+          1.7199999999999998
+        ],
+        [
+          1.520000000000044,
+          1.7700000000000438
+        ],
+        [
+          1.5199999999999565,
+          1.7699999999999563
+        ],
+        [
+          2.19,
+          2.4400000000000004
+        ]
+      ],
+      "native_mesh_bounds_and_clearance_match": true
+    },
+    {
+      "file": "reopened-bimcraft.ifc",
+      "schema": "IFC4",
+      "express_problems": 0,
+      "unique_globalids": 19,
+      "product_shapes": 5,
+      "flights": 2,
+      "landings": 1,
+      "railings": 2,
+      "flight_volume_m3": 0.0931,
+      "landing_volume_m3": 0.25,
+      "sample_z_m": [
+        [
+          1.6800000000000002,
+          1.7199999999999998
+        ],
+        [
+          1.520000000000044,
+          1.7700000000000438
+        ],
+        [
+          1.5199999999999565,
+          1.7699999999999563
+        ],
+        [
+          2.19,
+          2.4400000000000004
+        ]
+      ],
+      "native_mesh_bounds_and_clearance_match": true
+    },
+    {
+      "file": "reopened-ifc.ifc",
+      "schema": "IFC4",
+      "express_problems": 0,
+      "unique_globalids": 19,
+      "product_shapes": 5,
+      "flights": 2,
+      "landings": 1,
+      "railings": 2,
+      "flight_volume_m3": 0.0931,
+      "landing_volume_m3": 0.25,
+      "sample_z_m": [
+        [
+          1.6800000000000002,
+          1.7199999999999998
+        ],
+        [
+          1.520000000000044,
+          1.7700000000000438
+        ],
+        [
+          1.5199999999999565,
+          1.7699999999999563
+        ],
+        [
+          2.19,
+          2.4400000000000004
+        ]
+      ],
+      "native_mesh_bounds_and_clearance_match": true
+    },
+    {
+      "file": "tessellated-open.ifc",
+      "schema": "IFC4",
+      "express_problems": 0,
+      "unique_globalids": 19,
+      "product_shapes": 5,
+      "flights": 2,
+      "landings": 1,
+      "railings": 2,
+      "flight_volume_m3": 0.0931,
+      "landing_volume_m3": 0.25,
+      "sample_z_m": [
+        [
+          1.6800000000000002,
+          1.72
+        ],
+        [
+          1.520000000000044,
+          1.7700000000000438
+        ],
+        [
+          1.5199999999999565,
+          1.7699999999999574
+        ],
+        [
+          2.19,
+          2.4400000000000004
+        ]
+      ],
+      "native_mesh_bounds_and_clearance_match": true
+    },
+    {
+      "file": "reopened-tessellated.ifc",
+      "schema": "IFC4",
+      "express_problems": 0,
+      "unique_globalids": 19,
+      "product_shapes": 5,
+      "flights": 2,
+      "landings": 1,
+      "railings": 2,
+      "flight_volume_m3": 0.0931,
+      "landing_volume_m3": 0.25,
+      "sample_z_m": [
+        [
+          1.6800000000000002,
+          1.7199999999999998
+        ],
+        [
+          1.520000000000044,
+          1.7700000000000438
+        ],
+        [
+          1.5199999999999565,
+          1.7699999999999563
+        ],
+        [
+          2.19,
+          2.4400000000000004
+        ]
+      ],
+      "native_mesh_bounds_and_clearance_match": true
+    }
+  ]
+}

@@ -1,0 +1,2 @@
+level {"name":"Raised","elevation":1000}
+stair {"start":[200,300],"angle":37,"level":"Raised","height":2880,"open":true,"landings":[{"at":8,"turn":90}],"railings":true}

@@ -1,0 +1,2 @@
+Compared all 20 modified catalogs against base HEAD after removing only #: source-reference lines.
+PASS: all message IDs, translations and other catalog content are unchanged.

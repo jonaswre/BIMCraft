@@ -1,0 +1,15 @@
+Command: cargo --config 'profile.dev.package.bimcraft-core.opt-level=0' --config 'profile.dev.debug=0' test -p bimcraft-core --lib read_only_tests:: -- --test-threads=4
+Exit code: 0
+Environment: CARGO_BUILD_JOBS=2, RAYON_NUM_THREADS=2, CARGO_TARGET_DIR=<target>
+
+    Finished `test` profile [unoptimized] target(s) in 0.19s
+     Running unittests src\lib.rs (<target>\debug\deps\bimcraft_core-f723816fa9dc5cad.exe)
+
+running 5 tests
+test read_only_tests::a_refused_change_leaves_the_model_checked_as_it_was ... ok
+test read_only_tests::reading_lends_a_session_read_only_for_what_it_runs_and_gives_it_back ... ok
+test read_only_tests::a_session_that_may_only_read_reads_schedules_renders_and_exports_to_new_files ... ok
+test read_only_tests::a_session_that_may_only_read_refuses_what_would_change_the_project_and_changes_nothing ... ok
+test read_only_tests::whatever_a_command_is_given_a_session_that_may_only_read_keeps_its_project ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 1545 filtered out; finished in 2.36s

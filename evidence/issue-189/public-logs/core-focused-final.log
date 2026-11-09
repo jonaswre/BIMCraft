@@ -1,0 +1,21 @@
+   Compiling bimcraft-core v0.11.0 (<worktree>\crates\core)
+    Finished `test` profile [unoptimized] target(s) in 28.18s
+     Running tests\agent_docs.rs (<target>\debug\deps\agent_docs-860e53fa9aab599c.exe)
+
+running 3 tests
+test the_root_claude_md_stays_under_its_word_budget ... ok
+test the_root_claude_md_reaches_every_crate_note_and_area_write_up ... ok
+test every_file_the_agent_docs_link_to_exists ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.26s
+
+     Running tests\open_stairs.rs (<target>\debug\deps\open_stairs-8e6bc786de881d34.exe)
+
+running 5 tests
+test tests::invalid_open_parameters_roll_back_and_modify_undo_preserves_identity ... ok
+test tests::format18_stairs_keep_solid_geometry_guids_and_unknown_field_reporting ... ok
+test tests::two_riser_open_flights_keep_their_direction_and_height_on_ifc_import ... ok
+test tests::open_construction_survives_native_and_ifc_save_reopen_and_can_be_closed_again ... ok
+test tests::treads_supports_and_landing_underside_survive_ifc_reopening ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.15s

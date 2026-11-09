@@ -1,0 +1,16 @@
+Command: Python comparison of every changed catalog with base; every non-#: line must be identical
+Exit code: 0
+Environment: CARGO_BUILD_JOBS=2, RAYON_NUM_THREADS=2, CARGO_TARGET_DIR=<target>
+
+PASS: all 11 changed catalogs preserve every non-source-reference line, including messages and translations.
+translations/ui/bimcraft-ui.pot
+translations/ui/cs.po
+translations/ui/de.po
+translations/ui/es.po
+translations/ui/fr.po
+translations/ui/it.po
+translations/ui/nl.po
+translations/ui/pt.po
+translations/ui/vi.po
+translations/ui/zh.po
+translations/ui/zh_TW.po

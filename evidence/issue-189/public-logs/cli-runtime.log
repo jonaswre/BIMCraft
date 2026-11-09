@@ -1,0 +1,25 @@
+COMMAND run --script open-stair.txt --save open-stair.bimcraft --save open-stair.ifc --save open-stair.glb --cmd render {"view":"{3D}","path":"open-stair.png","azimuth":135,"elevation":25,"width":1200,"height":900}
+{"id":100002,"name":"Raised"}
+{"id":100003,"length":3920.0,"railings":[100004,100005],"risers":16}
+{"format":"bimcraft","path":"open-stair.bimcraft"}
+{"format":"IFC4","path":"open-stair.ifc"}
+{"elements":3,"format":"glTF 2.0","path":"open-stair.glb","triangles":1320}
+{"azimuth":135.0,"elevation":25.0,"eye":null,"eye_elevation":null,"height":900,"kind":"3D view","lens":null,"path":"open-stair.png","target":null,"view":"{3D}","width":1200}
+COMMAND run open-stair.bimcraft --cmd elements {"category":"stair"} --save reopened-bimcraft.bimcraft --save reopened-bimcraft.ifc --save reopened-bimcraft.glb
+{"name":"Project","path":"open-stair.bimcraft"}
+{"count":1,"elements":[{"angle":37.0,"category":"stair","end":[684.178,3745.108],"guid":"09b37584-f18c-498f-9b89-68c607897d23","height":2880.0,"id":100003,"landings":[{"at":8.0,"turn":90.0}],"length":3920.0,"level":"1a5d2cca-7aae-4de0-85f6-7f0287ff8bc1","open":true,"riser":180.0,"riser_height":180.0,"risers":16,"runs":[[[200.0,300.0],[1765.326,1479.557]],[[1863.736,2179.783],[684.178,3745.108]]],"start":[200.0,300.0],"top_level":null,"tread":280.0,"width":1000.0}],"returned":1}
+{"format":"bimcraft","path":"reopened-bimcraft.bimcraft"}
+{"format":"IFC4","path":"reopened-bimcraft.ifc"}
+{"elements":3,"format":"glTF 2.0","path":"reopened-bimcraft.glb","triangles":1320}
+COMMAND run open-stair.ifc --cmd elements {"category":"stair"} --save reopened-ifc.bimcraft --save reopened-ifc.ifc --save reopened-ifc.glb
+{"elements":{"level":3,"railing":2,"stair":1},"format":"IFC4","generic":0,"moved":null,"name":"Project","path":"open-stair.ifc","skipped":[]}
+{"count":1,"elements":[{"angle":37.0,"category":"stair","end":[684.178,3745.108],"guid":"09b37584-f18c-498f-9b89-68c607897d23","height":2880.0,"id":100003,"landings":[{"at":8.0,"turn":90.0}],"length":3920.0,"level":"1a5d2cca-7aae-4de0-85f6-7f0287ff8bc1","open":true,"riser":180.0,"riser_height":180.0,"risers":16,"runs":[[[200.0,300.0],[1765.326,1479.557]],[[1863.736,2179.783],[684.178,3745.108]]],"start":[200.0,300.0],"top_level":null,"tread":280.0,"width":1000.0}],"returned":1}
+{"format":"bimcraft","path":"reopened-ifc.bimcraft"}
+{"format":"IFC4","path":"reopened-ifc.ifc"}
+{"elements":3,"format":"glTF 2.0","path":"reopened-ifc.glb","triangles":1320}
+COMMAND run open-stair.bimcraft
+open: open-stair.bimcraft is not a BIMCraft project: it was saved by a newer BIMCraft (file format 19; this one reads up to 18): update BIMCraft to open it
+COMMAND run baseline-solid.bimcraft --save closed-preserved.ifc
+{"name":"Project","path":"baseline-solid.bimcraft"}
+{"format":"IFC4","path":"closed-preserved.ifc"}
+PASS: native/IFC reopen retains open construction and GUID; format18 refuses new file; closed IFC DATA byte-identical

@@ -1,0 +1,9 @@
+    Finished `test` profile [unoptimized] target(s) in 0.19s
+     Running unittests src\lib.rs (<target>\debug\deps\bimcraft_core-f723816fa9dc5cad.exe)
+
+running 3 tests
+test tests::ramps_climb_at_their_slope_with_landings_between_runs ... ok
+test render::tests::plans_draw_stairs_that_turn_ramps_and_railings ... ok
+test tests::railings_run_along_stairs_and_ramps_or_along_a_path ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 1546 filtered out; finished in 0.52s

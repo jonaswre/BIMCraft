@@ -1,0 +1,17 @@
+Command: cargo --config 'profile.dev.package.bimcraft-core.opt-level=0' --config 'profile.dev.debug=0' test -p bimcraft-ui-egui actual_cli_mcp_reads_desktop_context_and_reports_headless_unavailability -- --nocapture --test-threads=4 (temporary external-binary probe)
+Exit code: 0
+Environment: CARGO_BUILD_JOBS=2, RAYON_NUM_THREADS=2, CARGO_TARGET_DIR=<target>
+
+   Compiling bimcraft-ui-egui v0.11.0 (<checkout>\crates\ui-egui)
+    Finished `test` profile [unoptimized] target(s) in 24.59s
+     Running unittests src\lib.rs (<target>\debug\deps\bimcraft_ui_egui-846a33bfdb14fa4e.exe)
+
+running 1 test
+CONNECTED_CONTEXT={"active_view":{"guid":"eca4ac97-b03a-48e9-acbe-4914a181b531","id":100000,"kind":"plan","name":"Level 1"},"project":"Project","selection":[{"category":"wall","guid":"3fe22d8b-3619-4ba0-b7c8-b4cefb894a88","id":100002}]}
+READ_ONLY_REFUSAL={"id":4,"jsonrpc":"2.0","result":{"content":[{"text":"`wall` would change the project, which is read-only for agents: this agent's connection asked to only read it (bimcraft-cli mcp --connect --read-only): connect without --read-only to edit","type":"text"}],"isError":true}}
+NAVIGATED_CONTEXT={"active_view":{"guid":null,"id":null,"kind":"schedule","name":"Room Schedule"},"project":"Project","selection":[{"category":"wall","guid":"3fe22d8b-3619-4ba0-b7c8-b4cefb894a88","id":100002}]}
+HEADLESS_UNAVAILABLE={"id":5,"jsonrpc":"2.0","result":{"content":[{"text":"desktop context requires a connected window: start bimcraft --control 0 and use bimcraft-cli mcp --connect","type":"text"}],"isError":true}}
+NO_WINDOW=connection refused with existing no-control-port diagnostic
+test tests::control::actual_cli_mcp_reads_desktop_context_and_reports_headless_unavailability ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 861 filtered out; finished in 3.53s

@@ -1,0 +1,84 @@
+{
+  "native_reopen_all_ifc_roles_stable": true,
+  "ifc_reopen_native_stair_railing_guids_stable": true,
+  "derived_subproduct_guids_regenerate_after_ifc_import_in_baseline18_and_new_branch": true,
+  "baseline18": {
+    "IfcStair": [
+      "1kZCC$sK54UBdCokOnJRB6"
+    ],
+    "IfcStairFlight": [
+      "1gcgJ2UyDZEUKqwuqc_0Dc",
+      "2jsd25Tgxq1UMOOvaq32Om"
+    ],
+    "IfcSlab": [
+      "0QBJwf7FKtFVzzdqKNs$fj"
+    ],
+    "IfcRailing": [],
+    "IfcPropertySet": [],
+    "IfcRelDefinesByProperties": []
+  },
+  "baseline18_ifc_reopened": {
+    "IfcStair": [
+      "1kZCC$sK54UBdCokOnJRB6"
+    ],
+    "IfcStairFlight": [
+      "04Q7t2mlcUwtRKMUIJ10bI",
+      "2dWpqxeSNt6AYRtynUwtEo"
+    ],
+    "IfcSlab": [
+      "218r4NQX6ywwCv5ApMv6KH"
+    ],
+    "IfcRailing": [],
+    "IfcPropertySet": [],
+    "IfcRelDefinesByProperties": []
+  },
+  "open": {
+    "IfcStair": [
+      "09itM4yOn9Zvk9QCO7YNqZ"
+    ],
+    "IfcStairFlight": [
+      "0yq4ZuPhOkoKSZ3pk53CqS",
+      "2K7VL5aZSFLC5$dWl$IqwN"
+    ],
+    "IfcSlab": [
+      "1_VMinPE27Emf_Qv5uOyYl"
+    ],
+    "IfcRailing": [
+      "2GRcSD2Dn8LgWV4X7bf2iH",
+      "2qSBvZ7DD8SRsS0AQj$GUk"
+    ],
+    "IfcPropertySet": [
+      "1RAf2Vsx2TY29CMEFJjLEh"
+    ],
+    "IfcRelDefinesByProperties": [
+      "3M0lDWIoqozpD2CGvk3lp1"
+    ]
+  },
+  "open_ifc_reopened": {
+    "IfcStair": [
+      "09itM4yOn9Zvk9QCO7YNqZ"
+    ],
+    "IfcStairFlight": [
+      "0Avu2yH3y_aIcm3_LwcuGd",
+      "1D_xIDwTIr13u2mMB8tf$M"
+    ],
+    "IfcSlab": [
+      "0rbv3boM4nyHBmsi2aAv7Q"
+    ],
+    "IfcRailing": [
+      "2GRcSD2Dn8LgWV4X7bf2iH",
+      "2qSBvZ7DD8SRsS0AQj$GUk"
+    ],
+    "IfcPropertySet": [
+      "12odiYnyhLv0Veoq6OmsAe"
+    ],
+    "IfcRelDefinesByProperties": [
+      "1NRZN4Y51nH7r8KKwsNg1u"
+    ]
+  },
+  "metadata_categories": [
+    67,
+    68
+  ],
+  "closed_IFC_DATA_matches_baseline18": true
+}

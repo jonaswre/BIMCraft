@@ -1,0 +1,8 @@
+{"id":100002,"length":4200.0,"railings":[],"risers":16}
+{"count":1,"elements":[{"angle":0.0,"category":"stair","end":[4200.0,0.0],"guid":"f9082a6b-ee29-41a5-957d-87c6f2e58892","height":2880.0,"id":100002,"length":4200.0,"level":"cb315641-c16e-4155-8ad6-d83445c53514","riser":180.0,"riser_height":180.0,"risers":16,"runs":[[[0.0,0.0],[4200.0,0.0]]],"start":[0.0,0.0],"top_level":null,"tread":280.0,"width":1000.0}],"returned":1}
+
+Traceback (most recent call last):
+  File "<evidence>\check_cli_open.py", line 7, in <module>
+    assert stair.get("open") is True, "open:true must create open construction, not silently create a solid stair"
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: open:true must create open construction, not silently create a solid stair

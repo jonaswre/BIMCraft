@@ -1,0 +1,75 @@
+   Compiling cfg-if v1.0.5
+   Compiling crossbeam-utils v0.8.23
+   Compiling simd-adler32 v0.3.10
+   Compiling proc-macro2 v1.0.107
+   Compiling adler2 v2.0.1
+   Compiling quote v1.0.47
+   Compiling rustversion v1.0.23
+   Compiling crc32fast v1.5.2
+   Compiling crossbeam-epoch v0.9.21
+   Compiling unicode-ident v1.0.27
+   Compiling serde_core v1.0.229
+   Compiling crossbeam-deque v0.8.8
+   Compiling miniz_oxide v0.9.1
+   Compiling getrandom v0.4.3
+   Compiling rayon-core v1.13.0
+   Compiling zmij v1.0.23
+   Compiling encoding_rs v0.8.42
+   Compiling flate2 v1.1.10
+   Compiling syn v3.0.9
+   Compiling miniz_oxide v0.8.9
+   Compiling fdeflate v0.3.7
+   Compiling serde_json v1.0.154
+   Compiling getrandom v0.3.4
+   Compiling bytemuck v1.25.2
+   Compiling serde v1.0.229
+   Compiling arrayref v0.3.9
+   Compiling windows-link v0.2.1
+   Compiling strict-num v0.1.1
+   Compiling bitflags v1.3.2
+   Compiling bimcraft-i18n v0.11.0 (<worktree>\crates\i18n)
+   Compiling tiny-skia-path v0.11.4
+   Compiling png v0.17.16
+   Compiling windows-sys v0.61.2
+   Compiling bimcraft-core v0.11.0 (<worktree>\crates\core)
+   Compiling serde_derive v1.0.229
+   Compiling simdutf8 v0.1.5
+   Compiling scopeguard v1.2.0
+   Compiling multiversion_no_op v1.0.0
+   Compiling core_detect v1.0.0
+   Compiling itoa v1.0.18
+   Compiling zune-core v0.5.3
+   Compiling log v0.4.34
+   Compiling fastrand v2.5.0
+   Compiling memchr v2.8.3
+   Compiling either v1.19.0
+   Compiling arrayvec v0.7.8
+   Compiling once_cell v1.21.4
+   Compiling tiny-skia v0.11.4
+   Compiling tempfile v3.27.0
+   Compiling rayon v1.12.0
+   Compiling zune-jpeg v0.5.15
+   Compiling ttf-parser v0.25.1
+    Finished `test` profile [unoptimized] target(s) in 4m 52s
+     Running tests\open_stairs.rs (<target>\debug\deps\open_stairs-8e6bc786de881d34.exe)
+
+running 1 test
+test tests::open_construction_survives_native_and_ifc_save_reopen_and_can_be_closed_again ... FAILED
+
+failures:
+
+---- tests::open_construction_survives_native_and_ifc_save_reopen_and_can_be_closed_again stdout ----
+
+thread 'tests::open_construction_survives_native_and_ifc_save_reopen_and_can_be_closed_again' (48252) panicked at crates\core\tests\open_stairs.rs:17:9:
+assertion `left == right` failed: creating an open stair must not silently create solid construction
+  left: Null
+ right: true
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    tests::open_construction_survives_native_and_ifc_save_reopen_and_can_be_closed_again
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.12s
+
+error: test failed, to rerun pass `-p bimcraft-core --test open_stairs`

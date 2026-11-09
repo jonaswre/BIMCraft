@@ -1,0 +1,2 @@
+{"left_out":["/elements/100002/open"],"left_out_count":1,"name":"Project","path":"<evidence>/format18-open-probe.bimcraft"}
+{"count":1,"elements":[{"angle":0.0,"category":"stair","end":[2460.0,2460.0],"guid":"6e8cc33f-d941-4478-b9cc-cae6314db2c6","height":2880.0,"id":100002,"landings":[{"at":8.0,"turn":90.0}],"length":3920.0,"level":"1e05d43c-0ce5-4aee-82a9-cd24ab047a48","riser":180.0,"riser_height":180.0,"risers":16,"runs":[[[0.0,0.0],[1960.0,0.0]],[[2460.0,500.0],[2460.0,2460.0]]],"start":[0.0,0.0],"top_level":null,"tread":280.0,"width":1000.0}],"returned":1}

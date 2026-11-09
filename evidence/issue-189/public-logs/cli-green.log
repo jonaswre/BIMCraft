@@ -1,0 +1,4 @@
+{"id":100002,"length":4200.0,"railings":[],"risers":16}
+{"count":1,"elements":[{"angle":0.0,"category":"stair","end":[4200.0,0.0],"guid":"7136d360-01d6-4a2e-a147-c4e7cd6595d0","height":2880.0,"id":100002,"length":4200.0,"level":"19e5085a-a506-41ca-ac1a-0d491099c091","open":true,"riser":180.0,"riser_height":180.0,"risers":16,"runs":[[[0.0,0.0],[4200.0,0.0]]],"start":[0.0,0.0],"top_level":null,"tread":280.0,"width":1000.0}],"returned":1}
+
+PASS: CLI creates open construction

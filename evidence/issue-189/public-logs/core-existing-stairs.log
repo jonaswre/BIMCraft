@@ -1,0 +1,14 @@
+   Compiling bimcraft-core v0.11.0 (<worktree>\crates\core)
+    Finished `test` profile [unoptimized] target(s) in 3m 37s
+     Running unittests src\lib.rs (<target>\debug\deps\bimcraft_core-f723816fa9dc5cad.exe)
+
+running 7 tests
+test stairs::tests::a_line_moved_aside_keeps_its_corners_square ... ok
+test stairs::tests::landings_turn_the_next_run_square_or_back ... ok
+test tests::stairs_climb_in_risers_no_higher_than_their_riser ... ok
+test render::tests::plans_draw_stairs_that_turn_ramps_and_railings ... ok
+test render::tests::plans_cut_columns_draw_stairs_and_show_roofs_from_both_sides ... ok
+test tests::stairs_turn_at_landings_into_several_runs ... ok
+test tests::railings_run_along_stairs_and_ramps_or_along_a_path ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 1542 filtered out; finished in 0.60s
