@@ -1,0 +1,23 @@
+   Compiling bimcraft-core v0.11.0 (<bimcraft>\upstream-13-scan-framing\crates\core)
+    Finished `test` profile [unoptimized] target(s) in 1.42s
+     Running tests\scan_framing.rs (<bimcraft>/.targets/issue-13\debug\deps\scan_framing-f8a4aee1145ae709.exe)
+
+running 4 tests
+test tests::empty_fitting_and_explicit_level_extents_are_preserved ... ok
+test tests::scan_only_fitting_still_shows_scans_in_parallel_and_perspective ... ok
+test tests::explicit_camera_and_crops_keep_scans_visible_and_survive_save_open ... ok
+building framing unchanged after scan import and save/open: [("section", false), ("parallel", false), ("perspective", false)]
+
+thread 'tests::adding_a_distant_scan_keeps_the_building_readable_in_default_views_after_reopening' (47528) panicked at crates\core\tests\scan_framing.rs:67:9:
+a distant scan changed automatic building framing: [("section", false), ("parallel", false), ("perspective", false)]
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test tests::adding_a_distant_scan_keeps_the_building_readable_in_default_views_after_reopening ... FAILED
+
+failures:
+
+failures:
+    tests::adding_a_distant_scan_keeps_the_building_readable_in_default_views_after_reopening
+
+test result: FAILED. 3 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.93s
+
+error: test failed, to rerun pass `-p bimcraft-core --test scan_framing`

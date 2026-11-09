@@ -1,0 +1,28 @@
+   Compiling bimcraft-core v0.11.0 (<bimcraft>\upstream-13-scan-framing\crates\core)
+    Finished `test` profile [unoptimized] target(s) in 3m 33s
+     Running unittests src\lib.rs (<bimcraft>/.targets/issue-13\debug\deps\bimcraft_core-f723816fa9dc5cad.exe)
+
+running 21 tests
+test cloud_tests::a_file_of_format_4_that_holds_scans_opens_as_this_builds_format ... ok
+test cloud_tests::a_scan_comes_in_with_its_middle_on_the_origin_and_its_foot_on_the_level ... ok
+test cloud_tests::a_plan_snaps_to_a_scan_where_its_cut_plane_cuts_it ... ok
+test cloud_tests::a_scan_goes_when_nothing_places_it_and_undo_brings_it_back ... ok
+test cloud_tests::a_scan_is_saved_with_the_project_and_opens_as_it_was ... ok
+test cloud_tests::a_plan_shows_what_of_a_scan_lies_in_its_view_range_and_picks_it_where_its_points_are ... ok
+test cloud_tests::a_scan_shows_in_the_3d_view_in_its_own_colours_fitted_and_picked_as_its_element ... ok
+test cloud_tests::a_scan_moves_turns_and_copies_with_its_element_but_doesnt_mirror ... ok
+test cloud_tests::a_scan_the_view_fills_with_one_colour_is_drawn_as_ink ... ok
+test cloud_tests::a_scan_with_no_colours_is_grey_and_a_view_can_colour_or_hide_it ... ok
+test cloud_tests::a_scan_is_brought_in_once_and_placed_as_often_as_wanted ... ok
+test cloud_tests::a_section_shows_a_scan_between_its_line_and_its_far_clip ... ok
+test cloud_tests::ifc_leaves_scans_out_as_revit_does ... ok
+test cloud_tests::origin_to_origin_keeps_the_files_coordinates_where_a_model_can_hold_them ... ok
+test cloud_tests::insert_from_file_brings_a_scan_with_the_point_cloud_that_places_it ... ok
+test cloud_tests::the_graphics_card_holds_a_scan_s_points_unless_the_view_hides_it ... ok
+test cloud_tests::units_spacing_and_files_it_cant_take ... ok
+test cloud_tests::several_files_come_in_as_one_scan_with_a_station_for_each ... ok
+test cloud_tests::what_is_nearer_hides_a_scan_and_a_scan_hides_what_is_behind_it ... ok
+test cloud_tests::a_project_file_with_too_many_scans_is_refused_before_the_extra_one_is_unpacked ... ok
+test cloud_tests::a_snap_on_a_big_scan_looks_only_near_the_cursor ... ok
+
+test result: ok. 21 passed; 0 failed; 0 ignored; 0 measured; 1528 filtered out; finished in 7.77s

@@ -1,0 +1,102 @@
+[
+  {
+    "path": "translations/project/bimcraft-project.pot",
+    "content_changed": false,
+    "non_reference_lines_preserved": true
+  },
+  {
+    "path": "translations/project/cs.po",
+    "content_changed": false,
+    "non_reference_lines_preserved": true
+  },
+  {
+    "path": "translations/project/de.po",
+    "content_changed": false,
+    "non_reference_lines_preserved": true
+  },
+  {
+    "path": "translations/project/es.po",
+    "content_changed": false,
+    "non_reference_lines_preserved": true
+  },
+  {
+    "path": "translations/project/fr.po",
+    "content_changed": false,
+    "non_reference_lines_preserved": true
+  },
+  {
+    "path": "translations/project/it.po",
+    "content_changed": false,
+    "non_reference_lines_preserved": true
+  },
+  {
+    "path": "translations/project/nl.po",
+    "content_changed": false,
+    "non_reference_lines_preserved": true
+  },
+  {
+    "path": "translations/project/pt.po",
+    "content_changed": false,
+    "non_reference_lines_preserved": true
+  },
+  {
+    "path": "translations/project/sv.po",
+    "content_changed": false,
+    "non_reference_lines_preserved": true
+  },
+  {
+    "path": "translations/ui/bimcraft-ui.pot",
+    "content_changed": false,
+    "non_reference_lines_preserved": true
+  },
+  {
+    "path": "translations/ui/cs.po",
+    "content_changed": false,
+    "non_reference_lines_preserved": true
+  },
+  {
+    "path": "translations/ui/de.po",
+    "content_changed": false,
+    "non_reference_lines_preserved": true
+  },
+  {
+    "path": "translations/ui/es.po",
+    "content_changed": false,
+    "non_reference_lines_preserved": true
+  },
+  {
+    "path": "translations/ui/fr.po",
+    "content_changed": false,
+    "non_reference_lines_preserved": true
+  },
+  {
+    "path": "translations/ui/it.po",
+    "content_changed": false,
+    "non_reference_lines_preserved": true
+  },
+  {
+    "path": "translations/ui/nl.po",
+    "content_changed": false,
+    "non_reference_lines_preserved": true
+  },
+  {
+    "path": "translations/ui/pt.po",
+    "content_changed": false,
+    "non_reference_lines_preserved": true
+  },
+  {
+    "path": "translations/ui/vi.po",
+    "content_changed": false,
+    "non_reference_lines_preserved": true
+  },
+  {
+    "path": "translations/ui/zh.po",
+    "content_changed": false,
+    "non_reference_lines_preserved": true
+  },
+  {
+    "path": "translations/ui/zh_TW.po",
+    "content_changed": false,
+    "non_reference_lines_preserved": true
+  }
+]

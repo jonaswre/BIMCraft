@@ -1,0 +1,92 @@
+    Finished `test` profile [unoptimized] target(s) in 0.16s
+     Running unittests src\lib.rs (<bimcraft>/.targets/issue-13\debug\deps\bimcraft_core-f723816fa9dc5cad.exe)
+
+running 75 tests
+test view3d::fragments::tests::eviction_releases_cache_geometry_after_the_last_completed_work_is_dropped ... ok
+test view3d::fragments::tests::paint_and_texture_ordinals_refresh_without_rebuilding_retained_run_geometry ... ok
+test view3d::gpu::tests::a_glass_layer_is_an_owner_of_its_own_with_the_materials_transparency ... ok
+test view3d::gpu::tests::a_mesh_draws_every_style_and_what_is_seen_through ... ok
+test view3d::gpu::tests::a_copy_seen_through_in_part_is_a_copy_with_two_owners ... ok
+test view3d::gpu::tests::a_mesh_picks_through_any_box_it_is_asked_as_a_mesh_made_for_that_box_does ... ok
+test view3d::gpu::tests::a_scan_alone_picks_its_points_and_what_the_view_hides_has_none ... ok
+test view3d::gpu::tests::a_painted_or_hidden_copy_is_drawn_of_its_own ... ok
+test view3d::gpu::tests::a_section_box_leaves_out_a_level_past_it_and_a_box_being_dragged_asks_of_the_same_mesh ... ok
+test view3d::gpu::tests::a_section_box_leaves_out_of_a_frame_only_what_lies_wholly_outside_it ... ok
+test view3d::gpu::tests::a_wireframe_abandoned_while_its_edges_are_found_makes_no_mesh ... ok
+test view3d::gpu::tests::cancelled_mesh_and_picking_builds_publish_nothing_and_can_retry ... ok
+test view3d::gpu::tests::groups_hold_what_is_drawn_in_order_and_a_view_leaves_out_only_what_it_cannot_see ... ok
+test view3d::gpu::tests::nearest_first_draws_the_nearest_within_a_budget_and_a_box_for_each_of_the_rest ... ok
+test view3d::gpu::tests::a_mesh_holds_a_tower_however_many_triangles_it_has has been running for over 60 seconds
+test view3d::gpu::tests::picking_the_mesh_finds_what_the_cpu_picture_shows ... ok
+test view3d::gpu::tests::picking_the_mesh_in_hidden_line_finds_what_the_cpu_picture_shows_glass_and_all ... ok
+test view3d::gpu::tests::picking_the_mesh_in_perspective_finds_what_the_cpu_picture_shows_from_afar_and_from_within has been running for over 60 seconds
+test view3d::gpu::tests::picking_the_mesh_in_wireframe_finds_what_the_cpu_picture_shows_within_two_pixels_of_a_line has been running for over 60 seconds
+test view3d::gpu::tests::picking_the_mesh_through_a_section_box_finds_what_the_cpu_picture_shows has been running for over 60 seconds
+test view3d::gpu::tests::a_mesh_holds_a_tower_however_many_triangles_it_has ... ok
+test view3d::gpu::tests::picking_the_mesh_in_perspective_finds_what_the_cpu_picture_shows_from_afar_and_from_within ... ok
+test view3d::gpu::tests::picking_the_mesh_in_wireframe_finds_what_the_cpu_picture_shows_within_two_pixels_of_a_line ... ok
+test view3d::gpu::tests::picking_the_mesh_through_a_section_box_finds_what_the_cpu_picture_shows ... ok
+test view3d::gpu::tests::the_mesh_reaches_a_scan_far_past_the_model_so_a_card_s_depth_holds_it ... ok
+test view3d::gpu::tests::the_sample_s_chairs_are_one_shape_placed_again_and_again ... ok
+test view3d::gpu::tests::round_runs_are_one_tube_placed_stretched_and_turned ... ok
+test view3d::gpu::tests::picking_through_what_the_view_sees_through_finds_what_the_cpu_picture_shows ... ok
+test view3d::gpu::tests::picking_the_mesh_with_a_scan_finds_what_the_cpu_picture_shows has been running for over 60 seconds
+test view3d::gpu::tests::vertices_are_near_the_origin_whatever_the_model_is_far_from_it ... ok
+test view3d::gpu::tests::the_surface_under_a_pixel_is_the_same_through_the_mesh_as_the_picture_and_an_orbit_or_a_zoom_about_it_keeps_it_there ... ok
+test view3d::gpu::tests::what_a_card_does_not_hold_stands_in_however_near_it_is ... ok
+test view3d::tests::a_camera_shows_on_its_levels_plan_and_a_pick_there_finds_it ... ok
+test view3d::tests::a_3d_view_is_turned_to_perspective_through_a_lens_and_back_and_renders_so ... ok
+test view3d::tests::a_camera_command_makes_and_reads_a_camera_view_from_an_eye_and_a_target ... ok
+test view3d::tests::a_camera_view_moves_on_the_plan_as_a_whole ... ok
+test view3d::tests::a_curve_shades_as_its_own_facets_would_to_within_their_turn_whichever_side_is_seen ... ok
+test view3d::tests::a_curved_wall_shades_smoothly_along_its_face ... ok
+test view3d::tests::a_curves_corners_take_the_normals_of_the_surface_they_are_on ... ok
+test view3d::tests::a_curve_shades_smoothly_across_its_facets_and_a_flat_face_in_one_shade ... ok
+test view3d::tests::a_camera_view_renders_from_where_its_camera_stands ... ok
+test view3d::tests::a_lofted_mass_is_a_closed_skin_of_triangles_turned_out_that_encloses_its_exact_volume ... ok
+test view3d::tests::a_glass_layer_lets_what_is_behind_a_wall_show_through_in_a_plain_view ... ok
+test view3d::tests::a_meshs_facets_that_turn_little_read_as_one_surface_and_its_creases_keep_their_edges ... ok
+test view3d::tests::a_perspective_camera_sees_the_nearer_of_two_like_things_larger_and_orbits_pans_and_zooms_as_ever ... ok
+test view3d::tests::a_picture_draws_every_point_up_to_its_budget_and_an_even_share_past_it ... ok
+test view3d::tests::a_perspective_picture_shows_and_picks_what_it_sees_and_cuts_away_what_is_behind_the_eye ... ok
+test view3d::tests::a_section_cuts_a_tube_in_its_ring_an_oblique_one_in_an_ellipse_and_leaves_other_meshes_whole ... ok
+test view3d::tests::a_family_door_and_window_show_their_forms_in_the_wall_and_mirror_with_their_flips ... ok
+test view3d::tests::a_picture_made_a_texture_lies_on_the_floor_as_laid_and_paint_gives_a_face_its_own_material ... ok
+test view3d::tests::a_texture_on_a_wall_runs_across_to_the_right_of_someone_looking_at_its_face_from_outside ... ok
+test view3d::tests::a_twisted_loft_is_cut_into_strips_that_keep_its_volume_within_two_percent ... ok
+test view3d::tests::ambient_shadows_darken_where_the_floor_meets_a_wall_and_leave_flat_faces_and_outer_edges_as_they_were ... ok
+test view3d::tests::an_imported_curve_shows_no_facet_lines_and_keeps_the_edge_of_its_rim ... ok
+test view3d::tests::background_coverage_includes_geometry_without_a_named_face ... ok
+test view3d::tests::coplanar_triangles_share_a_plane_and_degenerate_ones_each_their_own ... ok
+test view3d::tests::each_pixel_shows_the_nearest_surface_and_the_element_it_belongs_to ... ok
+test view3d::tests::edges_asked_for_a_view_already_gone_are_not_kept_and_the_next_to_ask_finds_them ... ok
+test view3d::tests::a_textured_material_varies_over_its_faces_at_its_real_size_and_none_is_one_shade ... ok
+test view3d::tests::faces_shade_evenly_and_edges_mark_where_they_meet ... ok
+test view3d::tests::graphic_display_options_are_set_read_kept_in_the_file_undone_and_refused_when_wrong ... ok
+test view3d::tests::edges_turned_off_leave_out_only_the_lines_and_a_silhouette_outlines_what_stands_against_what_is_behind_as_wide_as_set ... ok
+test view3d::tests::hidden_line_draws_faces_as_paper_with_their_edges_and_wireframe_every_edge_through_them ... ok
+test view3d::tests::paint_changes_only_the_face_it_names ... ok
+test view3d::tests::the_camera_command_refuses_what_no_camera_would_be ... ok
+test view3d::tests::the_camera_fits_the_model_and_orbits_pans_and_zooms ... ok
+test view3d::tests::a_sections_scene_holds_what_can_show_and_its_picture_is_the_whole_scenes has been running for over 60 seconds
+test view3d::tests::parallel_geometry_keeps_exact_triangle_order_and_ownership ... ok
+test view3d::tests::the_picture_saves_as_png ... ok
+test view3d::tests::the_edges_found_are_those_of_a_map_from_each_side_to_its_triangles has been running for over 60 seconds
+test view3d::tests::tiled_raster_matches_serial_depth_picking_and_lighting_exactly ... ok
+test view3d::tests::tinted_elements_show_in_their_tint ... ok
+test view3d::tests::the_edges_found_are_those_of_a_map_from_each_side_to_its_triangles ... ok
+test view3d::tests::wireframe_keeps_what_the_view_hides_hidden_and_takes_a_tint_and_an_edge_colour ... ok
+test view3d::update::tests::a_window_past_its_walls_top_keeps_its_notch_up_to_date_through_edits ... ok
+test view3d::update::tests::a_scene_brought_up_to_date_by_an_edit_is_the_scene_made_whole ... ok
+test view3d::tests::a_sections_scene_holds_what_can_show_and_its_picture_is_the_whole_scenes ... ok
+test view3d::update::tests::an_edit_makes_again_what_it_touched_not_the_model has been running for over 60 seconds
+test view3d::update::tests::random_edits_of_a_tower_bring_its_scene_up_to_date_as_made_whole has been running for over 60 seconds
+test view3d::update::tests::an_edit_makes_again_what_it_touched_not_the_model ... ok
+test view3d::update::update_speed ... ignored
+test view3d::update::tests::random_edits_of_the_other_kinds_bring_the_scene_up_to_date_as_made_whole has been running for over 60 seconds
+test view3d::gpu::tests::picking_the_mesh_with_a_scan_finds_what_the_cpu_picture_shows ... ok
+error: test failed, to rerun pass `-p bimcraft-core --lib`
+
+Caused by:
+  process didn't exit successfully: `<bimcraft>/.targets/issue-13\debug\deps\bimcraft_core-f723816fa9dc5cad.exe view3d:: --test-threads=4` (exit code: 0xffffffff)
+note: test exited abnormally; to see the full output pass --no-capture to the harness.

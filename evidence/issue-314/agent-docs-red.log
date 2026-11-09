@@ -1,0 +1,18 @@
+   Compiling bimcraft-core v0.11.0 (<bimcraft>\upstream-07-ifc-grids\crates\core)
+    Finished `test` profile [unoptimized] target(s) in 3.56s
+     Running tests\agent_docs.rs (<bimcraft>/.targets/issue-07\debug\deps\agent_docs-860e53fa9aab599c.exe)
+
+running 3 tests
+test the_root_claude_md_stays_under_its_word_budget ... ok
+Error: "CLAUDE.md does not link to: docs/areas/ifc-exchange.md"
+test the_root_claude_md_reaches_every_crate_note_and_area_write_up ... FAILED
+test every_file_the_agent_docs_link_to_exists ... ok
+
+failures:
+
+failures:
+    the_root_claude_md_reaches_every_crate_note_and_area_write_up
+
+test result: FAILED. 2 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.25s
+
+error: test failed, to rerun pass `-p bimcraft-core --test agent_docs`

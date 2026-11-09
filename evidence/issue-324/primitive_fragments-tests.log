@@ -1,0 +1,11 @@
+   Compiling bimcraft-core v0.11.0 (<bimcraft>\upstream-13-scan-framing\crates\core)
+    Finished `test` profile [unoptimized] target(s) in 1.74s
+     Running tests\primitive_fragments.rs (<bimcraft>/.targets/issue-13\debug\deps\primitive_fragments-ef794756d6ee1821.exe)
+
+running 4 tests
+test tests::zero_budget_eviction_and_cancellation_preserve_fresh_output ... ok
+test tests::type_and_level_edits_refresh_geometry_but_material_edits_only_refresh_paint ... ok
+test tests::annotation_edits_rebuild_no_primitive_fragments_and_local_moves_rebuild_one ... ok
+test tests::parallel_preparation_preserves_depth_ties_and_the_original_element_order ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.42s

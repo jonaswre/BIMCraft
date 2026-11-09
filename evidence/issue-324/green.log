@@ -1,0 +1,12 @@
+   Compiling bimcraft-core v0.11.0 (<bimcraft>\upstream-13-scan-framing\crates\core)
+    Finished `test` profile [unoptimized] target(s) in 35.25s
+     Running tests\scan_framing.rs (<bimcraft>/.targets/issue-13\debug\deps\scan_framing-f8a4aee1145ae709.exe)
+
+running 4 tests
+test tests::empty_fitting_and_explicit_level_extents_are_preserved ... ok
+test tests::scan_only_fitting_still_shows_scans_in_parallel_and_perspective ... ok
+test tests::explicit_camera_and_crops_keep_scans_visible_and_survive_save_open ... ok
+building framing unchanged after scan import and save/open: [("section", true), ("parallel", true), ("perspective", true)]
+test tests::adding_a_distant_scan_keeps_the_building_readable_in_default_views_after_reopening ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.95s

@@ -1,0 +1,8 @@
+INCOMPLETE broad view3d run: 72 passed, 1 pre-existing ignored benchmark, 2 unchanged randomized update cases unfinished, 0 observed failures.
+Parent ruling: stop only owned broad view3d test process; retain exact abnormal exit and full output; no test/CI source changes, skips or weakening; full platform/workspace CI remains required.
+Stopped process PID 42244 after verifying its executable belonged to .targets/issue-13.
+Command session 25601 exited -1. Cargo reported child exit code 0xffffffff (abnormal termination).
+Unfinished:
+view3d::update::tests::random_edits_of_a_tower_bring_its_scene_up_to_date_as_made_whole
+view3d::update::tests::random_edits_of_the_other_kinds_bring_the_scene_up_to_date_as_made_whole
+No repeat broad view3d run.

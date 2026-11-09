@@ -1,0 +1,32 @@
+{
+  "section-after": {
+    "dark_pixels": 5402,
+    "red_pixels": 0,
+    "sha256": "d043e5abc8f0bdd3a14b2692eea38675f4248f9a6128be4d333050ecd47bbb7a"
+  },
+  "explicit-2": {
+    "dark_pixels": 923,
+    "red_pixels": 16,
+    "sha256": "0d5130f4aa84135cbfa418cf439d0bf6686234c6b914575195c8f073935993c5"
+  },
+  "parallel-after": {
+    "dark_pixels": 35391,
+    "red_pixels": 0,
+    "sha256": "870064af4d3aef72b2631fc3c8ccf2a9addb781f7d7fc3930c55e79ad2e95b19"
+  },
+  "explicit-1": {
+    "dark_pixels": 1305,
+    "red_pixels": 8,
+    "sha256": "7431f4f860d736a46507cfcf267914e21a25c03d76cd5e43433d51d65f41502d"
+  },
+  "perspective-after": {
+    "dark_pixels": 16081,
+    "red_pixels": 0,
+    "sha256": "ac02e41f030b8c18589cf4c277c60bcb97be85122ef1f955e5741d4d0aaae89f"
+  },
+  "explicit-0": {
+    "dark_pixels": 0,
+    "red_pixels": 16,
+    "sha256": "566ce44e72c30c780feaad58cc610c75e743a4637c14618a98568da3da886799"
+  }
+}

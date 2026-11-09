@@ -1,0 +1,11 @@
+{
+  "process": {
+    "Name": "bimcraft_core-f723816fa9dc5cad.exe",
+    "ProcessId": 42244,
+    "ParentProcessId": 15428,
+    "CommandLine": "\"<bimcraft>/.targets/issue-13\\debug\\deps\\bimcraft_core-f723816fa9dc5cad.exe\" view3d:: --test-threads=4"
+  },
+  "stopped_at": "2026-11-09T10:33:10.0302059+01:00",
+  "started_at": "2026-11-09T10:23:27.0064832+01:00",
+  "elapsed_seconds": 583.023722
+}

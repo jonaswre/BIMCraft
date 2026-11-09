@@ -1,0 +1,29 @@
+{
+  "linux": {
+    "completed_passed": 1540,
+    "completed_ignored": 9,
+    "assertion_failures": [],
+    "core_summaries": [
+      "2026-11-09T09:21:00.1910396Z test result: ok. 1540 passed; 0 failed; 9 ignored; 0 measured; 0 filtered out; finished in 496.38s"
+    ],
+    "process_abort": [],
+    "diagnostic_markers": [],
+    "last_completed_test": "tests::hostile_params_never_panic_or_break_the_model",
+    "long_running_without_completion": []
+  },
+  "macos": {
+    "completed_passed": 1504,
+    "completed_ignored": 8,
+    "assertion_failures": [],
+    "core_summaries": [],
+    "process_abort": [
+      "2026-11-09T09:22:13.3281860Z   process didn't exit successfully: `/Users/runner/work/BIMCraft/BIMCraft/target/debug/deps/bimcraft_core-292bc7e3c18a3ade` (signal: 6, SIGABRT: process abort signal)"
+    ],
+    "diagnostic_markers": [],
+    "last_completed_test": "view3d::update::tests::an_edit_makes_again_what_it_touched_not_the_model",
+    "long_running_without_completion": [
+      "tests::hostile_params_never_panic_or_break_the_model"
+    ]
+  },
+  "interpretation": "Linux has a complete core pass followed by a separate agent_docs link failure. macOS aborts the core process without a test assertion failure, stack trace or stated cause. Last completion and long-running notices do not identify the faulting test under parallel execution. Cause remains unknown; retain logs and rerun unchanged CI after the doc fix."
+}

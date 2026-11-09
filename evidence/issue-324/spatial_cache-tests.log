@@ -1,0 +1,14 @@
+   Compiling bimcraft-core v0.11.0 (<bimcraft>\upstream-13-scan-framing\crates\core)
+    Finished `test` profile [unoptimized] target(s) in 1.81s
+     Running tests\spatial_cache.rs (<bimcraft>/.targets/issue-13\debug\deps\spatial_cache-f29a4b318aab31a1.exe)
+
+running 7 tests
+test section_framing_refreshes_after_cad_data_changes_without_element_edits ... ok
+test a_local_annotation_edit_keeps_all_geometry_definitions_shared ... ok
+test definition_snapshots_share_until_edited_and_keep_the_existing_file_shape ... ok
+test section_framing_refreshes_after_cloud_data_changes_without_element_edits ... ok
+test section_framing_refreshes_after_an_in_place_family_edit ... ok
+test type_edits_undo_redo_and_branches_keep_independent_definition_identities ... ok
+test section_work_refreshes_after_a_type_edit_without_any_element_mutation ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.25s

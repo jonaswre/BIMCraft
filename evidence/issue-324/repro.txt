@@ -1,0 +1,14 @@
+wall {"points":[[0,0],[8000,0],[8000,6000],[0,6000]],"closed":true}
+section {"name":"Building section","start":[-1000,3000],"end":[9000,3000]}
+render {"view":"Building section","path":"section-before.png","width":640,"height":480}
+render {"view":"{3D}","path":"parallel-before.png","width":640,"height":480}
+perspective {"on":true}
+render {"view":"{3D}","path":"perspective-before.png","width":640,"height":480}
+point_cloud {"path":"synthetic.xyz","at":[200000,200000]}
+render {"view":"{3D}","path":"perspective-after.png","width":640,"height":480}
+perspective {"on":false}
+render {"view":"{3D}","path":"parallel-after.png","width":640,"height":480}
+render {"view":"Building section","path":"section-after.png","width":640,"height":480}
+save {"path":"building.bimcraft"}
+open {"path":"building.bimcraft"}
+render {"view":"{3D}","path":"parallel-reopened.png","width":640,"height":480}

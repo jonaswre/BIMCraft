@@ -1,0 +1,73 @@
+    Finished `test` profile [unoptimized] target(s) in 0.18s
+     Running unittests src\lib.rs (<bimcraft>/.targets/issue-13\debug\deps\bimcraft_core-f723816fa9dc5cad.exe)
+
+running 66 tests
+test render::regions::tests::a_dashed_line_a_region_takes_part_of_keeps_its_dashes_where_they_were ... ok
+test render::regions::tests::a_hatched_region_with_a_big_hole_is_not_cut_into_convex_pieces ... ok
+test render::regions::tests::a_picture_at_twice_the_pixels_gives_ink_in_the_pixels_of_the_view ... ok
+test render::regions::tests::a_picture_with_more_runs_of_ink_than_are_kept_says_so_in_the_drawings_notes ... ok
+test render::regions::tests::a_region_on_a_sheet_draws_over_its_viewports_and_keeps_none_of_their_ink ... ok
+test render::regions::tests::a_sections_picture_has_paper_and_ink_and_no_blended_pixels_for_a_region_to_make_opaque ... ok
+test render::regions::tests::a_region_with_its_edge_on_a_wall_face_keeps_the_face_whole ... ok
+test render::regions::tests::a_section_viewport_on_a_sheet_keeps_the_ink_above_a_region_in_it ... ok
+test render::regions::tests::a_solid_region_with_a_big_hole_is_cut_into_pieces_quickly ... ok
+test render::regions::tests::an_elevation_keeps_the_ink_it_shows_above_a_non_masking_region ... ok
+test render::regions::tests::probe_pictures ... ignored, a probe: DUMP=/some/folder cargo test -p bimcraft-core --lib probe_pictures -- --ignored
+test render::regions::tests::probe_the_cost_of_a_big_hole ... ignored, a probe: cargo test -p bimcraft-core --lib probe -- --ignored --nocapture
+test render::regions::tests::probe_the_cost_of_a_section_with_a_region ... ignored, a probe: cargo test -p bimcraft-core --lib probe -- --ignored --nocapture
+test render::regions::tests::probe_the_cost_of_overlapping_concave_masks ... ignored, a probe: cargo test -p bimcraft-core --lib probe -- --ignored --nocapture
+test render::regions::tests::overlapping_concave_masks_cost_a_draw_milliseconds_not_seconds ... ok
+test render::regions::tests::two_overlapping_non_masking_regions_both_keep_the_ink ... ok
+test render::regions::tests::what_a_region_lets_through_of_an_outline_is_one_line_with_its_corners ... ok
+test render::tests::a_big_scale_leaves_room_round_a_view_for_the_annotation_it_makes_big ... ok
+test render::tests::a_cut_walls_outline_is_inked_over_its_poche_and_not_across_its_joins ... ok
+test render::tests::a_line_is_its_pens_width_on_the_paper_its_view_stands_for ... ok
+test render::tests::a_plan_drawn_at_a_given_view_maps_the_model_through_it ... ok
+test render::tests::a_plan_of_another_level_leaves_these_walls_out ... ok
+test render::tests::a_plans_detail_level_takes_patterns_then_layers_then_symbols_away ... ok
+test render::tests::a_rooms_colour_fills_its_region_on_the_plan_and_the_file_keeps_it ... ok
+test render::tests::a_sections_detail_level_takes_the_same_away_of_what_it_cuts ... ok
+test render::tests::a_sections_scale_sizes_its_annotation_and_a_sheet_keeps_paper_size ... ok
+test render::regions::tests::the_holes_and_masks_far_from_a_line_cost_it_nothing ... ok
+test render::tests::a_tag_on_a_wall_or_a_room_draws_its_label_as_plain_text_over_the_plan ... ok
+test render::tests::a_tools_sketch_of_annotation_is_the_size_its_view_would_draw_it ... ok
+test render::tests::a_view_always_has_a_scale_and_one_without_its_own_is_at_1_100 ... ok
+test render::tests::a_wall_cut_in_section_draws_the_pen_it_draws_cut_in_plan ... ok
+test render::tests::a_views_scale_sizes_its_annotation_as_paper_at_that_scale_holds_it ... ok
+test render::tests::a_wall_on_its_own_is_inked_all_round_as_one_closed_line_square_at_every_corner ... ok
+test render::tests::a_wall_that_meets_a_column_leaves_the_column_solid_and_unlined ... ok
+test render::tests::an_image_of_a_plan_letters_its_name_and_the_window_and_a_sheet_do_not ... ok
+test render::tests::cancelled_section_stages_do_not_publish_partial_geometry_or_pictures ... ok
+test render::tests::ceiling_plans_look_up_at_ceilings_over_walls_cut_above_the_doors ... ok
+test render::tests::ceiling_plans_see_the_beams_over_their_cut_up_to_the_ceiling ... ok
+test render::tests::crop_regions_clip_plans_and_sections ... ok
+test render::tests::deferred_component_queries_keep_the_full_geometry_oracles ... ok
+test render::tests::dimensions_and_tags_draw_over_the_plan ... ok
+test render::tests::elevations_show_the_walls_they_look_at_and_cut_nothing ... ok
+test render::tests::every_primitive_names_the_element_it_draws ... ok
+test render::tests::every_section_work_prepares_on_a_built_lookup ... ok
+test render::tests::lettering_turns_its_corners_round_while_a_pens_lines_turn_them_square ... ok
+test render::tests::notes_spot_elevations_and_dimensions_draw_in_their_views ... ok
+test render::tests::pen_0_is_a_hairline_at_any_scale_and_zoom_and_still_prints ... ok
+test render::tests::pick_all_lists_what_is_near_and_boxes_select_inside_or_crossing ... ok
+test render::tests::pick_finds_the_element_drawn_nearest_a_point ... ok
+test render::tests::plans_cut_columns_draw_stairs_and_show_roofs_from_both_sides ... ok
+test render::tests::plans_draw_stairs_that_turn_ramps_and_railings ... ok
+test render::regions::tests::a_section_with_the_picture_in_hand_draws_its_region_ink_without_drawing_the_picture_again ... ok
+test render::tests::plans_fill_cut_walls_with_poche_and_open_them_at_doors ... ok
+test render::tests::plans_draw_what_their_view_range_sees ... ok
+test render::tests::plans_mark_sections_and_elevations ... ok
+test render::tests::plans_show_slope_arrows_and_shafts_and_the_holes_they_cut ... ok
+test render::tests::sections_cut_roofs_along_their_slope ... ok
+test render::tests::retained_section_tints_match_fresh_pictures_and_region_ink ... ok
+test render::tests::spot_elevations_read_signed_heights_in_the_project_units ... ok
+test render::tests::sections_cut_walls_in_poche_and_show_what_is_beyond ... ok
+test render::tests::svg_and_png_are_well_formed ... ok
+test render::tests::wall_corners_close_solid_without_a_notch ... ok
+test render::tests::walls_meet_at_any_angle_without_a_seam_and_show_their_layers_and_arcs ... ok
+test render::tests::where_two_walls_cut_outlines_meet_at_a_corner_they_join_square_with_no_notch ... ok
+test render::regions::tests::an_elevation_of_many_walls_keeps_all_its_ink_above_a_region_at_a_big_size has been running for over 60 seconds
+test render::tests::a_works_elements_are_in_id_order_and_each_finds_its_box ... ok
+test render::regions::tests::an_elevation_of_many_walls_keeps_all_its_ink_above_a_region_at_a_big_size ... ok
+
+test result: ok. 62 passed; 0 failed; 4 ignored; 0 measured; 1483 filtered out; finished in 81.43s

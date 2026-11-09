@@ -1,0 +1,44 @@
+{
+  "section-before": {
+    "dark_pixels": 5402,
+    "size": [
+      640,
+      480
+    ]
+  },
+  "section-after": {
+    "dark_pixels": 1316,
+    "size": [
+      640,
+      480
+    ]
+  },
+  "parallel-before": {
+    "dark_pixels": 35391,
+    "size": [
+      640,
+      480
+    ]
+  },
+  "parallel-after": {
+    "dark_pixels": 2963,
+    "size": [
+      640,
+      480
+    ]
+  },
+  "perspective-before": {
+    "dark_pixels": 16081,
+    "size": [
+      640,
+      480
+    ]
+  },
+  "perspective-after": {
+    "dark_pixels": 1979,
+    "size": [
+      640,
+      480
+    ]
+  }
+}
