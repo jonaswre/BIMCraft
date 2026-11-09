@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "<evidence>\verify-ifc.py", line 95, in <module>
+    if element.get("category") == "roomseparator":
+       ^^^^^^^^^^^
+AttributeError: 'str' object has no attribute 'get'

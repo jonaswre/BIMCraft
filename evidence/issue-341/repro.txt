@@ -1,0 +1,8 @@
+wall {"points":[[0,0],[9600,0],[9600,6400],[0,6400]],"closed":true}
+wall {"points":[[0,3200],[4200,3200]],"location":"exterior-finish"}
+room_separator {"points":[[4200,3200],[9500,3200]]}
+room {"point":[2000,1600],"name":"South"}
+room {"point":[2000,4800],"name":"North"}
+elements {"category":"room"}
+room_area {"at":"finish"}
+elements {"category":"room"}

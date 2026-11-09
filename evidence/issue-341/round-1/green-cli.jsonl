@@ -1,0 +1,6 @@
+{"ids":[100002,100003,100004,100005]}
+{"ids":[100006]}
+{"ids":[100007]}
+{"area_m2":61.44,"id":100008,"number":"1"}
+{"area_m2":0.0,"id":100009,"number":"2","warning":"room 100008 is already in this space; two rooms can't share one, so this one is placed unbounded: move it, delete one of them, or part them with a room separation line"}
+{"count":2,"elements":[{"area_m2":61.44,"category":"room","enclosed":true,"guid":"386ee841-88db-4c4c-93d0-907ea90e0f53","id":100008,"level":"38f24a7d-65de-4ada-a63d-90452dc0579c","limit_offset":-300.0,"name":"South","number":"1","perimeter_m":50.73,"point":[2000.0,1600.0],"top_level":"1f0841a5-ed35-4d88-aaab-c78c42b7890a","unbounded_height":2700.0,"volume_m3":165.89},{"area_m2":0.0,"category":"room","enclosed":false,"guid":"c953c7a2-0e1a-41eb-8af2-834449290823","id":100009,"level":"38f24a7d-65de-4ada-a63d-90452dc0579c","limit_offset":-300.0,"name":"North","number":"2","perimeter_m":0.0,"point":[2000.0,4800.0],"shares_space_with":100008,"top_level":"1f0841a5-ed35-4d88-aaab-c78c42b7890a","unbounded_height":2700.0,"volume_m3":0.0}],"returned":2}

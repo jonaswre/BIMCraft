@@ -1,0 +1,23 @@
+   Compiling bimcraft-core v0.11.0 (<workspace>\crates\core)
+    Finished `test` profile [unoptimized] target(s) in 58.26s
+     Running tests\separator_wall_end.rs (<target>\debug\deps\separator_wall_end-8c377b32f66d348a.exe)
+
+running 5 tests
+
+thread 'tests::invalid_separator_commands_leave_the_existing_room_journey_intact' (41088) panicked at crates\core\tests\separator_wall_end.rs:133:13:
+{"points":[[4200,3200],[9500,3200]],"typo":true}
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test tests::invalid_separator_commands_leave_the_existing_room_journey_intact ... FAILED
+test tests::a_parallel_separator_does_not_join_a_gap_a_wall_side_or_a_nonbounding_wall ... ok
+test tests::rendered_plan_fills_both_independent_rooms_on_opposite_sides_of_the_partition ... ok
+test tests::continuing_a_wall_end_separates_rooms_in_both_directions_and_on_rotated_plans ... ok
+test tests::wall_end_rooms_survive_native_reopen_and_export_distinct_gross_and_net_ifc_quantities ... ok
+
+failures:
+
+failures:
+    tests::invalid_separator_commands_leave_the_existing_room_journey_intact
+
+test result: FAILED. 4 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.20s
+
+error: test failed, to rerun pass `-p bimcraft-core --test separator_wall_end`

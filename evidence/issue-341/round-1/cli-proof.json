@@ -1,0 +1,41 @@
+{
+  "actual_cap_tangent_gap_mm": 2.53327143131912,
+  "cli_results": {
+    "red-cli.jsonl": [
+      {
+        "name": "South",
+        "area_m2": 39.63,
+        "enclosed": true
+      },
+      {
+        "name": "North",
+        "area_m2": 21.81,
+        "enclosed": true
+      }
+    ],
+    "official-cli.jsonl": [
+      {
+        "name": "South",
+        "area_m2": 61.44,
+        "enclosed": true
+      },
+      {
+        "name": "North",
+        "area_m2": 0.0,
+        "enclosed": false
+      }
+    ],
+    "green-cli.jsonl": [
+      {
+        "name": "South",
+        "area_m2": 61.44,
+        "enclosed": true
+      },
+      {
+        "name": "North",
+        "area_m2": 0.0,
+        "enclosed": false
+      }
+    ]
+  }
+}

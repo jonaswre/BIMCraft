@@ -1,0 +1,11 @@
+   Compiling bimcraft-core v0.11.0 (<workspace>\crates\core)
+    Finished `test` profile [unoptimized] target(s) in 1m 03s
+     Running unittests src\lib.rs (<target>\debug\deps\bimcraft_core-f723816fa9dc5cad.exe)
+
+running 4 tests
+test model::tests::a_parallel_separator_does_not_treat_internal_arc_chord_ends_as_wall_caps ... ok
+test tests::rooms_measured_at_the_faces_stop_at_room_separators_too ... ok
+test tests::a_separator_drawn_to_the_wall_faces_splits_rooms_measured_at_the_centre_lines_too ... ok
+test tests::room_separators_split_rooms_without_walls_and_survive_ifc ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 1546 filtered out; finished in 0.40s

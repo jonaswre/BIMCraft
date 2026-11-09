@@ -1,0 +1,21 @@
+   Compiling bimcraft-core v0.11.0 (<workspace>\crates\core)
+    Finished `test` profile [unoptimized] target(s) in 1m 51s
+     Running unittests src\lib.rs (<target>\debug\deps\bimcraft_core-f723816fa9dc5cad.exe)
+
+running 1 test
+
+thread 'model::tests::a_parallel_separator_does_not_treat_internal_arc_chord_ends_as_wall_caps' (47616) panicked at crates\core\src\model.rs:7786:9:
+assertion `left == right` failed
+  left: Some(P2(310.10518562097695, -287.73556307041645))
+ right: None
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test model::tests::a_parallel_separator_does_not_treat_internal_arc_chord_ends_as_wall_caps ... FAILED
+
+failures:
+
+failures:
+    model::tests::a_parallel_separator_does_not_treat_internal_arc_chord_ends_as_wall_caps
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 1549 filtered out; finished in 0.09s
+
+error: test failed, to rerun pass `-p bimcraft-core --lib`

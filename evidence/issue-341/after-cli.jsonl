@@ -1,0 +1,11 @@
+{"ids":[100002,100003,100004,100005]}
+{"ids":[100006]}
+{"ids":[100007]}
+{"area_m2":30.3,"id":100008,"number":"1"}
+{"area_m2":31.14,"id":100009,"number":"2"}
+{"area_m2":30.3,"category":"room","colour":[235,130,120],"enclosed":true,"guid":"0c3060e8-0ccd-4f98-846a-293630840100","id":100008,"level":"4b40605f-c9e7-4a73-8d3c-2cc5986e542e","limit_offset":-300.0,"name":"South","number":"1","perimeter_m":25.6,"point":[2000.0,1600.0],"top_level":"47f012ff-f78d-4279-a63d-856cfb0465a2","unbounded_height":2700.0,"volume_m3":81.81}
+{"area_m2":31.14,"category":"room","colour":[120,170,235],"enclosed":true,"guid":"d89bfc04-6997-4f58-9571-257747944ed2","id":100009,"level":"4b40605f-c9e7-4a73-8d3c-2cc5986e542e","limit_offset":-300.0,"name":"North","number":"2","perimeter_m":25.8,"point":[2000.0,4800.0],"top_level":"47f012ff-f78d-4279-a63d-856cfb0465a2","unbounded_height":2700.0,"volume_m3":84.08}
+{"count":2,"elements":[{"area_m2":30.3,"category":"room","colour":[235,130,120],"enclosed":true,"guid":"0c3060e8-0ccd-4f98-846a-293630840100","id":100008,"level":"4b40605f-c9e7-4a73-8d3c-2cc5986e542e","limit_offset":-300.0,"name":"South","number":"1","perimeter_m":25.6,"point":[2000.0,1600.0],"top_level":"47f012ff-f78d-4279-a63d-856cfb0465a2","unbounded_height":2700.0,"volume_m3":81.81},{"area_m2":31.14,"category":"room","colour":[120,170,235],"enclosed":true,"guid":"d89bfc04-6997-4f58-9571-257747944ed2","id":100009,"level":"4b40605f-c9e7-4a73-8d3c-2cc5986e542e","limit_offset":-300.0,"name":"North","number":"2","perimeter_m":25.8,"point":[2000.0,4800.0],"top_level":"47f012ff-f78d-4279-a63d-856cfb0465a2","unbounded_height":2700.0,"volume_m3":84.08}],"returned":2}
+{"height":800,"kind":"plan","path":"after-centre.png","view":"Level 1","width":1000}
+{"format":"bimcraft","path":"after.bimcraft"}
+{"format":"IFC4","path":"after.ifc"}

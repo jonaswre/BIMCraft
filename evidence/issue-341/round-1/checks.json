@@ -1,0 +1,107 @@
+{
+  "issue": "https://github.com/IPedrax/BIMCraft/issues/341",
+  "round": 1,
+  "base": "13ee0085603f1ffa8c45168dd06f905f7b220400",
+  "head": "18b91317cd357c2030fdff1f2b541cdd055df5bc",
+  "configuration": {
+    "CARGO_BUILD_JOBS": 2,
+    "RAYON_NUM_THREADS": 2,
+    "profile_overrides": [
+      "profile.dev.package.bimcraft-core.opt-level=0",
+      "profile.dev.debug=0"
+    ],
+    "cli_optional_readers": false,
+    "test_threads": 4
+  },
+  "checks": [
+    {
+      "phase": "RED before production change",
+      "failed": 1,
+      "exit": 101,
+      "log": "red.log",
+      "command": "cargo test -p bimcraft-core --test separator_wall_end a_curved_wall_end_gap_is_not_closed_by_a_parallel_chord -- --test-threads=4 --nocapture"
+    },
+    {
+      "phase": "GREEN final source",
+      "passed": 6,
+      "exit": 0,
+      "log": "green.log",
+      "command": "cargo test -p bimcraft-core --test separator_wall_end -- --test-threads=4 --nocapture"
+    },
+    {
+      "passed": 4,
+      "exit": 0,
+      "log": "separator-tests.log",
+      "command": "cargo test -p bimcraft-core --lib separator -- --test-threads=4"
+    },
+    {
+      "passed": 1,
+      "exit": 0,
+      "log": "curved-wall.log",
+      "command": "cargo test -p bimcraft-core --lib curved_walls_bound_rooms_and_carry_openings_along_their_arc -- --test-threads=4"
+    },
+    {
+      "note": "Successful command emitted no output",
+      "exit": 0,
+      "log": "fmt.log",
+      "command": "cargo fmt --check"
+    },
+    {
+      "exit": 0,
+      "log": "clippy.log",
+      "command": "cargo clippy --config 'profile.dev.package.bimcraft-core.opt-level=0' --config 'profile.dev.debug=0' -p bimcraft-core --all-targets -- -D warnings"
+    },
+    {
+      "exit": 0,
+      "log": "i18n-update.log",
+      "command": "cargo i18n update"
+    },
+    {
+      "exit": 0,
+      "log": "i18n-check.log",
+      "command": "cargo i18n check"
+    },
+    {
+      "note": "No changed message, translation or source-reference blobs",
+      "exit": 0,
+      "command": "git diff --quiet -- translations"
+    },
+    {
+      "exit": 0,
+      "log": "cli-build.log",
+      "command": "cargo build -p bimcraft-cli --no-default-features"
+    },
+    {
+      "note": "SHA256 matched the recorded original package binary",
+      "exit": 0,
+      "log": "red-cli.jsonl",
+      "command": "initial CLI run --script arc-gap.txt"
+    },
+    {
+      "exit": 0,
+      "log": "official-cli.jsonl",
+      "command": "official Windows CLI 0.11.0 run --script arc-gap.txt"
+    },
+    {
+      "exit": 0,
+      "log": "green-cli.jsonl",
+      "command": "rebuilt CLI run --script arc-gap.txt"
+    },
+    {
+      "exit": 0,
+      "log": "cli-proof.json",
+      "command": "python verify-cli.py"
+    }
+  ],
+  "earlier_evidence": {
+    "note": "Stable native/IFC/PNG artifacts and external IfcOpenShell checks remain earlier-head evidence. This round reran all Session native/IFC/render regression tests, but did not regenerate the earlier stable output package or repeat its external IFC validation.",
+    "head": "13ee0085603f1ffa8c45168dd06f905f7b220400"
+  },
+  "limitations": [
+    "Positive curved tangent-cap support remains pre-existing and out of scope",
+    "No full-height-reference IFC round-trip claim: original exported native room height is 2700 mm while imported IFC room height uses the existing 2500 mm default",
+    "No repeat of the earlier 62-test/tower selection",
+    "Full default-feature/workspace/platform and standard IFC CI remain required"
+  ],
+  "final_cli_sha256": "CCF2B201CF2E769286649C75873E838A974F369B311736613AD69C91F8D1149F"
+}

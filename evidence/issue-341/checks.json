@@ -1,0 +1,152 @@
+{
+  "issue": "https://github.com/IPedrax/BIMCraft/issues/341",
+  "base": "30527e323e9c2e59abff927e4b76fe3ce0f83e15",
+  "head": "13ee0085603f1ffa8c45168dd06f905f7b220400",
+  "os": "Windows 11 Enterprise build 26300",
+  "rustc": "1.99.0 (b940084d7 2026-09-28)",
+  "configuration": {
+    "RAYON_NUM_THREADS": 2,
+    "test_threads": 4,
+    "profile_overrides": [
+      "profile.dev.package.bimcraft-core.opt-level=0",
+      "profile.dev.debug=0"
+    ],
+    "CARGO_BUILD_JOBS": 2,
+    "cli_optional_readers": false
+  },
+  "checks": [
+    {
+      "failed": 4,
+      "stage": "RED, before original fix",
+      "passed": 1,
+      "exit": 101,
+      "log": "red.log",
+      "command": "cargo test -p bimcraft-core --test separator_wall_end -- --test-threads=4 --nocapture"
+    },
+    {
+      "failed": 1,
+      "stage": "intermediate, invalid unknown-key assumption",
+      "passed": 4,
+      "exit": 101,
+      "log": "intermediate-unknown-key.log",
+      "command": "same integration target"
+    },
+    {
+      "command": "same integration target",
+      "stage": "GREEN before cap guard",
+      "passed": 5,
+      "log": "green-before-cap-guard.log",
+      "exit": 0
+    },
+    {
+      "log": "room-tests-before-cap-guard.log",
+      "stage": "broader pre-cap-guard run",
+      "runtime_seconds": 203.89,
+      "passed": 62,
+      "exit": 0,
+      "command": "cargo test -p bimcraft-core --lib room -- --test-threads=4"
+    },
+    {
+      "command": "cargo test -p bimcraft-core --lib a_parallel_separator_does_not_treat_internal_arc_chord_ends_as_wall_caps -- --test-threads=4 --nocapture",
+      "stage": "arc-cap RED",
+      "failed": 1,
+      "log": "arc-cap-red.log",
+      "exit": 101
+    },
+    {
+      "command": "cargo test -p bimcraft-core --test separator_wall_end -- --test-threads=4 --nocapture",
+      "stage": "final source",
+      "passed": 5,
+      "log": "final-green.log",
+      "exit": 0
+    },
+    {
+      "command": "cargo test -p bimcraft-core --lib separator -- --test-threads=4",
+      "stage": "final source, includes arc-cap GREEN and merged152 crossing",
+      "passed": 4,
+      "log": "final-separator-tests.log",
+      "exit": 0
+    },
+    {
+      "command": "cargo test -p bimcraft-core --lib curved_walls_bound_rooms_and_carry_openings_along_their_arc -- --test-threads=4",
+      "stage": "final source",
+      "passed": 1,
+      "log": "final-curved-wall.log",
+      "exit": 0
+    },
+    {
+      "command": "cargo test -p bimcraft-core --test agent_docs -- --test-threads=4",
+      "exit": 0,
+      "passed": 3,
+      "log": "agent-docs.log"
+    },
+    {
+      "command": "cargo fmt --check",
+      "exit": 0,
+      "note": "Successful command emitted no output",
+      "log": "fmt.log"
+    },
+    {
+      "command": "cargo clippy --config 'profile.dev.package.bimcraft-core.opt-level=0' --config 'profile.dev.debug=0' -p bimcraft-core --all-targets -- -D warnings",
+      "exit": 0,
+      "log": "clippy.log"
+    },
+    {
+      "command": "cargo i18n update",
+      "exit": 0,
+      "log": "i18n-update.log"
+    },
+    {
+      "command": "cargo i18n check",
+      "exit": 0,
+      "log": "i18n-check.log"
+    },
+    {
+      "command": "git diff --quiet -- translations",
+      "exit": 0,
+      "note": "No catalog blob changes or source-reference changes; Windows newline rewrites normalized by git add, yielding no staged catalog changes"
+    },
+    {
+      "command": "cargo build -p bimcraft-cli --no-default-features",
+      "exit": 0,
+      "log": "cli-build.log"
+    },
+    {
+      "command": "./run-journey.ps1 -Cli <built-cli>",
+      "exit": 0,
+      "log": "cli-journey-run.log"
+    },
+    {
+      "command": "python verify-ifc.py",
+      "stage": "first verification script attempt",
+      "note": "Harness assumed every CLI elements output was an array; IFC open returns count dictionary. Corrected guard and reran.",
+      "log": "independent-ifc-first-run.stderr",
+      "exit": 1
+    },
+    {
+      "command": "python verify-ifc.py",
+      "exit": 0,
+      "log": "independent-ifc.json"
+    },
+    {
+      "products_per_file": 12,
+      "log": "ifc-all-products.log",
+      "problems": 0,
+      "shapes_per_file": 8,
+      "exit": 0,
+      "command": "python ci/validate_ifc.py after.ifc after-finish.ifc"
+    }
+  ],
+  "inspected_pngs": [
+    "before-centre.png",
+    "after-centre.png",
+    "after-finish.png"
+  ],
+  "required_ci_followthrough": [
+    "cargo clippy --workspace --all-targets -- -D warnings",
+    "cargo test --workspace including hostile input sweep and prepared sample-plugin fixture",
+    "default-feature standalone CLI and full Windows/Linux/macOS CI matrix",
+    "standard CI IFC job on sample house and ci/ifc-coverage.txt"
+  ],
+  "cli_sha256": "7DE52B974659308FB233293526E4251B56CE48F9A03EE2F9C6E9AB27F7E80AE2"
+}

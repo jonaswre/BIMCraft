@@ -1,0 +1,6 @@
+{"ids":[100002,100003,100004,100005]}
+{"ids":[100006]}
+{"ids":[100007]}
+{"area_m2":39.63,"id":100008,"number":"1"}
+{"area_m2":21.81,"id":100009,"number":"2"}
+{"count":2,"elements":[{"area_m2":39.63,"category":"room","enclosed":true,"guid":"c7c013f7-f649-4637-baac-a4bc8ef38ac9","id":100008,"level":"4d0db323-3e40-4e4e-aea7-cdfc3a106c60","limit_offset":-300.0,"name":"South","number":"1","perimeter_m":30.56,"point":[2000.0,1600.0],"top_level":"5384e346-9371-44c7-a443-a57d8ee8dcc2","unbounded_height":2700.0,"volume_m3":107.0},{"area_m2":21.81,"category":"room","enclosed":true,"guid":"3344b8af-7560-422a-8838-bb856f37fecc","id":100009,"level":"4d0db323-3e40-4e4e-aea7-cdfc3a106c60","limit_offset":-300.0,"name":"North","number":"2","perimeter_m":20.37,"point":[2000.0,4800.0],"top_level":"5384e346-9371-44c7-a443-a57d8ee8dcc2","unbounded_height":2700.0,"volume_m3":58.89}],"returned":2}

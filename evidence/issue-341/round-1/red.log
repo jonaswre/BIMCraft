@@ -1,0 +1,21 @@
+   Compiling bimcraft-core v0.11.0 (<workspace>\crates\core)
+    Finished `test` profile [unoptimized] target(s) in 6.92s
+     Running tests\separator_wall_end.rs (<target>\debug\deps\separator_wall_end-8c377b32f66d348a.exe)
+
+running 1 test
+
+thread 'tests::a_curved_wall_end_gap_is_not_closed_by_a_parallel_chord' (54156) panicked at crates\core\tests\separator_wall_end.rs:94:9:
+assertion `left == right` failed: the real cap gap must stay open: {"area_m2":21.81,"id":100009,"number":"2"}
+  left: Number(21.81)
+ right: 0.0
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test tests::a_curved_wall_end_gap_is_not_closed_by_a_parallel_chord ... FAILED
+
+failures:
+
+failures:
+    tests::a_curved_wall_end_gap_is_not_closed_by_a_parallel_chord
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 5 filtered out; finished in 0.07s
+
+error: test failed, to rerun pass `-p bimcraft-core --test separator_wall_end`
