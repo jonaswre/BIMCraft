@@ -52,7 +52,7 @@ msgstr ""
 msgid "Ceiling Luminaire"
 msgstr "Plafoniera"
 
-#: crates/core/src/render.rs:3121
+#: crates/core/src/render.rs:3179
 msgid "Ceiling Plan"
 msgstr "Pianta controsoffitti"
 
@@ -96,7 +96,7 @@ msgstr "Numero"
 msgid "Crosshatch"
 msgstr "Tratteggio incrociato"
 
-#: crates/core/src/render.rs:3743
+#: crates/core/src/render.rs:3801
 msgid "DN"
 msgstr "GIÙ"
 
@@ -357,7 +357,7 @@ msgstr "Metallo"
 msgid "Mounting Height"
 msgstr "Altezza di installazione"
 
-#: crates/core/src/render.rs:2951
+#: crates/core/src/render.rs:2995
 msgid "NOT ENCLOSED"
 msgstr "NON CHIUSA"
 
@@ -434,7 +434,7 @@ msgstr "Progetto"
 msgid "Property Line"
 msgstr ""
 
-#: crates/core/src/render.rs:2951
+#: crates/core/src/render.rs:2995
 msgid "REDUNDANT"
 msgstr ""
 
@@ -615,7 +615,7 @@ msgstr "Pedata"
 msgid "Type"
 msgstr "Tipo"
 
-#: crates/core/src/render.rs:3743
+#: crates/core/src/render.rs:3801
 msgid "UP"
 msgstr "SU"
 

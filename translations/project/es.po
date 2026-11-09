@@ -52,7 +52,7 @@ msgstr ""
 msgid "Ceiling Luminaire"
 msgstr "Luminaria de techo"
 
-#: crates/core/src/render.rs:3121
+#: crates/core/src/render.rs:3179
 msgid "Ceiling Plan"
 msgstr "Plano de cielo raso"
 
@@ -96,7 +96,7 @@ msgstr "Recuento"
 msgid "Crosshatch"
 msgstr "Sombreado cruzado"
 
-#: crates/core/src/render.rs:3743
+#: crates/core/src/render.rs:3801
 msgid "DN"
 msgstr "BAJA"
 
@@ -357,7 +357,7 @@ msgstr "Metal"
 msgid "Mounting Height"
 msgstr "Altura de montaje"
 
-#: crates/core/src/render.rs:2951
+#: crates/core/src/render.rs:2995
 msgid "NOT ENCLOSED"
 msgstr "NO DELIMITADA"
 
@@ -434,7 +434,7 @@ msgstr "Proyecto"
 msgid "Property Line"
 msgstr ""
 
-#: crates/core/src/render.rs:2951
+#: crates/core/src/render.rs:2995
 msgid "REDUNDANT"
 msgstr "REDUNDANTE"
 
@@ -615,7 +615,7 @@ msgstr "Huella"
 msgid "Type"
 msgstr "Tipo"
 
-#: crates/core/src/render.rs:3743
+#: crates/core/src/render.rs:3801
 msgid "UP"
 msgstr "SUBE"
 

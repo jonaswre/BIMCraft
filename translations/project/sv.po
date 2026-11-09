@@ -52,7 +52,7 @@ msgstr ""
 msgid "Ceiling Luminaire"
 msgstr "Takarmatur"
 
-#: crates/core/src/render.rs:3121
+#: crates/core/src/render.rs:3179
 msgid "Ceiling Plan"
 msgstr "Undertaksplan"
 
@@ -96,7 +96,7 @@ msgstr "Antal"
 msgid "Crosshatch"
 msgstr "Korsskraffering"
 
-#: crates/core/src/render.rs:3743
+#: crates/core/src/render.rs:3801
 msgid "DN"
 msgstr "NED"
 
@@ -357,7 +357,7 @@ msgstr "Metall"
 msgid "Mounting Height"
 msgstr "Montagehöjd"
 
-#: crates/core/src/render.rs:2951
+#: crates/core/src/render.rs:2995
 msgid "NOT ENCLOSED"
 msgstr "EJ OMSLUTET"
 
@@ -434,7 +434,7 @@ msgstr "Projekt"
 msgid "Property Line"
 msgstr ""
 
-#: crates/core/src/render.rs:2951
+#: crates/core/src/render.rs:2995
 msgid "REDUNDANT"
 msgstr "ÖVERFLÖDIGT"
 
@@ -615,7 +615,7 @@ msgstr "Plansteg"
 msgid "Type"
 msgstr "Typ"
 
-#: crates/core/src/render.rs:3743
+#: crates/core/src/render.rs:3801
 msgid "UP"
 msgstr "UPP"
 
