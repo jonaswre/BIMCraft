@@ -1,0 +1,30 @@
+BIMCraft issue #337 verification
+Base: 30527e323e9c2e59abff927e4b76fe3ce0f83e15
+Local commit: f32146429f4912ee84c7ec12327f34f861049523
+OS: Windows 11 Enterprise 10.0.26300
+Cargo: CARGO_BUILD_JOBS=2, RAYON_NUM_THREADS=2, dedicated target directory
+Local test/build profile: --config profile.dev.package.bimcraft-core.opt-level=0 --config profile.dev.debug=0
+
+RED --test roof_overhang on unchanged base source: 1 passed, 4 failed as expected (exit 101)
+Additional sketch-alignment RED: 1 intended failure (exit 101)
+GREEN --test roof_overhang: 6 passed
+Existing roof_slopes_tests::: 8 passed
+Existing shape_tests::: 42 passed
+Existing align_tests::: 6 passed
+Nine exact existing roof/mass command journeys: 9 passed
+--test agent_docs: 3 passed
+Unique final test coverage: 74 passing tests; no test ignored or disabled
+
+cargo build -p bimcraft-cli --no-default-features with the profile overrides: passed
+Real CLI create/save/render/native reopen: passed
+Real CLI impossible mass-face update: explicit error; saved file bytes unchanged
+Shared IfcOpenShell 0.8.5: zero EXPRESS statements; roof mesh built; expected XY eave bounds
+cargo fmt --check: passed
+cargo clippy --config profile.dev.package.bimcraft-core.opt-level=0 --config profile.dev.debug=0 -p bimcraft-core --all-targets -- -D warnings: passed
+cargo i18n update: passed
+cargo i18n check: passed
+Generated catalog diffs: source-reference comments only; zero message/translation changes
+Git diff --check: passed
+
+Full workspace/default-feature/platform CI and full IFC coverage CI were not run locally and remain required.
+Actual sanitized logs accompany this summary under public-logs/.

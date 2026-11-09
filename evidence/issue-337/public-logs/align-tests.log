@@ -1,0 +1,12 @@
+    Finished `test` profile [unoptimized] target(s) in 0.16s
+
+running 6 tests
+     Running unittests src\lib.rs (<TARGET>\debug\deps\bimcraft_core-f723816fa9dc5cad.exe)
+test align_tests::align_refuses_degenerate_lines_and_rolls_back_a_hosted_opening_that_cannot_turn ... ok
+test align_tests::align_rotates_and_translates_a_wall_with_its_opening_in_one_undo_step ... ok
+test align_tests::sketch_alignment_refuses_a_collapsed_join_without_changing_the_draft ... ok
+test align_tests::align_uses_real_straight_segments_and_not_chords_of_curves ... ok
+test align_tests::align_slides_openings_along_their_host_and_keeps_reversed_parallel_lines_pointing_the_same_way ... ok
+test align_tests::align_handles_plan_edges_of_structural_mep_and_architectural_elements ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 1543 filtered out; finished in 2.54s

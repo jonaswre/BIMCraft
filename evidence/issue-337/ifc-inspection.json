@@ -1,0 +1,16 @@
+{
+  "ifcopenshell_version": "0.8.5",
+  "express_problems": 0,
+  "roof_count": 1,
+  "mesh_vertices": 8,
+  "bbox_min_m": [
+    -0.75,
+    -0.75,
+    5.867754764000001
+  ],
+  "bbox_max_m": [
+    10.75,
+    20.75,
+    8.200143026
+  ]
+}

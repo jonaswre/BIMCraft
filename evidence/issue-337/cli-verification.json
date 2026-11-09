@@ -1,0 +1,24 @@
+{
+  "result": "passed",
+  "ridge_mm": 7895.52,
+  "outline_mm": [
+    [
+      -750.0,
+      -750.0
+    ],
+    [
+      10750.0,
+      -750.0
+    ],
+    [
+      10750.0,
+      20750.0
+    ],
+    [
+      -750.0,
+      20750.0
+    ]
+  ],
+  "native_reopen_equal": true,
+  "failed_update_preserved_saved_file": true
+}

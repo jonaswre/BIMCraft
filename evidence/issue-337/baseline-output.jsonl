@@ -1,0 +1,2 @@
+{"id":100002}
+{"count":1,"elements":[{"area_m2":200.0,"boundary":[[0.0,0.0],[10000.0,0.0],[10000.0,20000.0],[0.0,20000.0]],"category":"roof","gables":[0,1,2],"guid":"1ee8e3cd-900e-4724-a6e8-6ca3cb9e11a7","id":100002,"level":"4d30ddf3-fc93-4cac-b3b9-ff408cedd1e7","offset":6000.0,"outline":[[0.0,0.0],[10000.0,0.0],[10000.0,20000.0],[0.0,20000.0]],"overhang":750.0,"ridge":7631.02,"slope":10.0,"type":"Generic - 300mm","type_guid":"f38d23f7-c268-41f5-888f-1363a0741565"}],"returned":1}

@@ -1,0 +1,1 @@
+line 1 (update_by_face): update_by_face: roof 100003 cannot follow mass 100002: its top face is too small for an overhang of -400 mm; make it less

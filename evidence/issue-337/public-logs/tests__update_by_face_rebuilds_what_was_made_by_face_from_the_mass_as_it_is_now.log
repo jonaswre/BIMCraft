@@ -1,0 +1,7 @@
+    Finished `test` profile [unoptimized] target(s) in 0.18s
+     Running unittests src\lib.rs (<TARGET>\debug\deps\bimcraft_core-f723816fa9dc5cad.exe)
+
+running 1 test
+test tests::update_by_face_rebuilds_what_was_made_by_face_from_the_mass_as_it_is_now ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 1548 filtered out; finished in 2.43s

@@ -1,0 +1,13 @@
+   Compiling bimcraft-core v0.11.0 (<WORKTREE>\crates\core)
+    Finished `test` profile [unoptimized] target(s) in 25.11s
+     Running tests\roof_overhang.rs (<TARGET>\debug\deps\roof_overhang-d236a58cf0c5a0d4.exe)
+
+running 6 tests
+test tests::courtyards_offset_inward_and_impossible_creation_is_atomic ... ok
+test tests::sketch_overhang_preserves_per_edge_pitches_and_edit_boundary_does_not_offset_twice ... ok
+test tests::wall_derived_roofs_and_zero_overhang_keep_existing_outlines ... ok
+test tests::impossible_mass_roof_update_refuses_all_elements_and_preserves_undo_redo ... ok
+test tests::mass_roof_keeps_positive_overhang_identity_and_pitch_through_update_and_reopen ... ok
+test tests::explicit_roof_overhang_extends_eaves_and_keeps_wall_line_height_after_reopen ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.57s

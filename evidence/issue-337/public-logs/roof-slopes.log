@@ -1,0 +1,14 @@
+    Finished `test` profile [unoptimized] target(s) in 0.17s
+     Running unittests src\lib.rs (<TARGET>\debug\deps\bimcraft_core-f723816fa9dc5cad.exe)
+
+running 8 tests
+test roof_slopes_tests::a_rectangle_with_two_edges_at_30_degrees_and_two_at_45_has_faces_at_those_pitches ... ok
+test roof_slopes_tests::a_roof_with_slopes_is_saved_and_opened_in_the_current_format ... ok
+test roof_slopes_tests::a_gable_edge_stays_upright_whatever_its_slope ... ok
+test roof_slopes_tests::edges_are_numbered_on_through_the_courtyards ... ok
+test roof_slopes_tests::a_roofs_slopes_are_changed_with_modify_and_zero_is_the_roofs_own ... ok
+test roof_slopes_tests::a_list_of_the_wrong_length_or_a_slope_out_of_range_is_refused_saying_which_edge ... ok
+test roof_slopes_tests::a_sketch_line_gives_its_edges_a_slope_and_none_of_it_is_kept_in_the_roofs_sketch ... ok
+test roof_slopes_tests::editing_a_roofs_boundary_keeps_the_slope_of_an_edge_that_stays_or_is_cut_in_two ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 1541 filtered out; finished in 0.36s

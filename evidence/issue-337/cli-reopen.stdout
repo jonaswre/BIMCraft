@@ -1,0 +1,2 @@
+{"name":"Project","path":".\\synthetic-roof.bimcraft"}
+{"count":1,"elements":[{"area_m2":247.25,"boundary":[[-750.0,-750.0],[10750.0,-750.0],[10750.0,20750.0],[-750.0,20750.0]],"category":"roof","gables":[0,1,2],"guid":"ba0d82b0-ff26-422c-a2f9-db1c6b9d0bc7","id":100002,"level":"c2baf4d3-99f3-447f-a445-0a39a5288b8e","offset":6000.0,"outline":[[-750.0,-750.0],[10750.0,-750.0],[10750.0,20750.0],[-750.0,20750.0]],"overhang":750.0,"ridge":7895.52,"slope":10.0,"type":"Generic - 300mm","type_guid":"06181aa9-7389-4e99-bb57-fbb404718cfa"}],"returned":1}

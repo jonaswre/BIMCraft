@@ -1,0 +1,12 @@
+{
+  "synthetic-roof.bimcraft": {
+    "sha256": "f4619dfbf5e26584c0d676f80b228397e3b5e237fcde82e0b6a6e0c3338a0310",
+    "bytes": 210006,
+    "absolute_local_paths": false
+  },
+  "synthetic-mass-roof.bimcraft": {
+    "sha256": "922d7ed6e81af3edfc6de0fb849fc5572daca6028f3553e8dac4d7389ec8cc59",
+    "bytes": 210576,
+    "absolute_local_paths": false
+  }
+}

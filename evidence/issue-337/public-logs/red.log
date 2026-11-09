@@ -1,0 +1,99 @@
+   Compiling cfg-if v1.0.5
+   Compiling crossbeam-utils v0.8.23
+   Compiling proc-macro2 v1.0.107
+   Compiling simd-adler32 v0.3.10
+   Compiling rustversion v1.0.23
+   Compiling unicode-ident v1.0.27
+   Compiling crc32fast v1.5.2
+   Compiling crossbeam-epoch v0.9.21
+   Compiling adler2 v2.0.1
+   Compiling quote v1.0.47
+   Compiling crossbeam-deque v0.8.8
+   Compiling serde_core v1.0.229
+   Compiling miniz_oxide v0.9.1
+   Compiling zmij v1.0.23
+   Compiling rayon-core v1.13.0
+   Compiling getrandom v0.4.3
+   Compiling flate2 v1.1.10
+   Compiling encoding_rs v0.8.42
+   Compiling syn v3.0.9
+   Compiling miniz_oxide v0.8.9
+   Compiling fdeflate v0.3.7
+   Compiling serde_json v1.0.154
+   Compiling bimcraft-i18n v0.11.0 (<WORKTREE>\crates\i18n)
+   Compiling bitflags v1.3.2
+   Compiling serde v1.0.229
+   Compiling strict-num v0.1.1
+   Compiling bytemuck v1.25.2
+   Compiling arrayref v0.3.9
+   Compiling getrandom v0.3.4
+   Compiling windows-link v0.2.1
+   Compiling windows-sys v0.61.2
+   Compiling tiny-skia-path v0.11.4
+   Compiling bimcraft-core v0.11.0 (<WORKTREE>\crates\core)
+   Compiling png v0.17.16
+   Compiling serde_derive v1.0.229
+   Compiling either v1.19.0
+   Compiling arrayvec v0.7.8
+   Compiling fastrand v2.5.0
+   Compiling memchr v2.8.3
+   Compiling scopeguard v1.2.0
+   Compiling itoa v1.0.18
+   Compiling core_detect v1.0.0
+   Compiling simdutf8 v0.1.5
+   Compiling multiversion_no_op v1.0.0
+   Compiling zune-core v0.5.3
+   Compiling log v0.4.34
+   Compiling once_cell v1.21.4
+   Compiling tempfile v3.27.0
+   Compiling tiny-skia v0.11.4
+   Compiling zune-jpeg v0.5.15
+   Compiling rayon v1.12.0
+   Compiling ttf-parser v0.25.1
+    Finished `test` profile [unoptimized] target(s) in 2m 48s
+     Running tests\roof_overhang.rs (<TARGET>\debug\deps\roof_overhang-d236a58cf0c5a0d4.exe)
+
+running 5 tests
+test tests::sketch_overhang_preserves_per_edge_pitches_and_edit_boundary_does_not_offset_twice ... FAILED
+test tests::explicit_roof_overhang_extends_eaves_and_keeps_wall_line_height_after_reopen ... FAILED
+test tests::courtyards_offset_inward_and_impossible_creation_is_atomic ... FAILED
+test tests::wall_derived_roofs_and_zero_overhang_keep_existing_outlines ... ok
+test tests::impossible_mass_roof_update_refuses_all_elements_and_preserves_undo_redo ... FAILED
+
+failures:
+
+---- tests::sketch_overhang_preserves_per_edge_pitches_and_edit_boundary_does_not_offset_twice stdout ----
+
+thread 'tests::sketch_overhang_preserves_per_edge_pitches_and_edit_boundary_does_not_offset_twice' (50060) panicked at crates\core\tests\roof_overhang.rs:45:9:
+assertion `left == right` failed
+  left: Array [Array [Number(0.0), Number(0.0)], Array [Number(8000.0), Number(0.0)], Array [Number(8000.0), Number(6000.0)], Array [Number(0.0), Number(6000.0)]]
+ right: Array [Array [Number(-400.0), Number(-400.0)], Array [Number(8400.0), Number(-400.0)], Array [Number(8400.0), Number(6400.0)], Array [Number(-400.0), Number(6400.0)]]
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- tests::explicit_roof_overhang_extends_eaves_and_keeps_wall_line_height_after_reopen stdout ----
+
+thread 'tests::explicit_roof_overhang_extends_eaves_and_keeps_wall_line_height_after_reopen' (2960) panicked at crates\core\tests\roof_overhang.rs:24:13:
+assertion `left == right` failed
+  left: [[0.0, 0.0], [0.0, 20000.0], [10000.0, 0.0], [10000.0, 20000.0]]
+ right: [[-750.0, -750.0], [-750.0, 20750.0], [10750.0, -750.0], [10750.0, 20750.0]]
+
+---- tests::courtyards_offset_inward_and_impossible_creation_is_atomic stdout ----
+
+thread 'tests::courtyards_offset_inward_and_impossible_creation_is_atomic' (41504) panicked at crates\core\tests\roof_overhang.rs:57:119:
+called `Result::unwrap_err()` on an `Ok` value: Object {"id": Number(100002)}
+
+---- tests::impossible_mass_roof_update_refuses_all_elements_and_preserves_undo_redo stdout ----
+
+thread 'tests::impossible_mass_roof_update_refuses_all_elements_and_preserves_undo_redo' (52840) panicked at crates\core\tests\roof_overhang.rs:76:74:
+called `Result::unwrap_err()` on an `Ok` value: Object {"unchanged": Array [], "updated": Array [Number(100003), Number(100004)]}
+
+
+failures:
+    tests::courtyards_offset_inward_and_impossible_creation_is_atomic
+    tests::explicit_roof_overhang_extends_eaves_and_keeps_wall_line_height_after_reopen
+    tests::impossible_mass_roof_update_refuses_all_elements_and_preserves_undo_redo
+    tests::sketch_overhang_preserves_per_edge_pitches_and_edit_boundary_does_not_offset_twice
+
+test result: FAILED. 1 passed; 4 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.11s
+
+error: test failed, to rerun pass `-p bimcraft-core --test roof_overhang`

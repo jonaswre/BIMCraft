@@ -1,0 +1,48 @@
+    Finished `test` profile [unoptimized] target(s) in 0.18s
+     Running unittests src\lib.rs (<TARGET>\debug\deps\bimcraft_core-f723816fa9dc5cad.exe)
+
+running 42 tests
+test shape_tests::a_drain_folds_a_floor_into_four_planes_falling_to_it ... ok
+test shape_tests::a_floors_details_give_its_volume_shaped_or_not ... ok
+test shape_tests::a_dragged_point_takes_its_split_lines_with_it_and_keeps_its_height ... ok
+test shape_tests::a_flat_roof_takes_a_shape_its_underside_and_the_walls_under_it_following ... ok
+test shape_tests::a_point_that_would_leave_the_screed_thinner_than_nothing_is_refused ... ok
+test shape_tests::a_raised_point_keeps_its_part_and_a_raised_corner_becomes_one ... ok
+test shape_tests::a_plan_draws_a_shaped_floors_creases ... ok
+test shape_tests::a_roof_point_that_would_leave_its_insulation_thinner_than_nothing_is_refused ... ok
+test shape_tests::a_section_shows_a_roofs_insulation_tapering_over_its_level_structure ... ok
+test shape_tests::a_roofs_variable_layer_keeps_its_underside_level_and_takes_up_the_fall ... ok
+test shape_tests::a_hole_cut_through_a_shape_cuts_its_split_lines_and_keeps_the_heights_round_it ... ok
+test shape_tests::a_section_shows_the_screed_tapering_over_a_level_structure ... ok
+test shape_tests::a_section_through_a_drain_shows_the_top_falling_to_it ... ok
+test shape_tests::a_shape_picks_its_nearest_point_or_corner_else_an_edges_ends ... ok
+test shape_tests::a_shape_is_kept_in_the_file_and_goes_to_ifc_as_its_planes ... ok
+test shape_tests::a_shaped_floor_moves_mirrors_and_copies_with_its_points ... ok
+test shape_tests::a_shaped_flat_roof_comes_back_from_ifc_shaped_and_a_pitched_one_pitched ... ok
+test shape_tests::a_shaped_floor_over_a_variable_layer_comes_back_from_ifc_with_it_marked_or_guessed ... ok
+test shape_tests::a_shaped_tops_creases_are_its_planes_edges_in_3d_each_once ... ok
+test shape_tests::a_shaped_slab_exported_and_imported_comes_back_with_its_points_and_creases ... ok
+test shape_tests::a_shapes_folding_lines_are_its_creases_no_split_line_makes_and_they_can_be_picked ... ok
+test shape_tests::a_shapes_labels_give_each_points_height_relative_or_above_its_level ... ok
+test shape_tests::a_shaped_roof_draws_its_creases_snaps_to_its_points_and_keeps_them_through_a_new_outline ... ok
+test shape_tests::a_split_line_is_a_crease_the_top_folds_along ... ok
+test shape_tests::a_variable_layer_keeps_the_underside_flat_and_takes_up_the_fall ... ok
+test shape_tests::a_wall_under_a_shaped_floor_follows_its_planes ... ok
+test shape_tests::a_spot_slope_reads_how_steeply_a_shaped_top_falls_and_which_way ... ok
+test shape_tests::a_wall_under_a_terrace_and_its_bars_keep_to_the_level_structure ... ok
+test shape_tests::add_point_with_an_offset_lands_that_far_over_the_top_as_it_is_there ... ok
+test shape_tests::edit_boundary_keeps_the_points_inside_and_names_the_rest ... ok
+test shape_tests::add_point_sets_a_height_and_reset_shape_takes_them_all_off ... ok
+test shape_tests::falls_run_round_an_opening_to_two_drains_or_to_one_beside_it ... ok
+test shape_tests::falls_refuse_what_they_cant_drain_saying_why ... ok
+test shape_tests::in_3d_a_click_lands_on_the_shaped_top_and_picks_points_corners_and_edges ... ok
+test shape_tests::in_3d_a_cursor_near_an_edge_snaps_onto_it_and_names_the_edge ... ok
+test shape_tests::in_plan_a_cursor_near_an_edge_snaps_onto_it_and_names_the_edge ... ok
+test shape_tests::falls_to_two_drains_fall_at_least_as_steep_as_asked_and_every_plane_runs_to_one ... ok
+test shape_tests::ridges_drawn_split_the_top_each_part_to_its_own_drains ... ok
+test shape_tests::snaps_find_a_shapes_points_and_reinforcement_waits_for_a_flat_structure ... ok
+test shape_tests::only_one_layer_of_a_floor_or_roof_type_is_variable ... ok
+test shape_tests::only_a_flat_roof_by_footprint_takes_a_shape_and_a_shaped_one_keeps_flat ... ok
+test shape_tests::what_a_shape_refuses_it_says ... ok
+
+test result: ok. 42 passed; 0 failed; 0 ignored; 0 measured; 1507 filtered out; finished in 2.38s
