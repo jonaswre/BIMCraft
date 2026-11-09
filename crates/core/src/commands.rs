@@ -245,7 +245,9 @@ other_files(
         "{at: [x,y] | wall: id, offset?, type?, family?, level?, mark?, flip_facing?, flip_hand?} in the wall under `at`, \
          or in `wall` centred `offset` mm from its start; without `level`, prefer the lowest level at or above elevation 0 \
          whose plan cuts a wall there, then the highest below 0; with `family`, a door family's `type` (its first by default), \
-         which sizes the opening and draws the door; it may rise past a low wall's top, as Revit lets it At a point with `level`, prefer a wall cut by the plan; otherwise use a unique nearby raised wall on that level; for stacked raised walls give `wall` explicitly",
+         which sizes the opening and draws the door. An explicit `level` different from the wall's places it at that \
+         level's elevation, otherwise at the wall's base; it may rise past a low wall's top. With `level`, prefer a wall \
+         cut by the plan, otherwise a unique nearby raised wall on that level; for stacked raised walls give `wall` explicitly",
         door,
     )
     .menu("Architecture > Door"),
@@ -7346,6 +7348,7 @@ pub fn opening_of(m: &Model, p: &Value, is_door: bool) -> Result<Element, String
 
 fn build_opening(m: &Model, p: &Value, is_door: bool) -> Result<Opening, String> {
     let c = if is_door { "door" } else { "window" };
+    let requested_level = if absent(p.get("level")) { None } else { Some(level_param(c, m, p, "level")?) };
     let types = if is_door { &m.types.door } else { &m.types.window };
     // Of a family's type, or one of the project's own.
     let family = string(c, p, "family")?;
@@ -7412,6 +7415,16 @@ fn build_opening(m: &Model, p: &Value, is_door: bool) -> Result<Opening, String>
         None => types.get(&type_name).map_or(0.0, |t| t.sill),
     });
     let sill = if is_door { 0.0 } else { num(c, p, "sill")?.unwrap_or(default_sill) };
+    // Files and all geometry keep the sill relative to the host's own base. Only an explicitly requested different
+    // level changes the placement datum; same-level raised walls keep their host-relative placement.
+    let sill = if let Some(level) = requested_level
+        && let Some(w) = m.wall(host)
+        && level != w.level
+    {
+        m.elevation(level) + sill - m.own_base(w)
+    } else {
+        sill
+    };
     let mark = match string(c, p, "mark")? {
         Some(mk) => mk,
         None => next_number(m.elements.values().filter_map(|e| match e {
