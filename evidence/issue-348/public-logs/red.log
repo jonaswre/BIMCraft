@@ -1,0 +1,64 @@
+   Compiling bimcraft-core v0.11.0 (<repo>\crates\core)
+    Finished `test` profile [unoptimized] target(s) in 1.96s
+     Running tests\ifc_supplementary_quantities.rs (<target>\debug\deps\ifc_supplementary_quantities-7242f9f9b6194bc9.exe)
+
+running 7 tests
+test tests::pad_footing_dimensions_and_volume_match_its_rectangular_solid ... FAILED
+test tests::roof_areas_follow_the_pitch_and_subtract_openings_and_shafts ... FAILED
+test tests::ceiling_areas_subtract_openings_and_only_intersecting_shafts ... FAILED
+test tests::attached_wall_quantities_integrate_the_sloping_top_and_clipped_door ... FAILED
+test tests::roof_courtyard_is_absent_from_gross_and_projected_areas ... FAILED
+test tests::round_pad_uses_the_circle_area_and_strip_uses_its_run_length ... FAILED
+test tests::shaped_variable_layer_roof_areas_follow_the_top_planes ... FAILED
+
+failures:
+
+---- tests::pad_footing_dimensions_and_volume_match_its_rectangular_solid stdout ----
+
+thread 'tests::pad_footing_dimensions_and_volume_match_its_rectangular_solid' (25720) panicked at crates\core\tests\ifc_supplementary_quantities.rs:33:41:
+IFCFOOTING is missing Qto_FootingBaseQuantities
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- tests::roof_areas_follow_the_pitch_and_subtract_openings_and_shafts stdout ----
+
+thread 'tests::roof_areas_follow_the_pitch_and_subtract_openings_and_shafts' (54108) panicked at crates\core\tests\ifc_supplementary_quantities.rs:33:41:
+IFCROOF is missing Qto_RoofBaseQuantities
+
+---- tests::ceiling_areas_subtract_openings_and_only_intersecting_shafts stdout ----
+
+thread 'tests::ceiling_areas_subtract_openings_and_only_intersecting_shafts' (7072) panicked at crates\core\tests\ifc_supplementary_quantities.rs:33:41:
+IFCCOVERING is missing Qto_CoveringBaseQuantities
+
+---- tests::attached_wall_quantities_integrate_the_sloping_top_and_clipped_door stdout ----
+
+thread 'tests::attached_wall_quantities_integrate_the_sloping_top_and_clipped_door' (44132) panicked at crates\core\tests\ifc_supplementary_quantities.rs:45:52:
+missing GrossSideArea: {"Length": 4000.0, "Width": 200.0}
+
+---- tests::roof_courtyard_is_absent_from_gross_and_projected_areas stdout ----
+
+thread 'tests::roof_courtyard_is_absent_from_gross_and_projected_areas' (16124) panicked at crates\core\tests\ifc_supplementary_quantities.rs:33:41:
+IFCROOF is missing Qto_RoofBaseQuantities
+
+---- tests::round_pad_uses_the_circle_area_and_strip_uses_its_run_length stdout ----
+
+thread 'tests::round_pad_uses_the_circle_area_and_strip_uses_its_run_length' (50128) panicked at crates\core\tests\ifc_supplementary_quantities.rs:33:41:
+IFCFOOTING is missing Qto_FootingBaseQuantities
+
+---- tests::shaped_variable_layer_roof_areas_follow_the_top_planes stdout ----
+
+thread 'tests::shaped_variable_layer_roof_areas_follow_the_top_planes' (49712) panicked at crates\core\tests\ifc_supplementary_quantities.rs:33:41:
+IFCROOF is missing Qto_RoofBaseQuantities
+
+
+failures:
+    tests::attached_wall_quantities_integrate_the_sloping_top_and_clipped_door
+    tests::ceiling_areas_subtract_openings_and_only_intersecting_shafts
+    tests::pad_footing_dimensions_and_volume_match_its_rectangular_solid
+    tests::roof_areas_follow_the_pitch_and_subtract_openings_and_shafts
+    tests::roof_courtyard_is_absent_from_gross_and_projected_areas
+    tests::round_pad_uses_the_circle_area_and_strip_uses_its_run_length
+    tests::shaped_variable_layer_roof_areas_follow_the_top_planes
+
+test result: FAILED. 0 passed; 7 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.46s
+
+error: test failed, to rerun pass `-p bimcraft-core --test ifc_supplementary_quantities`

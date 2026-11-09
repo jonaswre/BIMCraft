@@ -1,0 +1,2 @@
+type {"category":"footing","name":"Test pad","width":1200,"depth":1000}
+footing {"type":"Test pad","at":[0,0],"thickness":400,"offset":-200,"angle":30}

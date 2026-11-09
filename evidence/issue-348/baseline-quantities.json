@@ -1,0 +1,51 @@
+[
+  {
+    "class": "IfcCovering",
+    "tag": "100005",
+    "quantities": {}
+  },
+  {
+    "class": "IfcDoor",
+    "tag": "1",
+    "quantities": {
+      "Qto_DoorBaseQuantities": {
+        "Width": 900.0,
+        "Height": 2100.0,
+        "Perimeter": 6000.0,
+        "Area": 1.89,
+        "id": 215
+      }
+    }
+  },
+  {
+    "class": "IfcFooting",
+    "tag": "100006",
+    "quantities": {}
+  },
+  {
+    "class": "IfcFooting",
+    "tag": "100007",
+    "quantities": {}
+  },
+  {
+    "class": "IfcRoof",
+    "tag": "100002",
+    "quantities": {}
+  },
+  {
+    "class": "IfcWall",
+    "tag": "100003",
+    "quantities": {
+      "Qto_WallBaseQuantities": {
+        "Length": 4000.0,
+        "Width": 200.0,
+        "id": 135
+      }
+    }
+  },
+  {
+    "class": "IfcOpeningElement",
+    "tag": null,
+    "quantities": {}
+  }
+]

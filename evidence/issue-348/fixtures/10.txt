@@ -1,0 +1,5 @@
+type {"category":"wall","name":"Test wall","thickness":200}
+type {"category":"door","name":"Test door","width":1000,"height":2000}
+roof {"level":100001,"extrusion":{"line":[[0,0],[4000,0]],"profile":[[0,0],[2000,1000],[4000,0]],"from":0,"to":1000}}
+wall {"type":"Test wall","points":[[0,500],[4000,500]],"attach_top":100002}
+door {"type":"Test door","wall":100003,"offset":1000}

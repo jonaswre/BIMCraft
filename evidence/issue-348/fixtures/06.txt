@@ -1,0 +1,2 @@
+type {"category":"footing","name":"Round pad","width":1000,"round":true}
+footing {"type":"Round pad","at":[0,0],"thickness":400}

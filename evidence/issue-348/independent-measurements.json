@@ -1,0 +1,233 @@
+{
+  "checks": [
+    {
+      "fixture": "01",
+      "class": "IfcCovering",
+      "expected_bounds_m": [
+        [
+          0,
+          0,
+          2.6
+        ],
+        [
+          4,
+          3,
+          2.62
+        ]
+      ],
+      "actual_bounds_m": [
+        [
+          0.0,
+          0.0,
+          2.6
+        ],
+        [
+          4.0,
+          3.0,
+          2.62
+        ]
+      ]
+    },
+    {
+      "fixture": "05",
+      "class": "IfcFooting",
+      "expected_bounds_m": [
+        [
+          -0.7696152422706632,
+          -0.7330127018922192,
+          -0.6
+        ],
+        [
+          0.7696152422706632,
+          0.7330127018922192,
+          -0.2
+        ]
+      ],
+      "actual_bounds_m": [
+        [
+          -0.7696152422706923,
+          -0.7330127018922785,
+          -0.6
+        ],
+        [
+          0.7696152422706923,
+          0.7330127018922785,
+          -0.19999999999999996
+        ]
+      ]
+    },
+    {
+      "fixture": "07",
+      "class": "IfcFooting",
+      "expected_bounds_m": [
+        [
+          0,
+          -0.3,
+          -0.3
+        ],
+        [
+          4,
+          0.3,
+          0
+        ]
+      ],
+      "actual_bounds_m": [
+        [
+          0.0,
+          -0.3,
+          -0.3
+        ],
+        [
+          4.0,
+          0.3,
+          0.0
+        ]
+      ]
+    },
+    {
+      "fixture": "09",
+      "class": "IfcWall",
+      "expected_bounds_m": [
+        [
+          0,
+          -0.1,
+          0
+        ],
+        [
+          4,
+          0.1,
+          6
+        ]
+      ],
+      "actual_bounds_m": [
+        [
+          0.0,
+          -0.1,
+          0.0
+        ],
+        [
+          4.0,
+          0.1,
+          6.0
+        ]
+      ]
+    },
+    {
+      "fixture": "10",
+      "class": "IfcWall",
+      "expected_bounds_m": [
+        [
+          0,
+          0.4,
+          0
+        ],
+        [
+          4,
+          0.6,
+          4
+        ]
+      ],
+      "actual_bounds_m": [
+        [
+          0.0,
+          0.4,
+          0.0
+        ],
+        [
+          4.0,
+          0.6,
+          4.0
+        ]
+      ]
+    },
+    {
+      "fixture": "11",
+      "class": "IfcWall",
+      "expected_bounds_m": [
+        [
+          0,
+          -0.1,
+          0
+        ],
+        [
+          4,
+          0.1,
+          3.793844718719117
+        ]
+      ],
+      "actual_bounds_m": [
+        [
+          0.0,
+          -0.1,
+          0.0
+        ],
+        [
+          4.0,
+          0.1,
+          3.7938447190000004
+        ]
+      ]
+    },
+    {
+      "fixture": "02",
+      "quantity": "GrossArea",
+      "expected": 13.856406460551018,
+      "actual": 13.856406
+    },
+    {
+      "fixture": "03",
+      "quantity": "GrossArea",
+      "expected": 16.01998751560063,
+      "actual": 16.019988
+    },
+    {
+      "fixture": "04",
+      "quantity": "GrossArea",
+      "expected": 11,
+      "actual": 11.0
+    },
+    {
+      "fixture": "08",
+      "quantity": "GrossArea",
+      "expected": 13.416407864998739,
+      "actual": 13.416408
+    },
+    {
+      "fixture": "01",
+      "quantity": "NetArea",
+      "expected": 10,
+      "actual": 10.0
+    },
+    {
+      "fixture": "05",
+      "quantity": "NetVolume",
+      "expected": 0.48,
+      "actual": 0.48
+    },
+    {
+      "fixture": "06",
+      "quantity": "NetVolume",
+      "expected": 0.3141592653589793,
+      "actual": 0.314159
+    },
+    {
+      "fixture": "07",
+      "quantity": "NetVolume",
+      "expected": 0.72,
+      "actual": 0.72
+    },
+    {
+      "fixture": "09",
+      "quantity": "NetVolume",
+      "expected": 4.05,
+      "actual": 4.05
+    },
+    {
+      "fixture": "10",
+      "quantity": "NetVolume",
+      "expected": 2.4,
+      "actual": 2.4
+    }
+  ],
+  "passed": 16
+}

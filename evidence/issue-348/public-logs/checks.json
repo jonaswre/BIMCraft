@@ -1,0 +1,96 @@
+{
+  "head": "be6881c9d72fa7973bc4d328867448bf60cc9b54",
+  "green_stage": "Final ten tests after adding roof ridge, extrusion and attached-base coverage",
+  "not_run": [
+    "Full workspace/default-feature/platform suites",
+    "Full upstream IFC CI, required after publication"
+  ],
+  "os": "Windows 11 Enterprise",
+  "independent": {
+    "ifcopenshell": "0.8.5",
+    "fixtures": 11,
+    "schema_express_statements": 0,
+    "global_ids": "Unique within every export",
+    "hand_calculated_measurement_checks": 16
+  },
+  "red_stage": "Before production edits, initial seven tests",
+  "base": "30527e323e9c2e59abff927e4b76fe3ce0f83e15",
+  "environment": {
+    "RAYON_NUM_THREADS": "2",
+    "CARGO_BUILD_JOBS": "2",
+    "CARGO_TARGET_DIR": "<target>"
+  },
+  "sanitization": "Actual captured logs with only local repository, build-target and evidence-root paths replaced by neutral placeholders; raw originals remain private.",
+  "checks": [
+    {
+      "name": "baseline build",
+      "log": "build-baseline.log",
+      "command": "cargo build -p bimcraft-cli --no-default-features --config 'profile.dev.package.bimcraft-core.opt-level=0' --config 'profile.dev.debug=0'",
+      "exit_code": 0
+    },
+    {
+      "failed": 7,
+      "passed": 0,
+      "exit_code": 101,
+      "name": "RED before production fix",
+      "log": "red.log",
+      "command": "cargo test -p bimcraft-core --test ifc_supplementary_quantities --config 'profile.dev.package.bimcraft-core.opt-level=0' --config 'profile.dev.debug=0' -- --test-threads=4"
+    },
+    {
+      "failed": 0,
+      "passed": 10,
+      "exit_code": 0,
+      "name": "final GREEN",
+      "log": "green.log",
+      "command": "cargo test -p bimcraft-core --test ifc_supplementary_quantities --config 'profile.dev.package.bimcraft-core.opt-level=0' --config 'profile.dev.debug=0' -- --test-threads=4"
+    },
+    {
+      "failed": 0,
+      "passed": 92,
+      "exit_code": 0,
+      "name": "existing IFC",
+      "log": "core-ifc.log",
+      "filtered_out": 1457,
+      "command": "cargo test -p bimcraft-core --lib ifc --config 'profile.dev.package.bimcraft-core.opt-level=0' --config 'profile.dev.debug=0' -- --test-threads=4"
+    },
+    {
+      "failed": 0,
+      "passed": 3,
+      "exit_code": 0,
+      "name": "docs",
+      "log": "agent-docs.log",
+      "command": "cargo test -p bimcraft-core --test agent_docs --config 'profile.dev.package.bimcraft-core.opt-level=0' --config 'profile.dev.debug=0' -- --test-threads=4"
+    },
+    {
+      "name": "clippy",
+      "log": "clippy.log",
+      "command": "cargo clippy -p bimcraft-core --all-targets --config 'profile.dev.package.bimcraft-core.opt-level=0' --config 'profile.dev.debug=0' -- -D warnings",
+      "exit_code": 0
+    },
+    {
+      "name": "i18n update",
+      "log": "i18n-update.log",
+      "command": "cargo i18n update",
+      "exit_code": 0
+    },
+    {
+      "name": "i18n check",
+      "log": "i18n-check.log",
+      "command": "cargo i18n check",
+      "exit_code": 0
+    },
+    {
+      "name": "fmt",
+      "note": "Successful formatting check emits no stdout or stderr; the actual captured log is empty.",
+      "log": "fmt.log",
+      "command": "cargo fmt --check",
+      "exit_code": 0
+    },
+    {
+      "name": "fixed CLI build",
+      "log": "build-fixed.log",
+      "command": "cargo build -p bimcraft-cli --no-default-features --config 'profile.dev.package.bimcraft-core.opt-level=0' --config 'profile.dev.debug=0'",
+      "exit_code": 0
+    }
+  ]
+}

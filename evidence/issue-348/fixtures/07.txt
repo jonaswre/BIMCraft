@@ -1,0 +1,2 @@
+type {"category":"stripfooting","name":"Test strip","width":600,"depth":300}
+strip_footing {"type":"Test strip","points":[[0,0],[4000,0]]}

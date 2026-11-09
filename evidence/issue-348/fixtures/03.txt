@@ -1,0 +1,3 @@
+type {"category":"roof","name":"Variable roof","layers":[{"function":"substrate","thickness":200,"variable":true}]}
+roof {"level":100001,"type":"Variable roof","boundary":[[0,0],[4000,0],[4000,4000],[0,4000]],"slope":0,"overhang":0}
+edit_shape {"id":100002,"points":[{"at":[2000,2000],"z":-100}]}

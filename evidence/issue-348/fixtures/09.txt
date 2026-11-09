@@ -1,0 +1,5 @@
+type {"category":"wall","name":"Test wall","thickness":200}
+type {"category":"door","name":"Test door","width":1000,"height":2000}
+floor {"boundary":[[-500,-500],[4500,-500],[4500,500],[-500,500]],"slope":14.036243467926479,"arrow":[[0,0],[4000,0]]}
+wall {"type":"Test wall","points":[[0,0],[4000,0]],"height":6000,"attach_base":100002}
+door {"type":"Test door","wall":100003,"offset":1000}

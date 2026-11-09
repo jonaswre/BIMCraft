@@ -1,0 +1,9 @@
+type {"category":"wall","name":"Synthetic 200","thickness":200}
+roof {"level":100001,"slope":30,"gable":true,"overhang":0,"boundary":[[-500,-1000],[4500,-1000],[4500,3000],[-500,3000]]}
+wall {"type":"Synthetic 200","points":[[0,0],[4000,0]],"attach_top":100002}
+door {"wall":100003,"offset":1500}
+ceiling {"boundary":[[6000,0],[10000,0],[10000,3000],[6000,3000]],"openings":[[[6500,500],[7500,500],[7500,1500],[6500,1500]]]}
+type {"category":"footing","name":"Synthetic pad","width":1200,"depth":1000}
+footing {"type":"Synthetic pad","at":[12000,0],"thickness":400}
+type {"category":"stripfooting","name":"Synthetic strip","width":600,"depth":300}
+strip_footing {"type":"Synthetic strip","points":[[14000,0],[18000,0]]}

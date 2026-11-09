@@ -1,0 +1,17 @@
+   Compiling bimcraft-core v0.11.0 (<repo>\crates\core)
+    Finished `test` profile [unoptimized] target(s) in 2.06s
+     Running tests\ifc_supplementary_quantities.rs (<target>\debug\deps\ifc_supplementary_quantities-7242f9f9b6194bc9.exe)
+
+running 10 tests
+test tests::ceiling_areas_subtract_openings_and_only_intersecting_shafts ... ok
+test tests::extruded_roof_projected_area_comes_from_its_profile_instead_of_its_boundary ... ok
+test tests::pad_footing_dimensions_and_volume_match_its_rectangular_solid ... ok
+test tests::attached_wall_quantities_integrate_the_sloping_top_and_clipped_door ... ok
+test tests::roof_courtyard_is_absent_from_gross_and_projected_areas ... ok
+test tests::roof_areas_follow_the_pitch_and_subtract_openings_and_shafts ... ok
+test tests::shaped_variable_layer_roof_areas_follow_the_top_planes ... ok
+test tests::round_pad_uses_the_circle_area_and_strip_uses_its_run_length ... ok
+test tests::wall_attached_across_a_roof_ridge_measures_both_planes ... ok
+test tests::wall_base_attached_to_a_slope_subtracts_only_the_door_above_its_base ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.91s
