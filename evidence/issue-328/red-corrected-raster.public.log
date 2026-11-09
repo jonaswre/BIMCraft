@@ -1,0 +1,24 @@
+   Compiling bimcraft-core v0.11.0 (<repo>\crates\core)
+    Finished `test` profile [unoptimized] target(s) in 18.10s
+     Running tests\sheet_title_fitting.rs (<target>\debug\deps\sheet_title_fitting-d643ef0f9e6fc8e7.exe)
+
+running 1 test
+test tests::a_fitted_project_name_draws_every_letter ... FAILED
+
+failures:
+
+---- tests::a_fitted_project_name_draws_every_letter stdout ----
+
+thread 'tests::a_fitted_project_name_draws_every_letter' (24684) panicked at crates\core\tests\sheet_title_fitting.rs:96:13:
+assertion `left == right` failed: all capitals must remain visible, with gaps between them
+  left: 38
+ right: 80
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    tests::a_fitted_project_name_draws_every_letter
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 4 filtered out; finished in 0.51s
+
+error: test failed, to rerun pass `-p bimcraft-core --test sheet_title_fitting`

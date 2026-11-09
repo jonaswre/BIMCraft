@@ -1,0 +1,4 @@
+   Compiling bimcraft-core v0.11.0 (<repo>\crates\core)
+   Compiling bimcraft-plugin v0.11.0 (<repo>\crates\plugin)
+   Compiling bimcraft-cli v0.11.0 (<repo>\apps\bimcraft-cli)
+    Finished `dev` profile [unoptimized] target(s) in 22.82s

@@ -1,0 +1,32 @@
+   Compiling bimcraft-core v0.11.0 (<repo>\crates\core)
+    Finished `test` profile [unoptimized] target(s) in 3m 56s
+     Running unittests src\lib.rs (<target>\debug\deps\bimcraft_core-f723816fa9dc5cad.exe)
+
+running 23 tests
+test dims3d::tests::a_3d_views_dimension_prints_on_the_sheet_that_holds_the_view ... ok
+test graphics::tests::a_sheet_prints_its_views_as_they_look ... ok
+test graphics::tests::a_3d_view_on_a_sheet_is_drawn_as_its_view_says ... ok
+test plan_view_tests::a_plan_view_goes_on_a_sheet_is_fitted_to_its_crop_and_is_found_by_name ... ok
+test phasing::tests::a_sheet_prints_each_view_in_its_phase ... ok
+test render::tests::an_image_of_a_plan_letters_its_name_and_the_window_and_a_sheet_do_not ... ok
+test render::regions::tests::a_region_on_a_sheet_draws_over_its_viewports_and_keeps_none_of_their_ink ... ok
+test render::tests::a_sections_scale_sizes_its_annotation_and_a_sheet_keeps_paper_size ... ok
+test schedule::tests::csv_leaves_no_text_a_spreadsheet_would_take_for_a_formula ... ok
+test render::regions::tests::a_section_viewport_on_a_sheet_keeps_the_ink_above_a_region_in_it ... ok
+test sheet::tests::a_schedule_on_a_sheet_shows_its_own_fields_and_its_totals_in_the_projects_language ... ok
+test sheet::tests::a_3d_view_on_a_sheet_is_drawn_in_its_visual_style ... ok
+test sheet::tests::schedules_3d_views_and_notes_go_on_sheets ... ok
+test standards::tests::nbr_sheet_margins_follow_nbr_16752_and_nbr_17067 ... ok
+test tests::a_view_placed_on_a_sheet_takes_the_scale_it_has_unless_it_is_told_another ... ok
+test sheet::tests::sheets_draw_a_title_block_and_their_views_at_scale ... ok
+test tests::schedules_and_the_3d_view_go_on_sheets ... ok
+test tests::technical_standards_configure_line_weights_sheets_and_styles ... ok
+test tests::text_notes_go_in_plans_sections_and_sheets ... ok
+test xlsx::tests::columns_past_z_take_two_letters_and_a_name_cut_to_what_a_sheet_holds ... ok
+test tests::sheets_hold_views_at_a_scale_and_print_to_pdf ... ok
+test sample::tower::tests::a_drawn_tower_has_each_storeys_sheets_and_the_projects_once has been running for over 60 seconds
+test sample::tower::tests::sheets_views_and_viewports_are_checked_with_the_drawing_set_not_the_whole_model has been running for over 60 seconds
+test sample::tower::tests::sheets_views_and_viewports_are_checked_with_the_drawing_set_not_the_whole_model ... ok
+test sample::tower::tests::a_drawn_tower_has_each_storeys_sheets_and_the_projects_once ... ok
+
+test result: ok. 23 passed; 0 failed; 0 ignored; 0 measured; 1526 filtered out; finished in 153.83s

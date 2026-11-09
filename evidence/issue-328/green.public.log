@@ -1,0 +1,12 @@
+   Compiling bimcraft-core v0.11.0 (<repo>\crates\core)
+    Finished `test` profile [unoptimized] target(s) in 19.01s
+     Running tests\sheet_title_fitting.rs (<target>\debug\deps\sheet_title_fitting-d643ef0f9e6fc8e7.exe)
+
+running 5 tests
+test tests::fitted_titles_keep_their_names_and_print_identically_after_reopening ... ok
+test tests::a_fitted_project_name_draws_every_letter ... ok
+test tests::long_sheet_numbers_stay_inside_their_cell ... ok
+test tests::long_project_names_stay_inside_the_title_block ... ok
+test tests::long_sheet_names_stay_clear_of_the_number_cell ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 49.43s

@@ -1,0 +1,46 @@
+   Compiling bimcraft-core v0.11.0 (<repo>\crates\core)
+    Finished `test` profile [unoptimized] target(s) in 1.34s
+     Running tests\sheet_title_fitting.rs (<target>\debug\deps\sheet_title_fitting-d643ef0f9e6fc8e7.exe)
+
+running 5 tests
+test tests::a_fitted_project_name_draws_every_letter ... FAILED
+test tests::long_project_names_stay_inside_the_title_block ... FAILED
+test tests::fitted_titles_keep_their_names_and_print_identically_after_reopening ... ok
+test tests::long_sheet_numbers_stay_inside_their_cell ... FAILED
+test tests::long_sheet_names_stay_clear_of_the_number_cell ... FAILED
+
+failures:
+
+---- tests::a_fitted_project_name_draws_every_letter stdout ----
+
+thread 'tests::a_fitted_project_name_draws_every_letter' (27620) panicked at crates\core\tests\sheet_title_fitting.rs:94:9:
+assertion `left == right` failed: all letters must remain visible, with gaps between them
+  left: 38
+ right: 80
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- tests::long_project_names_stay_inside_the_title_block stdout ----
+
+thread 'tests::long_project_names_stay_inside_the_title_block' (52256) panicked at crates\core\tests\sheet_title_fitting.rs:51:17:
+field 0, nbr/A4: changed ink outside its cell at (288.6, 42.80000000000001), cell 116..286, 36..44
+
+---- tests::long_sheet_numbers_stay_inside_their_cell stdout ----
+
+thread 'tests::long_sheet_numbers_stay_inside_their_cell' (40336) panicked at crates\core\tests\sheet_title_fitting.rs:51:17:
+field 2, iso/A3: changed ink outside its cell at (149.4, 27), cell 364..406, 18..28
+
+---- tests::long_sheet_names_stay_clear_of_the_number_cell stdout ----
+
+thread 'tests::long_sheet_names_stay_clear_of_the_number_cell' (44608) panicked at crates\core\tests\sheet_title_fitting.rs:51:17:
+field 1, nbr/A0: changed ink outside its cell at (1125.8, 29), cell 1005..1125, 24..30
+
+
+failures:
+    tests::a_fitted_project_name_draws_every_letter
+    tests::long_project_names_stay_inside_the_title_block
+    tests::long_sheet_names_stay_clear_of_the_number_cell
+    tests::long_sheet_numbers_stay_inside_their_cell
+
+test result: FAILED. 1 passed; 4 failed; 0 ignored; 0 measured; 0 filtered out; finished in 18.31s
+
+error: test failed, to rerun pass `-p bimcraft-core --test sheet_title_fitting`
