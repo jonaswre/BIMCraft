@@ -1,0 +1,11 @@
+Command: cargo test -p bimcraft-ui-egui --lib tests::place_view_puts_schedules_and_the_3d_view_on_sheets --config 'profile.dev.package.bimcraft-core.opt-level=0' --config 'profile.dev.debug=0' -- --exact --test-threads=4
+Exit code: 0
+Cargo limits: CARGO_BUILD_JOBS=2, RAYON_NUM_THREADS=2; exclusive target for Cargo commands.
+
+    Finished `test` profile [unoptimized] target(s) in 0.39s
+     Running unittests src\lib.rs (<TARGET>\debug\deps\bimcraft_ui_egui-846a33bfdb14fa4e.exe)
+
+running 1 test
+test tests::place_view_puts_schedules_and_the_3d_view_on_sheets ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 855 filtered out; finished in 0.92s

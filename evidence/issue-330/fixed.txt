@@ -1,0 +1,5 @@
+wall {"points": [[0,0],[60000,0],[60000,40000],[0,40000]], "closed": true}
+sheet {"number": "A101", "name": "Synthetic 3D", "size": "A3"}
+place {"sheet": "A101", "view": "{3D}"}
+elements {"category": "viewport"}
+render {"view": "A101", "path": "after.png"}

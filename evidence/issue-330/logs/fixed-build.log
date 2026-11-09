@@ -1,0 +1,7 @@
+Command: cargo build -p bimcraft-cli --no-default-features --config 'profile.dev.package.bimcraft-core.opt-level=0' --config 'profile.dev.debug=0'
+Exit code: 0
+Cargo limits: CARGO_BUILD_JOBS=2, RAYON_NUM_THREADS=2; exclusive target for Cargo commands.
+
+   Compiling bimcraft-plugin v0.11.0 (<WORKTREE>\crates\plugin)
+   Compiling bimcraft-cli v0.11.0 (<WORKTREE>\apps\bimcraft-cli)
+    Finished `dev` profile [unoptimized] target(s) in 3.47s

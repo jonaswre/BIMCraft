@@ -1,0 +1,18 @@
+Command: pdfinfo after.pdf
+Exit code: 0
+Cargo limits: CARGO_BUILD_JOBS=2, RAYON_NUM_THREADS=2; exclusive target for Cargo commands.
+
+Custom Metadata: no
+Metadata Stream: no
+Tagged:          no
+UserProperties:  no
+Suspects:        no
+Form:            none
+JavaScript:      no
+Pages:           1
+Encrypted:       no
+Page size:       1190.55 x 841.89 pts (A3)
+Page rot:        0
+File size:       6148 bytes
+Optimized:       no
+PDF version:     1.4

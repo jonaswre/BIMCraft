@@ -1,0 +1,22 @@
+Command: cargo --config 'profile.dev.package.bimcraft-core.opt-level=0' --config 'profile.dev.debug=0' i18n update
+Exit code: 0
+Cargo limits: CARGO_BUILD_JOBS=2, RAYON_NUM_THREADS=2; exclusive target for Cargo commands.
+
+project/cs.po: 165/167 translated
+project/de.po: 165/167 translated
+project/es.po: 165/167 translated
+project/fr.po: 165/167 translated
+project/it.po: 154/167 translated
+project/nl.po: 165/167 translated
+project/pt.po: 165/167 translated
+project/sv.po: 165/167 translated
+ui/cs.po: 2474/2517 translated
+ui/de.po: 2473/2517 translated
+ui/es.po: 2474/2517 translated
+ui/fr.po: 2474/2517 translated
+ui/it.po: 2026/2517 translated
+ui/nl.po: 2473/2517 translated
+ui/pt.po: 2474/2517 translated
+ui/vi.po: 2448/2517 translated
+ui/zh.po: 2474/2517 translated
+ui/zh_TW.po: 2473/2517 translated

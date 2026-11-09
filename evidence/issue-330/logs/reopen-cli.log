@@ -1,0 +1,7 @@
+Command: bimcraft-cli run after.bimcraft --cmd 'elements {"category":"viewport"}' --cmd 'render {"view":"A101","path":"reopened.png"}'
+Exit code: 0
+Cargo limits: CARGO_BUILD_JOBS=2, RAYON_NUM_THREADS=2; exclusive target for Cargo commands.
+
+{"name":"Project","path":"after.bimcraft"}
+{"count":1,"elements":[{"at":[215.0,168.5],"category":"viewport","guid":"96ba38e7-1964-4d7f-b0d9-7ef9f6c18042","id":100008,"scale":500.0,"sheet":"6b31b735-194f-4256-a317-bca4cc524884","size":[166.0,100.2],"title":"{3D}","view":"167817db-8f01-4a08-abdd-31c0b8d853b9"}],"returned":1}
+{"height":1485,"kind":"sheet","path":"reopened.png","view":"A101","width":2100}

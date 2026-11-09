@@ -1,0 +1,69 @@
+Command: cargo test -p bimcraft-core --test sheet_fit --config 'profile.dev.package.bimcraft-core.opt-level=0' --config 'profile.dev.debug=0' -- --test-threads=4
+Exit code: 101
+Cargo limits: CARGO_BUILD_JOBS=2, RAYON_NUM_THREADS=2; exclusive target for Cargo commands.
+
+   Compiling bimcraft-core v0.11.0 (<WORKTREE>\crates\core)
+    Finished `test` profile [unoptimized] target(s) in 1.27s
+     Running tests\sheet_fit.rs (<TARGET>\debug\deps\sheet_fit-b675dd3f408b57bc.exe)
+
+running 10 tests
+test tests::explicit_viewport_scale_and_position_are_preserved_even_when_the_picture_does_not_fit ... ok
+test tests::explicit_position_is_preserved_when_a_default_3d_scale_is_fitted ... FAILED
+test tests::a_small_or_empty_3d_view_keeps_the_project_default_scale ... ok
+test tests::fitting_falls_back_to_the_coarsest_offered_scale_when_no_scale_fits ... FAILED
+test tests::fitting_uses_the_current_standard_sheet_margins ... FAILED
+test tests::assigned_view_and_template_scales_are_preserved ... ok
+test tests::invalid_explicit_scale_does_not_leave_a_view_or_viewport_behind ... ok
+test tests::fitting_uses_the_finest_offered_imperial_scale_that_fits ... FAILED
+test tests::large_default_3d_view_fits_the_sheet_and_keeps_its_picture_after_save_and_reopen ... FAILED
+test tests::plans_keep_their_assigned_scale_instead_of_fitting_to_paper ... ok
+
+failures:
+
+---- tests::explicit_position_is_preserved_when_a_default_3d_scale_is_fitted stdout ----
+
+thread 'tests::explicit_position_is_preserved_when_a_default_3d_scale_is_fitted' (26492) panicked at crates\core\tests\sheet_fit.rs:103:9:
+assertion `left == right` failed
+  left: Number(100.0)
+ right: 500.0
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- tests::fitting_falls_back_to_the_coarsest_offered_scale_when_no_scale_fits stdout ----
+
+thread 'tests::fitting_falls_back_to_the_coarsest_offered_scale_when_no_scale_fits' (6508) panicked at crates\core\tests\sheet_fit.rs:129:9:
+assertion `left == right` failed
+  left: Number(100.0)
+ right: 1000.0
+
+---- tests::fitting_uses_the_current_standard_sheet_margins stdout ----
+
+thread 'tests::fitting_uses_the_current_standard_sheet_margins' (34388) panicked at crates\core\tests\sheet_fit.rs:65:13:
+assertion `left == right` failed: iso
+  left: Number(100.0)
+ right: 200.0
+
+---- tests::fitting_uses_the_finest_offered_imperial_scale_that_fits stdout ----
+
+thread 'tests::fitting_uses_the_finest_offered_imperial_scale_that_fits' (37640) panicked at crates\core\tests\sheet_fit.rs:74:9:
+assertion `left == right` failed: the offered imperial scales are not sorted numerically
+  left: Number(96.0)
+ right: 240.0
+
+---- tests::large_default_3d_view_fits_the_sheet_and_keeps_its_picture_after_save_and_reopen stdout ----
+
+thread 'tests::large_default_3d_view_fits_the_sheet_and_keeps_its_picture_after_save_and_reopen' (23232) panicked at crates\core\tests\sheet_fit.rs:25:9:
+assertion `left == right` failed: a 1 : 100 picture would be 734 x 405 mm on A3
+  left: Number(100.0)
+ right: 500.0
+
+
+failures:
+    tests::explicit_position_is_preserved_when_a_default_3d_scale_is_fitted
+    tests::fitting_falls_back_to_the_coarsest_offered_scale_when_no_scale_fits
+    tests::fitting_uses_the_current_standard_sheet_margins
+    tests::fitting_uses_the_finest_offered_imperial_scale_that_fits
+    tests::large_default_3d_view_fits_the_sheet_and_keeps_its_picture_after_save_and_reopen
+
+test result: FAILED. 5 passed; 5 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.20s
+
+error: test failed, to rerun pass `-p bimcraft-core --test sheet_fit`

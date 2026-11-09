@@ -1,0 +1,21 @@
+Command: cargo test -p bimcraft-core --test sheet_fit --config 'profile.dev.package.bimcraft-core.opt-level=0' --config 'profile.dev.debug=0' -- --test-threads=4
+Exit code: 0
+Cargo limits: CARGO_BUILD_JOBS=2, RAYON_NUM_THREADS=2; exclusive target for Cargo commands.
+
+   Compiling bimcraft-core v0.11.0 (<WORKTREE>\crates\core)
+    Finished `test` profile [unoptimized] target(s) in 1.55s
+     Running tests\sheet_fit.rs (<TARGET>\debug\deps\sheet_fit-b675dd3f408b57bc.exe)
+
+running 10 tests
+test tests::explicit_viewport_scale_and_position_are_preserved_even_when_the_picture_does_not_fit ... ok
+test tests::explicit_position_is_preserved_when_a_default_3d_scale_is_fitted ... ok
+test tests::a_small_or_empty_3d_view_keeps_the_project_default_scale ... ok
+test tests::fitting_falls_back_to_the_coarsest_offered_scale_when_no_scale_fits ... ok
+test tests::assigned_view_and_template_scales_are_preserved ... ok
+test tests::invalid_explicit_scale_does_not_leave_a_view_or_viewport_behind ... ok
+test tests::fitting_uses_the_finest_offered_imperial_scale_that_fits ... ok
+test tests::plans_keep_their_assigned_scale_instead_of_fitting_to_paper ... ok
+test tests::fitting_uses_the_current_standard_sheet_margins ... ok
+test tests::large_default_3d_view_fits_the_sheet_and_keeps_its_picture_after_save_and_reopen ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.22s

@@ -1,0 +1,8 @@
+Command: cargo clippy -p bimcraft-core -p bimcraft-ui-egui --all-targets --config 'profile.dev.package.bimcraft-core.opt-level=0' --config 'profile.dev.debug=0' -- -D warnings
+Exit code: 0
+Cargo limits: CARGO_BUILD_JOBS=2, RAYON_NUM_THREADS=2; exclusive target for Cargo commands.
+
+    Checking bimcraft-plugin v0.11.0 (<WORKTREE>\crates\plugin)
+    Checking bimcraft-core v0.11.0 (<WORKTREE>\crates\core)
+    Checking bimcraft-ui-egui v0.11.0 (<WORKTREE>\crates\ui-egui)
+    Finished `dev` profile [unoptimized] target(s) in 1m 47s
