@@ -1,0 +1,21 @@
+Command: cargo i18n check
+Exit code: 0
+
+project/cs.po: 165/169 translated
+project/de.po: 165/169 translated
+project/es.po: 167/169 translated
+project/fr.po: 167/169 translated
+project/it.po: 154/169 translated
+project/nl.po: 165/169 translated
+project/pt.po: 167/169 translated
+project/sv.po: 165/169 translated
+ui/cs.po: 2474/2623 translated
+ui/de.po: 2473/2623 translated
+ui/es.po: 2481/2623 translated
+ui/fr.po: 2481/2623 translated
+ui/it.po: 2026/2623 translated
+ui/nl.po: 2473/2623 translated
+ui/pt.po: 2481/2623 translated
+ui/vi.po: 2448/2623 translated
+ui/zh.po: 2474/2623 translated
+ui/zh_TW.po: 2473/2623 translated

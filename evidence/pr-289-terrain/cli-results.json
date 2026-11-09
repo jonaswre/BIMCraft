@@ -1,0 +1,248 @@
+{
+  "created": [
+    {
+      "area_m2": 100.0,
+      "id": 100002,
+      "triangles": 4,
+      "z_max": 1000.0,
+      "z_min": 0.0
+    },
+    {
+      "area_m2": 64.0,
+      "id": 100003,
+      "thickness": 200.0,
+      "top": 500.0
+    },
+    {
+      "heights": [
+        100.0,
+        900.0,
+        null
+      ]
+    },
+    {
+      "method": "pads",
+      "pads": [
+        {
+          "area_m2": 64.0,
+          "covered_m2": 64.0,
+          "cut_m3": 6.4,
+          "fill_m3": 6.4,
+          "id": 100003,
+          "name": "Synthetic pad",
+          "net_m3": 0.0,
+          "top": 500.0
+        }
+      ],
+      "totals": {
+        "cut_m3": 6.4,
+        "fill_m3": 6.4,
+        "net_m3": 0.0
+      }
+    },
+    {
+      "available": [
+        "Name",
+        "Level",
+        "Area",
+        "Top",
+        "Thickness",
+        "Cut",
+        "Fill",
+        "Net",
+        "Count",
+        "Phase Created",
+        "Phase Demolished",
+        "Design Option"
+      ],
+      "category": "pad",
+      "columns": [
+        "Name",
+        "Area (m\u00c2\u00b2)",
+        "Cut",
+        "Fill",
+        "Net"
+      ],
+      "elements": [
+        [
+          100003
+        ]
+      ],
+      "id": 100004,
+      "name": "Earthworks",
+      "rows": [
+        [
+          "Synthetic pad",
+          64.0,
+          6.4,
+          6.4,
+          0.0
+        ]
+      ]
+    },
+    {
+      "format": "bimcraft",
+      "path": "survey.bimcraft"
+    },
+    {
+      "format": "IFC4",
+      "path": "survey.ifc"
+    },
+    {
+      "height": 800,
+      "kind": "plan",
+      "path": "survey-plan.png",
+      "view": "Level 1",
+      "width": 1000
+    },
+    {
+      "azimuth": -45.0,
+      "elevation": 30.0,
+      "eye": null,
+      "eye_elevation": null,
+      "height": 800,
+      "kind": "3D view",
+      "lens": null,
+      "path": "survey-3d.png",
+      "target": null,
+      "view": "{3D}",
+      "width": 1000
+    }
+  ],
+  "native_reopen": [
+    {
+      "name": "Project",
+      "path": "survey.bimcraft"
+    },
+    {
+      "method": "pads",
+      "pads": [
+        {
+          "area_m2": 64.0,
+          "covered_m2": 64.0,
+          "cut_m3": 6.4,
+          "fill_m3": 6.4,
+          "id": 100003,
+          "name": "Synthetic pad",
+          "net_m3": 0.0,
+          "top": 500.0
+        }
+      ],
+      "totals": {
+        "cut_m3": 6.4,
+        "fill_m3": 6.4,
+        "net_m3": 0.0
+      }
+    },
+    {
+      "heights": [
+        100.0,
+        900.0
+      ]
+    }
+  ],
+  "ifc_reopen": [
+    {
+      "elements": {
+        "level": 2,
+        "pad": 1,
+        "toposurface": 1
+      },
+      "format": "IFC4",
+      "generic": 0,
+      "moved": null,
+      "name": "Project",
+      "path": "survey.ifc",
+      "skipped": []
+    },
+    {
+      "method": "pads",
+      "pads": [
+        {
+          "area_m2": 64.0,
+          "covered_m2": 64.0,
+          "cut_m3": 6.4,
+          "fill_m3": 6.4,
+          "id": 100002,
+          "name": "Synthetic pad",
+          "net_m3": 0.0,
+          "top": 500.0
+        }
+      ],
+      "totals": {
+        "cut_m3": 6.4,
+        "fill_m3": 6.4,
+        "net_m3": 0.0
+      }
+    },
+    {
+      "count": 1,
+      "elements": [
+        {
+          "area_m2": 100.0,
+          "bounds": [
+            [
+              0.0,
+              0.0
+            ],
+            [
+              10000.0,
+              10000.0
+            ]
+          ],
+          "breaklines": 0,
+          "category": "toposurface",
+          "guid": "3a132625-785e-4014-9d51-40324aabb118",
+          "id": 100003,
+          "interval": 1000.0,
+          "name": "Synthetic slope",
+          "points": 6,
+          "surface_area_m2": 100.5,
+          "triangles": 4,
+          "z_max": 1000.0,
+          "z_min": 0.0
+        }
+      ],
+      "returned": 1
+    },
+    {
+      "count": 1,
+      "elements": [
+        {
+          "area_m2": 64.0,
+          "bottom": 300.0,
+          "boundary": [
+            [
+              1000.0,
+              1000.0
+            ],
+            [
+              9000.0,
+              1000.0
+            ],
+            [
+              9000.0,
+              9000.0
+            ],
+            [
+              1000.0,
+              9000.0
+            ]
+          ],
+          "category": "pad",
+          "cut_m3": 6.4,
+          "fill_m3": 6.4,
+          "guid": "8b9e6145-e833-4e93-83bc-639ab6c7dedb",
+          "id": 100002,
+          "level": "9e0be01d-593d-4447-be19-387d106c9ca7",
+          "name": "Synthetic pad",
+          "net_m3": 0.0,
+          "offset": 500.0,
+          "thickness": 200.0,
+          "top": 500.0
+        }
+      ],
+      "returned": 1
+    }
+  ]
+}

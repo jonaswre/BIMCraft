@@ -1,0 +1,5 @@
+Command: Compare catalogues with git HEAD after CRLF normalization; compare original artifacts with pre-review SHA256
+Exit code: 0
+
+PASS: 20 catalogues identical to review baseline after CRLF normalization.
+PASS: original native/IFC/PNG bytes match their pre-review SHA256 values.

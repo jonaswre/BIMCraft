@@ -1,0 +1,18 @@
+Command: cargo test [opt0/debug0] -p bimcraft-core --lib pad_tests -- --test-threads=4
+Exit code: 0
+
+    Finished `test` profile [unoptimized] target(s) in 0.18s
+     Running unittests src\lib.rs (<target>\debug\deps\bimcraft_core-84668c00d4a6256b.exe)
+
+running 9 tests
+test pad_tests::a_pad_is_a_flat_outline_on_a_level_with_a_top_and_a_thickness ... ok
+test pad_tests::a_schedule_lists_pads_with_their_cut_and_fill ... ok
+test pad_tests::ifc_carries_a_pad_as_a_base_slab_on_its_storey_and_reads_it_back ... ok
+test pad_tests::a_pad_moves_turns_and_mirrors_in_plan_and_keeps_its_height ... ok
+test pad_tests::the_3d_view_has_a_pad_as_a_slab_under_its_top ... ok
+test pad_tests::its_cut_and_fill_are_measured_against_the_terrain_under_it ... ok
+test pad_tests::plans_draw_a_pad_on_its_own_level_and_a_category_hides_it ... ok
+test pad_tests::what_cannot_be_a_pad_is_refused_with_what_to_fix ... ok
+test pad_tests::it_is_saved_undone_deleted_and_takes_parameters ... ok
+
+test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 1751 filtered out; finished in 0.33s

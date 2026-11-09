@@ -1,0 +1,41 @@
+Terrain acceptance on PR289 parent 5f666a84a45f6f71bf7dd399eb2e0edfe752be40
+Windows 11 Enterprise 10.0.26300, source version 0.11.0
+
+Development flags: --config profile.dev.package.bimcraft-core.opt-level=0 --config profile.dev.debug=0
+Cargo jobs: 2; RAYON_NUM_THREADS=2; test threads: 4; sequential Cargo commands.
+
+PASS final public-Session acceptance: 4 tests.
+PASS agent_docs: 3 tests.
+PASS existing topo filter: 29 tests.
+PASS existing pad_tests filter: 9 tests.
+PASS no-default-feature standalone CLI build.
+PASS real CLI create/query/schedule/save/native reopen/IFC reopen/render.
+PASS independent IfcOpenShell 0.8.5: IFC4, zero schema/EXPRESS errors,
+     12/12 unique GlobalIds, two physical shapes built, independently checked bounds/area/volume.
+PASS cargo fmt --check.
+PASS cargo clippy [development flags] -p bimcraft-core --all-targets -- -D warnings.
+PASS cargo i18n update; cargo i18n check.
+PASS all 20 translation files identical to HEAD after CRLF normalization;
+     messages, translations and generated source references preserved; no catalogue diff needed.
+
+Actual sanitized outputs: command-output/*.txt (each explicitly allowlisted).
+Initial acceptance had 3 pass/1 fail because the test demanded exact IEEE equality
+for 99.99999999999997 mm versus 100 mm. Height tolerance corrected to 1e-6 mm;
+no production behavior fix and no product RED/GREEN claim.
+
+Not run: full workspace/default-feature/platform CI, global IFC coverage suite,
+desktop interactions, live terrain fetches, coordinate-system acceptance.
+Native breakline persistence is verified. IFC import of constrained terrain is
+outside this planar exchange acceptance; the parent's vertex re-triangulation
+limitation remains documented. The format17 fixture is synthetic, not archival.
+
+Review round 1 (baseline 0d176e8700b80f98a5241534cad297b56a6284c7):
+- Old fixture + new unconstrained control: expected failure; actual [0,0,0] mm
+  establishes that the old fixture did not require its breakline (test defect only).
+- Corrected non-cocircular fixture: unconstrained [1125,1800,900] mm;
+  constrained [0,0,0] before save and after fresh-session reopen.
+- PASS 4 terrain_acceptance + 3 agent_docs; scoped clippy, fmt, i18n update/check.
+- PASS 20 catalogue contents preserved and original model/IFC/PNG SHA256 unchanged.
+- No repeat of broader topo/pad, CLI, independent IFC, or other runtime suites.
+- Actual round1 outputs are command-output/round1-*.txt, explicitly allowlisted.
+Review correction head: 7ebeb79fa917a840d3b90b9548977909bd3b77c5

@@ -1,0 +1,5 @@
+Command: cargo clippy [opt0/debug0] -p bimcraft-core --test terrain_acceptance -- -D warnings
+Exit code: 0
+
+   Compiling bimcraft-core v0.11.0 (<workspace>\crates\core)
+    Finished `dev` profile [unoptimized] target(s) in 6.96s

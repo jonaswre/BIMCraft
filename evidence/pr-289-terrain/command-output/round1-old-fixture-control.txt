@@ -1,0 +1,25 @@
+Command: cargo test [opt0/debug0] -p bimcraft-core --test terrain_acceptance a_constrained_valley_survives_native_reopen -- --test-threads=4 (old fixture with a new unconstrained control)
+Exit code: 101
+
+   Compiling bimcraft-core v0.11.0 (<workspace>\crates\core)
+    Finished `test` profile [unoptimized] target(s) in 10.90s
+     Running tests\terrain_acceptance.rs (<target>\debug\deps\terrain_acceptance-57f189cba5c1891b.exe)
+
+running 1 test
+test tests::a_constrained_valley_survives_native_reopen ... FAILED
+
+failures:
+
+---- tests::a_constrained_valley_survives_native_reopen stdout ----
+
+thread 'tests::a_constrained_valley_survives_native_reopen' (38820) panicked at crates\core\tests\terrain_acceptance.rs:67:9:
+the fixture must require its breakline to make a zero-height valley: {"heights":[0.0,0.0,0.0]}
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    tests::a_constrained_valley_survives_native_reopen
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 3 filtered out; finished in 0.04s
+
+error: test failed, to rerun pass `-p bimcraft-core --test terrain_acceptance`

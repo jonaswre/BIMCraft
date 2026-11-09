@@ -1,0 +1,39 @@
+Command: cargo test [opt0/debug0] -p bimcraft-core --lib topo -- --test-threads=4
+Exit code: 0
+
+   Compiling bimcraft-core v0.11.0 (<workspace>\crates\core)
+    Finished `test` profile [unoptimized] target(s) in 4m 27s
+     Running unittests src\lib.rs (<target>\debug\deps\bimcraft_core-84668c00d4a6256b.exe)
+
+running 29 tests
+test topo::tests::a_breakline_makes_the_triangles_follow_it ... ok
+test topo::tests::a_boundary_cuts_away_the_triangles_outside_it ... ok
+test topo::tests::a_flat_pad_over_flat_ground_is_all_cut_or_all_fill ... ok
+test topo::tests::a_pad_of_any_shape_counts_its_own_area_only ... ok
+test topo::tests::areas_are_the_plans_and_the_surfaces ... ok
+test topo::tests::a_hill_has_closed_contours ... ok
+test topo::tests::contours_across_a_slope_are_one_line_each_at_the_levels ... ok
+test topo::tests::repeated_points_count_once ... ok
+test topo::tests::on_a_slope_the_cut_and_the_fill_are_what_the_arithmetic_says ... ok
+test topo::tests::the_height_over_a_point_is_the_planes_when_the_points_lie_in_one ... ok
+test topo::tests::what_cannot_make_a_surface_is_refused_with_why ... ok
+test topo::tests::the_same_terrain_is_built_once_and_its_contours_with_it ... ok
+test topo::tests::two_surfaces_are_compared_where_both_are ... ok
+test topo_tests::a_plan_of_nothing_but_terrain_is_fitted_to_it ... ok
+test topo_tests::a_schedule_lists_terrain_with_its_areas_and_heights ... ok
+test topo_tests::a_category_hides_terrain_and_a_ceiling_plan_leaves_it_out ... ok
+test topo_tests::contours_come_back_as_lines_of_points ... ok
+test topo_tests::breaklines_and_a_boundary_shape_the_surface ... ok
+test topo_tests::a_toposurface_takes_phases_and_parameters_and_a_material ... ok
+test topo_tests::ifc_carries_terrain_as_a_geographic_element_in_the_site ... ok
+test topo_tests::plans_draw_the_contours_with_every_fifth_one_heavier ... ok
+test topo_tests::it_is_saved_undone_and_deleted_like_any_element ... ok
+test topo_tests::terrain_is_made_from_points_and_reports_its_surface ... ok
+test topo_tests::terrain_comes_back_from_ifc_with_its_points_and_material ... ok
+test topo_tests::the_3d_view_shows_terrain_as_its_triangles ... ok
+test topo_tests::terrain_moves_turns_and_mirrors_with_its_height_staying ... ok
+test topo_tests::the_height_over_a_point_is_asked_by_height_at ... ok
+test topo_tests::what_cannot_be_terrain_is_refused_and_the_project_stays_as_it_was ... ok
+test geo_tests::buildings_stand_on_the_toposurface_just_fetched_and_not_on_an_older_one ... ok
+
+test result: ok. 29 passed; 0 failed; 0 ignored; 0 measured; 1731 filtered out; finished in 0.95s

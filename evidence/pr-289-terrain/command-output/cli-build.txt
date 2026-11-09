@@ -1,0 +1,5 @@
+Command: cargo build [opt0/debug0] -p bimcraft-cli --no-default-features
+Exit code: 0
+
+   Compiling bimcraft-cli v0.11.0 (<workspace>\apps\bimcraft-cli)
+    Finished `dev` profile [unoptimized] target(s) in 2.41s

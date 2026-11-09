@@ -1,0 +1,9 @@
+toposurface {"name":"Synthetic slope","interval":250,"points":[[0,0,0],[10000,0,1000],[10000,10000,1000],[0,10000,0]],"breaklines":[[[0,5000,0],[10000,5000,1000]]],"boundary":[[0,0],[10000,0],[10000,10000],[0,10000]]}
+pad {"name":"Synthetic pad","boundary":[[1000,1000],[9000,1000],[9000,9000],[1000,9000]],"offset":500,"thickness":200}
+height_at {"points":[[1000,5000],[9000,5000],[-1,0]]}
+cut_fill {}
+schedule {"name":"Earthworks","category":"pad","fields":["Name","Area","Cut","Fill","Net"]}
+save {"path":"survey.bimcraft"}
+save {"path":"survey.ifc"}
+render {"view":"Level 1","path":"survey-plan.png","width":1000,"height":800}
+render {"view":"{3D}","path":"survey-3d.png","width":1000,"height":800}
