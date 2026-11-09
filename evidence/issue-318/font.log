@@ -1,0 +1,16 @@
+   Compiling bimcraft-core v0.11.0 (<bimcraft>\upstream-02-prime-glyphs\crates\core)
+    Finished `test` profile [unoptimized] target(s) in 3m 50s
+     Running unittests src\lib.rs (<bimcraft>\.targets\issue-02\debug\deps\bimcraft_core-f723816fa9dc5cad.exe)
+
+running 9 tests
+test font::tests::dutch_words_are_all_drawn_including_ij_and_its_diaeresis_and_accents ... ok
+test font::tests::accented_letters_are_their_base_letter_plus_an_accent ... ok
+test font::tests::cyrillic_capitals_are_drawn_each_its_own_and_lower_case_as_them ... ok
+test font::tests::ae_is_an_a_grown_into_an_e_that_a_small_tag_still_reads ... ok
+test font::tests::engineering_primes_lean_at_the_top_and_ellipsis_has_three_baseline_dots ... ok
+test font::tests::it_says_which_letters_it_has_so_a_text_type_can_letter_the_rest_from_plex ... ok
+test font::tests::text_is_scaled_to_its_height_from_the_baseline ... ok
+test font::tests::lower_case_is_drawn_as_capitals_and_unknown_characters_as_a_question_mark ... ok
+test font::tests::the_ae_ligature_is_drawn_not_questioned ... ok
+
+test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 1541 filtered out; finished in 0.01s

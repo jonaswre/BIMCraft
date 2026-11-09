@@ -1,0 +1,9 @@
+bimcraft-cli 0.11.0
+prime native roundtrip PNG identical; notes: [] sha256: ca7d5d087747e9fdb8f24e542745d90ba5416e3bd60d8a1ef0c88deaba37f46f
+double-prime native roundtrip PNG identical; notes: [] sha256: 28f88f7a0757c16db574db6496b2646a18450dc52c0339af3be4fa2167fc6a66
+ellipsis native roundtrip PNG identical; notes: [] sha256: d3b95d1cc0e882991acf636032b871bbbc25284c67b588dfdc4f0450fd987f91
+question native roundtrip PNG identical; notes: [] sha256: f4d01f882fa3d221e5feae1bec913f471c3988427984b8f78eae977b34f3a54f
+unsupported native roundtrip PNG identical; notes: ['Drawing lettering has no glyph for U+6F22; drawn as a question mark (?)'] sha256: f4d01f882fa3d221e5feae1bec913f471c3988427984b8f78eae977b34f3a54f
+prime different RGB pixel bbox: (320, 65, 331, 414)
+double-prime different RGB pixel bbox: (320, 65, 331, 414)
+ellipsis different RGB pixel bbox: (320, 65, 331, 415)

@@ -1,0 +1,15 @@
+bimcraft-cli 0.11.0
+prime exit: 0 reply: {"id":100002,"name":"1′"}
+{"height":480,"kind":"plan","path":"baseline-cli\\prime.png","view":"Level 1","width":640} stderr:
+double-prime exit: 0 reply: {"id":100002,"name":"1″"}
+{"height":480,"kind":"plan","path":"baseline-cli\\double-prime.png","view":"Level 1","width":640} stderr:
+ellipsis exit: 0 reply: {"id":100002,"name":"1…"}
+{"height":480,"kind":"plan","path":"baseline-cli\\ellipsis.png","view":"Level 1","width":640} stderr:
+question exit: 0 reply: {"id":100002,"name":"1?"}
+{"height":480,"kind":"plan","path":"baseline-cli\\question.png","view":"Level 1","width":640} stderr:
+unsupported exit: 0 reply: {"id":100002,"name":"1漢"}
+{"height":480,"kind":"plan","path":"baseline-cli\\unsupported.png","view":"Level 1","width":640} stderr:
+prime RGB pixel difference bbox: None sha256: f4d01f882fa3d221e5feae1bec913f471c3988427984b8f78eae977b34f3a54f
+double-prime RGB pixel difference bbox: None sha256: f4d01f882fa3d221e5feae1bec913f471c3988427984b8f78eae977b34f3a54f
+ellipsis RGB pixel difference bbox: None sha256: f4d01f882fa3d221e5feae1bec913f471c3988427984b8f78eae977b34f3a54f
+unsupported RGB pixel difference bbox: None sha256: f4d01f882fa3d221e5feae1bec913f471c3988427984b8f78eae977b34f3a54f

@@ -1,0 +1,9 @@
+    Finished `test` profile [unoptimized] target(s) in 0.16s
+     Running unittests src\lib.rs (<bimcraft>\.targets\issue-02\debug\deps\bimcraft_core-f723816fa9dc5cad.exe)
+
+running 3 tests
+test dims3d::tests::a_dimension_in_a_3d_view_measures_between_points_or_square_to_an_edge_and_reports_its_length ... ok
+test dims3d::tests::a_3d_views_dimension_prints_on_the_sheet_that_holds_the_view ... ok
+test dims3d::tests::its_line_and_number_are_painted_into_the_processors_picture_where_the_camera_sees_them ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 1547 filtered out; finished in 0.87s

@@ -1,0 +1,10 @@
+    Finished `test` profile [unoptimized] target(s) in 0.16s
+     Running unittests src\lib.rs (<bimcraft>\.targets\issue-02\debug\deps\bimcraft_core-f723816fa9dc5cad.exe)
+
+running 4 tests
+test sheet::tests::a_schedule_on_a_sheet_shows_its_own_fields_and_its_totals_in_the_projects_language ... ok
+test sheet::tests::sheets_draw_a_title_block_and_their_views_at_scale ... ok
+test sheet::tests::schedules_3d_views_and_notes_go_on_sheets ... ok
+test sheet::tests::a_3d_view_on_a_sheet_is_drawn_in_its_visual_style ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 1546 filtered out; finished in 1.05s

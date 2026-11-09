@@ -1,0 +1,20 @@
+bimcraft-cli 0.11.0
+
+prime 0 {"id":100002,"name":"1′"}
+{"height":480,"kind":"plan","path":".\\prime.png","view":"Level 1","width":640}
+double-prime 0 {"id":100002,"name":"1″"}
+{"height":480,"kind":"plan","path":".\\double-prime.png","view":"Level 1","width":640}
+ellipsis 0 {"id":100002,"name":"1…"}
+{"height":480,"kind":"plan","path":".\\ellipsis.png","view":"Level 1","width":640}
+question 0 {"id":100002,"name":"1?"}
+{"height":480,"kind":"plan","path":".\\question.png","view":"Level 1","width":640}
+unsupported 0 {"id":100002,"name":"1漢"}
+{"height":480,"kind":"plan","path":".\\unsupported.png","view":"Level 1","width":640}
+prime pixel difference bbox: None sha256: f4d01f882fa3d221e5feae1bec913f471c3988427984b8f78eae977b34f3a54f
+double-prime pixel difference bbox: None sha256: f4d01f882fa3d221e5feae1bec913f471c3988427984b8f78eae977b34f3a54f
+ellipsis pixel difference bbox: None sha256: f4d01f882fa3d221e5feae1bec913f471c3988427984b8f78eae977b34f3a54f
+unsupported pixel difference bbox: None sha256: f4d01f882fa3d221e5feae1bec913f471c3988427984b8f78eae977b34f3a54f
+search issues.json 114 [Feature] Verificações NBR 5410: queda de tensão, agrupamento, seção mínima, DR e DPS https://github.com/IPedrax/BIMCraft/issues/114
+search issues.json 107 [Feature] Elemento `Circuit`: dispositivos, quadro, disjuntor, polos e tensão https://github.com/IPedrax/BIMCraft/issues/107
+search prs.json 304 Title blocks of the project's own, with project and sheet fields https://github.com/IPedrax/BIMCraft/pull/304
+search prs.json 294 Sheets can omit the built-in title block https://github.com/IPedrax/BIMCraft/pull/294

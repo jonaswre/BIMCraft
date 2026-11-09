@@ -1,0 +1,14 @@
+    Finished `test` profile [unoptimized] target(s) in 0.19s
+     Running unittests src\lib.rs (<bimcraft>\.targets\issue-02\debug\deps\bimcraft_core-f723816fa9dc5cad.exe)
+
+running 8 tests
+test text::system::tests::arial_stands_in_for_its_look_alikes_and_they_for_it ... ok
+test text::tests::a_letter_with_a_hole_fills_round_it ... ok
+test text::system::tests::a_folder_of_fonts_is_listed_by_family_from_the_headers_and_a_broken_file_is_left_out ... ok
+test text::tests::runs_override_where_the_note_lets_them_and_keep_their_place_when_the_text_changes ... ok
+test text::tests::a_note_is_laid_out_line_by_line_with_every_character_counted ... ok
+test text::tests::underlines_run_under_each_underlined_stretch ... ok
+test text::tests::arial_is_lettered_by_what_stands_in_for_it_and_a_family_by_its_own_bold_and_italic ... ok
+test text::tests::plex_letters_have_outlines_with_holes_and_what_no_font_has_is_a_question_mark ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 1542 filtered out; finished in 0.07s

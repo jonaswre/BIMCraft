@@ -1,0 +1,97 @@
+   Compiling cfg-if v1.0.5
+   Compiling proc-macro2 v1.0.107
+   Compiling simd-adler32 v0.3.10
+   Compiling crossbeam-utils v0.8.23
+   Compiling quote v1.0.47
+   Compiling unicode-ident v1.0.27
+   Compiling adler2 v2.0.1
+   Compiling crc32fast v1.5.2
+   Compiling crossbeam-epoch v0.9.21
+   Compiling rustversion v1.0.23
+   Compiling serde_core v1.0.229
+   Compiling crossbeam-deque v0.8.8
+   Compiling miniz_oxide v0.9.1
+   Compiling rayon-core v1.13.0
+   Compiling getrandom v0.4.3
+   Compiling zmij v1.0.23
+   Compiling flate2 v1.1.10
+   Compiling encoding_rs v0.8.42
+   Compiling syn v3.0.9
+   Compiling miniz_oxide v0.8.9
+   Compiling fdeflate v0.3.7
+   Compiling serde v1.0.229
+   Compiling windows-link v0.2.1
+   Compiling arrayref v0.3.9
+   Compiling bimcraft-i18n v0.11.0 (<bimcraft>\upstream-02-prime-glyphs\crates\i18n)
+   Compiling serde_json v1.0.154
+   Compiling getrandom v0.3.4
+   Compiling bitflags v1.3.2
+   Compiling strict-num v0.1.1
+   Compiling bytemuck v1.25.2
+   Compiling png v0.17.16
+   Compiling tiny-skia-path v0.11.4
+   Compiling bimcraft-core v0.11.0 (<bimcraft>\upstream-02-prime-glyphs\crates\core)
+   Compiling windows-sys v0.61.2
+   Compiling serde_derive v1.0.229
+   Compiling fastrand v2.5.0
+   Compiling memchr v2.8.3
+   Compiling itoa v1.0.18
+   Compiling log v0.4.34
+   Compiling arrayvec v0.7.8
+   Compiling core_detect v1.0.0
+   Compiling once_cell v1.21.4
+   Compiling zune-core v0.5.3
+   Compiling simdutf8 v0.1.5
+   Compiling multiversion_no_op v1.0.0
+   Compiling scopeguard v1.2.0
+   Compiling either v1.19.0
+   Compiling rayon v1.12.0
+   Compiling zune-jpeg v0.5.15
+   Compiling tempfile v3.27.0
+   Compiling tiny-skia v0.11.4
+   Compiling ttf-parser v0.25.1
+    Finished `test` profile [unoptimized] target(s) in 4m 46s
+     Running tests\drawing_lettering.rs (<bimcraft>\.targets\issue-02\debug\deps\drawing_lettering-20f4f32fdf0bc723.exe)
+
+running 5 tests
+test tests::export_failure_preserves_labels_and_a_retry_returns_the_diagnostic ... FAILED
+test tests::many_unsupported_letters_have_bounded_diagnostics_and_still_render ... FAILED
+test tests::unsupported_grid_letters_are_reported_once_and_survive_native_reopen ... FAILED
+test tests::engineering_marks_are_visible_and_distinct_in_exported_grid_labels ... FAILED
+test tests::non_latin_note_fallback_does_not_get_a_drawing_lettering_warning ... ok
+
+failures:
+
+---- tests::export_failure_preserves_labels_and_a_retry_returns_the_diagnostic stdout ----
+
+thread 'tests::export_failure_preserves_labels_and_a_retry_returns_the_diagnostic' (10852) panicked at crates\core\tests\drawing_lettering.rs:80:9:
+assertion failed: reply["notes"].as_array().is_some_and(|notes|
+        notes.iter().any(|n| n.as_str().unwrap().contains("U+6F22")))
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- tests::many_unsupported_letters_have_bounded_diagnostics_and_still_render stdout ----
+
+thread 'tests::many_unsupported_letters_have_bounded_diagnostics_and_still_render' (19500) panicked at crates\core\tests\drawing_lettering.rs:67:47:
+unsupported lettering diagnostics
+
+---- tests::unsupported_grid_letters_are_reported_once_and_survive_native_reopen stdout ----
+
+thread 'tests::unsupported_grid_letters_are_reported_once_and_survive_native_reopen' (19636) panicked at crates\core\tests\drawing_lettering.rs:43:47:
+render must report replaced lettering
+
+---- tests::engineering_marks_are_visible_and_distinct_in_exported_grid_labels stdout ----
+
+thread 'tests::engineering_marks_are_visible_and_distinct_in_exported_grid_labels' (24360) panicked at crates\core\tests\drawing_lettering.rs:29:13:
+assertion `left != right` failed: 1′ must not be a question mark
+[large decoded pixel array; retained in red.log]
+error: test failed, to rerun pass `-p bimcraft-core --test drawing_lettering`
+[large decoded pixel array; retained in red.log]
+
+
+failures:
+    tests::engineering_marks_are_visible_and_distinct_in_exported_grid_labels
+    tests::export_failure_preserves_labels_and_a_retry_returns_the_diagnostic
+    tests::many_unsupported_letters_have_bounded_diagnostics_and_still_render
+    tests::unsupported_grid_letters_are_reported_once_and_survive_native_reopen
+
+test result: FAILED. 1 passed; 4 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.52s
