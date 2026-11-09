@@ -1,0 +1,16 @@
+   Compiling bimcraft-core v0.11.0 ($REPO\crates\core)
+    Finished `test` profile [unoptimized] target(s) in 41.87s
+     Running tests\steel_profiles.rs ($TARGET\debug\deps\steel_profiles-00e7b12505d633ce.exe)
+
+running 3 tests
+plain round cached_z=[-60.000000001028845,4060.0000000010286] contains every perpendicular tube vertex
+test sloped_hollow_bounds::plain_round_slopes_keep_the_existing_perpendicular_tube_envelope ... ok
+CHS end=[3000.0, 0.0] rise=4000 justify=centre: cached_z=[-166.66666666769626,4166.6666666676965] native_z=[-165.24081022896843,4165.240810228968] outside=0
+full section fit=View { scale: 0.07202464640140463, cx: 3586.666704044755, cy: 2000.0, width: 800, height: 600 }; deferred section fit=View { scale: 0.07202464640140463, cx: 3586.666704044755, cy: 2000.0, width: 800, height: 600 }
+CHS end=[-1800.0, 2400.0] rise=-4000 justify=top: cached_z=[-4333.3333333343635,0.0000000010307901852162711] native_z=[-4331.907476895635,-1.4258564376982577] outside=0
+CHS end=[0.0, 3000.0] rise=4000 justify=bottom: cached_z=[-0.0000000010307901852162711,4333.333333334364] native_z=[1.4258564376982292,4331.907476895635] outside=0
+CHS end=[3000.0, 0.0] rise=0 justify=centre: cached_z=[-100.00000000100071,100.00000000100071] native_z=[-99.14448613738105,99.14448613738104] outside=0
+test sloped_hollow_bounds::sloped_chs_bounds_enclose_the_actual_upright_end_sweep_in_every_direction ... ok
+test sloped_hollow_bounds::a_sloped_chs_section_keeps_full_extents_and_pixels_when_neighbour_heights_hide_the_old_box ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 7 filtered out; finished in 1.83s

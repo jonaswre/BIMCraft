@@ -1,0 +1,14 @@
+    Checking serde_core v1.0.229
+    Checking bytemuck v1.25.2
+    Checking tiny-skia-path v0.11.4
+    Checking windows-sys v0.61.2
+    Checking memchr v2.8.3
+    Checking either v1.19.0
+    Checking log v0.4.34
+    Checking tempfile v3.27.0
+    Checking tiny-skia v0.11.4
+    Checking rayon v1.12.0
+    Checking serde_json v1.0.154
+    Checking serde v1.0.229
+   Compiling bimcraft-core v0.11.0 ($REPO\crates\core)
+    Finished `dev` profile [unoptimized] target(s) in 1m 53s

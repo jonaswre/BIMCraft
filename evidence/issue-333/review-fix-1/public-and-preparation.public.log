@@ -1,0 +1,56 @@
+   Compiling bimcraft-core v0.11.0 ($REPO\crates\core)
+    Finished `test` profile [unoptimized] target(s) in 8.67s
+     Running tests\component_preparation.rs ($TARGET\debug\deps\component_preparation-045c7fba43f7009c.exe)
+
+running 10 tests
+test tests::a_fit_of_what_is_not_a_section_is_an_empty_frame_and_not_a_cancellation ... ok
+test tests::a_fit_cancelled_at_any_checkpoint_stops_there_and_its_work_still_finds_the_exact_result ... ok
+test tests::component_only_models_still_fit_their_exact_rotated_geometry ... ok
+test tests::interior_components_keep_exact_extrema_deferred_during_fitting_and_drawing ... ok
+test tests::a_hidden_or_cropped_run_is_left_out_as_the_full_preparation_leaves_it ... ok
+test tests::an_overlay_cancelled_at_any_checkpoint_leaves_exact_datum_ends_and_no_partial_extent ... ok
+test tests::outlying_components_resolve_only_the_extrema_needed_for_exact_fitting ... ok
+test tests::round_runs_are_made_only_where_a_view_needs_them_and_change_nothing_it_shows ... ok
+test tests::unsupported_family_forms_keep_full_preparation_and_cancellation_returns_no_work ... ok
+test tests::tower_sections_and_elevations_match_full_preparation_with_interior_extrema_deferred ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 13.37s
+
+     Running tests\primitive_fragments.rs ($TARGET\debug\deps\primitive_fragments-ef794756d6ee1821.exe)
+
+running 4 tests
+test tests::zero_budget_eviction_and_cancellation_preserve_fresh_output ... ok
+test tests::type_and_level_edits_refresh_geometry_but_material_edits_only_refresh_paint ... ok
+test tests::parallel_preparation_preserves_depth_ties_and_the_original_element_order ... ok
+test tests::annotation_edits_rebuild_no_primitive_fragments_and_local_moves_rebuild_one ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 4.02s
+
+     Running tests\spatial_cache.rs ($TARGET\debug\deps\spatial_cache-f29a4b318aab31a1.exe)
+
+running 7 tests
+test section_framing_refreshes_after_cad_data_changes_without_element_edits ... ok
+test a_local_annotation_edit_keeps_all_geometry_definitions_shared ... ok
+test definition_snapshots_share_until_edited_and_keep_the_existing_file_shape ... ok
+test section_framing_refreshes_after_an_in_place_family_edit ... ok
+test section_framing_refreshes_after_cloud_data_changes_without_element_edits ... ok
+test type_edits_undo_redo_and_branches_keep_independent_definition_identities ... ok
+test section_work_refreshes_after_a_type_edit_without_any_element_mutation ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.58s
+
+     Running tests\steel_profiles.rs ($TARGET\debug\deps\steel_profiles-00e7b12505d633ce.exe)
+
+running 10 tests
+test picking::a_hollow_column_can_be_picked_on_its_wall_but_not_through_its_empty_centre ... ok
+test sloped_hollow_bounds::plain_round_slopes_keep_the_existing_perpendicular_tube_envelope ... ok
+test native_versions::steel_files_require_a_reader_that_knows_sections_and_plain_format_18_files_keep_their_geometry ... ok
+test tests::catalogue_beam_can_be_created_scheduled_saved_and_reopened ... ok
+test sloped_hollow_bounds::sloped_chs_bounds_enclose_the_actual_upright_end_sweep_in_every_direction ... ok
+test tests::parametrically_authored_hollow_column_keeps_its_section_in_native_and_ifc_output ... ok
+test tests::equal_enclosing_boxes_with_distinct_steel_sections_export_distinct_profiles_and_true_quantities ... ok
+test tests::unsupported_categories_reject_section_parameters_and_plain_shape_replaces_a_hollow_circle ... ok
+test sloped_hollow_bounds::a_sloped_chs_section_keeps_full_extents_and_pixels_when_neighbour_heights_hide_the_old_box ... ok
+test tests::steel_type_plate_edits_refresh_cached_sections_without_changing_elements ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.50s

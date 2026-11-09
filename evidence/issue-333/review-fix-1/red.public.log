@@ -1,0 +1,32 @@
+   Compiling bimcraft-core v0.11.0 ($REPO\crates\core)
+    Finished `test` profile [unoptimized] target(s) in 6.56s
+     Running tests\steel_profiles.rs ($TARGET\debug\deps\steel_profiles-00e7b12505d633ce.exe)
+
+running 3 tests
+plain round cached_z=[-60.000000001028845,4060.0000000010286] contains every perpendicular tube vertex
+CHS end=[3000.0, 0.0] rise=4000 justify=centre: cached_z=[-60.000000001028845,4060.0000000010286] native_z=[-165.24081022896843,4165.240810228968] outside=324
+
+thread 'sloped_hollow_bounds::sloped_chs_bounds_enclose_the_actual_upright_end_sweep_in_every_direction' (9036) panicked at crates\core\tests\steel_profiles.rs:222:13:
+assertion `left == right` failed: a conservative box must contain every actual steel sweep vertex: [-80.00000000102189, -100.00000000100071, -60.000000001028845]..[3080.000000001022, 100.00000000100071, 4060.0000000010286]
+  left: 324
+ right: 0
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test sloped_hollow_bounds::plain_round_slopes_keep_the_existing_perpendicular_tube_envelope ... ok
+full section fit=View { scale: 0.07202464640140463, cx: 3586.666704044755, cy: 2000.0, width: 800, height: 600 }; deferred section fit=View { scale: 0.07290400967668945, cx: 3586.666690125045, cy: 2000.0, width: 800, height: 600 }
+
+thread 'sloped_hollow_bounds::a_sloped_chs_section_keeps_full_extents_and_pixels_when_neighbour_heights_hide_the_old_box' (53292) panicked at crates\core\tests\steel_profiles.rs:253:9:
+assertion `left == right` failed: nearby geometry must not conceal the CHS extremities while fitting the section
+  left: View { scale: 0.07290400967668945, cx: 3586.666690125045, cy: 2000.0, width: 800, height: 600 }
+ right: View { scale: 0.07202464640140463, cx: 3586.666704044755, cy: 2000.0, width: 800, height: 600 }
+test sloped_hollow_bounds::sloped_chs_bounds_enclose_the_actual_upright_end_sweep_in_every_direction ... FAILED
+test sloped_hollow_bounds::a_sloped_chs_section_keeps_full_extents_and_pixels_when_neighbour_heights_hide_the_old_box ... FAILED
+
+failures:
+
+failures:
+    sloped_hollow_bounds::a_sloped_chs_section_keeps_full_extents_and_pixels_when_neighbour_heights_hide_the_old_box
+    sloped_hollow_bounds::sloped_chs_bounds_enclose_the_actual_upright_end_sweep_in_every_direction
+
+test result: FAILED. 1 passed; 2 failed; 0 ignored; 0 measured; 7 filtered out; finished in 0.11s
+
+error: test failed, to rerun pass `-p bimcraft-core --test steel_profiles`

@@ -1,0 +1,18 @@
+   Compiling bimcraft-core v0.11.0 ($REPO\crates\core)
+    Finished `test` profile [unoptimized] target(s) in 44.25s
+     Running unittests src\lib.rs ($TARGET\debug\deps\bimcraft_core-f723816fa9dc5cad.exe)
+
+running 11 tests
+test family::bounds::tests::swept_and_imported_family_envelopes_enclose_full_geometry ... ok
+test family::bounds::tests::unsupported_and_nonfinite_forms_keep_unknown_bounds ... ok
+test runs::tests::a_footprint_is_a_strip_or_when_upright_its_section ... ok
+test bounds::tests::nonfinite_bounds_and_counter_exhaustion_remain_conservative ... ok
+test bounds::tests::primitive_boxes_enclose_fresh_solid_corners_without_tessellating ... ok
+test family::bounds::tests::default_family_envelopes_cover_their_supported_types ... ok
+test runs::tests::a_run_a_millimetre_long_in_plan_stands_and_a_shorter_one_is_too_short ... ok
+test runs::tests::a_round_run_is_a_closed_tube_turned_out ... ok
+test runs::tests::a_runs_heights_are_those_of_its_justify_line ... ok
+test runs::tests::a_sloped_run_keeps_its_section_square_to_its_axis ... ok
+test runs::tests::a_runs_reach_covers_its_section_square_to_its_axis ... ok
+
+test result: ok. 11 passed; 0 failed; 0 ignored; 0 measured; 1552 filtered out; finished in 0.03s
