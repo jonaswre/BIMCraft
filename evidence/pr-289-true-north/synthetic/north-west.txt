@@ -1,0 +1,2 @@
+wall {"points":[[0,0],[10000,0]],"height":3000,"type":"Interior - 100mm"}
+geolocate {"latitude": 45, "longitude": 1, "true_north": 0, "elevation": 12500, "crs": 32631}

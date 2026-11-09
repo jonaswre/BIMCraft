@@ -1,0 +1,7 @@
+Command: cargo fmt --check
+Source base: 5f666a84a45f6f71bf7dd399eb2e0edfe752be40
+Acceptance commit: 3317917e24a305cd91387d81e4051e6975dbed24
+Exit code: 0
+Environment: CARGO_BUILD_JOBS=2; RAYON_NUM_THREADS=2; own target directory
+
+cargo fmt --check: exit 0

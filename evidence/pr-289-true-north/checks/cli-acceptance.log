@@ -1,0 +1,79 @@
+Command: python ci/accept_georef.py <target>/debug/bimcraft-cli.exe <evidence>/synthetic
+Source base: 5f666a84a45f6f71bf7dd399eb2e0edfe752be40
+Acceptance commit: 3317917e24a305cd91387d81e4051e6975dbed24
+Exit code: 0
+Environment: CARGO_BUILD_JOBS=2; RAYON_NUM_THREADS=2; own target directory
+
+{
+  "ifcopenshell": "0.8.5",
+  "pyproj": "3.7.2",
+  "proj": "9.5.1",
+  "cases": [
+    {
+      "name": "north-west",
+      "convergence": -1.414503703374383,
+      "rotation": -1.414503703374383,
+      "point_scale": 0.9999055362957521,
+      "true_north_bearing": -0.0001109001288016477,
+      "ground_metres": 1000.0000480628604,
+      "schema_errors": 0,
+      "unique_global_ids": 14,
+      "wall_volume_m3": 3
+    },
+    {
+      "name": "north-east",
+      "convergence": 1.414503703364429,
+      "rotation": 1.414503703364429,
+      "point_scale": 0.9999055362957521,
+      "true_north_bearing": 0.00011090005447262144,
+      "ground_metres": 1000.0000490606832,
+      "schema_errors": 0,
+      "unique_global_ids": 14,
+      "wall_volume_m3": 3
+    },
+    {
+      "name": "central-turned",
+      "convergence": 4.863284083522101e-15,
+      "rotation": -90.0,
+      "point_scale": 0.999599999949714,
+      "true_north_bearing": -3.811208727040409e-11,
+      "ground_metres": 999.9999994461616,
+      "schema_errors": 0,
+      "unique_global_ids": 14,
+      "wall_volume_m3": 3
+    },
+    {
+      "name": "south-west",
+      "convergence": 1.4145037033843368,
+      "rotation": 31.414503703384337,
+      "point_scale": 0.999905536295997,
+      "true_north_bearing": -0.0001109105753082531,
+      "ground_metres": 999.9999512377542,
+      "schema_errors": 0,
+      "unique_global_ids": 14,
+      "wall_volume_m3": 3
+    },
+    {
+      "name": "south-east",
+      "convergence": -1.414503703374383,
+      "rotation": -18.914503703374383,
+      "point_scale": 0.999905536295997,
+      "true_north_bearing": 0.00011091052051949261,
+      "ground_metres": 999.9999522377002,
+      "schema_errors": 0,
+      "unique_global_ids": 14,
+      "wall_volume_m3": 3
+    },
+    {
+      "name": "lambert-turned",
+      "convergence": 1.4512155301030194,
+      "rotation": 76.45121553010301,
+      "point_scale": 0.9993980695089235,
+      "true_north_bearing": 2.1126088569812916e-08,
+      "ground_metres": 1000.0020427592164,
+      "schema_errors": 0,
+      "unique_global_ids": 14,
+      "wall_volume_m3": 3
+    }
+  ]
+}

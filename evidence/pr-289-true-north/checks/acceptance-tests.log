@@ -1,0 +1,23 @@
+Command: cargo test -p bimcraft-core --test georef_acceptance --test agent_docs --config profile.dev.package.bimcraft-core.opt-level=0 --config profile.dev.debug=0 -- --test-threads=4
+Source base: 5f666a84a45f6f71bf7dd399eb2e0edfe752be40
+Acceptance commit: 3317917e24a305cd91387d81e4051e6975dbed24
+Exit code: 0
+Environment: CARGO_BUILD_JOBS=2; RAYON_NUM_THREADS=2; own target directory
+
+   Compiling bimcraft-core v0.11.0 (<checkout>\crates\core)
+    Finished `test` profile [unoptimized] target(s) in 1.79s
+     Running tests\agent_docs.rs (<target>\debug\deps\agent_docs-ecf375178354c5ff.exe)
+
+running 3 tests
+test the_root_claude_md_stays_under_its_word_budget ... ok
+test the_root_claude_md_reaches_every_crate_note_and_area_write_up ... ok
+test every_file_the_agent_docs_link_to_exists ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.35s
+
+     Running tests\georef_acceptance.rs (<target>\debug\deps\georef_acceptance-349ec79b5813c9c7.exe)
+
+running 1 test
+test tests::saved_sites_export_independent_proj_positions_scale_and_true_north_in_both_hemispheres ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.04s
