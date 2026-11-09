@@ -1,0 +1,14 @@
+wall {"points":[[0,0],[18000,0]],"height":4500}
+type {"category":"door","name":"Sectional gate","width":3000,"height":3200,"operation":"sectional"}
+type {"category":"door","name":"Roller gate","width":3000,"height":3200,"operation":"roller"}
+door {"at":[3500,0],"type":"Sectional gate"}
+door {"at":[9500,0],"type":"Roller gate"}
+door {"at":[14000,0]}
+window {"at":[16500,0],"family":"Sliding Window"}
+schedule {"category":"doors","fields":["Type","Operation","Width","Height"],"sort":["Type"]}
+save {"path":"industrial-gates.bimcraft"}
+save {"path":"industrial-gates.ifc"}
+save {"path":"industrial-gates.glb"}
+render {"path":"industrial-gates-plan.png","width":1400,"height":650}
+render {"path":"industrial-gates-plan.svg","width":1400,"height":650}
+render {"view":"{3D}","path":"industrial-gates-3d.png","azimuth":70,"elevation":20,"width":1400,"height":650}

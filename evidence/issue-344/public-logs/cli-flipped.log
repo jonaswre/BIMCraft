@@ -1,0 +1,5 @@
+{"name":"Project","path":"industrial-gates.bimcraft"}
+{"at":[3500.0,0.0],"category":"door","flip_facing":true,"flip_hand":false,"guid":"4fbbbc45-cd98-46b5-ab5f-0804be4c437e","height":3200.0,"host":"702e5a28-35b0-4d13-8b2f-6f9091df3d50","id":100003,"level":"e2f5b778-32cc-413d-b2ef-a2d5162e15ec","mark":"1","offset":3500.0,"operation":"sectional","sill":0.0,"type":"Sectional gate","type_guid":"dabf9b34-528c-4062-8684-0ccbb1e816b3","width":3000.0}
+{"format":"bimcraft","path":"flipped-gates.bimcraft"}
+{"format":"IFC4","path":"flipped-gates.ifc"}
+{"azimuth":-70.0,"elevation":20.0,"eye":null,"eye_elevation":null,"height":650,"kind":"3D view","lens":null,"path":"flipped-gates-3d.png","target":null,"view":"{3D}","width":1400}

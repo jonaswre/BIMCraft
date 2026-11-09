@@ -1,0 +1,12 @@
+   Compiling bimcraft-core v0.11.0 (<checkout>\crates\core)
+   Compiling bimcraft-ui-egui v0.11.0 (<checkout>\crates\ui-egui)
+   Compiling bimcraft-plugin v0.11.0 (<checkout>\crates\plugin)
+    Finished `test` profile [unoptimized] target(s) in 54.66s
+     Running unittests src\lib.rs (<target>\debug\deps\bimcraft_ui_egui-846a33bfdb14fa4e.exe)
+
+running 3 tests
+test tests::the_family_editor_shows_a_familys_connectors_and_keeps_them ... ok
+test tests::the_family_editor_edits_a_family_says_what_wont_build_and_starts_a_new_one_of_a_category ... ok
+test tests::industrial_doors::family_editor_selects_vertical_gate_operations_and_save_reopen_keeps_them ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 853 filtered out; finished in 8.00s

@@ -1,0 +1,22 @@
+   Compiling bimcraft-core v0.11.0 (<checkout>\crates\core)
+   Compiling egui_kittest v0.36.2
+   Compiling bimcraft-plugin v0.11.0 (<checkout>\crates\plugin)
+   Compiling bimcraft-ui-egui v0.11.0 (<checkout>\crates\ui-egui)
+error[E0046]: not all trait items implemented, missing: `render`
+  --> crates\ui-egui\src\tests\light_canvas.rs:51:1
+   |
+51 | impl egui_kittest::TestRenderer for Uploads {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ missing `render` in implementation
+   |
+   = help: implement the missing item: `fn render(&mut self, _: &egui::Context, _: &FullOutput) -> std::result::Result<image::images::buffer::ImageBuffer<image::color::Rgba<u8>, std::vec::Vec<u8>>, std::string::String> { todo!() }`
+
+error[E0046]: not all trait items implemented, missing: `render`
+   --> crates\ui-egui\src\tests\background_grid.rs:142:1
+    |
+142 | impl egui_kittest::TestRenderer for Pictures {
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ missing `render` in implementation
+    |
+    = help: implement the missing item: `fn render(&mut self, _: &egui::Context, _: &FullOutput) -> std::result::Result<image::images::buffer::ImageBuffer<image::color::Rgba<u8>, std::vec::Vec<u8>>, std::string::String> { todo!() }`
+
+For more information about this error, try `rustc --explain E0046`.
+error: could not compile `bimcraft-ui-egui` (lib test) due to 2 previous errors

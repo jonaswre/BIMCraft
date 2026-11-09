@@ -1,0 +1,24 @@
+   Compiling bimcraft-core v0.11.0 (<checkout>\crates\core)
+    Finished `test` profile [unoptimized] target(s) in 18.22s
+     Running tests\agent_docs.rs (<target>\debug\deps\agent_docs-860e53fa9aab599c.exe)
+
+running 3 tests
+test the_root_claude_md_stays_under_its_word_budget ... ok
+test the_root_claude_md_reaches_every_crate_note_and_area_write_up ... ok
+test every_file_the_agent_docs_link_to_exists ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.13s
+
+     Running tests\industrial_doors.rs (<target>\debug\deps\industrial_doors-4c0928f1588b04a9.exe)
+
+running 8 tests
+test tests::gate_type_edits_keep_host_validation_and_rollback ... ok
+test tests::family_operations_keep_authored_geometry_and_import_from_ifc_type_fallback ... ok
+test tests::industrial_parts_have_positive_volume_and_fit_in_plan_with_overhead_equipment ... ok
+test tests::flipped_industrial_gates_reopen_on_the_same_side_of_the_wall_in_ifc ... ok
+test tests::old_files_keep_unspecified_swing_and_newer_files_are_refused ... ok
+test tests::existing_operations_and_handedness_keep_their_ifc_meaning ... ok
+test tests::sectional_and_roller_gates_save_reopen_and_keep_operations_and_guids ... ok
+test tests::vertical_gates_have_a_closed_panel_in_plan_without_a_horizontal_swing ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.21s

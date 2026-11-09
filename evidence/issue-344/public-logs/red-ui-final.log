@@ -1,0 +1,22 @@
+   Compiling bimcraft-ui-egui v0.11.0 (<checkout>\crates\ui-egui)
+    Finished `test` profile [unoptimized] target(s) in 22.28s
+     Running unittests src\lib.rs (<target>\debug\deps\bimcraft_ui_egui-846a33bfdb14fa4e.exe)
+
+running 1 test
+test tests::industrial_doors::family_editor_selects_vertical_gate_operations_and_save_reopen_keeps_them ... FAILED
+
+failures:
+
+---- tests::industrial_doors::family_editor_selects_vertical_gate_operations_and_save_reopen_keeps_them stdout ----
+
+thread 'tests::industrial_doors::family_editor_selects_vertical_gate_operations_and_save_reopen_keeps_them' (33880) panicked at crates\ui-egui\src\tests\industrial_doors.rs:13:9:
+Operation offers Sectional
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    tests::industrial_doors::family_editor_selects_vertical_gate_operations_and_save_reopen_keeps_them
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 855 filtered out; finished in 0.88s
+
+error: test failed, to rerun pass `-p bimcraft-ui-egui --lib`

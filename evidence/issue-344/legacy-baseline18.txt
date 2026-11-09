@@ -1,0 +1,4 @@
+wall {"points":[[0,0],[7000,0]],"height":4500}
+door {"at":[2000,0]}
+window {"at":[5000,0],"family":"Sliding Window"}
+save {"path":"legacy-baseline18.ifc"}

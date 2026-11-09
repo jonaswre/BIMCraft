@@ -1,0 +1,80 @@
+{
+  "cli_sha256": "62b321aae188132a4f527dea2fe456f2e69e0abd094c1f0274521c555069f178",
+  "checks": [
+    {
+      "name": "cli-journey",
+      "args": [
+        "run",
+        "--script",
+        "journey.txt"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "cli-native-reopen",
+      "args": [
+        "run",
+        "industrial-gates.bimcraft",
+        "--cmd",
+        "elements {\"category\":\"door\"}",
+        "--save",
+        "native-reopened.bimcraft"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "cli-ifc-reopen",
+      "args": [
+        "run",
+        "industrial-gates.ifc",
+        "--cmd",
+        "elements {\"category\":\"door\"}",
+        "--save",
+        "ifc-reopened.bimcraft",
+        "--save",
+        "ifc-reexport.ifc",
+        "--cmd",
+        "render {\"path\":\"ifc-reopened-plan.png\",\"width\":1400,\"height\":650}"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "cli-flipped",
+      "args": [
+        "run",
+        "industrial-gates.bimcraft",
+        "--cmd",
+        "modify {\"id\": 100003, \"flip_facing\": true}",
+        "--save",
+        "flipped-gates.bimcraft",
+        "--save",
+        "flipped-gates.ifc",
+        "--cmd",
+        "render {\"view\":\"{3D}\",\"path\":\"flipped-gates-3d.png\",\"azimuth\":-70,\"elevation\":20,\"width\":1400,\"height\":650}"
+      ],
+      "exit_code": 0
+    }
+  ],
+  "native_guids_preserved": true,
+  "native_save_reopen_equal": true,
+  "ifc_guids_operations_and_sizes_preserved": true,
+  "original_native_sha256": "8db727d5f02ffbbf44ce23be7bdaf14d056e6f4e3cac4bb636c03947b5603ee6",
+  "original_native_unchanged": true,
+  "doors": [
+    {
+      "id": 100003,
+      "guid": "4fbbbc45-cd98-46b5-ab5f-0804be4c437e",
+      "operation": "sectional"
+    },
+    {
+      "id": 100004,
+      "guid": "154b493e-eea3-4a4b-b779-1bb0d77a45a1",
+      "operation": "roller"
+    },
+    {
+      "id": 100005,
+      "guid": "6f965d68-0fe2-488c-8626-46001cf2b66b",
+      "operation": null
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "reader": "baseline18-reader.exe",
+  "reader_sha256": "44aa58ea0924903672def0e92832be624b1f14c3b45730d322b32001cd45237f",
+  "source_delivery_base": "30527e323e9c2e59abff927e4b76fe3ce0f83e15",
+  "reader_build_source_head": "533073c5663a40038b0c9f6e2a168110734d56a2",
+  "source_core_cli_diff_vs_delivery_base": "empty (verified by baseline build owner)",
+  "previous_portable_probe_correction": "Initial files named format18 actually inherited portable format17. These corrected format18 probes use the unchanged-base format18 reader.",
+  "probes": [
+    {
+      "operation": "sectional",
+      "fixture": "enum-sectional-format18.bimcraft",
+      "fixture_format": 18,
+      "error": "open: enum-sectional-format18.bimcraft is not a BIMCraft project: unknown variant `sectional`, expected one of `swing`, `double-swing`, `sliding`, `double-sliding`, `folding`, `fixed`",
+      "model_unchanged": true,
+      "saved_after_failure_format": 18
+    },
+    {
+      "operation": "roller",
+      "fixture": "enum-roller-format18.bimcraft",
+      "fixture_format": 18,
+      "error": "open: enum-roller-format18.bimcraft is not a BIMCraft project: unknown variant `roller`, expected one of `swing`, `double-swing`, `sliding`, `double-sliding`, `folding`, `fixed`",
+      "model_unchanged": true,
+      "saved_after_failure_format": 18
+    }
+  ]
+}

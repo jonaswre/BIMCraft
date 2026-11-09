@@ -1,0 +1,59 @@
+   Compiling bimcraft-core v0.11.0 (<checkout>\crates\core)
+    Finished `test` profile [unoptimized] target(s) in 2.02s
+     Running tests\industrial_doors.rs (<target>\debug\deps\industrial_doors-4c0928f1588b04a9.exe)
+
+running 8 tests
+test tests::family_operations_keep_authored_geometry_and_import_from_ifc_type_fallback ... FAILED
+test tests::gate_type_edits_keep_host_validation_and_rollback ... FAILED
+test tests::flipped_industrial_gates_reopen_on_the_same_side_of_the_wall_in_ifc ... FAILED
+test tests::industrial_parts_have_positive_volume_and_fit_in_plan_with_overhead_equipment ... FAILED
+test tests::sectional_and_roller_gates_save_reopen_and_keep_operations_and_guids ... FAILED
+test tests::vertical_gates_have_a_closed_panel_in_plan_without_a_horizontal_swing ... FAILED
+test tests::old_files_keep_unspecified_swing_and_newer_files_are_refused ... ok
+test tests::existing_operations_and_handedness_keep_their_ifc_meaning ... ok
+
+failures:
+
+---- tests::family_operations_keep_authored_geometry_and_import_from_ifc_type_fallback stdout ----
+
+thread 'tests::family_operations_keep_authored_geometry_and_import_from_ifc_type_fallback' (36984) panicked at crates\core\tests\industrial_doors.rs:121:87:
+called `Result::unwrap()` on an `Err` value: "family: `operation` is one of swing, double-swing, sliding, double-sliding, folding, fixed, not `sectional`"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- tests::gate_type_edits_keep_host_validation_and_rollback stdout ----
+
+thread 'tests::gate_type_edits_keep_host_validation_and_rollback' (30804) panicked at crates\core\tests\industrial_doors.rs:12:123:
+called `Result::unwrap()` on an `Err` value: "type: `operation` is one of swing, double-swing, sliding, double-sliding, folding, fixed, not `sectional`"
+
+---- tests::flipped_industrial_gates_reopen_on_the_same_side_of_the_wall_in_ifc stdout ----
+
+thread 'tests::flipped_industrial_gates_reopen_on_the_same_side_of_the_wall_in_ifc' (22784) panicked at crates\core\tests\industrial_doors.rs:12:123:
+called `Result::unwrap()` on an `Err` value: "type: `operation` is one of swing, double-swing, sliding, double-sliding, folding, fixed, not `sectional`"
+
+---- tests::industrial_parts_have_positive_volume_and_fit_in_plan_with_overhead_equipment stdout ----
+
+thread 'tests::industrial_parts_have_positive_volume_and_fit_in_plan_with_overhead_equipment' (49980) panicked at crates\core\tests\industrial_doors.rs:12:123:
+called `Result::unwrap()` on an `Err` value: "type: `operation` is one of swing, double-swing, sliding, double-sliding, folding, fixed, not `sectional`"
+
+---- tests::sectional_and_roller_gates_save_reopen_and_keep_operations_and_guids stdout ----
+
+thread 'tests::sectional_and_roller_gates_save_reopen_and_keep_operations_and_guids' (2836) panicked at crates\core\tests\industrial_doors.rs:12:123:
+called `Result::unwrap()` on an `Err` value: "type: `operation` is one of swing, double-swing, sliding, double-sliding, folding, fixed, not `sectional`"
+
+---- tests::vertical_gates_have_a_closed_panel_in_plan_without_a_horizontal_swing stdout ----
+
+thread 'tests::vertical_gates_have_a_closed_panel_in_plan_without_a_horizontal_swing' (51788) panicked at crates\core\tests\industrial_doors.rs:12:123:
+called `Result::unwrap()` on an `Err` value: "type: `operation` is one of swing, double-swing, sliding, double-sliding, folding, fixed, not `sectional`"
+
+
+failures:
+    tests::family_operations_keep_authored_geometry_and_import_from_ifc_type_fallback
+    tests::flipped_industrial_gates_reopen_on_the_same_side_of_the_wall_in_ifc
+    tests::gate_type_edits_keep_host_validation_and_rollback
+    tests::industrial_parts_have_positive_volume_and_fit_in_plan_with_overhead_equipment
+    tests::sectional_and_roller_gates_save_reopen_and_keep_operations_and_guids
+    tests::vertical_gates_have_a_closed_panel_in_plan_without_a_horizontal_swing
+
+test result: FAILED. 2 passed; 6 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.48s
+
+error: test failed, to rerun pass `-p bimcraft-core --test industrial_doors`

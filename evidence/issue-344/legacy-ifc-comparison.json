@@ -1,0 +1,116 @@
+{
+  "synthetic_legacy_only": true,
+  "unchanged_base_and_final_observations_equal": true,
+  "results": [
+    {
+      "cli": "baseline18",
+      "sha256": "44aa58ea0924903672def0e92832be624b1f14c3b45730d322b32001cd45237f",
+      "before": {
+        "root_counts": {
+          "IfcBuilding": 1,
+          "IfcBuildingStorey": 2,
+          "IfcDoor": 1,
+          "IfcDoorType": 1,
+          "IfcElementQuantity": 3,
+          "IfcOpeningElement": 2,
+          "IfcProject": 1,
+          "IfcRelAggregates": 3,
+          "IfcRelAssociatesMaterial": 1,
+          "IfcRelContainedInSpatialStructure": 1,
+          "IfcRelDefinesByProperties": 3,
+          "IfcRelDefinesByType": 3,
+          "IfcRelFillsElement": 2,
+          "IfcRelVoidsElement": 2,
+          "IfcSite": 1,
+          "IfcWall": 1,
+          "IfcWallType": 1,
+          "IfcWindow": 1,
+          "IfcWindowType": 1
+        },
+        "window_partitioning": [
+          "DOUBLE_PANEL_VERTICAL"
+        ]
+      },
+      "after": {
+        "root_counts": {
+          "IfcBuilding": 1,
+          "IfcBuildingStorey": 2,
+          "IfcDoor": 1,
+          "IfcDoorType": 1,
+          "IfcElementQuantity": 3,
+          "IfcOpeningElement": 2,
+          "IfcProject": 1,
+          "IfcRelAggregates": 3,
+          "IfcRelContainedInSpatialStructure": 1,
+          "IfcRelDefinesByProperties": 3,
+          "IfcRelDefinesByType": 3,
+          "IfcRelFillsElement": 2,
+          "IfcRelVoidsElement": 2,
+          "IfcSite": 1,
+          "IfcWall": 1,
+          "IfcWallType": 1,
+          "IfcWindow": 1,
+          "IfcWindowType": 1
+        },
+        "window_partitioning": [
+          "SINGLE_PANEL"
+        ]
+      }
+    },
+    {
+      "cli": "final",
+      "sha256": "62b321aae188132a4f527dea2fe456f2e69e0abd094c1f0274521c555069f178",
+      "before": {
+        "root_counts": {
+          "IfcBuilding": 1,
+          "IfcBuildingStorey": 2,
+          "IfcDoor": 1,
+          "IfcDoorType": 1,
+          "IfcElementQuantity": 3,
+          "IfcOpeningElement": 2,
+          "IfcProject": 1,
+          "IfcRelAggregates": 3,
+          "IfcRelAssociatesMaterial": 1,
+          "IfcRelContainedInSpatialStructure": 1,
+          "IfcRelDefinesByProperties": 3,
+          "IfcRelDefinesByType": 3,
+          "IfcRelFillsElement": 2,
+          "IfcRelVoidsElement": 2,
+          "IfcSite": 1,
+          "IfcWall": 1,
+          "IfcWallType": 1,
+          "IfcWindow": 1,
+          "IfcWindowType": 1
+        },
+        "window_partitioning": [
+          "DOUBLE_PANEL_VERTICAL"
+        ]
+      },
+      "after": {
+        "root_counts": {
+          "IfcBuilding": 1,
+          "IfcBuildingStorey": 2,
+          "IfcDoor": 1,
+          "IfcDoorType": 1,
+          "IfcElementQuantity": 3,
+          "IfcOpeningElement": 2,
+          "IfcProject": 1,
+          "IfcRelAggregates": 3,
+          "IfcRelContainedInSpatialStructure": 1,
+          "IfcRelDefinesByProperties": 3,
+          "IfcRelDefinesByType": 3,
+          "IfcRelFillsElement": 2,
+          "IfcRelVoidsElement": 2,
+          "IfcSite": 1,
+          "IfcWall": 1,
+          "IfcWallType": 1,
+          "IfcWindow": 1,
+          "IfcWindowType": 1
+        },
+        "window_partitioning": [
+          "SINGLE_PANEL"
+        ]
+      }
+    }
+  ]
+}

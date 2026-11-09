@@ -1,0 +1,50 @@
+{
+  "root_class_counts_before": {
+    "IfcProject": 1,
+    "IfcDoor": 3,
+    "IfcWall": 1,
+    "IfcWindow": 1,
+    "IfcOpeningElement": 4,
+    "IfcBuilding": 1,
+    "IfcBuildingStorey": 2,
+    "IfcSite": 1,
+    "IfcDoorType": 3,
+    "IfcWallType": 1,
+    "IfcWindowType": 1,
+    "IfcElementQuantity": 5,
+    "IfcRelAssociatesMaterial": 3,
+    "IfcRelContainedInSpatialStructure": 1,
+    "IfcRelFillsElement": 4,
+    "IfcRelAggregates": 3,
+    "IfcRelVoidsElement": 4,
+    "IfcRelDefinesByProperties": 5,
+    "IfcRelDefinesByType": 5
+  },
+  "root_class_counts_after": {
+    "IfcProject": 1,
+    "IfcDoor": 3,
+    "IfcWall": 1,
+    "IfcWindow": 1,
+    "IfcOpeningElement": 4,
+    "IfcBuilding": 1,
+    "IfcBuildingStorey": 2,
+    "IfcSite": 1,
+    "IfcDoorType": 3,
+    "IfcWallType": 1,
+    "IfcWindowType": 1,
+    "IfcElementQuantity": 5,
+    "IfcRelAssociatesMaterial": 2,
+    "IfcRelContainedInSpatialStructure": 1,
+    "IfcRelFillsElement": 4,
+    "IfcRelAggregates": 3,
+    "IfcRelVoidsElement": 4,
+    "IfcRelDefinesByProperties": 5,
+    "IfcRelDefinesByType": 5
+  },
+  "windows_before": [
+    "DOUBLE_PANEL_VERTICAL"
+  ],
+  "windows_after": [
+    "SINGLE_PANEL"
+  ]
+}

@@ -1,0 +1,14 @@
+{"ids":[100002]}
+{"category":"door","name":"Sectional gate","type":{"height":3200.0,"operation":"sectional","sill":0.0,"width":3000.0}}
+{"category":"door","name":"Roller gate","type":{"height":3200.0,"operation":"roller","sill":0.0,"width":3000.0}}
+{"host":100002,"id":100003,"mark":"1","offset":3500.0}
+{"host":100002,"id":100004,"mark":"2","offset":9500.0}
+{"host":100002,"id":100005,"mark":"3","offset":14000.0}
+{"host":100002,"id":100006,"mark":"1","offset":16500.0}
+{"available":["Mark","Type","Width","Height","Level","Wall","Family","Operation","Count","Phase Created","Phase Demolished","Design Option"],"category":"door","columns":["Type","Operation","Width","Height"],"elements":[[100004],[100003],[100005]],"id":100007,"name":"Door Schedule","rows":[["Roller gate","Roller",3000.0,3200.0],["Sectional gate","Sectional",3000.0,3200.0],["Single 900 x 2100",null,900.0,2100.0]]}
+{"format":"bimcraft","path":"industrial-gates.bimcraft"}
+{"format":"IFC4","path":"industrial-gates.ifc"}
+{"elements":5,"format":"glTF 2.0","path":"industrial-gates.glb","triangles":468}
+{"height":650,"kind":"plan","path":"industrial-gates-plan.png","view":"Level 1","width":1400}
+{"height":650,"kind":"plan","path":"industrial-gates-plan.svg","view":"Level 1","width":1400}
+{"azimuth":70.0,"elevation":20.0,"eye":null,"eye_elevation":null,"height":650,"kind":"3D view","lens":null,"path":"industrial-gates-3d.png","target":null,"view":"{3D}","width":1400}

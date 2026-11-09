@@ -1,0 +1,30 @@
+    Finished `test` profile [unoptimized] target(s) in 0.30s
+     Running unittests src\lib.rs (<target>\debug\deps\bimcraft_core-f723816fa9dc5cad.exe)
+
+running 24 tests
+test bridge::tests::an_agent_may_ask_to_only_read_a_window_that_lets_it_edit ... ok
+test bridge::tests::the_file_keeps_a_port_and_a_token_for_the_user_alone_and_is_removed_only_by_its_own_window ... ok
+test ifc::tests::family_doors_and_windows_export_their_forms_as_face_sets_in_their_materials ... ok
+test bridge::tests::a_window_that_lets_agents_only_read_refuses_their_edits_says_why_and_still_answers_what_reads ... ok
+test ifc::tests::doors_windows_roofs_and_ceilings_get_type_objects_each_occurrence_related_once ... ok
+test ifc::tests::walls_slabs_doors_and_windows_carry_their_base_quantities ... ok
+test import::tests::a_window_taller_than_its_wall_comes_in_rising_past_the_top_as_revit_lets_it ... ok
+test openings_past_top_tests::a_window_whose_head_passes_its_walls_top_is_made_and_keeps_its_size ... ok
+test openings_past_top_tests::an_ifc_window_whose_sill_is_over_its_walls_top_is_left_out_naming_the_files_wall ... ok
+test render::tests::an_image_of_a_plan_letters_its_name_and_the_window_and_a_sheet_do_not ... ok
+test tests::a_door_or_window_is_sketched_as_the_command_would_make_it ... ok
+test tests::a_door_or_window_refused_for_a_wall_the_level_does_not_cut_says_so ... ok
+test tests::a_doors_family_sizes_its_opening_and_a_windows_gives_it_its_sill ... ok
+test openings_past_top_tests::an_elevation_and_a_section_show_the_window_rising_out_of_the_notch ... ok
+test openings_past_top_tests::an_ifc_with_a_window_past_its_walls_top_opens_with_it_and_saves_and_opens_again ... ok
+test tests::doors_and_windows_find_the_wall_under_a_point ... ok
+test tests::a_family_door_and_window_show_in_a_schedule_by_their_family ... ok
+test tests::a_new_project_has_doors_and_windows_of_its_own_that_build_in_every_language ... ok
+test tests::doors_and_windows_keep_their_marks_through_ifc_and_new_ones_follow_the_series ... ok
+test graphics::tests::hiding_doors_and_windows_leaves_their_openings_in_the_wall ... ok
+test tests::sliding_doors_and_windows_say_how_they_open_in_ifc_and_in_schedules ... ok
+test tests::tags_name_doors_and_windows_and_go_where_they_go ... ok
+test view3d::update::tests::a_window_past_its_walls_top_keeps_its_notch_up_to_date_through_edits ... ok
+test view3d::tests::a_family_door_and_window_show_their_forms_in_the_wall_and_mirror_with_their_flips ... ok
+
+test result: ok. 24 passed; 0 failed; 0 ignored; 0 measured; 1525 filtered out; finished in 19.34s

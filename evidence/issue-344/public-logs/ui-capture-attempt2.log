@@ -1,0 +1,19 @@
+   Compiling bimcraft-ui-egui v0.11.0 (<checkout>\crates\ui-egui)
+error[E0433]: cannot find module or crate `image` in this scope
+  --> crates\ui-egui\src\tests\light_canvas.rs:52:77
+   |
+52 | ...xt, _: &egui::FullOutput) -> Result<image::RgbaImage, String> { Err("Upload-only mock is not a capture renderer".into()) }
+   |                                        ^^^^^ use of unresolved module or unlinked crate `image`
+   |
+   = help: if you wanted to use a crate named `image`, use `cargo add image` to add it to your `Cargo.toml`
+
+error[E0433]: cannot find module or crate `image` in this scope
+   --> crates\ui-egui\src\tests\background_grid.rs:143:77
+    |
+143 | ...xt, _: &egui::FullOutput) -> Result<image::RgbaImage, String> { Err("Upload-only mock is not a capture renderer".into()) }
+    |                                        ^^^^^ use of unresolved module or unlinked crate `image`
+    |
+    = help: if you wanted to use a crate named `image`, use `cargo add image` to add it to your `Cargo.toml`
+
+For more information about this error, try `rustc --explain E0433`.
+error: could not compile `bimcraft-ui-egui` (lib test) due to 2 previous errors

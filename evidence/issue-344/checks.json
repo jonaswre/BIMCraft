@@ -1,0 +1,42 @@
+[
+  {
+    "command": "cargo fmt --check",
+    "exit_code": 0,
+    "name": "fmt-check"
+  },
+  {
+    "command": "cargo test -p bimcraft-core --test industrial_doors --test agent_docs --config profile.dev.package.bimcraft-core.opt-level=0 --config profile.dev.debug=0 -- --test-threads=4",
+    "exit_code": 0,
+    "name": "core-focused-final"
+  },
+  {
+    "command": "cargo test -p bimcraft-core --lib door --config profile.dev.package.bimcraft-core.opt-level=0 --config profile.dev.debug=0 -- --test-threads=4",
+    "exit_code": 0,
+    "name": "core-door-regressions"
+  },
+  {
+    "command": "cargo test -p bimcraft-core --lib window --config profile.dev.package.bimcraft-core.opt-level=0 --config profile.dev.debug=0 -- --test-threads=4",
+    "exit_code": 0,
+    "name": "core-window-regressions"
+  },
+  {
+    "command": "cargo test -p bimcraft-core --lib openings_past_top --config profile.dev.package.bimcraft-core.opt-level=0 --config profile.dev.debug=0 -- --test-threads=4",
+    "exit_code": 0,
+    "name": "core-opening-host-regressions"
+  },
+  {
+    "command": "cargo test -p bimcraft-ui-egui --lib family_editor --config profile.dev.package.bimcraft-core.opt-level=0 --config profile.dev.debug=0 -- --test-threads=4",
+    "exit_code": 0,
+    "name": "ui-family-editor-final"
+  },
+  {
+    "command": "cargo clippy -p bimcraft-core -p bimcraft-ui-egui --all-targets --config profile.dev.package.bimcraft-core.opt-level=0 --config profile.dev.debug=0 -- -D warnings",
+    "exit_code": 0,
+    "name": "clippy-affected"
+  },
+  {
+    "command": "cargo build -p bimcraft-cli --no-default-features --config profile.dev.package.bimcraft-core.opt-level=0 --config profile.dev.debug=0",
+    "exit_code": 0,
+    "name": "build-cli"
+  }
+]
