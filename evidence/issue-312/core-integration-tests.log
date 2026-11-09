@@ -1,0 +1,73 @@
+    Finished `test` profile [unoptimized] target(s) in 0.88s
+     Running tests\agent_docs.rs (<bimcraft>/.targets/issue-19\debug\deps\agent_docs-860e53fa9aab599c.exe)
+
+running 3 tests
+test the_root_claude_md_reaches_every_crate_note_and_area_write_up ... ok
+test the_root_claude_md_stays_under_its_word_budget ... ok
+test every_file_the_agent_docs_link_to_exists ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.36s
+
+     Running tests\bounds_cache.rs (<bimcraft>/.targets/issue-19\debug\deps\bounds_cache-d50baf893b051243.exe)
+
+running 7 tests
+test tests::bounds_reuse_ignores_annotations_materials_and_unused_types ... ok
+test tests::direct_type_level_and_branch_edits_cannot_reuse_stale_bounds ... ok
+test tests::a_recent_hit_keeps_its_entry_when_the_budget_evicts_an_older_box ... ok
+test tests::family_bounds_cover_mirrored_rotated_instances_and_follow_direct_definition_edits ... ok
+test tests::missing_and_unsupported_bounds_are_not_empty_and_insertions_invalidate ... ok
+test tests::run_bounds_follow_dimensions_but_ignore_the_material_named_by_the_type ... ok
+test tests::the_byte_budget_evicts_and_zero_budget_still_computes ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.36s
+
+     Running tests\component_preparation.rs (<bimcraft>/.targets/issue-19\debug\deps\component_preparation-045c7fba43f7009c.exe)
+
+running 10 tests
+test tests::a_fit_of_what_is_not_a_section_is_an_empty_frame_and_not_a_cancellation ... ok
+test tests::a_fit_cancelled_at_any_checkpoint_stops_there_and_its_work_still_finds_the_exact_result ... ok
+test tests::component_only_models_still_fit_their_exact_rotated_geometry ... ok
+test tests::interior_components_keep_exact_extrema_deferred_during_fitting_and_drawing ... ok
+test tests::a_hidden_or_cropped_run_is_left_out_as_the_full_preparation_leaves_it ... ok
+test tests::an_overlay_cancelled_at_any_checkpoint_leaves_exact_datum_ends_and_no_partial_extent ... ok
+test tests::outlying_components_resolve_only_the_extrema_needed_for_exact_fitting ... ok
+test tests::round_runs_are_made_only_where_a_view_needs_them_and_change_nothing_it_shows ... ok
+test tests::unsupported_family_forms_keep_full_preparation_and_cancellation_returns_no_work ... ok
+test tests::tower_sections_and_elevations_match_full_preparation_with_interior_extrema_deferred ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 27.41s
+
+     Running tests\primitive_fragments.rs (<bimcraft>/.targets/issue-19\debug\deps\primitive_fragments-ef794756d6ee1821.exe)
+
+running 4 tests
+test tests::zero_budget_eviction_and_cancellation_preserve_fresh_output ... ok
+test tests::type_and_level_edits_refresh_geometry_but_material_edits_only_refresh_paint ... ok
+test tests::parallel_preparation_preserves_depth_ties_and_the_original_element_order ... ok
+test tests::annotation_edits_rebuild_no_primitive_fragments_and_local_moves_rebuild_one ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.74s
+
+     Running tests\revision_metadata.rs (<bimcraft>/.targets/issue-19\debug\deps\revision_metadata-df316ac319b41c89.exe)
+
+running 6 tests
+test tests::read_access_and_sparse_ids_do_not_expand_or_mutate_revision_metadata ... ok
+test tests::a_local_mutation_revises_only_its_element_even_inside_a_shared_chunk ... ok
+test tests::mutable_iterators_stamp_only_the_items_they_yield ... ok
+test tests::removal_replacement_and_clear_update_metadata_without_changing_guids_or_file_shape ... ok
+test tests::revision_deltas_cover_skipped_snapshots_and_independent_branches ... ok
+test tests::annotation_commands_and_undo_do_not_revise_unrelated_geometry ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.21s
+
+     Running tests\spatial_cache.rs (<bimcraft>/.targets/issue-19\debug\deps\spatial_cache-f29a4b318aab31a1.exe)
+
+running 7 tests
+test section_framing_refreshes_after_cad_data_changes_without_element_edits ... ok
+test a_local_annotation_edit_keeps_all_geometry_definitions_shared ... ok
+test definition_snapshots_share_until_edited_and_keep_the_existing_file_shape ... ok
+test section_framing_refreshes_after_cloud_data_changes_without_element_edits ... ok
+test section_framing_refreshes_after_an_in_place_family_edit ... ok
+test type_edits_undo_redo_and_branches_keep_independent_definition_identities ... ok
+test section_work_refreshes_after_a_type_edit_without_any_element_mutation ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.73s

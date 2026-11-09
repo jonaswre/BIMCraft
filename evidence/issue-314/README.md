@@ -4,7 +4,7 @@ Reproduction base: upstream `30527e323e9c2e59abff927e4b76fe3ce0f83e15` (0.11.0).
 
 From a fresh project, run `bimcraft-cli run --script oblique.txt --save oblique.ifc`, then `bimcraft-cli run oblique.ifc --cmd 'elements {"category":"grid"}'`. The unmodified base omits all grid entities; fixed output retains the three labels and endpoints. Parallel, single-axis and empty-project examples are included too.
 
-`red-regressions.log` records four failures and a passing empty-project control on the base. `green.log` records the first five regressions passing after the fix; later expanded regression results are reported with the fix PR.
+`red-regressions.log` records four failures and a passing empty-project control on the base. `green.log` records the first five regressions passing after the fix. `green-final.log` records all **seven** final exchange regressions passing, including direct STEP entity-graph assertions, preservation of distinct/coincident/transformed axes, and unrelated or malformed annotation cases.
 
 `verify_grids.py` independently reads IFC axes and placements with IfcOpenShell 0.8.5, checks nonempty disjoint U/V sets and labels/endpoints, then reopens each file through the actual CLI. Run `python verify_grids.py <source-checkout> <bimcraft-cli-executable>`. See `independent-grid-results.json` and `independent-verification.log` for observed results.
 

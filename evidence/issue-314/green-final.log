@@ -1,0 +1,14 @@
+   Compiling bimcraft-core v0.11.0 (<bimcraft>\upstream-07-ifc-grids\crates\core)
+    Finished `test` profile [unoptimized] target(s) in 3.87s
+     Running tests\ifc_grids.rs (<bimcraft>/.targets/issue-07\debug\deps\ifc_grids-181ecd4ff1be0277.exe)
+
+running 7 tests
+test tests::ifc_grids_import_a_shared_axis_once_and_keep_reversed_sense_and_placement ... ok
+test tests::ifc_grids_import_keeps_distinct_coincident_axes_w_axes_and_axes_in_different_placements ... ok
+test tests::ifc_grids_a_lone_axis_is_a_named_curve_annotation_and_reopens_as_a_grid ... ok
+test tests::ifc_grids_without_native_grids_write_no_grid_entities_or_annotations ... ok
+test tests::ifc_grids_unrelated_annotations_do_not_become_grids_and_missing_axes_are_reported ... ok
+test tests::ifc_grids_keep_native_names_and_oblique_lines_through_save_and_open ... ok
+test tests::ifc_grids_parallel_axes_use_real_disjoint_axis_sets_and_reopen_once ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.69s
