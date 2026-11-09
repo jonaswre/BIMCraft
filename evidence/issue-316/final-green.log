@@ -1,0 +1,17 @@
+   Compiling bimcraft-core v0.11.0 (<bimcraft>\upstream-21-opening-level\crates\core)
+    Finished `test` profile [unoptimized] target(s) in 2.81s
+     Running tests\opening_level.rs (<bimcraft>/.targets/issue-21\debug\deps\opening_level-a8a32838ceca6606.exe)
+
+running 10 tests
+test tests::an_inferred_host_still_rejects_an_opening_outside_the_wall_atomically ... ok
+test tests::explicit_level_overrides_inference_and_never_falls_back ... ok
+test tests::an_implicit_level_failure_keeps_wall_span_and_cut_context_without_an_undo_step ... ok
+test tests::explicit_wall_remains_authoritative_even_with_a_different_level ... ok
+test tests::below_ground_hosts_prefer_the_highest_eligible_level ... ok
+test tests::no_eligible_host_reports_the_point_and_preserves_the_model_and_undo ... ok
+test tests::openings_without_a_level_find_an_upper_floor_when_it_is_the_only_host ... ok
+test tests::stacked_hosts_prefer_the_lowest_eligible_level_at_or_above_zero ... ok
+test tests::openings_without_a_level_find_the_ground_wall_and_survive_save_and_reopen ... ok
+test tests::inferred_openings_render_in_the_ground_plan_and_export_as_hosted_ifc ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.31s

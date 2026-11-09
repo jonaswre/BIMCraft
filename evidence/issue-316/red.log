@@ -1,0 +1,63 @@
+   Compiling bimcraft-core v0.11.0 (<bimcraft>\upstream-21-opening-level\crates\core)
+    Finished `test` profile [unoptimized] target(s) in 1.41s
+     Running tests\opening_level.rs (<bimcraft>/.targets/issue-21\debug\deps\opening_level-a8a32838ceca6606.exe)
+
+running 8 tests
+test tests::explicit_wall_remains_authoritative_even_with_a_different_level ... ok
+test tests::an_inferred_host_still_rejects_an_opening_outside_the_wall_atomically ... FAILED
+test tests::below_ground_hosts_prefer_the_highest_eligible_level ... FAILED
+test tests::no_eligible_host_reports_the_point_and_preserves_the_model_and_undo ... FAILED
+test tests::openings_without_a_level_find_an_upper_floor_when_it_is_the_only_host ... FAILED
+test tests::explicit_level_overrides_inference_and_never_falls_back ... ok
+test tests::openings_without_a_level_find_the_ground_wall_and_survive_save_and_reopen ... FAILED
+test tests::stacked_hosts_prefer_the_lowest_eligible_level_at_or_above_zero ... FAILED
+
+failures:
+
+---- tests::an_inferred_host_still_rejects_an_opening_outside_the_wall_atomically stdout ----
+
+thread 'tests::an_inferred_host_still_rejects_an_opening_outside_the_wall_atomically' (34324) panicked at crates\core\tests\opening_level.rs:8:56:
+door {"at":[2000,0]}: door: no wall at [2000, 0] on Foundation; wall 100003 stands there but spans 0 to 2400 mm and Foundation cuts at -1200 mm: give the wall that level, or a view range that cuts it
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- tests::below_ground_hosts_prefer_the_highest_eligible_level stdout ----
+
+thread 'tests::below_ground_hosts_prefer_the_highest_eligible_level' (15824) panicked at crates\core\tests\opening_level.rs:66:13:
+assertion `left == right` failed
+  left: Number(100004)
+ right: Number(100005)
+
+---- tests::no_eligible_host_reports_the_point_and_preserves_the_model_and_undo stdout ----
+
+thread 'tests::no_eligible_host_reports_the_point_and_preserves_the_model_and_undo' (51836) panicked at crates\core\tests\opening_level.rs:92:13:
+door: no wall at [2000, 4000] on Foundation
+
+---- tests::openings_without_a_level_find_an_upper_floor_when_it_is_the_only_host stdout ----
+
+thread 'tests::openings_without_a_level_find_an_upper_floor_when_it_is_the_only_host' (23276) panicked at crates\core\tests\opening_level.rs:8:56:
+door {"at":[2000,0]}: door: no wall at [2000, 0] on Foundation; wall 100003 stands there but spans 3000 to 5400 mm and Foundation cuts at -1200 mm: give the wall that level, or a view range that cuts it
+
+---- tests::openings_without_a_level_find_the_ground_wall_and_survive_save_and_reopen stdout ----
+
+thread 'tests::openings_without_a_level_find_the_ground_wall_and_survive_save_and_reopen' (22240) panicked at crates\core\tests\opening_level.rs:8:56:
+door {"at":[1500,0]}: door: no wall at [1500, 0] on Foundation; wall 100003 stands there but spans 0 to 2400 mm and Foundation cuts at -1200 mm: give the wall that level, or a view range that cuts it
+
+---- tests::stacked_hosts_prefer_the_lowest_eligible_level_at_or_above_zero stdout ----
+
+thread 'tests::stacked_hosts_prefer_the_lowest_eligible_level_at_or_above_zero' (48456) panicked at crates\core\tests\opening_level.rs:55:13:
+assertion `left == right` failed
+  left: Number(100003)
+ right: Number(100005)
+
+
+failures:
+    tests::an_inferred_host_still_rejects_an_opening_outside_the_wall_atomically
+    tests::below_ground_hosts_prefer_the_highest_eligible_level
+    tests::no_eligible_host_reports_the_point_and_preserves_the_model_and_undo
+    tests::openings_without_a_level_find_an_upper_floor_when_it_is_the_only_host
+    tests::openings_without_a_level_find_the_ground_wall_and_survive_save_and_reopen
+    tests::stacked_hosts_prefer_the_lowest_eligible_level_at_or_above_zero
+
+test result: FAILED. 2 passed; 6 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.15s
+
+error: test failed, to rerun pass `-p bimcraft-core --test opening_level`

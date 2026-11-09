@@ -1,0 +1,22 @@
+   Compiling bimcraft-core v0.11.0 (<bimcraft>\upstream-21-opening-level\crates\core)
+    Finished `test` profile [unoptimized] target(s) in 2.95s
+     Running tests\opening_level.rs (<bimcraft>/.targets/issue-21\debug\deps\opening_level-a8a32838ceca6606.exe)
+
+running 1 test
+test tests::an_implicit_level_failure_keeps_wall_span_and_cut_context_without_an_undo_step ... FAILED
+
+failures:
+
+---- tests::an_implicit_level_failure_keeps_wall_span_and_cut_context_without_an_undo_step stdout ----
+
+thread 'tests::an_implicit_level_failure_keeps_wall_span_and_cut_context_without_an_undo_step' (13976) panicked at crates\core\tests\opening_level.rs:125:13:
+door: no wall at [2000, 0] on any level; give `wall` with `offset`
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    tests::an_implicit_level_failure_keeps_wall_span_and_cut_context_without_an_undo_step
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 9 filtered out; finished in 0.10s
+
+error: test failed, to rerun pass `-p bimcraft-core --test opening_level`

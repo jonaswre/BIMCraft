@@ -1,0 +1,9 @@
+level {"elevation":-2400,"name":"Foundation"}
+wall {"level":"Level 1","points":[[0,0],[6000,0]],"height":2400}
+render {"view":"Level 1","path":"before.png"}
+door {"at":[1500,0]}
+window {"at":[4200,0]}
+elements {}
+render {"view":"Level 1","path":"ground-plan.png"}
+save {"path":"openings.bimcraft"}
+save {"path":"openings.ifc"}

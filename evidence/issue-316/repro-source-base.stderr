@@ -1,0 +1,1 @@
+line 3 (door): door: no wall at [1500, 0] on Foundation; wall 100003 stands there but spans 0 to 2400 mm and Foundation cuts at -1200 mm: give the wall that level, or a view range that cuts it

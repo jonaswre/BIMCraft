@@ -1,0 +1,41 @@
+    Finished `test` profile [unoptimized] target(s) in 0.16s
+     Running unittests src\lib.rs (<bimcraft>/.targets/issue-21\debug\deps\bimcraft_core-f723816fa9dc5cad.exe)
+
+running 35 tests
+test dr::tests::an_inside_outlet_that_may_feed_equipment_outdoors_needs_it ... ok
+test graphics::tests::a_doors_swing_is_projection_and_the_rest_of_it_is_cut ... ok
+test ifc::tests::family_doors_and_windows_export_their_forms_as_face_sets_in_their_materials ... ok
+test ifc::tests::doors_windows_roofs_and_ceilings_get_type_objects_each_occurrence_related_once ... ok
+test model::tests::check_refuses_doors_that_do_not_fit_their_wall ... ok
+test ifc::tests::walls_slabs_doors_and_windows_carry_their_base_quantities ... ok
+test line_tests::fillet_leaves_a_wall_s_doors_where_they_are_in_the_plan_and_refuses_to_cut_one_off ... ok
+test phasing::tests::a_door_made_in_the_first_phase_does_not_follow_a_wall_made_later ... ok
+test phasing::tests::a_door_and_its_tag_leave_the_plan_with_the_wall_a_phase_takes_away ... ok
+test phasing::tests::a_door_stays_with_its_wall_when_a_phase_goes_in_before_the_first ... ok
+test phasing::tests::a_schedule_says_the_phase_a_door_follows_its_wall_to ... ok
+test phasing::tests::a_door_with_no_phase_of_its_own_follows_its_wall ... ok
+test phasing::tests::combining_phases_clamps_a_doors_demolition_to_where_its_wall_is_made_now ... ok
+test render::tests::plans_fill_cut_walls_with_poche_and_open_them_at_doors ... ok
+test render::tests::ceiling_plans_look_up_at_ceilings_over_walls_cut_above_the_doors ... ok
+test schedule::tests::door_schedules_read_sizes_from_the_type ... ok
+test tests::a_door_familys_swing_is_drawn_in_plan_and_flips_with_the_door ... ok
+test tests::a_door_familys_instance_parameters_are_its_own_and_its_type_parameters_its_types ... ok
+test tests::a_door_near_the_middle_between_the_faces_finds_the_middle ... ok
+test tests::a_door_or_window_refused_for_a_wall_the_level_does_not_cut_says_so ... ok
+test tests::a_door_or_window_is_sketched_as_the_command_would_make_it ... ok
+test tests::a_doors_family_sizes_its_opening_and_a_windows_gives_it_its_sill ... ok
+test tests::a_family_door_and_window_show_in_a_schedule_by_their_family ... ok
+test tests::a_door_stands_between_the_faces_of_the_walls_that_meet_its_wall ... ok
+test tests::a_family_door_flipped_either_way_keeps_its_forms_turned_out_and_the_same_size ... ok
+test tests::doors_and_windows_find_the_wall_under_a_point ... ok
+test tests::a_new_project_has_doors_and_windows_of_its_own_that_build_in_every_language ... ok
+test graphics::tests::hiding_doors_and_windows_leaves_their_openings_in_the_wall ... ok
+test tests::doors_move_along_their_walls_and_copies_bring_their_doors ... ok
+test tests::mirror_copies_with_doors_swinging_the_mirrored_way ... ok
+test tests::doors_and_windows_keep_their_marks_through_ifc_and_new_ones_follow_the_series ... ok
+test tests::split_cuts_a_wall_in_two_and_its_doors_go_with_their_part ... ok
+test tests::tags_name_doors_and_windows_and_go_where_they_go ... ok
+test tests::sliding_doors_and_windows_say_how_they_open_in_ifc_and_in_schedules ... ok
+test view3d::tests::a_family_door_and_window_show_their_forms_in_the_wall_and_mirror_with_their_flips ... ok
+
+test result: ok. 35 passed; 0 failed; 0 ignored; 0 measured; 1514 filtered out; finished in 10.95s

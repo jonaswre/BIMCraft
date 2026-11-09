@@ -1,0 +1,5 @@
+Native save/reopen: identical elements, GUIDs and host references; no left_out fields
+Plan: 1600x1000, 18083 changed pixels after openings; reopened pixels identical
+IfcDoor: valid filled opening/void/host relations; geometry 8 vertices, z 0..2.1 m
+IfcWindow: valid filled opening/void/host relations; geometry 8 vertices, z 0.9..2.4 m
+IfcWall: boolean geometry generated, 24 vertices

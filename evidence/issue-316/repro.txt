@@ -1,0 +1,3 @@
+level {"elevation":-2400,"name":"Foundation"}
+wall {"level":"Level 1","points":[[0,0],[6000,0]],"height":2400}
+door {"at":[1500,0]}
