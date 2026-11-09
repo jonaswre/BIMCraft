@@ -1,0 +1,21 @@
+warning: in the working copy of 'translations/project/bimcraft-project.pot', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'translations/project/cs.po', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'translations/project/de.po', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'translations/project/es.po', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'translations/project/fr.po', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'translations/project/it.po', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'translations/project/nl.po', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'translations/project/pt.po', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'translations/project/sv.po', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'translations/ui/bimcraft-ui.pot', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'translations/ui/cs.po', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'translations/ui/de.po', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'translations/ui/es.po', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'translations/ui/fr.po', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'translations/ui/it.po', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'translations/ui/nl.po', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'translations/ui/pt.po', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'translations/ui/vi.po', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'translations/ui/zh.po', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'translations/ui/zh_TW.po', LF will be replaced by CRLF the next time Git touches it
+11 generated catalog/template files: source-reference comments only; all non-reference content unchanged.

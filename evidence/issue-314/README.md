@@ -13,3 +13,7 @@ From a fresh project, run `bimcraft-cli run --script oblique.txt --save oblique.
 A lone axis uses an IfcAnnotation marked `BIMCraft_GridAxis`, because IFC4 requires at least one separate U and V axis. No axes are invented. BIMCraft restores this annotation as a native axis; other IFC readers identify it as an annotation. Parallel grids use disjoint real axis sets and `IRREGULAR`.
 
 Cargo regression runs used local-only overrides `--config profile.dev.package.bimcraft-core.opt-level=0 --config profile.dev.debug=0`. Full-workspace and platform-CI results are reported separately with the linked fix PR.
+
+Final source commit: `fb092ab888e7c04b8ca19d594f5e9f39a592ee3f`. `green-after-catalogs.log`, `clippy-final.log` and `i18n-check.log` retain the final focused test, lint and translation checks. The eleven generated catalog changes contain source references only, checked in `catalog-reference-verification.log`.
+
+The broad local core run is **INCOMPLETE**. `core-tests.log` and `core-incomplete-summary.json` retain 1,444 completed passes, eight preexisting ignored tests and zero observed assertion failures. This includes 81 completed IFC/import tests. The run was intentionally interrupted during unrelated long geometry/hostile-input cases after severe shared-host paging. It has no full-suite summary and did not reach integration/doc tests. The seven grid integration regressions ran separately and passed. No source or CI test was disabled, skipped or weakened.
