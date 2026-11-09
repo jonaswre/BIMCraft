@@ -1,0 +1,14 @@
+   Compiling bimcraft-core v0.11.0 (<bimcraft>\upstream-02-prime-glyphs\crates\core)
+    Finished `test` profile [unoptimized] target(s) in 28.57s
+     Running unittests src\lib.rs (<bimcraft>\.targets\issue-02\debug\deps\bimcraft_core-f723816fa9dc5cad.exe)
+
+running 7 tests
+test text_tests::a_file_from_before_text_types_gives_each_note_a_type_of_its_size ... ok
+test text_tests::a_notes_frame_turns_its_layout_into_the_drawing_and_back ... ok
+test text_tests::a_note_is_of_a_type_and_its_runs_override_its_formatting_where_it_lets_them ... ok
+test text_tests::a_font_this_system_has_not_opens_and_is_drawn_with_what_stands_in_for_it ... ok
+test text_tests::a_project_starts_with_text_types_that_are_library_entries_and_text_type_makes_renames_and_deletes_them ... ok
+test text_tests::letters_no_font_has_are_question_marks_and_every_other_one_is_drawn ... ok
+test text_tests::a_note_is_drawn_in_its_types_font_size_and_weight_and_its_bold_runs_draw_heavier ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 1543 filtered out; finished in 0.87s

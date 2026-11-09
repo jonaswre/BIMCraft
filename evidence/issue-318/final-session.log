@@ -1,0 +1,12 @@
+   Compiling bimcraft-core v0.11.0 (<bimcraft>\upstream-02-prime-glyphs\crates\core)
+    Finished `test` profile [unoptimized] target(s) in 11.15s
+     Running tests\drawing_lettering.rs (<bimcraft>\.targets\issue-02\debug\deps\drawing_lettering-20f4f32fdf0bc723.exe)
+
+running 5 tests
+test tests::many_unsupported_letters_have_bounded_diagnostics_and_still_render ... ok
+test tests::export_failure_preserves_labels_and_a_retry_returns_the_diagnostic ... ok
+test tests::non_latin_note_fallback_does_not_get_a_drawing_lettering_warning ... ok
+test tests::unsupported_grid_letters_are_reported_once_and_survive_native_reopen ... ok
+test tests::engineering_marks_are_visible_and_distinct_in_exported_grid_labels ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.01s

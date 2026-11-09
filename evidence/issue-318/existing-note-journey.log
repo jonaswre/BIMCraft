@@ -1,0 +1,7 @@
+    Finished `test` profile [unoptimized] target(s) in 0.18s
+     Running unittests src\lib.rs (<bimcraft>\.targets\issue-02\debug\deps\bimcraft_core-f723816fa9dc5cad.exe)
+
+running 1 test
+test tests::text_notes_go_in_plans_sections_and_sheets ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 1549 filtered out; finished in 0.30s
