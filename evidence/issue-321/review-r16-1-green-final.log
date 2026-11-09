@@ -1,0 +1,15 @@
+   Compiling bimcraft-core v0.11.0 (<bimcraft>\upstream-16-wall-roundtrip\crates\core)
+    Finished `test` profile [unoptimized] target(s) in 13.37s
+     Running tests\ifc_wall_authoring.rs (<bimcraft>/.targets/issue-16\debug\deps\ifc_wall_authoring-cc977bd321f7d102.exe)
+
+running 8 tests
+test tests::authored_endpoints_near_another_wall_are_not_extended_by_import_joining ... ok
+test tests::floor_attachments_keep_their_guids_after_ifc_and_native_reopen ... ok
+test tests::missing_or_wrong_kind_attachment_targets_leave_the_wall_present_and_unattached ... ok
+test tests::explicit_roof_attachment_and_explicitly_unattached_metadata_override_the_geometry_guess ... ok
+test tests::noncentral_location_lines_keep_the_drawn_endpoints_through_ifc_and_native_reopen ... ok
+test tests::opening_wall_metadata_with_many_unknown_properties_and_targets_keeps_only_the_real_wall_intent ... ok
+test tests::reversed_layer_usage_keeps_the_generic_direction_and_centre_line ... ok
+test tests::unknown_or_nontext_location_metadata_keeps_the_generic_body_reconstruction ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.15s

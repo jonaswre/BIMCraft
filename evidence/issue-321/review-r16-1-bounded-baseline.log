@@ -1,0 +1,8 @@
+   Compiling bimcraft-core v0.11.0 (<bimcraft>\upstream-16-wall-roundtrip\crates\core)
+    Finished `test` profile [unoptimized] target(s) in 2.36s
+     Running tests\ifc_wall_authoring.rs (<bimcraft>/.targets/issue-16\debug\deps\ifc_wall_authoring-cc977bd321f7d102.exe)
+
+running 1 test
+test tests::opening_wall_metadata_with_many_unknown_properties_and_targets_keeps_only_the_real_wall_intent ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 7 filtered out; finished in 0.37s
