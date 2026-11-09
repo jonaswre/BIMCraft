@@ -1,0 +1,12 @@
+cargo test -p bimcraft-core --lib hostile_params_never_panic_or_break_the_model (opt0/debug0; test-threads=4)
+   Compiling bimcraft-core v0.11.0 (<WORKTREE>\crates\core)
+    Finished `test` profile [unoptimized] target(s) in 3m 21s
+     Running unittests src\lib.rs (<USER_HOME>/Projects/jonaswre/BIMCraft/.targets/issue-11\debug\deps\bimcraft_core-f723816fa9dc5cad.exe)
+
+running 1 test
+test tests::hostile_params_never_panic_or_break_the_model has been running for over 60 seconds
+error: test failed, to rerun pass `-p bimcraft-core --lib`
+
+Caused by:
+  process didn't exit successfully: `<USER_HOME>/Projects/jonaswre/BIMCraft/.targets/issue-11\debug\deps\bimcraft_core-f723816fa9dc5cad.exe hostile_params_never_panic_or_break_the_model --test-threads=4` (exit code: 0xffffffff)
+note: test exited abnormally; to see the full output pass --no-capture to the harness.

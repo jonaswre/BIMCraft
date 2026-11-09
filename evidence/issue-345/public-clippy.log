@@ -1,0 +1,4 @@
+   Compiling bimcraft-core v0.11.0 (<WORKTREE>\crates\core)
+   Compiling bimcraft-ui-egui v0.11.0 (<WORKTREE>\crates\ui-egui)
+    Checking bimcraft-plugin v0.11.0 (<WORKTREE>\crates\plugin)
+    Finished `dev` profile [unoptimized] target(s) in 40.51s

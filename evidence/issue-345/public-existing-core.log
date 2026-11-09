@@ -1,0 +1,103 @@
+cargo test -p bimcraft-core --lib schedule::tests:: (opt0/debug0; test-threads=4)
+    Finished `test` profile [unoptimized] target(s) in 3.01s
+     Running unittests src\lib.rs (<USER_HOME>/Projects/jonaswre/BIMCraft/.targets/issue-11\debug\deps\bimcraft_core-f723816fa9dc5cad.exe)
+
+running 12 tests
+test schedule::tests::a_multi_category_schedule_lists_its_categories_elements_with_the_fields_they_share ... ok
+test schedule::tests::csv_leaves_no_text_a_spreadsheet_would_take_for_a_formula ... ok
+test schedule::tests::csv_quotes_the_cells_that_need_it_and_ends_with_the_totals ... ok
+test schedule::tests::a_multi_category_schedule_filters_groups_and_totals_as_any_other ... ok
+test schedule::tests::filters_compare_values_as_the_schedule_shows_them ... ok
+test schedule::tests::a_schedule_goes_to_a_workbook_with_its_numbers_as_numbers ... ok
+test schedule::tests::a_multi_category_schedule_reads_its_materials_from_its_types ... ok
+test schedule::tests::schedules_show_lengths_and_areas_in_the_project_units ... ok
+test schedule::tests::door_schedules_read_sizes_from_the_type ... ok
+test schedule::tests::room_schedules_list_number_name_level_area_and_perimeter_in_number_order ... ok
+test schedule::tests::only_a_multi_category_schedule_lists_categories_and_only_their_shared_fields ... ok
+test schedule::tests::unknown_categories_name_the_schedules_there_are ... ok
+
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 1537 filtered out; finished in 0.70s
+
+cargo test -p bimcraft-core --lib render::tests::pick (opt0/debug0; test-threads=4)
+    Finished `test` profile [unoptimized] target(s) in 0.21s
+     Running unittests src\lib.rs (<USER_HOME>/Projects/jonaswre/BIMCraft/.targets/issue-11\debug\deps\bimcraft_core-f723816fa9dc5cad.exe)
+
+running 2 tests
+test render::tests::pick_all_lists_what_is_near_and_boxes_select_inside_or_crossing ... ok
+test render::tests::pick_finds_the_element_drawn_nearest_a_point ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 1547 filtered out; finished in 0.23s
+
+cargo test -p bimcraft-core --lib render::tests::plans_ (opt0/debug0; test-threads=4)
+    Finished `test` profile [unoptimized] target(s) in 0.19s
+     Running unittests src\lib.rs (<USER_HOME>/Projects/jonaswre/BIMCraft/.targets/issue-11\debug\deps\bimcraft_core-f723816fa9dc5cad.exe)
+
+running 6 tests
+test render::tests::plans_fill_cut_walls_with_poche_and_open_them_at_doors ... ok
+test render::tests::plans_draw_stairs_that_turn_ramps_and_railings ... ok
+test render::tests::plans_cut_columns_draw_stairs_and_show_roofs_from_both_sides ... ok
+test render::tests::plans_mark_sections_and_elevations ... ok
+test render::tests::plans_draw_what_their_view_range_sees ... ok
+test render::tests::plans_show_slope_arrows_and_shafts_and_the_holes_they_cut ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 1543 filtered out; finished in 0.79s
+
+cargo test -p bimcraft-core --lib import::tests::a_model_at_map_coordinates_comes_near_the_origin (opt0/debug0; test-threads=4)
+    Finished `test` profile [unoptimized] target(s) in 0.20s
+     Running unittests src\lib.rs (<USER_HOME>/Projects/jonaswre/BIMCraft/.targets/issue-11\debug\deps\bimcraft_core-f723816fa9dc5cad.exe)
+
+running 1 test
+test import::tests::a_model_at_map_coordinates_comes_near_the_origin ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 1548 filtered out; finished in 0.10s
+
+cargo test -p bimcraft-core --lib import::tests::names_in_other_scripts_and_with_quotes_come_back_whole (opt0/debug0; test-threads=4)
+    Finished `test` profile [unoptimized] target(s) in 0.18s
+     Running unittests src\lib.rs (<USER_HOME>/Projects/jonaswre/BIMCraft/.targets/issue-11\debug\deps\bimcraft_core-f723816fa9dc5cad.exe)
+
+running 1 test
+test import::tests::names_in_other_scripts_and_with_quotes_come_back_whole ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 1548 filtered out; finished in 0.55s
+
+cargo test -p bimcraft-core --lib import::tests::a_file_reads_the_same_every_time (opt0/debug0; test-threads=4)
+    Finished `test` profile [unoptimized] target(s) in 0.19s
+     Running unittests src\lib.rs (<USER_HOME>/Projects/jonaswre/BIMCraft/.targets/issue-11\debug\deps\bimcraft_core-f723816fa9dc5cad.exe)
+
+running 1 test
+test import::tests::a_file_reads_the_same_every_time ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 1548 filtered out; finished in 0.81s
+
+cargo test -p bimcraft-core --lib room_separators (opt0/debug0; test-threads=4)
+    Finished `test` profile [unoptimized] target(s) in 0.18s
+     Running unittests src\lib.rs (<USER_HOME>/Projects/jonaswre/BIMCraft/.targets/issue-11\debug\deps\bimcraft_core-f723816fa9dc5cad.exe)
+
+running 2 tests
+test tests::rooms_measured_at_the_faces_stop_at_room_separators_too ... ok
+test tests::room_separators_split_rooms_without_walls_and_survive_ifc ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 1547 filtered out; finished in 0.40s
+
+cargo test -p bimcraft-core --lib derived::tests:: (opt0/debug0; test-threads=4)
+    Finished `test` profile [unoptimized] target(s) in 0.19s
+     Running unittests src\lib.rs (<USER_HOME>/Projects/jonaswre/BIMCraft/.targets/issue-11\debug\deps\bimcraft_core-f723816fa9dc5cad.exe)
+
+running 5 tests
+test derived::tests::a_wall_raised_past_its_top_level_by_its_top_offset_is_near_at_the_heights_it_reaches ... ok
+test derived::tests::removing_the_last_reference_or_rare_kind_removes_empty_lookup_buckets ... ok
+test derived::tests::the_walls_near_a_wall_are_every_wall_its_ends_lie_on_and_that_end_on_it ... ok
+test derived::tests::the_walls_near_a_wall_at_its_heights_are_every_wall_it_meets_and_is_stacked_with ... ok
+test derived::tests::a_lookup_brought_up_to_date_is_the_one_made_again ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 1544 filtered out; finished in 53.22s
+
+cargo test -p bimcraft-core --lib styles::tests:: (opt0/debug0; test-threads=4)
+    Finished `test` profile [unoptimized] target(s) in 0.32s
+     Running unittests src\lib.rs (<USER_HOME>/Projects/jonaswre/BIMCraft/.targets/issue-11\debug\deps\bimcraft_core-f723816fa9dc5cad.exe)
+
+running 2 tests
+test styles::tests::a_category_draws_its_object_styles_pens_cut_and_seen_in_plan_and_section_under_the_views_overrides ... ok
+test styles::tests::object_styles_are_the_projects_pens_by_category_saved_and_undone ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 1547 filtered out; finished in 0.39s

@@ -1,0 +1,28 @@
+{
+  "result": "INCOMPLETE / INTENTIONALLY STOPPED",
+  "reason": "Root revised ruling: unrelated all-command render sweep under opt0 bypasses worker limit; concrete property coverage already passes. Test and assertions remain enabled unchanged for CI.",
+  "processes": [
+    {
+      "pid": 13728,
+      "parent_pid": 44140,
+      "executable": "<USER_HOME>\\Projects\\jonaswre\\BIMCraft\\.targets\\issue-11\\debug\\deps\\bimcraft_core-f723816fa9dc5cad.exe",
+      "command_line": "\"<USER_HOME>/Projects/jonaswre/BIMCraft/.targets/issue-11\\debug\\deps\\bimcraft_core-f723816fa9dc5cad.exe\" hostile_params_never_panic_or_break_the_model --test-threads=4",
+      "start_utc": "2026-11-09T12:33:29.3255847Z",
+      "capture_utc": "2026-11-09T12:54:05.4615168Z",
+      "elapsed_seconds": 1236.1380468,
+      "cpu_seconds": 15381.9375,
+      "working_set_bytes": 63406080,
+      "threads": 4
+    }
+  ],
+  "log_bytes": 560,
+  "log_tail": [
+    "cargo test -p bimcraft-core --lib hostile_params_never_panic_or_break_the_model (opt0/debug0; test-threads=4)",
+    "   Compiling bimcraft-core v0.11.0 (<USER_HOME>\\Projects\\jonaswre\\BIMCraft\\upstream-11-property-lines\\crates\\core)",
+    "    Finished `test` profile [unoptimized] target(s) in 3m 21s",
+    "     Running unittests src\\lib.rs (<USER_HOME>/Projects/jonaswre/BIMCraft/.targets/issue-11\\debug\\deps\\bimcraft_core-f723816fa9dc5cad.exe)",
+    "",
+    "running 1 test",
+    "test tests::hostile_params_never_panic_or_break_the_model has been running for over 60 seconds"
+  ]
+}

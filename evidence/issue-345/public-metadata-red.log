@@ -1,0 +1,24 @@
+   Compiling bimcraft-core v0.11.0 (<WORKTREE>\crates\core)
+    Finished `test` profile [unoptimized] target(s) in 2.13s
+     Running tests\property_boundaries.rs (<USER_HOME>/Projects/jonaswre/BIMCraft/.targets/issue-11\debug\deps\property_boundaries-a8bd9a113e521750.exe)
+
+running 1 test
+test tests::mismatched_site_metadata_is_ignored_without_losing_the_boundary_or_identity ... FAILED
+
+failures:
+
+---- tests::mismatched_site_metadata_is_ignored_without_losing_the_boundary_or_identity stdout ----
+
+thread 'tests::mismatched_site_metadata_is_ignored_without_losing_the_boundary_or_identity' (12908) panicked at crates\core\tests\property_boundaries.rs:180:9:
+assertion `left == right` failed: metadata lists must correspond to the footprint curve count
+  left: "Wrong plot name"
+ right: "Property Line 1"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    tests::mismatched_site_metadata_is_ignored_without_losing_the_boundary_or_identity
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 8 filtered out; finished in 0.11s
+
+error: test failed, to rerun pass `-p bimcraft-core --test property_boundaries`

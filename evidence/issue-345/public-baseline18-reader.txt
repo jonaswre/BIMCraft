@@ -1,0 +1,15 @@
+Clean native format-18 compatibility probe
+
+Product source base: 30527e323e9c2e59abff927e4b76fe3ce0f83e15
+Read-only build checkout HEAD: 533073c5663a40038b0c9f6e2a168110734d56a2
+Core and CLI product source at that HEAD matched the product base.
+Build: cargo build -p bimcraft-cli --no-default-features --config profile.dev.package.bimcraft-core.opt-level=0 --config profile.dev.debug=0
+Reader executable SHA256: 44AA58EA0924903672DEF0E92832BE624B1F14C3B45730D322B32001CD45237F
+
+The reader created legacy-empty.bimcraft as native FORMAT 18. The feature reader
+opened that file. The clean format-18 reader refused plots.bimcraft with unknown
+variant `propertyline`, before a Model was constructed. See
+public-cli-old-file-open.log and public-baseline18-refusal.log.
+The private locally built reader executable is not included in this package.
+The public 0.11.0 portable reader reads FORMAT 17; its newer-version refusal was
+not used as format-18 compatibility evidence.

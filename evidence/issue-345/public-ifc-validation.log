@@ -1,0 +1,33 @@
+{
+  "ifcopenshell": "0.8.5",
+  "schema": "IFC4",
+  "express_statements": 0,
+  "unique_global_ids": 13,
+  "areas_m2": [
+    24.0,
+    16.0
+  ],
+  "perimeters_m": [
+    20.0,
+    20.0
+  ],
+  "site_total_area_m2": 40,
+  "curve_shape_bounds_m": [
+    0.0,
+    0.0,
+    0.0,
+    14.0,
+    4.0,
+    0.0
+  ],
+  "foreign_curve_shape_bounds_m": [
+    6.0,
+    20.0,
+    0.0,
+    10.0,
+    34.0,
+    0.0
+  ],
+  "shape_edges": 10,
+  "curve_faces": 0
+}

@@ -1,0 +1,49 @@
+   Compiling bimcraft-core v0.11.0 (<WORKTREE>\crates\core)
+    Finished `test` profile [unoptimized] target(s) in 37.47s
+     Running tests\agent_docs.rs (<USER_HOME>/Projects/jonaswre/BIMCraft/.targets/issue-11\debug\deps\agent_docs-860e53fa9aab599c.exe)
+
+running 3 tests
+test the_root_claude_md_stays_under_its_word_budget ... ok
+test the_root_claude_md_reaches_every_crate_note_and_area_write_up ... ok
+test every_file_the_agent_docs_link_to_exists ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running tests\property_boundaries.rs (<USER_HOME>/Projects/jonaswre/BIMCraft/.targets/issue-11\debug\deps\property_boundaries-a8bd9a113e521750.exe)
+
+running 8 tests
+test tests::concave_reversed_boundaries_and_multiple_levels_survive_ifc_with_names_and_guids ... ok
+test tests::boundaries_move_copy_undo_and_refresh_the_level_lookup_without_losing_identity ... ok
+test tests::boundary_rotation_mirroring_visibility_and_deletion_use_the_existing_commands ... ok
+test tests::an_open_ifc_site_footprint_is_reported_instead_of_silently_closed ... ok
+test tests::survey_bearings_cover_quadrants_and_carry_rounded_seconds ... ok
+test tests::native_unknown_fields_are_reported_newer_versions_refused_and_old_files_unchanged ... ok
+test tests::property_boundary_command_draw_schedule_native_and_ifc_round_trip ... ok
+test tests::property_boundary_invalid_inputs_roll_back_and_read_only_refuses ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.58s
+
+     Running tests\revision_metadata.rs (<USER_HOME>/Projects/jonaswre/BIMCraft/.targets/issue-11\debug\deps\revision_metadata-df316ac319b41c89.exe)
+
+running 6 tests
+test tests::read_access_and_sparse_ids_do_not_expand_or_mutate_revision_metadata ... ok
+test tests::a_local_mutation_revises_only_its_element_even_inside_a_shared_chunk ... ok
+test tests::mutable_iterators_stamp_only_the_items_they_yield ... ok
+test tests::removal_replacement_and_clear_update_metadata_without_changing_guids_or_file_shape ... ok
+test tests::revision_deltas_cover_skipped_snapshots_and_independent_branches ... ok
+test tests::annotation_commands_and_undo_do_not_revise_unrelated_geometry ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.06s
+
+     Running tests\spatial_cache.rs (<USER_HOME>/Projects/jonaswre/BIMCraft/.targets/issue-11\debug\deps\spatial_cache-f29a4b318aab31a1.exe)
+
+running 7 tests
+test section_framing_refreshes_after_cad_data_changes_without_element_edits ... ok
+test a_local_annotation_edit_keeps_all_geometry_definitions_shared ... ok
+test definition_snapshots_share_until_edited_and_keep_the_existing_file_shape ... ok
+test section_framing_refreshes_after_an_in_place_family_edit ... ok
+test section_framing_refreshes_after_cloud_data_changes_without_element_edits ... ok
+test type_edits_undo_redo_and_branches_keep_independent_definition_identities ... ok
+test section_work_refreshes_after_a_type_edit_without_any_element_mutation ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.40s

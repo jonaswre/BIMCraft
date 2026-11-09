@@ -1,0 +1,16 @@
+   Compiling bimcraft-core v0.11.0 (<WORKTREE>\crates\core)
+    Finished `test` profile [unoptimized] target(s) in 36.07s
+     Running tests\property_boundaries.rs (<USER_HOME>/Projects/jonaswre/BIMCraft/.targets/issue-11\debug\deps\property_boundaries-a8bd9a113e521750.exe)
+
+running 9 tests
+test tests::concave_reversed_boundaries_and_multiple_levels_survive_ifc_with_names_and_guids ... ok
+test tests::boundaries_move_copy_undo_and_refresh_the_level_lookup_without_losing_identity ... ok
+test tests::an_open_ifc_site_footprint_is_reported_instead_of_silently_closed ... ok
+test tests::boundary_rotation_mirroring_visibility_and_deletion_use_the_existing_commands ... ok
+test tests::native_unknown_fields_are_reported_newer_versions_refused_and_old_files_unchanged ... ok
+test tests::mismatched_site_metadata_is_ignored_without_losing_the_boundary_or_identity ... ok
+test tests::survey_bearings_cover_quadrants_and_carry_rounded_seconds ... ok
+test tests::property_boundary_invalid_inputs_roll_back_and_read_only_refuses ... ok
+test tests::property_boundary_command_draw_schedule_native_and_ifc_round_trip ... ok
+
+test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.34s

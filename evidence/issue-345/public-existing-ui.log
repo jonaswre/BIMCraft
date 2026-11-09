@@ -1,0 +1,9 @@
+    Finished `test` profile [unoptimized] target(s) in 6.61s
+     Running unittests src\lib.rs (<USER_HOME>/Projects/jonaswre/BIMCraft/.targets/issue-11\debug\deps\bimcraft_ui_egui-846a33bfdb14fa4e.exe)
+
+running 3 tests
+test tests::properties_and_type_properties_edit_a_components_parameters ... ok
+test tests::properties_edit_every_selected_element_in_one_step ... ok
+test tests::properties_edit_through_modify_and_undo_puts_them_back ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 853 filtered out; finished in 11.90s

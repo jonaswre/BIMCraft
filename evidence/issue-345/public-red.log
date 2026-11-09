@@ -1,0 +1,80 @@
+   Compiling cfg-if v1.0.5
+   Compiling crossbeam-utils v0.8.23
+   Compiling proc-macro2 v1.0.107
+   Compiling simd-adler32 v0.3.10
+   Compiling unicode-ident v1.0.27
+   Compiling rustversion v1.0.23
+   Compiling adler2 v2.0.1
+   Compiling crc32fast v1.5.2
+   Compiling quote v1.0.47
+   Compiling crossbeam-epoch v0.9.21
+   Compiling serde_core v1.0.229
+   Compiling crossbeam-deque v0.8.8
+   Compiling miniz_oxide v0.9.1
+   Compiling getrandom v0.4.3
+   Compiling zmij v1.0.23
+   Compiling rayon-core v1.13.0
+   Compiling flate2 v1.1.10
+   Compiling encoding_rs v0.8.42
+   Compiling syn v3.0.9
+   Compiling miniz_oxide v0.8.9
+   Compiling fdeflate v0.3.7
+   Compiling bimcraft-i18n v0.11.0 (<WORKTREE>\crates\i18n)
+   Compiling serde v1.0.229
+   Compiling bitflags v1.3.2
+   Compiling bytemuck v1.25.2
+   Compiling windows-link v0.2.1
+   Compiling serde_json v1.0.154
+   Compiling arrayref v0.3.9
+   Compiling strict-num v0.1.1
+   Compiling getrandom v0.3.4
+   Compiling tiny-skia-path v0.11.4
+   Compiling windows-sys v0.61.2
+   Compiling png v0.17.16
+   Compiling bimcraft-core v0.11.0 (<WORKTREE>\crates\core)
+   Compiling serde_derive v1.0.229
+   Compiling core_detect v1.0.0
+   Compiling log v0.4.34
+   Compiling memchr v2.8.3
+   Compiling multiversion_no_op v1.0.0
+   Compiling zune-core v0.5.3
+   Compiling itoa v1.0.18
+   Compiling once_cell v1.21.4
+   Compiling simdutf8 v0.1.5
+   Compiling arrayvec v0.7.8
+   Compiling scopeguard v1.2.0
+   Compiling fastrand v2.5.0
+   Compiling either v1.19.0
+   Compiling rayon v1.12.0
+   Compiling tempfile v3.27.0
+   Compiling tiny-skia v0.11.4
+   Compiling zune-jpeg v0.5.15
+   Compiling ttf-parser v0.25.1
+    Finished `test` profile [unoptimized] target(s) in 3m 28s
+     Running tests\property_boundaries.rs (<USER_HOME>/Projects/jonaswre/BIMCraft/.targets/issue-11\debug\deps\property_boundaries-a8bd9a113e521750.exe)
+
+running 2 tests
+test property_boundary_command_draw_schedule_native_and_ifc_round_trip ... FAILED
+test property_boundary_invalid_inputs_roll_back_and_read_only_refuses ... FAILED
+
+failures:
+
+---- property_boundary_command_draw_schedule_native_and_ifc_round_trip stdout ----
+
+thread 'property_boundary_command_draw_schedule_native_and_ifc_round_trip' (24424) panicked at crates\core\tests\property_boundaries.rs:6:52:
+property_line: unknown command `property_line`; list_commands shows them
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- property_boundary_invalid_inputs_roll_back_and_read_only_refuses stdout ----
+
+thread 'property_boundary_invalid_inputs_roll_back_and_read_only_refuses' (48428) panicked at crates\core\tests\property_boundaries.rs:6:52:
+property_line: unknown command `property_line`; list_commands shows them
+
+
+failures:
+    property_boundary_command_draw_schedule_native_and_ifc_round_trip
+    property_boundary_invalid_inputs_roll_back_and_read_only_refuses
+
+test result: FAILED. 0 passed; 2 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+error: test failed, to rerun pass `-p bimcraft-core --test property_boundaries`

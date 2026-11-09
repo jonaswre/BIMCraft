@@ -1,0 +1,7 @@
+property_line {"name": "Synthetic Plot", "points": [[0, 0], [6000, 0], [6000, 4000], [0, 4000], [0, 0]]}
+level {"name": "Upper synthetic plan", "elevation": 3000}
+property_line {"name": "Concave synthetic plot", "level": "Upper synthetic plan", "points": [[8000, 4000], [10000, 4000], [10000, 2000], [14000, 2000], [14000, 0], [8000, 0]]}
+elements {"category": "property lines"}
+schedule {"category": "property lines", "path": "schedule.csv"}
+render {"view": "Level 1", "path": "plan.png", "width": 1000, "height": 700}
+render {"view": "Upper synthetic plan", "path": "upper-plan.png", "width": 1000, "height": 700}
