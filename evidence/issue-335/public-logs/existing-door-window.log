@@ -1,0 +1,8 @@
+    Finished `test` profile [unoptimized] target(s) in 0.24s
+     Running unittests src/lib.rs (<target>/debug/deps/bimcraft_core-f723816fa9dc5cad.exe)
+
+running 2 tests
+test tests::doors_and_windows_find_the_wall_under_a_point ... ok
+test tests::doors_and_windows_keep_their_marks_through_ifc_and_new_ones_follow_the_series ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 1547 filtered out; finished in 0.62s

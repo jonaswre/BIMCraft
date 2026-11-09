@@ -1,0 +1,18 @@
+    Finished `test` profile [unoptimized] target(s) in 0.29s
+     Running unittests src/lib.rs (<target>/debug/deps/bimcraft_core-f723816fa9dc5cad.exe)
+
+running 12 tests
+test phasing::tests::a_door_made_in_the_first_phase_does_not_follow_a_wall_made_later ... ok
+test graphics::tests::a_doors_swing_is_projection_and_the_rest_of_it_is_cut ... ok
+test phasing::tests::a_door_and_its_tag_leave_the_plan_with_the_wall_a_phase_takes_away ... ok
+test phasing::tests::a_door_stays_with_its_wall_when_a_phase_goes_in_before_the_first ... ok
+test tests::a_door_near_the_middle_between_the_faces_finds_the_middle ... ok
+test phasing::tests::a_door_with_no_phase_of_its_own_follows_its_wall ... ok
+test tests::a_door_familys_instance_parameters_are_its_own_and_its_type_parameters_its_types ... ok
+test tests::a_door_or_window_is_sketched_as_the_command_would_make_it ... ok
+test tests::a_door_or_window_refused_for_a_wall_the_level_does_not_cut_says_so ... ok
+test tests::a_door_familys_swing_is_drawn_in_plan_and_flips_with_the_door ... ok
+test tests::a_doors_family_sizes_its_opening_and_a_windows_gives_it_its_sill ... ok
+test tests::a_door_stands_between_the_faces_of_the_walls_that_meet_its_wall ... ok
+
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 1537 filtered out; finished in 1.25s

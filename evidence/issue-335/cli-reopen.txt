@@ -1,0 +1,3 @@
+elements {"category":"doors"}
+elements {"category":"windows"}
+render {"view":"{3D}","width":800,"height":500,"azimuth":270,"elevation":0,"path":"reopened.png"}

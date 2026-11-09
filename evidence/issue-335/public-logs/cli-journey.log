@@ -1,0 +1,8 @@
+{"ids":[100002]}
+{"azimuth":270.0,"elevation":0.0,"eye":null,"eye_elevation":null,"height":500,"kind":"3D view","lens":null,"path":"before.png","target":null,"view":"{3D}","width":800}
+{"host":100002,"id":100003,"mark":"1","offset":2000.0}
+{"host":100002,"id":100004,"mark":"1","offset":6000.0}
+{"count":1,"elements":[{"at":[2000.0,0.0],"category":"door","flip_facing":false,"flip_hand":false,"guid":"ca4fb0f8-6f0d-4236-88de-085d0a5178ad","height":2100.0,"host":"11abdf6e-f72a-4f00-8f2f-bbcd4293a2da","id":100003,"level":"fd6aab75-8af6-45fe-bba3-f3e9faa9ed90","mark":"1","offset":2000.0,"sill":0.0,"type":"Single 900 x 2100","type_guid":"0d58d6bd-50dc-444f-8f1d-bf3373119988","width":900.0}],"returned":1}
+{"count":1,"elements":[{"at":[6000.0,0.0],"category":"window","flip_facing":false,"flip_hand":false,"guid":"a057e1ac-bf61-4416-a2ce-6bb1dc37d26f","height":1500.0,"host":"11abdf6e-f72a-4f00-8f2f-bbcd4293a2da","id":100004,"level":"fd6aab75-8af6-45fe-bba3-f3e9faa9ed90","mark":"1","offset":6000.0,"sill":900.0,"type":"Fixed 1200 x 1500","type_guid":"fca9d344-c2b7-4075-b353-84222ea2ebf9","width":1200.0}],"returned":1}
+{"azimuth":270.0,"elevation":0.0,"eye":null,"eye_elevation":null,"height":500,"kind":"3D view","lens":null,"path":"after.png","target":null,"view":"{3D}","width":800}
+{"format":"bimcraft","path":"raised-wall.bimcraft"}

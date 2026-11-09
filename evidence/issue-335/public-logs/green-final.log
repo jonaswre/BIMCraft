@@ -1,0 +1,12 @@
+   Compiling bimcraft-core v0.11.0 (<checkout>/crates/core)
+    Finished `test` profile [unoptimized] target(s) in 22.34s
+     Running tests/raised_wall_openings.rs (<target>/debug/deps/raised_wall_openings-90fa1aecd5d57a95.exe)
+
+running 5 tests
+test tests::raised_wall_fallback_still_validates_sill_width_and_overlapping_openings ... ok
+test tests::raised_wall_lookup_keeps_low_wall_and_other_level_diagnostics ... ok
+test tests::raised_host_lookup_preserves_cut_wall_priority_and_explicit_wall_control ... ok
+test tests::stacked_raised_hosts_require_a_wall_id_and_refusal_changes_nothing ... ok
+test tests::raised_wall_openings_render_and_keep_their_hosts_after_save_and_open ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.50s

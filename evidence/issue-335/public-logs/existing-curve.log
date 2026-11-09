@@ -1,0 +1,7 @@
+    Finished `test` profile [unoptimized] target(s) in 0.22s
+     Running unittests src/lib.rs (<target>/debug/deps/bimcraft_core-f723816fa9dc5cad.exe)
+
+running 1 test
+test tests::curved_walls_bound_rooms_and_carry_openings_along_their_arc ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 1548 filtered out; finished in 0.28s

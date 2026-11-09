@@ -1,0 +1,38 @@
+   Compiling bimcraft-core v0.11.0 (<checkout>/crates/core)
+    Finished `test` profile [unoptimized] target(s) in 1.64s
+     Running tests/raised_wall_openings.rs (<target>/debug/deps/raised_wall_openings-90fa1aecd5d57a95.exe)
+
+running 5 tests
+test tests::raised_wall_fallback_still_validates_sill_width_and_overlapping_openings ... FAILED
+test tests::raised_wall_openings_render_and_keep_their_hosts_after_save_and_open ... FAILED
+test tests::raised_wall_lookup_keeps_low_wall_and_other_level_diagnostics ... ok
+test tests::stacked_raised_hosts_require_a_wall_id_and_refusal_changes_nothing ... FAILED
+test tests::raised_host_lookup_preserves_cut_wall_priority_and_explicit_wall_control ... ok
+
+failures:
+
+---- tests::raised_wall_fallback_still_validates_sill_width_and_overlapping_openings stdout ----
+
+thread 'tests::raised_wall_fallback_still_validates_sill_width_and_overlapping_openings' (53284) panicked at crates/core/tests/raised_wall_openings.rs:93:13:
+window: no wall at [4000, 0] on Level 1; wall 100002 stands there but spans 6000 to 9000 mm and Level 1 cuts at 1200 mm: give the wall that level, or a view range that cuts it
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- tests::raised_wall_openings_render_and_keep_their_hosts_after_save_and_open stdout ----
+
+thread 'tests::raised_wall_openings_render_and_keep_their_hosts_after_save_and_open' (23748) panicked at crates/core/tests/raised_wall_openings.rs:8:66:
+door {"at":[4000,0],"level":"Level 1"}: door: no wall at [4000, 0] on Level 1; wall 100002 stands there but spans 6000 to 9000 mm and Level 1 cuts at 1200 mm: give the wall that level, or a view range that cuts it
+
+---- tests::stacked_raised_hosts_require_a_wall_id_and_refusal_changes_nothing stdout ----
+
+thread 'tests::stacked_raised_hosts_require_a_wall_id_and_refusal_changes_nothing' (53492) panicked at crates/core/tests/raised_wall_openings.rs:59:13:
+door: no wall at [4000, 0] on Level 1; wall 100002 stands there but spans 6000 to 9000 mm and Level 1 cuts at 1200 mm: give the wall that level, or a view range that cuts it
+
+
+failures:
+    tests::raised_wall_fallback_still_validates_sill_width_and_overlapping_openings
+    tests::raised_wall_openings_render_and_keep_their_hosts_after_save_and_open
+    tests::stacked_raised_hosts_require_a_wall_id_and_refusal_changes_nothing
+
+test result: FAILED. 2 passed; 3 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.11s
+
+error: test failed, to rerun pass `-p bimcraft-core --test raised_wall_openings`

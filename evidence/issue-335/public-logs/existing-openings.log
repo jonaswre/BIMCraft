@@ -1,0 +1,14 @@
+   Compiling bimcraft-core v0.11.0 (<checkout>/crates/core)
+    Finished `test` profile [unoptimized] target(s) in 3m 25s
+     Running unittests src/lib.rs (<target>/debug/deps/bimcraft_core-f723816fa9dc5cad.exe)
+
+running 7 tests
+test openings_past_top_tests::an_ifc_window_whose_sill_is_over_its_walls_top_is_left_out_naming_the_files_wall ... ok
+test openings_past_top_tests::a_window_whose_head_passes_its_walls_top_is_made_and_keeps_its_size ... ok
+test openings_past_top_tests::a_plan_cut_over_the_walls_top_sees_the_notch_and_one_cut_through_it_opens_the_wall_up_to_the_top ... ok
+test openings_past_top_tests::the_wall_is_notched_open_at_the_top_in_3d_and_holds_what_is_left ... ok
+test openings_past_top_tests::an_opening_whose_sill_is_at_or_above_its_walls_top_is_refused_saying_what_to_do ... ok
+test openings_past_top_tests::an_ifc_with_a_window_past_its_walls_top_opens_with_it_and_saves_and_opens_again ... ok
+test openings_past_top_tests::an_elevation_and_a_section_show_the_window_rising_out_of_the_notch ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 1542 filtered out; finished in 0.87s

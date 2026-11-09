@@ -1,0 +1,9 @@
+{
+  "public_elements_after_reopen": "identical",
+  "image_after_reopen": "identical",
+  "door_host": 100002,
+  "window_host": 100002,
+  "door_sill": 0.0,
+  "window_sill": 900.0,
+  "native_format": 18
+}
