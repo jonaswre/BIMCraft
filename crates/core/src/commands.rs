@@ -244,7 +244,7 @@ other_files(
         &["DR"],
         "{at: [x,y] | wall: id, offset?, type?, family?, level?, mark?, flip_facing?, flip_hand?} in the wall under `at`, \
          or in `wall` centred `offset` mm from its start; without `level`, prefer the lowest level at or above elevation 0 \
-         whose plan cuts a wall there, then the highest below 0; with `family`, a door family's `type` (its first by default), \
+         whose plan cuts a wall there, then the highest below 0, then a unique raised wall on the default level; with `family`, a door family's `type` (its first by default), \
          which sizes the opening and draws the door. An explicit `level` different from the wall's places it at that \
          level's elevation, otherwise at the wall's base; it may rise past a low wall's top. With `level`, prefer a wall \
          cut by the plan, otherwise a unique nearby raised wall on that level; for stacked raised walls give `wall` explicitly",
@@ -7409,6 +7409,24 @@ pub fn opening_of(m: &Model, p: &Value, is_door: bool) -> Result<Element, String
     build_opening(m, p, is_door).map(|o| if is_door { Element::Door(o) } else { Element::Window(o) })
 }
 
+/// A unique raised host on the selected level, after cut-wall lookup has failed.
+fn raised_wall_at(c: &str, m: &Model, level: Guid, at: P2) -> Result<Option<(Guid, f64)>, String> {
+    // A raised wall belongs to its level even when the plan cuts below it. Never choose between
+    // stacked raised hosts by iteration order, or change the lookup policy for low walls.
+    let cut = m.plan_range(level).cut;
+    let mut raised = m.elements.with_guids().filter_map(|(_, id, e)| match e {
+        Element::Wall(w) if m.same(w.level, level) && m.base_z(w) > cut && off_centre(m, w, at) <= m.thickness(w) / 2.0 + 100.0 => {
+            Some((id, along(w, at)))
+        }
+        _ => None,
+    });
+    let first = raised.next();
+    if raised.next().is_some() {
+        return Err(bad(c, "ambiguous raised walls at `at` on this level; give `wall` explicitly"));
+    }
+    Ok(first)
+}
+
 fn build_opening(m: &Model, p: &Value, is_door: bool) -> Result<Opening, String> {
     let c = if is_door { "door" } else { "window" };
     let requested_level = if absent(p.get("level")) { None } else { Some(level_param(c, m, p, "level")?) };
@@ -7443,31 +7461,18 @@ fn build_opening(m: &Model, p: &Value, is_door: bool) -> Result<Opening, String>
         }
         None if absent(p.get("level")) => {
             let at = at.ok_or_else(|| bad(c, "give `at` [x, y] on a wall, or `wall` with `offset`"))?;
-            wall_on_any_level(m, at).ok_or_else(|| opening_host_error(c, m, at, None))?
+            match wall_on_any_level(m, at) {
+                Some(host) => host,
+                None => {
+                    let level = level_param(c, m, p, "level")?;
+                    raised_wall_at(c, m, level, at)?.ok_or_else(|| opening_host_error(c, m, at, None))?
+                }
+            }
         }
         None => {
             let at = at.ok_or_else(|| bad(c, "give `at` [x, y] on a wall, or `wall` with `offset`"))?;
             let level = level_param(c, m, p, "level")?;
-            let host = if let Some(host) = wall_at(m, level, at) {
-                Some(host)
-            } else {
-                // A raised wall belongs to its level even when the plan cuts below it. Never choose between
-                // stacked raised hosts by iteration order, or change the lookup policy for low walls.
-                let cut = m.plan_range(level).cut;
-                let mut raised = m.elements.with_guids().filter_map(|(_, id, e)| match e {
-                    Element::Wall(w)
-                        if m.same(w.level, level) && m.base_z(w) > cut && off_centre(m, w, at) <= m.thickness(w) / 2.0 + 100.0 =>
-                    {
-                        Some((id, along(w, at)))
-                    }
-                    _ => None,
-                });
-                let first = raised.next();
-                if raised.next().is_some() {
-                    return Err(bad(c, "ambiguous raised walls at `at` on this level; give `wall` explicitly"));
-                }
-                first
-            };
+            let host = if let Some(host) = wall_at(m, level, at) { Some(host) } else { raised_wall_at(c, m, level, at)? };
             host.ok_or_else(|| opening_host_error(c, m, at, Some(level)))?
         }
     };

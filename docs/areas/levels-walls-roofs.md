@@ -258,3 +258,16 @@ Revit has default shortcuts for Trim/Extend to Corner (TR), Offset (OF), Fillet 
 `corner`, `offset`, `fillet`, `split` and `detail_line` have; it has none for Trim/Extend to a boundary, vertices, Convert
 Spline, Edit Boundary, line patterns and styles or fill patterns, which have none here. Explode Polyline is EX, ours (PX is
 the desktop's Plumbing Fixture).
+
+
+## Combined native history and opening placement
+
+The combined audit writes native format 20: steel sections occupy format 19 and open stairs occupy format 20.
+Files of 18 preserve their original sections and solid stairs. Both independently authored format-19 variants retain
+known fields: a present open-stair marker is preserved, while an absent marker defaults to solid construction.
+Older format-19 readers refuse combined format-20 files rather than silently replacing construction.
+
+For an opening without `level`, cut-eligible hosts on the ordered levels take priority. If none exists, only the default
+level is considered for the unique raised-wall fallback; stacked raised hosts require an explicit wall. An explicit
+level remains exclusive. An explicit wall selects the host, while an explicit different level sets the opening's absolute
+elevation; an elevation below that host is refused without changing the model.

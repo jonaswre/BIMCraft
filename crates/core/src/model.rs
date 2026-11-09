@@ -71,10 +71,11 @@ pub const CEILING_CUT: f64 = 2300.0;
 pub const CEILING_HEIGHT: f64 = 2600.0;
 /// The steepest slope a floor or a roof may have, degrees.
 pub const MAX_SLOPE: f64 = 75.0;
-/// The version of the project file this build writes, and the newest it reads. 19: beam and structural-column types may
+/// The version of the project file this build writes, and the newest it reads. 20: stairs may be open, with treads,
+/// stringers and thin landings; a steel-only 19 reader would discard `open` and turn them solid. 19: beam and structural-column types may
 /// have steel profiles; a reader of 18 would drop them and reinterpret their bounding rectangles/circles as material.
 /// Files of 18 retain their original sections without conversion. 18: a family's connector may be a `pipe`,
-
+///
 /// `data` or `earthing` one, with no `system` (a pipe's `domain`, `flow`, `size`), and any may have a place (`at`, `direction`);
 /// the starter fixtures and fittings have them; nothing in a file of 17 changes, but a build that reads up to 17 would answer
 /// such a connector with a serde error ("unknown variant", "missing field `system`"), not "saved by a newer BIMCraft". 17: a schedule may list several categories
@@ -115,7 +116,7 @@ pub const MAX_SLOPE: f64 = 75.0;
 /// 2: the library has ids and GUIDs too
 /// (`library`), and what names a library entry holds its GUID. 1: elements have GUIDs, ids six digits, and what points at
 /// an element holds its GUID. None (0): a file from before.
-pub const FORMAT: u32 = 19;
+pub const FORMAT: u32 = 20;
 /// How far past the model a level reaches without an extent of its own, mm.
 pub const LEVEL_PAST: f64 = 1000.0;
 
@@ -3535,7 +3536,9 @@ impl Model {
         // a power or a switch one, each with its system, which 18 reads as they were.
         // 18 to 19 (steel beam and structural-column sections) needs no data conversion: absent profiles retain the
         // original rectangle/circle. The version gate prevents an older reader dropping a profile and changing geometry.
-        // 18 to 19: open stair construction. Older readers discard `open`, turning the stair solid.
+        // 19 to 20: open stair construction. Missing fields already default to false.
+        // Preserve an explicit open marker from the independent stair-format19 branch.
+        // Files older than 19 cannot have authored open construction.
         // Files of 18 and earlier authored only solid stairs; their missing field defaults to false.
         if self.format < 19 {
             for (_, element) in self.elements.iter_mut() {

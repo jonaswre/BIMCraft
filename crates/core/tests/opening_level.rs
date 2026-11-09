@@ -117,7 +117,15 @@ mod tests {
     fn explicit_wall_remains_authoritative_even_with_a_different_level() {
         let mut s = fixture();
         let upper = wall(&mut s, "Level 2", 0.0);
-        assert_eq!(run(&mut s, "door", json!({"wall": upper, "offset": 2000, "level": "Foundation"}))["host"], upper);
+        let before = run(&mut s, "elements", json!({}));
+        let error = s.execute("door", &json!({"wall": upper, "offset": 2000, "level": "Foundation"})).unwrap_err();
+        assert!(error.contains("under wall"), "the requested elevation must fit the explicit host: {error}");
+        assert_eq!(run(&mut s, "elements", json!({})), before);
+        let tall = run(&mut s, "wall", json!({"level":"Foundation","points":[[0,8000],[6000,8000]],"height":9000}))["ids"][0].clone();
+        let door = run(&mut s, "door", json!({"wall":tall,"offset":2000,"level":"Level 2"}));
+        assert_eq!(door["host"], tall, "explicit wall stays authoritative at a valid requested elevation");
+        let bimcraft_core::model::Element::Door(opening) = &s.model.elements[&door["id"].as_u64().unwrap()] else { panic!("not a door") };
+        assert_eq!(s.model.opening_frame(opening).unwrap().2, 3000.0);
     }
 
     #[test]
