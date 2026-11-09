@@ -1,0 +1,35 @@
+Commands: git branch --show-current; git rev-parse HEAD; git log -1 --format=%H%n%P%n%s; git status --porcelain=v1; rustc --version; owned process query
+fix/opening-requested-elevation
+8681249e5d60f5836ab4e52d3a3bfc07f6733e0d
+8681249e5d60f5836ab4e52d3a3bfc07f6733e0d
+30527e323e9c2e59abff927e4b76fe3ce0f83e15
+Keep openings at an explicitly requested upper-level elevation
+Worktree clean: true
+rustc 1.99.0 (b940084d7 2026-09-28)
+Owned build/test/CLI processes: 0
+
+Command: git show --format= --name-only HEAD
+crates/core/src/commands.rs
+crates/core/tests/opening_elevation.rs
+crates/ui-egui/src/tests.rs
+docs/areas/levels-walls-roofs.md
+translations/project/bimcraft-project.pot
+translations/project/cs.po
+translations/project/de.po
+translations/project/es.po
+translations/project/fr.po
+translations/project/it.po
+translations/project/nl.po
+translations/project/pt.po
+translations/project/sv.po
+translations/ui/bimcraft-ui.pot
+translations/ui/cs.po
+translations/ui/de.po
+translations/ui/es.po
+translations/ui/fr.po
+translations/ui/it.po
+translations/ui/nl.po
+translations/ui/pt.po
+translations/ui/vi.po
+translations/ui/zh.po
+translations/ui/zh_TW.po

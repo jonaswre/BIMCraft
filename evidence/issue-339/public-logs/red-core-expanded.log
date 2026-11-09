@@ -1,0 +1,59 @@
+   Compiling bimcraft-core v0.11.0 (WORKTREE\crates\core)
+    Finished `test` profile [unoptimized] target(s) in 7.40s
+     Running tests\opening_elevation.rs (TARGET\debug\deps\opening_elevation-98c98d962aefda17.exe)
+
+running 6 tests
+test tests::different_requested_level_accounts_for_the_host_base_offset ... FAILED
+test tests::explicit_host_honors_requested_level_for_doors_and_default_window_sills ... FAILED
+test tests::requested_level_outside_host_is_rejected_atomically ... FAILED
+test tests::host_relative_placement_without_a_different_requested_level_is_preserved ... ok
+test tests::upper_level_window_is_visible_on_its_plan_and_survives_save_reopen ... FAILED
+test tests::upper_level_family_window_uses_its_default_sill_in_preview_and_placement ... FAILED
+
+failures:
+
+---- tests::different_requested_level_accounts_for_the_host_base_offset stdout ----
+
+thread 'tests::different_requested_level_accounts_for_the_host_base_offset' (8760) panicked at crates\core\tests\opening_elevation.rs:69:5:
+assertion `left == right` failed
+  left: 1400.0
+ right: 4300.0
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- tests::explicit_host_honors_requested_level_for_doors_and_default_window_sills stdout ----
+
+thread 'tests::explicit_host_honors_requested_level_for_doors_and_default_window_sills' (29432) panicked at crates\core\tests\opening_elevation.rs:48:9:
+assertion `left == right` failed: door
+  left: 0.0
+ right: 3400.0
+
+---- tests::requested_level_outside_host_is_rejected_atomically stdout ----
+
+thread 'tests::requested_level_outside_host_is_rejected_atomically' (31460) panicked at crates\core\tests\opening_elevation.rs:92:79:
+called `Result::unwrap_err()` on an `Ok` value: Object {"host": Number(100003), "id": Number(100005), "mark": String("1"), "offset": Number(4000.0)}
+
+---- tests::upper_level_window_is_visible_on_its_plan_and_survives_save_reopen stdout ----
+
+thread 'tests::upper_level_window_is_visible_on_its_plan_and_survives_save_reopen' (3728) panicked at crates\core\tests\opening_elevation.rs:22:5:
+assertion `left == right` failed: requested level + sill, not host base + sill
+  left: 900.0
+ right: 4300.0
+
+---- tests::upper_level_family_window_uses_its_default_sill_in_preview_and_placement stdout ----
+
+thread 'tests::upper_level_family_window_uses_its_default_sill_in_preview_and_placement' (7740) panicked at crates\core\tests\opening_elevation.rs:80:5:
+assertion `left == right` failed
+  left: 1100.0
+ right: 4500.0
+
+
+failures:
+    tests::different_requested_level_accounts_for_the_host_base_offset
+    tests::explicit_host_honors_requested_level_for_doors_and_default_window_sills
+    tests::requested_level_outside_host_is_rejected_atomically
+    tests::upper_level_family_window_uses_its_default_sill_in_preview_and_placement
+    tests::upper_level_window_is_visible_on_its_plan_and_survives_save_reopen
+
+test result: FAILED. 1 passed; 5 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.28s
+
+error: test failed, to rerun pass `-p bimcraft-core --test opening_elevation`

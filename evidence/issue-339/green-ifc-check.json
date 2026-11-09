@@ -1,0 +1,97 @@
+{
+  "ifcopenshell_version": "0.8.5",
+  "green.ifc": {
+    "products": [
+      {
+        "type": "IfcWall",
+        "bounds_min_m": [
+          0.0,
+          -0.1,
+          0.0
+        ],
+        "bounds_max_m": [
+          8.0,
+          0.10000000000000002,
+          7.2
+        ],
+        "volume_m3": 11.16
+      },
+      {
+        "type": "IfcWindow",
+        "bounds_min_m": [
+          3.4,
+          -0.025,
+          4.3
+        ],
+        "bounds_max_m": [
+          4.6,
+          0.025,
+          5.8
+        ],
+        "volume_m3": 0.08999999999999993
+      },
+      {
+        "type": "IfcOpeningElement",
+        "bounds_min_m": [
+          3.4,
+          -0.11,
+          4.3
+        ],
+        "bounds_max_m": [
+          4.6,
+          0.11,
+          5.8
+        ],
+        "volume_m3": 0.39600000000000063
+      }
+    ],
+    "validation_statements": 0
+  },
+  "green-reopened.ifc": {
+    "products": [
+      {
+        "type": "IfcWall",
+        "bounds_min_m": [
+          0.0,
+          -0.1,
+          0.0
+        ],
+        "bounds_max_m": [
+          8.0,
+          0.10000000000000002,
+          7.2
+        ],
+        "volume_m3": 11.16
+      },
+      {
+        "type": "IfcWindow",
+        "bounds_min_m": [
+          3.4,
+          -0.025,
+          4.3
+        ],
+        "bounds_max_m": [
+          4.6,
+          0.025,
+          5.8
+        ],
+        "volume_m3": 0.08999999999999993
+      },
+      {
+        "type": "IfcOpeningElement",
+        "bounds_min_m": [
+          3.4,
+          -0.11,
+          4.3
+        ],
+        "bounds_max_m": [
+          4.6,
+          0.11,
+          5.8
+        ],
+        "volume_m3": 0.39600000000000063
+      }
+    ],
+    "validation_statements": 0
+  }
+}

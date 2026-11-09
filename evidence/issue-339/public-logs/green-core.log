@@ -1,0 +1,13 @@
+   Compiling bimcraft-core v0.11.0 (WORKTREE\crates\core)
+    Finished `test` profile [unoptimized] target(s) in 57.25s
+     Running tests\opening_elevation.rs (TARGET\debug\deps\opening_elevation-98c98d962aefda17.exe)
+
+running 6 tests
+test tests::different_requested_level_accounts_for_the_host_base_offset ... ok
+test tests::host_relative_placement_without_a_different_requested_level_is_preserved ... ok
+test tests::explicit_host_honors_requested_level_for_doors_and_default_window_sills ... ok
+test tests::upper_level_family_window_uses_its_default_sill_in_preview_and_placement ... ok
+test tests::requested_level_outside_host_is_rejected_atomically ... ok
+test tests::upper_level_window_is_visible_on_its_plan_and_survives_save_reopen ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.78s

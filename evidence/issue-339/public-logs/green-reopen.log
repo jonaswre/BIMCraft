@@ -1,0 +1,4 @@
+{"name":"Project","path":"green.bimcraft"}
+{"count":1,"elements":[{"at":[4000.0,0.0],"category":"window","flip_facing":false,"flip_hand":false,"guid":"558284e4-2eaf-4395-a2e4-5a3c9e3a0833","height":1500.0,"host":"6404ce17-a6cd-444b-9e0e-6d160ce6c50e","id":100004,"level":"8ae3e8ac-4b42-45a0-b36b-b0ccd607abbd","mark":"1","offset":4000.0,"sill":4300.0,"type":"Fixed 1200 x 1500","type_guid":"f22dcbb2-1b05-418a-852d-6bec467664eb","width":1200.0}],"returned":1}
+{"height":1000,"kind":"plan","path":"green-reopened-upper.png","view":"Upper","width":1600}
+{"format":"IFC4","path":"green-reopened.ifc"}

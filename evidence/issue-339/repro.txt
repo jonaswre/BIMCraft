@@ -1,0 +1,5 @@
+level {"name":"Upper","elevation":3400}
+wall {"points":[[0,0],[8000,0]],"level":"Level 1","height":7200}
+window {"at":[4000,0],"level":"Upper","sill":900}
+elements {"category":"window"}
+section {"start":[-1000,-500],"end":[9000,-500]}

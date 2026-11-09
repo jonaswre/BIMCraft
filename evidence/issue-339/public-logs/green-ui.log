@@ -1,0 +1,11 @@
+Command: cargo test -p bimcraft-ui-egui upper_plan_opening_preview_and_placement_use_the_upper_level --config profile.dev.package.bimcraft-core.opt-level=0 --config profile.dev.debug=0 -- --test-threads=4
+   Compiling bimcraft-ui-egui v0.11.0 (WORKTREE\crates\ui-egui)
+    Finished `test` profile [unoptimized] target(s) in 22.42s
+     Running unittests src\lib.rs (TARGET\debug\deps\bimcraft_ui_egui-846a33bfdb14fa4e.exe)
+
+running 1 test
+test tests::upper_plan_opening_preview_and_placement_use_the_upper_level ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 855 filtered out; finished in 0.83s
+
+Exit: 0

@@ -1,0 +1,41 @@
+Command: cargo test -p bimcraft-core --lib ifc::tests --config profile.dev.package.bimcraft-core.opt-level=0 --config profile.dev.debug=0 -- --test-threads=4
+    Finished `test` profile [unoptimized] target(s) in 0.17s
+     Running unittests src\lib.rs (TARGET\debug\deps\bimcraft_core-f723816fa9dc5cad.exe)
+
+running 32 tests
+test ifc::tests::a_pad_footings_type_has_a_profile_set_and_a_strip_footing_or_a_pipe_has_none ... ok
+test ifc::tests::a_columns_type_holds_a_circle_of_its_diameter_or_a_rectangle_and_its_columns_use_it ... ok
+test ifc::tests::a_beam_type_holds_its_section_in_a_material_profile_set_that_each_beam_uses ... ok
+test ifc::tests::a_beam_type_with_no_material_gives_its_profile_none_and_a_round_one_a_circle ... ok
+test ifc::tests::a_project_in_another_language_that_uses_no_phasing_says_nothing_of_it ... ok
+test ifc::tests::a_project_with_no_phasing_gives_no_status ... ok
+test ifc::tests::a_roof_type_is_flat_only_when_every_roof_of_it_is_flat ... ok
+test ifc::tests::a_phased_projects_elements_say_what_the_work_does_to_them_in_their_common_set ... ok
+test ifc::tests::a_rooms_colour_styles_the_solid_of_its_spaces_body ... ok
+test ifc::tests::a_projects_own_phase_filters_and_overrides_go_out_as_text_on_the_project ... ok
+test ifc::tests::a_structural_elements_common_set_holds_both_what_it_carries_and_its_status ... ok
+test ifc::tests::a_shaped_slab_is_one_closed_brep_and_sloped_and_shaped_slabs_give_their_volumes ... ok
+test ifc::tests::a_shaped_slab_over_a_variable_layer_has_a_level_underside_in_ifc ... ok
+test ifc::tests::components_export_as_their_categorys_elements_with_their_materials ... ok
+test ifc::tests::discipline_runs_get_the_type_objects_of_their_segment_classes ... ok
+test ifc::tests::compound_curved_and_attached_walls_export_their_layers_and_shapes ... ok
+test ifc::tests::components_get_type_objects_of_the_class_each_is_written_as_with_their_attribute_counts ... ok
+test ifc::tests::doors_windows_roofs_and_ceilings_get_type_objects_each_occurrence_related_once ... ok
+test ifc::tests::each_type_is_written_once_and_related_to_its_occurrences ... ok
+test ifc::tests::family_doors_and_windows_export_their_forms_as_face_sets_in_their_materials ... ok
+test ifc::tests::global_ids_are_22_base64_characters_and_stable ... ok
+test ifc::tests::phases_and_design_options_go_out_in_a_property_set_of_each_element_that_holds_one ... ok
+test ifc::tests::reals_always_carry_a_decimal_point ... ok
+test ifc::tests::step_strings_escape_quotes_backslashes_and_other_scripts ... ok
+test ifc::tests::a_project_that_uses_no_phasing_says_nothing_of_it ... ok
+test ifc::tests::the_phases_are_listed_when_an_element_holds_one_or_the_project_has_phases_of_its_own ... ok
+test ifc::tests::timestamps_are_utc_iso_dates ... ok
+test ifc::tests::types_of_one_name_and_two_sections_stay_two_types_each_with_its_own_set_and_global_ids ... ok
+test ifc::tests::every_reference_points_at_an_entity_written_once ... ok
+test ifc::tests::walls_slabs_doors_and_windows_carry_their_base_quantities ... ok
+test ifc::tests::every_type_object_of_the_sample_house_relates_occurrences_of_its_class_once ... ok
+test ifc::tests::the_export_has_the_spatial_tree_and_every_element ... ok
+
+test result: ok. 32 passed; 0 failed; 0 ignored; 0 measured; 1517 filtered out; finished in 9.98s
+
+Exit: 0

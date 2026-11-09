@@ -1,0 +1,8 @@
+Search date: 2026-11-09.
+Repository: IPedrax/BIMCraft.
+Commands: gh issue list --state all --limit 500 --json number,title,body,state,url; gh pr list --state open --limit 200 --json number,title,body,url.
+Searched full bodies of all 87 returned issues and 38 open PRs for sill, upper-floor, opening-level and related placement terms. Refreshed #201 and #215 individually.
+Related #201 (closed) reported floor placement symptoms; merged #212 addressed off-cut host diagnostics. This synthetic command finds and accepts its full-height host but writes the wrong elevation.
+#215 is about opening heads past host tops. #316 / PR #320 concern omitted-level lookup. #335 / PR #338 concern raised-wall lookup. No exact requested-different-level sill report was found.
+Filed #339 before production fix: https://github.com/IPedrax/BIMCraft/issues/339.
+No labels requested (maintainer-controlled).

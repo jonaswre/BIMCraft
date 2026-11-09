@@ -1,0 +1,10 @@
+{"id":100002,"name":"Upper"}
+{"ids":[100003]}
+{"host":100003,"id":100004,"mark":"1","offset":4000.0}
+{"count":1,"elements":[{"at":[4000.0,0.0],"category":"window","flip_facing":false,"flip_hand":false,"guid":"558284e4-2eaf-4395-a2e4-5a3c9e3a0833","height":1500.0,"host":"6404ce17-a6cd-444b-9e0e-6d160ce6c50e","id":100004,"level":"8ae3e8ac-4b42-45a0-b36b-b0ccd607abbd","mark":"1","offset":4000.0,"sill":4300.0,"type":"Fixed 1200 x 1500","type_guid":"f22dcbb2-1b05-418a-852d-6bec467664eb","width":1200.0}],"returned":1}
+{"id":100005,"name":"Section 1"}
+{"height":1000,"kind":"plan","path":"green-upper.png","view":"Upper","width":1600}
+{"height":1000,"kind":"section","path":"green-elevation.png","view":"Section 1","width":1600}
+{"azimuth":-45.0,"elevation":30.0,"eye":null,"eye_elevation":null,"height":1000,"kind":"3D view","lens":null,"path":"green-3d.png","target":null,"view":"{3D}","width":1600}
+{"format":"bimcraft","path":"green.bimcraft"}
+{"format":"IFC4","path":"green.ifc"}

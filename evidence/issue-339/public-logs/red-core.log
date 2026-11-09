@@ -1,0 +1,41 @@
+   Compiling bimcraft-core v0.11.0 (WORKTREE\crates\core)
+    Finished `test` profile [unoptimized] target(s) in 1.52s
+     Running tests\opening_elevation.rs (TARGET\debug\deps\opening_elevation-98c98d962aefda17.exe)
+
+running 4 tests
+test upper_level_window_is_visible_on_its_plan_and_survives_save_reopen ... FAILED
+test explicit_host_honors_requested_level_for_doors_and_default_window_sills ... FAILED
+test requested_level_outside_host_is_rejected_atomically ... FAILED
+test host_relative_placement_without_a_different_requested_level_is_preserved ... ok
+
+failures:
+
+---- upper_level_window_is_visible_on_its_plan_and_survives_save_reopen stdout ----
+
+thread 'upper_level_window_is_visible_on_its_plan_and_survives_save_reopen' (49428) panicked at crates\core\tests\opening_elevation.rs:20:5:
+assertion `left == right` failed: requested level + sill, not host base + sill
+  left: 900.0
+ right: 4300.0
+
+---- explicit_host_honors_requested_level_for_doors_and_default_window_sills stdout ----
+
+thread 'explicit_host_honors_requested_level_for_doors_and_default_window_sills' (32320) panicked at crates\core\tests\opening_elevation.rs:46:9:
+assertion `left == right` failed: door
+  left: 0.0
+ right: 3400.0
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- requested_level_outside_host_is_rejected_atomically stdout ----
+
+thread 'requested_level_outside_host_is_rejected_atomically' (24020) panicked at crates\core\tests\opening_elevation.rs:68:79:
+called `Result::unwrap_err()` on an `Ok` value: Object {"host": Number(100003), "id": Number(100005), "mark": String("1"), "offset": Number(4000.0)}
+
+
+failures:
+    explicit_host_honors_requested_level_for_doors_and_default_window_sills
+    requested_level_outside_host_is_rejected_atomically
+    upper_level_window_is_visible_on_its_plan_and_survives_save_reopen
+
+test result: FAILED. 1 passed; 3 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.09s
+
+error: test failed, to rerun pass `-p bimcraft-core --test opening_elevation`

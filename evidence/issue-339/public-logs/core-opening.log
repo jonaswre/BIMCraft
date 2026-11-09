@@ -1,0 +1,41 @@
+Command: cargo test -p bimcraft-core --lib opening --config profile.dev.package.bimcraft-core.opt-level=0 --config profile.dev.debug=0 -- --test-threads=4
+   Compiling bimcraft-core v0.11.0 (WORKTREE\crates\core)
+    Finished `test` profile [unoptimized] target(s) in 4m 14s
+     Running unittests src\lib.rs (TARGET\debug\deps\bimcraft_core-f723816fa9dc5cad.exe)
+
+running 30 tests
+test align_tests::align_refuses_degenerate_lines_and_rolls_back_a_hosted_opening_that_cannot_turn ... ok
+test falls::tests::behind_an_opening_a_valley_runs_round_its_corners_on_the_drains_cone ... ok
+test align_tests::align_rotates_and_translates_a_wall_with_its_opening_in_one_undo_step ... ok
+test align_tests::align_slides_openings_along_their_host_and_keeps_reversed_parallel_lines_pointing_the_same_way ... ok
+test import::tests::holes_in_a_ceiling_come_in_as_its_openings_or_as_the_shafts_through_it ... ok
+test cad_tests::a_linked_drawing_is_read_again_by_reload_and_by_opening_the_project ... ok
+test import::tests::holes_in_a_slab_come_in_as_its_openings_or_as_the_shafts_through_it ... ok
+test import::tests::holes_in_a_roof_come_in_as_its_openings_or_as_the_shafts_through_it ... ok
+test import::tests::a_property_named_as_a_parameter_of_a_family_does_not_stop_the_file_from_opening ... ok
+test model::tests::check_allows_openings_stacked_in_one_wall_and_still_refuses_ones_side_by_side ... ok
+test model::tests::check_refuses_overlapping_openings ... ok
+test openings_past_top_tests::a_window_whose_head_passes_its_walls_top_is_made_and_keeps_its_size ... ok
+test openings_past_top_tests::a_plan_cut_over_the_walls_top_sees_the_notch_and_one_cut_through_it_opens_the_wall_up_to_the_top ... ok
+test openings_past_top_tests::an_ifc_window_whose_sill_is_over_its_walls_top_is_left_out_naming_the_files_wall ... ok
+test openings_past_top_tests::an_elevation_and_a_section_show_the_window_rising_out_of_the_notch ... ok
+test openings_past_top_tests::an_ifc_with_a_window_past_its_walls_top_opens_with_it_and_saves_and_opens_again ... ok
+test graphics::tests::hiding_doors_and_windows_leaves_their_openings_in_the_wall ... ok
+test openings_past_top_tests::the_wall_is_notched_open_at_the_top_in_3d_and_holds_what_is_left ... ok
+test openings_past_top_tests::an_opening_whose_sill_is_at_or_above_its_walls_top_is_refused_saying_what_to_do ... ok
+test sketch::command_tests::a_new_element_with_openings_or_courtyards_that_are_not_simple_is_told_to_give_simple_ones ... ok
+test reinforce_tests::a_floors_bars_stop_at_its_outline_and_round_its_openings ... ok
+test snap::tests::a_sketch_snaps_to_the_edges_of_an_opening_far_from_its_floors_outer_edge_too ... ok
+test shape_tests::falls_run_round_an_opening_to_two_drains_or_to_one_beside_it ... ok
+test tests::a_doors_family_sizes_its_opening_and_a_windows_gives_it_its_sill ... ok
+test tests::a_floor_with_curved_openings_is_cut_round_them_into_few_pieces ... ok
+test tests::curved_walls_bound_rooms_and_carry_openings_along_their_arc ... ok
+test walls::tests::walls_split_into_prisms_around_their_openings_and_under_what_they_follow ... ok
+test tests::deleting_a_wall_takes_its_openings_and_used_levels_stay ... ok
+test tests::dimensions_measure_to_wall_ends_and_openings ... ok
+test import::tests::nothing_a_phasing_set_holds_stops_a_file_from_opening_or_takes_an_element_with_it has been running for over 60 seconds
+test import::tests::nothing_a_phasing_set_holds_stops_a_file_from_opening_or_takes_an_element_with_it ... ok
+
+test result: ok. 30 passed; 0 failed; 0 ignored; 0 measured; 1519 filtered out; finished in 96.71s
+
+Exit: 0

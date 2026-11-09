@@ -1,0 +1,10 @@
+Command: cargo test -p bimcraft-ui-egui doors_and_windows --config profile.dev.package.bimcraft-core.opt-level=0 --config profile.dev.debug=0 -- --test-threads=4
+    Finished `test` profile [unoptimized] target(s) in 0.36s
+     Running unittests src\lib.rs (TARGET\debug\deps\bimcraft_ui_egui-846a33bfdb14fa4e.exe)
+
+running 1 test
+test tests::doors_and_windows_go_into_the_wall_clicked ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 855 filtered out; finished in 0.67s
+
+Exit: 0

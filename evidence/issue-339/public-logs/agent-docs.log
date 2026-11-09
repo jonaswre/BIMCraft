@@ -1,0 +1,13 @@
+Command: cargo test -p bimcraft-core --test agent_docs --config profile.dev.package.bimcraft-core.opt-level=0 --config profile.dev.debug=0 -- --test-threads=4
+   Compiling bimcraft-core v0.11.0 (WORKTREE\crates\core)
+    Finished `test` profile [unoptimized] target(s) in 11.41s
+     Running tests\agent_docs.rs (TARGET\debug\deps\agent_docs-860e53fa9aab599c.exe)
+
+running 3 tests
+test the_root_claude_md_stays_under_its_word_budget ... ok
+test the_root_claude_md_reaches_every_crate_note_and_area_write_up ... ok
+test every_file_the_agent_docs_link_to_exists ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.26s
+
+Exit: 0
