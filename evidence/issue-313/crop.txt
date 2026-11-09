@@ -1,0 +1,5 @@
+wall {"points":[[0,0],[8000,0],[8000,6000],[0,6000]],"closed":true}
+duplicate_view {"view":"Level 1","name":"Interior"}
+crop {"view":"Interior","region":[[1000,1000],[3000,2000]]}
+render {"view": "Interior", "path": "crop.png", "width": 400, "height": 300}
+render {"view": "Level 1", "path": "crop-parent.png", "width": 400, "height": 300}

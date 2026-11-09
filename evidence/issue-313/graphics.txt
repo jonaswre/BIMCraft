@@ -1,0 +1,7 @@
+wall {"points":[[0,0],[8000,0],[8000,6000],[0,6000]],"closed":true}
+duplicate_view {"view":"Level 1","name":"No walls"}
+graphics {"view":"No walls","hide":["wall"]}
+render {"view": "Level 1", "path": "parent.png", "width": 400, "height": 300}
+render {"view": "No walls", "path": "duplicate.png", "width": 400, "height": 300}
+render {"view": 100006, "path": "duplicate-by-id.png", "width": 400, "height": 300}
+render {"view": "Level 1", "path": "parent-after.png", "width": 400, "height": 300}

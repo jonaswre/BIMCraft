@@ -1,0 +1,85 @@
+   Compiling cfg-if v1.0.5
+   Compiling proc-macro2 v1.0.107
+   Compiling crossbeam-utils v0.8.23
+   Compiling simd-adler32 v0.3.10
+   Compiling unicode-ident v1.0.27
+   Compiling crossbeam-epoch v0.9.21
+   Compiling adler2 v2.0.1
+   Compiling rustversion v1.0.23
+   Compiling crc32fast v1.5.2
+   Compiling quote v1.0.47
+   Compiling serde_core v1.0.229
+   Compiling crossbeam-deque v0.8.8
+   Compiling getrandom v0.4.3
+   Compiling zmij v1.0.23
+   Compiling rayon-core v1.13.0
+   Compiling arrayref v0.3.9
+   Compiling serde v1.0.229
+   Compiling serde_json v1.0.154
+   Compiling bimcraft-i18n v0.11.0 (<bimcraft>\upstream-01-plan-render\crates\i18n)
+   Compiling windows-link v0.2.1
+   Compiling strict-num v0.1.1
+   Compiling bitflags v1.3.2
+   Compiling miniz_oxide v0.9.1
+   Compiling miniz_oxide v0.8.9
+   Compiling fdeflate v0.3.7
+   Compiling getrandom v0.3.4
+   Compiling bytemuck v1.25.2
+   Compiling windows-sys v0.61.2
+   Compiling tiny-skia-path v0.11.4
+   Compiling simdutf8 v0.1.5
+   Compiling core_detect v1.0.0
+   Compiling memchr v2.8.3
+   Compiling fastrand v2.5.0
+   Compiling itoa v1.0.18
+   Compiling either v1.19.0
+   Compiling log v0.4.34
+   Compiling arrayvec v0.7.8
+   Compiling flate2 v1.1.10
+   Compiling once_cell v1.21.4
+   Compiling zune-core v0.5.3
+   Compiling multiversion_no_op v1.0.0
+   Compiling scopeguard v1.2.0
+   Compiling bimcraft-core v0.11.0 (<bimcraft>\upstream-01-plan-render\crates\core)
+   Compiling ttf-parser v0.25.1
+   Compiling tempfile v3.27.0
+   Compiling png v0.17.16
+   Compiling zune-jpeg v0.5.15
+   Compiling syn v3.0.9
+   Compiling encoding_rs v0.8.42
+   Compiling tiny-skia v0.11.4
+   Compiling rayon v1.12.0
+   Compiling serde_derive v1.0.229
+    Finished `test` profile [unoptimized] target(s) in 3m 35s
+     Running unittests src\lib.rs (<bimcraft>/.targets/issue-01\debug\deps\bimcraft_core-f723816fa9dc5cad.exe)
+
+running 4 tests
+
+thread 'plan_view_tests::render_command_uses_the_duplicated_plans_crop_in_the_written_png' (28680) panicked at crates\core\src\plan_view_tests.rs:85:5:
+assertion `left == right` failed: the interior crop excludes all four walls
+  left: 2176
+ right: 0
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test plan_view_tests::render_command_uses_the_duplicated_plans_crop_in_the_written_png ... FAILED
+
+thread 'plan_view_tests::render_command_uses_the_duplicated_plans_view_range' (13304) panicked at crates\core\src\plan_view_tests.rs:100:5:
+the duplicate's lower cut must cut the low wall
+test plan_view_tests::render_command_uses_the_duplicated_plans_view_range ... FAILED
+
+thread 'plan_view_tests::render_command_uses_the_duplicated_plans_graphics_by_name_and_id' (49824) panicked at crates\core\src\plan_view_tests.rs:67:9:
+assertion `left == right` failed: the duplicate selected by "No walls" must hide its walls
+  left: 2176
+ right: 0
+test plan_view_tests::render_command_uses_the_duplicated_plans_graphics_by_name_and_id ... FAILED
+test link::tests::the_render_command_shows_a_link_in_plans_and_in_3d ... ok
+
+failures:
+
+failures:
+    plan_view_tests::render_command_uses_the_duplicated_plans_crop_in_the_written_png
+    plan_view_tests::render_command_uses_the_duplicated_plans_graphics_by_name_and_id
+    plan_view_tests::render_command_uses_the_duplicated_plans_view_range
+
+test result: FAILED. 1 passed; 3 failed; 0 ignored; 0 measured; 1548 filtered out; finished in 0.28s
+
+error: test failed, to rerun pass `-p bimcraft-core --lib`

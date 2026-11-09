@@ -1,0 +1,47 @@
+   Compiling bimcraft-core v0.11.0 (<bimcraft>\upstream-01-plan-render\crates\core)
+    Finished `test` profile [unoptimized] target(s) in 38.46s
+     Running unittests src\lib.rs (<bimcraft>/.targets/issue-01\debug\deps\bimcraft_core-f723816fa9dc5cad.exe)
+
+running 4 tests
+test plan_view_tests::render_command_uses_the_duplicated_plans_view_range ... ok
+test plan_view_tests::render_command_uses_the_duplicated_plans_crop_in_the_written_png ... ok
+test plan_view_tests::render_command_uses_the_duplicated_plans_graphics_by_name_and_id ... ok
+test link::tests::the_render_command_shows_a_link_in_plans_and_in_3d ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 1548 filtered out; finished in 0.27s
+
+     Running tests\agent_docs.rs (<bimcraft>/.targets/issue-01\debug\deps\agent_docs-860e53fa9aab599c.exe)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 3 filtered out; finished in 0.00s
+
+     Running tests\bounds_cache.rs (<bimcraft>/.targets/issue-01\debug\deps\bounds_cache-d50baf893b051243.exe)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 7 filtered out; finished in 0.00s
+
+     Running tests\component_preparation.rs (<bimcraft>/.targets/issue-01\debug\deps\component_preparation-045c7fba43f7009c.exe)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 10 filtered out; finished in 0.00s
+
+     Running tests\primitive_fragments.rs (<bimcraft>/.targets/issue-01\debug\deps\primitive_fragments-ef794756d6ee1821.exe)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 4 filtered out; finished in 0.00s
+
+     Running tests\revision_metadata.rs (<bimcraft>/.targets/issue-01\debug\deps\revision_metadata-df316ac319b41c89.exe)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 6 filtered out; finished in 0.00s
+
+     Running tests\spatial_cache.rs (<bimcraft>/.targets/issue-01\debug\deps\spatial_cache-f29a4b318aab31a1.exe)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 7 filtered out; finished in 0.00s

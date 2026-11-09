@@ -1,0 +1,5 @@
+wall {"points":[[0,0],[4000,0]],"height":900}
+duplicate_view {"view":"Level 1","name":"Low cut"}
+modify {"id":100003,"view_range":{"cut":500}}
+render {"view": "Level 1", "path": "range-parent.png", "width": 400, "height": 300}
+render {"view": 100003, "path": "range-copy.png", "width": 400, "height": 300}

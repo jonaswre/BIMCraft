@@ -1,0 +1,27 @@
+{
+  "cut_pixels_above_title": {
+    "parent.png": 2176,
+    "duplicate.png": 0,
+    "duplicate-by-id.png": 0,
+    "parent-after.png": 2176,
+    "crop.png": 0,
+    "crop-parent.png": 2176,
+    "range-parent.png": 0,
+    "range-copy.png": 1856
+  },
+  "graphics_render_names": [
+    "Level 1",
+    "No walls",
+    "No walls",
+    "Level 1"
+  ],
+  "crop_render_names": [
+    "Interior",
+    "Level 1"
+  ],
+  "range_render_names": [
+    "Level 1",
+    "Low cut"
+  ]
+}
+All CLI journeys passed.
