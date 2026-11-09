@@ -1,0 +1,24 @@
+   Compiling bimcraft-core v0.11.0 ($REPO\crates\core)
+   Compiling bimcraft-ui-egui v0.11.0 ($REPO\crates\ui-egui)
+   Compiling bimcraft-plugin v0.11.0 ($REPO\crates\plugin)
+    Finished `test` profile [unoptimized] target(s) in 2m 23s
+     Running unittests src\lib.rs ($TARGET\debug\deps\bimcraft_ui_egui-846a33bfdb14fa4e.exe)
+
+running 15 tests
+test tests::structure::a_selected_structural_column_shows_its_distances_to_the_walls_and_can_be_dimensioned ... ok
+test tests::structure::a_duplicated_beam_type_keeps_its_shape_and_its_material ... ok
+test tests::structure::beams_go_between_two_clicks_with_their_tops_at_the_level_and_chain_on ... ok
+test tests::structure::a_selected_beams_palette_sets_its_heights_justification_and_system ... ok
+test tests::structure::create_similar_and_the_view_lists_know_the_structures_categories ... ok
+test tests::structure::edit_type_changes_a_beams_section_for_every_beam_of_the_type ... ok
+test tests::structure::revits_shortcuts_pick_the_structure_tools ... ok
+test tests::structure::steel_profile_survives_duplicate_edit_type_and_native_reopen ... ok
+test tests::structure::the_beam_tool_shows_the_beam_a_click_would_make_and_how_long_it_is ... ok
+test tests::structure::structural_columns_and_footings_go_where_clicked ... ok
+test tests::structure::the_structure_tab_has_the_structure_tools ... ok
+test tests::structure::the_beam_tools_options_set_its_justification_height_and_type ... ok
+test tests::structure::the_structure_tabs_floor_is_a_structural_one_and_the_architecture_tabs_is_not ... ok
+test tests::structure::wall_footings_run_under_a_wall_between_two_clicks ... ok
+test tests::structure::the_structure_speaks_portuguese_and_spanish_and_leaves_no_english ... ok
+
+test result: ok. 15 passed; 0 failed; 0 ignored; 0 measured; 841 filtered out; finished in 25.59s

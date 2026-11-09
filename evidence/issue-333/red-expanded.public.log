@@ -1,0 +1,34 @@
+   Compiling bimcraft-core v0.11.0 ($REPO\crates\core)
+    Finished `test` profile [unoptimized] target(s) in 28.31s
+     Running tests\steel_profiles.rs ($TARGET\debug\deps\steel_profiles-00e7b12505d633ce.exe)
+
+running 5 tests
+test tests::parametrically_authored_hollow_column_keeps_its_section_in_native_and_ifc_output ... ok
+test tests::unsupported_categories_reject_section_parameters_and_plain_shape_replaces_a_hollow_circle ... FAILED
+test tests::steel_type_plate_edits_refresh_cached_sections_without_changing_elements ... FAILED
+test tests::equal_enclosing_boxes_with_distinct_steel_sections_export_distinct_profiles_and_true_quantities ... ok
+test tests::catalogue_beam_can_be_created_scheduled_saved_and_reopened ... ok
+
+failures:
+
+---- tests::unsupported_categories_reject_section_parameters_and_plain_shape_replaces_a_hollow_circle stdout ----
+
+thread 'tests::unsupported_categories_reject_section_parameters_and_plain_shape_replaces_a_hollow_circle' (44772) panicked at crates\core\tests\steel_profiles.rs:90:5:
+a wall must not silently discard a steel profile: Ok(Object {"category": String("wall"), "name": String("Bad wall"), "type": Object {"thickness": Number(200.0)}})
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- tests::steel_type_plate_edits_refresh_cached_sections_without_changing_elements stdout ----
+
+thread 'tests::steel_type_plate_edits_refresh_cached_sections_without_changing_elements' (33268) panicked at crates\core\tests\steel_profiles.rs:53:5:
+assertion `left == right` failed: plate-only type edit leaves elements unchanged
+  left: (58, 0)
+ right: (32, 1)
+
+
+failures:
+    tests::steel_type_plate_edits_refresh_cached_sections_without_changing_elements
+    tests::unsupported_categories_reject_section_parameters_and_plain_shape_replaces_a_hollow_circle
+
+test result: FAILED. 3 passed; 2 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.18s
+
+error: test failed, to rerun pass `-p bimcraft-core --test steel_profiles`

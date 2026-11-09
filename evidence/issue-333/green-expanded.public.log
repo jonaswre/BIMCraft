@@ -1,0 +1,13 @@
+   Compiling bimcraft-core v0.11.0 ($REPO\crates\core)
+    Finished `test` profile [unoptimized] target(s) in 44.39s
+     Running tests\steel_profiles.rs ($TARGET\debug\deps\steel_profiles-00e7b12505d633ce.exe)
+
+running 6 tests
+test picking::a_hollow_column_can_be_picked_on_its_wall_but_not_through_its_empty_centre ... ok
+test tests::parametrically_authored_hollow_column_keeps_its_section_in_native_and_ifc_output ... ok
+test tests::unsupported_categories_reject_section_parameters_and_plain_shape_replaces_a_hollow_circle ... ok
+test tests::equal_enclosing_boxes_with_distinct_steel_sections_export_distinct_profiles_and_true_quantities ... ok
+test tests::catalogue_beam_can_be_created_scheduled_saved_and_reopened ... ok
+test tests::steel_type_plate_edits_refresh_cached_sections_without_changing_elements ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.49s

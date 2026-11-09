@@ -1,0 +1,3 @@
+Legacy reader exit: 1
+open: steel.bimcraft is not a BIMCraft project: it was saved by a newer BIMCraft (file format 19; this one reads up to 18): update BIMCraft to open it
+PASS: older reader refuses format 19 before geometry can be reinterpreted.

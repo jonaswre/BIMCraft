@@ -1,0 +1,23 @@
+   Compiling bimcraft-core v0.11.0 ($REPO\crates\core)
+    Finished `test` profile [unoptimized] target(s) in 1m 04s
+     Running unittests src\lib.rs ($TARGET\debug\deps\bimcraft_core-f723816fa9dc5cad.exe)
+
+running 16 tests
+test family::bounds::tests::swept_and_imported_family_envelopes_enclose_full_geometry ... ok
+test family::bounds::tests::unsupported_and_nonfinite_forms_keep_unknown_bounds ... ok
+test bounds::tests::nonfinite_bounds_and_counter_exhaustion_remain_conservative ... ok
+test bounds::tests::primitive_boxes_enclose_fresh_solid_corners_without_tessellating ... ok
+test family::bounds::tests::default_family_envelopes_cover_their_supported_types ... ok
+test profile_tests::a_catalogue_section_is_a_type_by_its_name_and_a_beam_may_name_one_the_project_has_not_got ... ok
+test profile_tests::a_sloped_steel_beam_in_3d_is_its_section_swept_along_it ... ok
+test profile_tests::a_project_with_steel_sections_saves_and_opens_again ... ok
+test profile_tests::a_schedule_of_steel_lists_each_sections_weight_per_metre_and_its_total_weight ... ok
+test profile_tests::hostile_sections_are_refused_without_a_panic_or_a_broken_model ... ok
+test profile_tests::a_steel_columns_solid_in_3d_is_its_outline_and_a_tubes_has_a_hole ... ok
+test profile_tests::a_section_cuts_a_steel_beam_as_its_i ... ok
+test profile_tests::parametric_sections_are_made_with_their_plates_and_refused_when_they_dont_fit ... ok
+test profile_tests::steel_sections_go_out_as_ifc_profiles_with_a_material_profile_set ... ok
+test profile_tests::steel_sections_come_back_from_ifc ... ok
+test profile_tests::a_steel_column_is_cut_in_plan_as_its_section_and_a_tube_shows_its_hole ... ok
+
+test result: ok. 16 passed; 0 failed; 0 ignored; 0 measured; 1547 filtered out; finished in 1.53s

@@ -1,0 +1,34 @@
+structural_column {"at":[0,0],"type":"HEB 300","height":3000,"angle":30}
+type {"category":"structuralcolumn","name":"Channel","shape":"U","width":80,"depth":200,"web":6,"flange":11,"radius":13}
+structural_column {"at":[800,0],"type":"Channel","height":3000}
+type {"category":"beam","name":"Channel","shape":"U","material":"Metal","width":80,"depth":200,"web":6,"flange":11,"radius":13}
+type {"category":"structuralcolumn","name":"Angle","shape":"L","width":100,"depth":150,"thickness":10,"radius":12}
+structural_column {"at":[1600,0],"type":"Angle","height":3000}
+type {"category":"beam","name":"Angle","shape":"L","material":"Metal","width":100,"depth":150,"thickness":10,"radius":12}
+type {"category":"structuralcolumn","name":"RHS","shape":"RHS","width":200,"depth":100,"thickness":8}
+structural_column {"at":[2400,0],"type":"RHS","height":3000}
+type {"category":"beam","name":"RHS","shape":"RHS","material":"Metal","width":200,"depth":100,"thickness":8}
+type {"category":"structuralcolumn","name":"CHS","shape":"CHS","width":168.3,"thickness":6}
+structural_column {"at":[3200,0],"type":"CHS","height":3000}
+type {"category":"beam","name":"CHS","shape":"CHS","material":"Metal","width":168.3,"thickness":6}
+beam {"points":[[0,1200],[6000,1200]],"type":"IPE 300","offset":3500}
+beam {"points":[[0,2400],[6000,2400]],"type":"Channel","offset":3500}
+beam {"points":[[0,3600],[6000,3600]],"type":"Angle","offset":3500}
+beam {"points":[[0,4800],[6000,4800]],"type":"RHS","offset":3500}
+beam {"points":[[0,6000],[6000,6000]],"type":"CHS","offset":3500}
+beam {"points":[[0,7200],[3000,7200]],"type":"IPE 300","offset":1000,"end_offset":5000,"justify":"centre"}
+type {"category":"beam","name":"Mixed I","shape":"I","width":150,"depth":300,"material":"Metal","web":7,"flange":10}
+beam {"points":[[8000,0],[14000,0]],"type":"Mixed I","offset":3500,"justify":"top"}
+type {"category":"beam","name":"Mixed thick I","shape":"I","width":150,"depth":300,"material":"Metal","web":9,"flange":15}
+beam {"points":[[8000,1200],[14000,1200]],"type":"Mixed thick I","offset":3500,"justify":"bottom"}
+type {"category":"beam","name":"Mixed U","shape":"U","width":150,"depth":300,"material":"Metal","web":7,"flange":10}
+beam {"points":[[8000,2400],[14000,2400]],"type":"Mixed U","offset":3500,"justify":"top"}
+type {"category":"beam","name":"Mixed RHS","shape":"RHS","width":150,"depth":300,"material":"Metal","thickness":8}
+beam {"points":[[8000,3600],[14000,3600]],"type":"Mixed RHS","offset":3500,"justify":"top"}
+type {"category":"beam","name":"Solid control","width":150,"depth":300,"material":"Metal"}
+beam {"points":[[8000,4800],[14000,4800]],"type":"Solid control","offset":3500}
+section {"start":[3000,700],"end":[3000,1700],"name":"Steel section"}
+elements {"category":"beam"}
+elements {"category":"structuralcolumn"}
+schedule {"category":"beam","fields":["Type","Profile","Section Area","Weight per Metre","Weight"]}
+schedule {"category":"structuralcolumn","fields":["Type","Profile","Section Area","Weight per Metre","Weight"]}

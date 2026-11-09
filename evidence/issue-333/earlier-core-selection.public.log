@@ -1,0 +1,148 @@
+   Compiling bimcraft-core v0.11.0 ($REPO\crates\core)
+    Finished `test` profile [unoptimized] target(s) in 1m 31s
+     Running unittests src\lib.rs ($TARGET\debug\deps\bimcraft_core-f723816fa9dc5cad.exe)
+
+running 124 tests
+test ifc::tests::a_pad_footings_type_has_a_profile_set_and_a_strip_footing_or_a_pipe_has_none ... ok
+test ifc::tests::a_columns_type_holds_a_circle_of_its_diameter_or_a_rectangle_and_its_columns_use_it ... ok
+test ifc::tests::a_beam_type_with_no_material_gives_its_profile_none_and_a_round_one_a_circle ... ok
+test ifc::tests::a_beam_type_holds_its_section_in_a_material_profile_set_that_each_beam_uses ... ok
+test ifc::tests::a_project_in_another_language_that_uses_no_phasing_says_nothing_of_it ... ok
+test ifc::tests::a_project_with_no_phasing_gives_no_status ... ok
+test ifc::tests::a_roof_type_is_flat_only_when_every_roof_of_it_is_flat ... ok
+test ifc::tests::a_phased_projects_elements_say_what_the_work_does_to_them_in_their_common_set ... ok
+test ifc::tests::a_projects_own_phase_filters_and_overrides_go_out_as_text_on_the_project ... ok
+test ifc::tests::a_rooms_colour_styles_the_solid_of_its_spaces_body ... ok
+test ifc::tests::a_structural_elements_common_set_holds_both_what_it_carries_and_its_status ... ok
+test ifc::tests::a_shaped_slab_is_one_closed_brep_and_sloped_and_shaped_slabs_give_their_volumes ... ok
+test ifc::tests::a_shaped_slab_over_a_variable_layer_has_a_level_underside_in_ifc ... ok
+test ifc::tests::components_export_as_their_categorys_elements_with_their_materials ... ok
+test ifc::tests::discipline_runs_get_the_type_objects_of_their_segment_classes ... ok
+test ifc::tests::compound_curved_and_attached_walls_export_their_layers_and_shapes ... ok
+test ifc::tests::components_get_type_objects_of_the_class_each_is_written_as_with_their_attribute_counts ... ok
+test ifc::tests::doors_windows_roofs_and_ceilings_get_type_objects_each_occurrence_related_once ... ok
+test ifc::tests::each_type_is_written_once_and_related_to_its_occurrences ... ok
+test ifc::tests::family_doors_and_windows_export_their_forms_as_face_sets_in_their_materials ... ok
+test ifc::tests::global_ids_are_22_base64_characters_and_stable ... ok
+test ifc::tests::phases_and_design_options_go_out_in_a_property_set_of_each_element_that_holds_one ... ok
+test ifc::tests::reals_always_carry_a_decimal_point ... ok
+test ifc::tests::step_strings_escape_quotes_backslashes_and_other_scripts ... ok
+test ifc::tests::a_project_that_uses_no_phasing_says_nothing_of_it ... ok
+test ifc::tests::the_phases_are_listed_when_an_element_holds_one_or_the_project_has_phases_of_its_own ... ok
+test ifc::tests::timestamps_are_utc_iso_dates ... ok
+test ifc::tests::types_of_one_name_and_two_sections_stay_two_types_each_with_its_own_set_and_global_ids ... ok
+test ifc::tests::walls_slabs_doors_and_windows_carry_their_base_quantities ... ok
+test ifc::tests::every_reference_points_at_an_entity_written_once ... ok
+test import::tests::a_cable_swept_round_its_centre_line_comes_in_as_a_wire ... ok
+test import::tests::a_clockwise_profile_or_a_downward_sweep_comes_in_turned_out ... ok
+test ifc::tests::every_type_object_of_the_sample_house_relates_occurrences_of_its_class_once ... ok
+test import::tests::a_layer_of_no_thickness_is_a_membrane ... ok
+test import::tests::a_model_at_map_coordinates_comes_near_the_origin ... ok
+test import::tests::a_property_named_as_a_parameter_of_a_family_does_not_stop_the_file_from_opening ... ok
+test import::tests::a_property_set_of_more_parameters_than_a_project_holds_comes_in_up_to_them ... ok
+test ifc::tests::the_export_has_the_spatial_tree_and_every_element ... ok
+test import::tests::a_file_reads_the_same_every_time ... ok
+test import::tests::a_style_that_holds_itself_shades_its_material_once ... ok
+test import::tests::a_rooms_colour_comes_back_from_ifc_and_one_without_stays_without ... ok
+test import::tests::a_window_taller_than_its_wall_comes_in_rising_past_the_top_as_revit_lets_it ... ok
+test import::tests::an_unmeasurable_railing_does_not_poison_the_whole_import ... ok
+test import::tests::components_come_back_from_ifc_where_they_stood ... ok
+test import::tests::a_phasing_set_that_breaks_a_rule_is_left_out_and_the_elements_stay ... ok
+test import::tests::a_swept_disk_along_a_curve_of_too_many_segments_is_left_out_not_built ... ok
+test import::tests::holes_in_a_ceiling_come_in_as_its_openings_or_as_the_shafts_through_it ... ok
+test import::tests::from_step_names_elements_as_ifc_does ... ok
+test import::tests::holes_in_a_slab_come_in_as_its_openings_or_as_the_shafts_through_it ... ok
+test import::tests::holes_in_a_roof_come_in_as_its_openings_or_as_the_shafts_through_it ... ok
+test import::tests::meshes_and_mapped_shapes_come_in_as_extrusions_do ... ok
+test import::tests::layers_stacked_up_an_elements_own_axis_start_from_its_back ... ok
+test import::tests::names_in_other_scripts_and_with_quotes_come_back_whole ... ok
+test import::tests::more_shapes_of_one_family_than_it_holds_leave_only_the_rest_out ... ok
+test import::tests::open_seeds_elements_as_ifc_does ... ok
+test import::tests::every_kind_of_element_that_holds_parameters_keeps_its_phase_and_option ... ok
+test import::tests::project_parameters_go_out_in_a_property_set_and_come_back_with_their_kinds ... ok
+test import::tests::phases_and_design_options_survive_save_as_ifc_and_open ... ok
+test lenient::tests::every_category_of_element_is_looked_into ... ok
+test lenient::tests::keys_are_found_where_they_are_and_taken_out_there ... ok
+test profile_tests::a_catalogue_section_is_a_type_by_its_name_and_a_beam_may_name_one_the_project_has_not_got ... ok
+test profile_tests::a_project_with_steel_sections_saves_and_opens_again ... ok
+test import::tests::room_separation_lines_past_what_a_project_may_hold_are_left_out_not_made ... ok
+test profile_tests::a_schedule_of_steel_lists_each_sections_weight_per_metre_and_its_total_weight ... ok
+test profile_tests::a_sloped_steel_beam_in_3d_is_its_section_swept_along_it ... ok
+test profile_tests::a_section_cuts_a_steel_beam_as_its_i ... ok
+test profile_tests::a_steel_columns_solid_in_3d_is_its_outline_and_a_tubes_has_a_hole ... ok
+test import::tests::an_ifc_without_the_phasing_set_opens_as_a_new_project_does ... ok
+test profile_tests::hostile_sections_are_refused_without_a_panic_or_a_broken_model ... ok
+test profile_tests::parametric_sections_are_made_with_their_plates_and_refused_when_they_dont_fit ... ok
+test profile_tests::steel_sections_come_back_from_ifc ... ok
+test profiles::tests::a_profile_whose_plates_dont_fit_is_refused ... ok
+test profiles::tests::every_shapes_outline_and_pieces_cover_its_area ... ok
+test profiles::tests::the_catalogue_reads_its_names_in_any_spelling_and_has_the_standards_weights ... ok
+test profile_tests::a_steel_column_is_cut_in_plan_as_its_section_and_a_tube_shows_its_hole ... FAILED
+test profile_tests::steel_sections_go_out_as_ifc_profiles_with_a_material_profile_set ... ok
+test read_only_tests::a_refused_change_leaves_the_model_checked_as_it_was ... ok
+test read_only_tests::a_session_that_may_only_read_reads_schedules_renders_and_exports_to_new_files ... ok
+test read_only_tests::reading_lends_a_session_read_only_for_what_it_runs_and_gives_it_back ... ok
+test runs::tests::a_footprint_is_a_strip_or_when_upright_its_section ... ok
+test runs::tests::a_round_run_is_a_closed_tube_turned_out ... ok
+test runs::tests::a_run_a_millimetre_long_in_plan_stands_and_a_shorter_one_is_too_short ... ok
+test runs::tests::a_runs_heights_are_those_of_its_justify_line ... ok
+test runs::tests::a_runs_reach_covers_its_section_square_to_its_axis ... ok
+test runs::tests::a_sloped_run_keeps_its_section_square_to_its_axis ... ok
+test schedule::tests::a_multi_category_schedule_filters_groups_and_totals_as_any_other ... ok
+test read_only_tests::a_session_that_may_only_read_refuses_what_would_change_the_project_and_changes_nothing ... ok
+test schedule::tests::a_multi_category_schedule_lists_its_categories_elements_with_the_fields_they_share ... ok
+test schedule::tests::a_schedule_goes_to_a_workbook_with_its_numbers_as_numbers ... ok
+test schedule::tests::csv_leaves_no_text_a_spreadsheet_would_take_for_a_formula ... ok
+test schedule::tests::csv_quotes_the_cells_that_need_it_and_ends_with_the_totals ... ok
+test schedule::tests::a_multi_category_schedule_reads_its_materials_from_its_types ... ok
+test schedule::tests::filters_compare_values_as_the_schedule_shows_them ... ok
+test schedule::tests::door_schedules_read_sizes_from_the_type ... ok
+test schedule::tests::only_a_multi_category_schedule_lists_categories_and_only_their_shared_fields ... ok
+test schedule::tests::schedules_show_lengths_and_areas_in_the_project_units ... ok
+test schedule::tests::room_schedules_list_number_name_level_area_and_perimeter_in_number_order ... ok
+test schedule::tests::unknown_categories_name_the_schedules_there_are ... ok
+test structure_tests::a_beam_is_an_ifc_beam_swept_along_its_axis_in_its_material ... ok
+test structure_tests::a_beam_runs_between_points_one_for_each_segment_its_top_at_the_level ... ok
+test structure_tests::a_beam_sits_at_its_heights_slopes_and_says_which_system_it_is_in ... ok
+test structure_tests::a_beam_that_cannot_be_one_is_refused_and_nothing_changes ... ok
+test structure_tests::a_plan_sees_footings_under_its_level_and_structural_columns_where_columns_are_seen ... ok
+test structure_tests::a_plan_sees_the_beams_hanging_under_its_level_the_ones_it_cuts_and_the_ones_overhead ... ok
+test structure_tests::a_project_whose_run_type_is_round_and_not_as_deep_as_it_is_wide_is_refused ... ok
+test structure_tests::a_section_cuts_a_beam_across_its_section ... ok
+test structure_tests::a_sloped_round_beam_has_a_circle_for_a_profile_and_aims_along_its_axis ... ok
+test read_only_tests::whatever_a_command_is_given_a_session_that_may_only_read_keeps_its_project ... ok
+test structure_tests::a_strip_footing_is_a_run_under_a_wall ... ok
+test structure_tests::a_structural_floor_is_a_floor_that_carries_load ... ok
+test structure_tests::a_project_with_structure_saves_and_opens_again ... ok
+test structure_tests::a_structural_floor_says_it_carries_load ... ok
+test structure_tests::footings_and_strip_footings_are_ifc_footings_and_structural_columns_are_columns_that_carry_load ... ok
+test structure_tests::points_picked_snap_to_a_beams_ends_and_middle ... ok
+test structure_tests::every_category_of_the_structure_has_a_schedule_and_hides_by_category ... ok
+test structure_tests::run_types_are_made_changed_and_checked_with_type ... ok
+test structure_tests::runs_and_columns_of_the_structure_move_copy_rotate_mirror_and_delete ... ok
+test structure_tests::the_3d_view_has_a_solid_for_a_beam_a_round_one_and_the_columns_and_footings ... ok
+test structure_tests::structural_columns_and_footings_are_columns_with_a_category_and_types_of_their_own ... ok
+test structure_tests::the_plan_above_sees_the_beams_hanging_under_it_but_not_the_walls_of_the_storey_below ... ok
+test structure_tests::what_a_tool_previews_is_the_element_its_command_makes ... ok
+test structure_tests::the_structure_comes_back_from_ifc ... ok
+test import::tests::nothing_a_phasing_set_holds_stops_a_file_from_opening_or_takes_an_element_with_it ... ok
+test structure_tests::hostile_parameters_to_the_structure_are_refused_without_a_panic_or_a_broken_model has been running for over 60 seconds
+test structure_tests::hostile_parameters_to_the_structure_are_refused_without_a_panic_or_a_broken_model ... ok
+
+failures:
+
+---- profile_tests::a_steel_column_is_cut_in_plan_as_its_section_and_a_tube_shows_its_hole stdout ----
+
+thread 'profile_tests::a_steel_column_is_cut_in_plan_as_its_section_and_a_tube_shows_its_hole' (40636) panicked at crates\core\src\profile_tests.rs:150:5:
+assertion `left == right` failed: its hole
+  left: Rgb(168, 168, 168)
+ right: Rgb(255, 255, 255)
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    profile_tests::a_steel_column_is_cut_in_plan_as_its_section_and_a_tube_shows_its_hole
+
+test result: FAILED. 123 passed; 1 failed; 0 ignored; 0 measured; 1439 filtered out; finished in 680.39s
+
+error: test failed, to rerun pass `-p bimcraft-core --lib`

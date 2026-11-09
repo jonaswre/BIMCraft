@@ -1,0 +1,5 @@
+steel.ifc: 20 products, 16 shapes built, 0 problems
+steel-native-resaved.ifc: 20 products, 16 shapes built, 0 problems
+steel-ifc-reexported.ifc: 20 products, 16 shapes built, 0 problems
+
+Checked 16 member meshes, shared type profiles, real areas/volumes/mass, native reopen and IFC reimport/reexport.

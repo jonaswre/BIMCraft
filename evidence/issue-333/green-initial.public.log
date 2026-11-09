@@ -1,0 +1,9 @@
+   Compiling bimcraft-core v0.11.0 ($REPO\crates\core)
+    Finished `test` profile [unoptimized] target(s) in 1m 43s
+     Running tests\steel_profiles.rs ($TARGET\debug\deps\steel_profiles-00e7b12505d633ce.exe)
+
+running 2 tests
+test parametrically_authored_hollow_column_keeps_its_section_in_native_and_ifc_output ... ok
+test catalogue_beam_can_be_created_scheduled_saved_and_reopened ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.16s

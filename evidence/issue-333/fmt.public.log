@@ -1,0 +1,2 @@
+Command: cargo fmt --check
+Recorded shell exit code: 0 (no stdout; raw Tee-Object produced no file)

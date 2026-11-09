@@ -1,0 +1,171 @@
+[
+  {
+    "file": "translations/project/bimcraft-project.pot",
+    "preserved_messages": 168,
+    "added_messages": [
+      "Profile",
+      "Section Area",
+      "Weight per Metre"
+    ]
+  },
+  {
+    "file": "translations/project/cs.po",
+    "preserved_messages": 168,
+    "added_messages": [
+      "Profile",
+      "Section Area",
+      "Weight per Metre"
+    ]
+  },
+  {
+    "file": "translations/project/de.po",
+    "preserved_messages": 168,
+    "added_messages": [
+      "Profile",
+      "Section Area",
+      "Weight per Metre"
+    ]
+  },
+  {
+    "file": "translations/project/es.po",
+    "preserved_messages": 168,
+    "added_messages": [
+      "Profile",
+      "Section Area",
+      "Weight per Metre"
+    ]
+  },
+  {
+    "file": "translations/project/fr.po",
+    "preserved_messages": 168,
+    "added_messages": [
+      "Profile",
+      "Section Area",
+      "Weight per Metre"
+    ]
+  },
+  {
+    "file": "translations/project/it.po",
+    "preserved_messages": 168,
+    "added_messages": [
+      "Profile",
+      "Section Area",
+      "Weight per Metre"
+    ]
+  },
+  {
+    "file": "translations/project/nl.po",
+    "preserved_messages": 168,
+    "added_messages": [
+      "Profile",
+      "Section Area",
+      "Weight per Metre"
+    ]
+  },
+  {
+    "file": "translations/project/pt.po",
+    "preserved_messages": 168,
+    "added_messages": [
+      "Profile",
+      "Section Area",
+      "Weight per Metre"
+    ]
+  },
+  {
+    "file": "translations/project/sv.po",
+    "preserved_messages": 168,
+    "added_messages": [
+      "Profile",
+      "Section Area",
+      "Weight per Metre"
+    ]
+  },
+  {
+    "file": "translations/ui/bimcraft-ui.pot",
+    "preserved_messages": 2436,
+    "added_messages": [
+      "Section Area",
+      "Weight per Metre"
+    ]
+  },
+  {
+    "file": "translations/ui/cs.po",
+    "preserved_messages": 2436,
+    "added_messages": [
+      "Section Area",
+      "Weight per Metre"
+    ]
+  },
+  {
+    "file": "translations/ui/de.po",
+    "preserved_messages": 2436,
+    "added_messages": [
+      "Section Area",
+      "Weight per Metre"
+    ]
+  },
+  {
+    "file": "translations/ui/es.po",
+    "preserved_messages": 2436,
+    "added_messages": [
+      "Section Area",
+      "Weight per Metre"
+    ]
+  },
+  {
+    "file": "translations/ui/fr.po",
+    "preserved_messages": 2436,
+    "added_messages": [
+      "Section Area",
+      "Weight per Metre"
+    ]
+  },
+  {
+    "file": "translations/ui/it.po",
+    "preserved_messages": 2436,
+    "added_messages": [
+      "Section Area",
+      "Weight per Metre"
+    ]
+  },
+  {
+    "file": "translations/ui/nl.po",
+    "preserved_messages": 2436,
+    "added_messages": [
+      "Section Area",
+      "Weight per Metre"
+    ]
+  },
+  {
+    "file": "translations/ui/pt.po",
+    "preserved_messages": 2436,
+    "added_messages": [
+      "Section Area",
+      "Weight per Metre"
+    ]
+  },
+  {
+    "file": "translations/ui/vi.po",
+    "preserved_messages": 2436,
+    "added_messages": [
+      "Section Area",
+      "Weight per Metre"
+    ]
+  },
+  {
+    "file": "translations/ui/zh.po",
+    "preserved_messages": 2436,
+    "added_messages": [
+      "Section Area",
+      "Weight per Metre"
+    ]
+  },
+  {
+    "file": "translations/ui/zh_TW.po",
+    "preserved_messages": 2436,
+    "added_messages": [
+      "Section Area",
+      "Weight per Metre"
+    ]
+  }
+]

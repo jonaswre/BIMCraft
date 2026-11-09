@@ -1,0 +1,22 @@
+   Compiling bimcraft-core v0.11.0 ($REPO\crates\core)
+    Finished `test` profile [unoptimized] target(s) in 1.56s
+     Running tests\steel_profiles.rs ($TARGET\debug\deps\steel_profiles-00e7b12505d633ce.exe)
+
+running 1 test
+test native_versions::steel_files_require_a_reader_that_knows_sections_and_plain_format_18_files_keep_their_geometry ... FAILED
+
+failures:
+
+---- native_versions::steel_files_require_a_reader_that_knows_sections_and_plain_format_18_files_keep_their_geometry stdout ----
+
+thread 'native_versions::steel_files_require_a_reader_that_knows_sections_and_plain_format_18_files_keep_their_geometry' (31344) panicked at crates\core\tests\steel_profiles.rs:151:9:
+a format-18 reader would drop the section and reinterpret its bounding box
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    native_versions::steel_files_require_a_reader_that_knows_sections_and_plain_format_18_files_keep_their_geometry
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 6 filtered out; finished in 0.12s
+
+error: test failed, to rerun pass `-p bimcraft-core --test steel_profiles`

@@ -1,0 +1,5 @@
+   Compiling bimcraft-core v0.11.0 ($REPO\crates\core)
+   Compiling bimcraft-ui-egui v0.11.0 ($REPO\crates\ui-egui)
+    Checking bimcraft-plugin v0.11.0 ($REPO\crates\plugin)
+    Checking bimcraft-rvt v0.11.0 ($REPO\crates\rvt)
+    Finished `dev` profile [unoptimized] target(s) in 1m 26s
