@@ -1,0 +1,4 @@
+{"elements":{"door":1,"floor":2,"level":2,"roof":1,"wall":5,"window":1},"format":"IFC4","generic":0,"moved":null,"name":"Project","path":".\\original.ifc","skipped":[]}
+{"format":"bimcraft","path":".\\reopened.bimcraft"}
+{"format":"IFC4","path":".\\roundtrip.ifc"}
+{"azimuth":-45.0,"elevation":30.0,"eye":null,"eye_elevation":null,"height":1000,"kind":"3D view","lens":null,"path":".\\reopened-3d.png","target":null,"view":"{3D}","width":1600}

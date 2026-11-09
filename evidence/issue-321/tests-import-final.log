@@ -1,0 +1,37 @@
+    Finished `test` profile [unoptimized] target(s) in 0.16s
+     Running unittests src\lib.rs (<bimcraft>/.targets/issue-16\debug\deps\bimcraft_core-f723816fa9dc5cad.exe)
+
+running 31 tests
+test import::shapes::tests::the_note_of_too_many_faces_names_the_cap ... ok
+test import::shapes::tests::a_knot_vector_that_does_not_fit_its_control_points_reads_no_curve ... ok
+test import::tests::a_layer_of_no_thickness_is_a_membrane ... ok
+test import::tests::a_cable_swept_round_its_centre_line_comes_in_as_a_wire ... ok
+test import::tests::a_clockwise_profile_or_a_downward_sweep_comes_in_turned_out ... ok
+test import::tests::a_model_at_map_coordinates_comes_near_the_origin ... ok
+test import::tests::a_property_set_of_more_parameters_than_a_project_holds_comes_in_up_to_them ... ok
+test import::tests::a_property_named_as_a_parameter_of_a_family_does_not_stop_the_file_from_opening ... ok
+test import::tests::a_style_that_holds_itself_shades_its_material_once ... ok
+test import::tests::a_rooms_colour_comes_back_from_ifc_and_one_without_stays_without ... ok
+test import::tests::a_file_reads_the_same_every_time ... ok
+test import::tests::a_window_taller_than_its_wall_comes_in_rising_past_the_top_as_revit_lets_it ... ok
+test import::tests::an_unmeasurable_railing_does_not_poison_the_whole_import ... ok
+test import::tests::components_come_back_from_ifc_where_they_stood ... ok
+test import::tests::a_swept_disk_along_a_curve_of_too_many_segments_is_left_out_not_built ... ok
+test import::tests::a_phasing_set_that_breaks_a_rule_is_left_out_and_the_elements_stay ... ok
+test import::tests::holes_in_a_ceiling_come_in_as_its_openings_or_as_the_shafts_through_it ... ok
+test import::tests::from_step_names_elements_as_ifc_does ... ok
+test import::tests::holes_in_a_roof_come_in_as_its_openings_or_as_the_shafts_through_it ... ok
+test import::tests::holes_in_a_slab_come_in_as_its_openings_or_as_the_shafts_through_it ... ok
+test import::tests::meshes_and_mapped_shapes_come_in_as_extrusions_do ... ok
+test import::tests::layers_stacked_up_an_elements_own_axis_start_from_its_back ... ok
+test import::tests::names_in_other_scripts_and_with_quotes_come_back_whole ... ok
+test import::tests::more_shapes_of_one_family_than_it_holds_leave_only_the_rest_out ... ok
+test import::tests::open_seeds_elements_as_ifc_does ... ok
+test import::tests::every_kind_of_element_that_holds_parameters_keeps_its_phase_and_option ... ok
+test import::tests::project_parameters_go_out_in_a_property_set_and_come_back_with_their_kinds ... ok
+test import::tests::phases_and_design_options_survive_save_as_ifc_and_open ... ok
+test import::tests::room_separation_lines_past_what_a_project_may_hold_are_left_out_not_made ... ok
+test import::tests::an_ifc_without_the_phasing_set_opens_as_a_new_project_does ... ok
+test import::tests::nothing_a_phasing_set_holds_stops_a_file_from_opening_or_takes_an_element_with_it ... ok
+
+test result: ok. 31 passed; 0 failed; 0 ignored; 0 measured; 1518 filtered out; finished in 57.56s

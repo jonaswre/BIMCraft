@@ -1,0 +1,14 @@
+type {"category": "door", "name": "VerificationDoor", "width": 900, "height": 2100}
+type {"category": "window", "name": "VerificationWindow", "width": 1200, "height": 1200, "sill": 900}
+type {"category": "wall", "name": "Layered", "layers": [{"function": "finish", "material": "Brick", "thickness": 40}, {"function": "structure", "material": "Concrete", "thickness": 180}, {"function": "finish", "material": "Plaster", "thickness": 20}]}
+wall {"points": [[0, 0], [5000, 0]], "type": "Layered", "height": 2800, "location": "exterior-finish"}
+door {"at": [1000, 0], "type": "VerificationDoor"}
+window {"at": [3500, 0], "type": "VerificationWindow"}
+floor {"boundary": [[7000, -1000], [13000, -1000], [13000, 2000], [7000, 2000]], "offset": 400}
+floor {"level": "Level 2", "boundary": [[7000, -1000], [13000, -1000], [13000, 2000], [7000, 2000]]}
+wall {"points": [[7500, 0], [12500, 0]], "type": "Layered", "height": 2800, "location": "interior-core", "attach_base": 100005, "attach_top": 100006}
+roof {"boundary": [[15000, -500], [21000, -500], [21000, 3500], [15000, 3500]], "gable": true}
+wall {"points": [[15500, 0], [20500, 0]], "type": "Layered", "height": 2800, "location": "core-centre", "attach_top": 100008}
+wall {"points": [[0, 7000], [5000, 7000]], "type": "Layered", "height": 2800, "location": "interior-finish", "arc": 45}
+wall {"points": [[12500, 7000], [7500, 7000]], "type": "Layered", "height": 2800, "location": "exterior-core", "arc": -60}
+georeference {"crs": "EPSG:25832", "eastings": 123000, "northings": 456000, "height": 7000, "rotation": 17, "scale": 0.9996}

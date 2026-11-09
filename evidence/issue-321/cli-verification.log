@@ -1,0 +1,2 @@
+CLI-visible wall locations, axes, arcs and GUID attachments preserved.
+IFC schema, shapes, wall intent, authored element GUIDs, volumes and bounds preserved across IFC/native reopen.

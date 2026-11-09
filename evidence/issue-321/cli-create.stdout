@@ -1,0 +1,16 @@
+{"category":"door","name":"VerificationDoor","type":{"height":2100.0,"sill":0.0,"width":900.0}}
+{"category":"window","name":"VerificationWindow","type":{"height":1200.0,"sill":900.0,"width":1200.0}}
+{"category":"wall","name":"Layered","type":{"layers":[{"function":"finish","material":"Brick","thickness":40.0},{"function":"structure","material":"Concrete","thickness":180.0},{"function":"finish","material":"Plaster","thickness":20.0}],"thickness":240.0}}
+{"ids":[100002]}
+{"host":100002,"id":100003,"mark":"1","offset":1000.0}
+{"host":100002,"id":100004,"mark":"1","offset":3500.0}
+{"area_m2":18.0,"id":100005}
+{"area_m2":18.0,"id":100006}
+{"ids":[100007]}
+{"id":100008}
+{"ids":[100009]}
+{"ids":[100010]}
+{"ids":[100011]}
+{"georeference":{"crs":"EPSG:25832","eastings":123000.0,"height":7000.0,"northings":456000.0,"rotation":17.0,"scale":0.9996}}
+{"format":"IFC4","path":".\\original.ifc"}
+{"format":"bimcraft","path":".\\original.bimcraft"}

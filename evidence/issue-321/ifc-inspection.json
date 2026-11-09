@@ -1,0 +1,795 @@
+{
+  "original": {
+    "statements": 0,
+    "products_with_shapes": 12,
+    "shapes": [
+      {
+        "key": "2oCM02Wbb5t9m78vTZF4XC",
+        "opening_host": null,
+        "guid": "2oCM02Wbb5t9m78vTZF4XC",
+        "class": "IfcDoor",
+        "volume_m3": 0.09449999999999997,
+        "bbox_m": [
+          [
+            0.55,
+            -0.145,
+            0.0
+          ],
+          [
+            1.4500000000000002,
+            -0.095,
+            2.1
+          ]
+        ],
+        "pset": null
+      },
+      {
+        "key": "1SV2JjiwPEawqZsPWqcuDC",
+        "opening_host": null,
+        "guid": "1SV2JjiwPEawqZsPWqcuDC",
+        "class": "IfcRoof",
+        "volume_m3": 8.313843888000005,
+        "bbox_m": [
+          [
+            15.0,
+            -0.5,
+            3.0
+          ],
+          [
+            21.0,
+            3.5,
+            4.5011107
+          ]
+        ],
+        "pset": null
+      },
+      {
+        "key": "0C2pNHDk95xQMCC3fur4yz",
+        "opening_host": null,
+        "guid": "0C2pNHDk95xQMCC3fur4yz",
+        "class": "IfcSlab",
+        "volume_m3": 3.6,
+        "bbox_m": [
+          [
+            7.0,
+            -1.0,
+            0.2
+          ],
+          [
+            13.0,
+            2.0,
+            0.4
+          ]
+        ],
+        "pset": null
+      },
+      {
+        "key": "3G8xo9cjr4_Q$3zdmS6KVh",
+        "opening_host": null,
+        "guid": "3G8xo9cjr4_Q$3zdmS6KVh",
+        "class": "IfcSlab",
+        "volume_m3": 3.599999999999995,
+        "bbox_m": [
+          [
+            7.0,
+            -1.0,
+            2.8
+          ],
+          [
+            13.0,
+            2.0,
+            3.0
+          ]
+        ],
+        "pset": null
+      },
+      {
+        "key": "2ZQZ2CYtP9IBGGaXUWnGtZ",
+        "opening_host": null,
+        "guid": "2ZQZ2CYtP9IBGGaXUWnGtZ",
+        "class": "IfcWall",
+        "volume_m3": 2.5608000000000004,
+        "bbox_m": [
+          [
+            0.0,
+            -0.24,
+            0.0
+          ],
+          [
+            5.0,
+            0.0,
+            2.8000000000000003
+          ]
+        ],
+        "pset": {
+          "Location": "exterior-finish",
+          "id": 54
+        }
+      },
+      {
+        "key": "0Gffz6QHbCvga2I8BKvm8d",
+        "opening_host": null,
+        "guid": "0Gffz6QHbCvga2I8BKvm8d",
+        "class": "IfcWall",
+        "volume_m3": 2.880000000000001,
+        "bbox_m": [
+          [
+            7.5,
+            -0.02,
+            0.4
+          ],
+          [
+            12.5,
+            0.22,
+            2.8000000000000003
+          ]
+        ],
+        "pset": {
+          "Location": "interior-core",
+          "AttachTop": "3G8xo9cjr4_Q$3zdmS6KVh",
+          "AttachBase": "0C2pNHDk95xQMCC3fur4yz",
+          "id": 153
+        }
+      },
+      {
+        "key": "3OcMAUdtvCsR99o2asE8VG",
+        "opening_host": null,
+        "guid": "3OcMAUdtvCsR99o2asE8VG",
+        "class": "IfcWall",
+        "volume_m3": 3.9533383649999982,
+        "bbox_m": [
+          [
+            15.5,
+            -0.11,
+            0.0
+          ],
+          [
+            20.5,
+            0.13,
+            3.36373067
+          ]
+        ],
+        "pset": {
+          "Location": "core-centre",
+          "AttachTop": "1SV2JjiwPEawqZsPWqcuDC",
+          "id": 262
+        }
+      },
+      {
+        "key": "3f4n7TgCn4s9wIZheoBuZV",
+        "opening_host": null,
+        "guid": "3f4n7TgCn4s9wIZheoBuZV",
+        "class": "IfcWall",
+        "volume_m3": 3.38394618356998,
+        "bbox_m": [
+          [
+            0.0,
+            6.503671272248922,
+            0.0
+          ],
+          [
+            5.000000000476599,
+            7.221731087802707,
+            2.8000000000000003
+          ]
+        ],
+        "pset": {
+          "Location": "interior-finish",
+          "id": 353
+        }
+      },
+      {
+        "key": "1q5Tf7Ws9DGANj$PHbtWFa",
+        "opening_host": null,
+        "guid": "1q5Tf7Ws9DGANj$PHbtWFa",
+        "class": "IfcWall",
+        "volume_m3": 3.4614184528457197,
+        "bbox_m": [
+          [
+            7.480000000063722,
+            6.291074687345644,
+            0.0
+          ],
+          [
+            12.520000000000008,
+            7.173205080838466,
+            2.8000000000000003
+          ]
+        ],
+        "pset": {
+          "Location": "exterior-core",
+          "id": 461
+        }
+      },
+      {
+        "key": "1iI7Xnrqv8bQv5HyjdKB1y",
+        "opening_host": null,
+        "guid": "1iI7Xnrqv8bQv5HyjdKB1y",
+        "class": "IfcWindow",
+        "volume_m3": 0.07199999999999998,
+        "bbox_m": [
+          [
+            2.9,
+            -0.145,
+            0.9
+          ],
+          [
+            4.1,
+            -0.095,
+            2.1
+          ]
+        ],
+        "pset": null
+      },
+      {
+        "key": "opening-of:2oCM02Wbb5t9m78vTZF4XC",
+        "opening_host": "2ZQZ2CYtP9IBGGaXUWnGtZ",
+        "guid": "11gcmImxKTWdDEEDvyB6ON",
+        "class": "IfcOpeningElement",
+        "volume_m3": 0.49140000000000006,
+        "bbox_m": [
+          [
+            0.55,
+            -0.25,
+            0.0
+          ],
+          [
+            1.4500000000000002,
+            0.010000000000000009,
+            2.1
+          ]
+        ],
+        "pset": null
+      },
+      {
+        "key": "opening-of:1iI7Xnrqv8bQv5HyjdKB1y",
+        "opening_host": "2ZQZ2CYtP9IBGGaXUWnGtZ",
+        "guid": "3QVmTjwszx4xfOybdkF2RY",
+        "class": "IfcOpeningElement",
+        "volume_m3": 0.37439999999999984,
+        "bbox_m": [
+          [
+            2.9,
+            -0.25,
+            0.9
+          ],
+          [
+            4.1,
+            0.010000000000000009,
+            2.1
+          ]
+        ],
+        "pset": null
+      }
+    ]
+  },
+  "roundtrip": {
+    "statements": 0,
+    "products_with_shapes": 12,
+    "shapes": [
+      {
+        "key": "2oCM02Wbb5t9m78vTZF4XC",
+        "opening_host": null,
+        "guid": "2oCM02Wbb5t9m78vTZF4XC",
+        "class": "IfcDoor",
+        "volume_m3": 0.09449999999999997,
+        "bbox_m": [
+          [
+            0.55,
+            -0.145,
+            0.0
+          ],
+          [
+            1.4500000000000002,
+            -0.095,
+            2.1
+          ]
+        ],
+        "pset": null
+      },
+      {
+        "key": "1SV2JjiwPEawqZsPWqcuDC",
+        "opening_host": null,
+        "guid": "1SV2JjiwPEawqZsPWqcuDC",
+        "class": "IfcRoof",
+        "volume_m3": 8.313843888000005,
+        "bbox_m": [
+          [
+            15.0,
+            -0.5,
+            3.0
+          ],
+          [
+            21.0,
+            3.5,
+            4.5011107
+          ]
+        ],
+        "pset": null
+      },
+      {
+        "key": "0C2pNHDk95xQMCC3fur4yz",
+        "opening_host": null,
+        "guid": "0C2pNHDk95xQMCC3fur4yz",
+        "class": "IfcSlab",
+        "volume_m3": 3.6,
+        "bbox_m": [
+          [
+            7.0,
+            -1.0,
+            0.2
+          ],
+          [
+            13.0,
+            2.0,
+            0.4
+          ]
+        ],
+        "pset": null
+      },
+      {
+        "key": "3G8xo9cjr4_Q$3zdmS6KVh",
+        "opening_host": null,
+        "guid": "3G8xo9cjr4_Q$3zdmS6KVh",
+        "class": "IfcSlab",
+        "volume_m3": 3.599999999999995,
+        "bbox_m": [
+          [
+            7.0,
+            -1.0,
+            2.8
+          ],
+          [
+            13.0,
+            2.0,
+            3.0
+          ]
+        ],
+        "pset": null
+      },
+      {
+        "key": "2ZQZ2CYtP9IBGGaXUWnGtZ",
+        "opening_host": null,
+        "guid": "2ZQZ2CYtP9IBGGaXUWnGtZ",
+        "class": "IfcWall",
+        "volume_m3": 2.5608000000000004,
+        "bbox_m": [
+          [
+            0.0,
+            -0.24,
+            0.0
+          ],
+          [
+            5.0,
+            0.0,
+            2.8000000000000003
+          ]
+        ],
+        "pset": {
+          "Location": "exterior-finish",
+          "id": 54
+        }
+      },
+      {
+        "key": "0Gffz6QHbCvga2I8BKvm8d",
+        "opening_host": null,
+        "guid": "0Gffz6QHbCvga2I8BKvm8d",
+        "class": "IfcWall",
+        "volume_m3": 2.88,
+        "bbox_m": [
+          [
+            7.5,
+            -0.02,
+            0.4
+          ],
+          [
+            12.5,
+            0.22,
+            2.8
+          ]
+        ],
+        "pset": {
+          "Location": "interior-core",
+          "AttachTop": "3G8xo9cjr4_Q$3zdmS6KVh",
+          "AttachBase": "0C2pNHDk95xQMCC3fur4yz",
+          "id": 107
+        }
+      },
+      {
+        "key": "3OcMAUdtvCsR99o2asE8VG",
+        "opening_host": null,
+        "guid": "3OcMAUdtvCsR99o2asE8VG",
+        "class": "IfcWall",
+        "volume_m3": 3.9533383649999982,
+        "bbox_m": [
+          [
+            15.5,
+            -0.11,
+            0.0
+          ],
+          [
+            20.5,
+            0.13,
+            3.36373067
+          ]
+        ],
+        "pset": {
+          "Location": "core-centre",
+          "AttachTop": "1SV2JjiwPEawqZsPWqcuDC",
+          "id": 154
+        }
+      },
+      {
+        "key": "3f4n7TgCn4s9wIZheoBuZV",
+        "opening_host": null,
+        "guid": "3f4n7TgCn4s9wIZheoBuZV",
+        "class": "IfcWall",
+        "volume_m3": 3.38394618356998,
+        "bbox_m": [
+          [
+            0.0,
+            6.503671272248922,
+            0.0
+          ],
+          [
+            5.000000000476599,
+            7.221731087802707,
+            2.8000000000000003
+          ]
+        ],
+        "pset": {
+          "Location": "interior-finish",
+          "id": 245
+        }
+      },
+      {
+        "key": "1q5Tf7Ws9DGANj$PHbtWFa",
+        "opening_host": null,
+        "guid": "1q5Tf7Ws9DGANj$PHbtWFa",
+        "class": "IfcWall",
+        "volume_m3": 3.4614184528457197,
+        "bbox_m": [
+          [
+            7.480000000063722,
+            6.291074687345644,
+            0.0
+          ],
+          [
+            12.520000000000008,
+            7.173205080838466,
+            2.8000000000000003
+          ]
+        ],
+        "pset": {
+          "Location": "exterior-core",
+          "id": 353
+        }
+      },
+      {
+        "key": "1iI7Xnrqv8bQv5HyjdKB1y",
+        "opening_host": null,
+        "guid": "1iI7Xnrqv8bQv5HyjdKB1y",
+        "class": "IfcWindow",
+        "volume_m3": 0.07199999999999998,
+        "bbox_m": [
+          [
+            2.9,
+            -0.145,
+            0.9
+          ],
+          [
+            4.1,
+            -0.095,
+            2.1
+          ]
+        ],
+        "pset": null
+      },
+      {
+        "key": "opening-of:2oCM02Wbb5t9m78vTZF4XC",
+        "opening_host": "2ZQZ2CYtP9IBGGaXUWnGtZ",
+        "guid": "1ZOaoQnHn6kLSdfbko$WKU",
+        "class": "IfcOpeningElement",
+        "volume_m3": 0.49140000000000006,
+        "bbox_m": [
+          [
+            0.55,
+            -0.25,
+            0.0
+          ],
+          [
+            1.4500000000000002,
+            0.010000000000000009,
+            2.1
+          ]
+        ],
+        "pset": null
+      },
+      {
+        "key": "opening-of:1iI7Xnrqv8bQv5HyjdKB1y",
+        "opening_host": "2ZQZ2CYtP9IBGGaXUWnGtZ",
+        "guid": "1f1C6EWX0wuRdwPOVFZd$m",
+        "class": "IfcOpeningElement",
+        "volume_m3": 0.37439999999999984,
+        "bbox_m": [
+          [
+            2.9,
+            -0.25,
+            0.9
+          ],
+          [
+            4.1,
+            0.010000000000000009,
+            2.1
+          ]
+        ],
+        "pset": null
+      }
+    ]
+  },
+  "native-reopened": {
+    "statements": 0,
+    "products_with_shapes": 12,
+    "shapes": [
+      {
+        "key": "2oCM02Wbb5t9m78vTZF4XC",
+        "opening_host": null,
+        "guid": "2oCM02Wbb5t9m78vTZF4XC",
+        "class": "IfcDoor",
+        "volume_m3": 0.09449999999999997,
+        "bbox_m": [
+          [
+            0.55,
+            -0.145,
+            0.0
+          ],
+          [
+            1.4500000000000002,
+            -0.095,
+            2.1
+          ]
+        ],
+        "pset": null
+      },
+      {
+        "key": "1SV2JjiwPEawqZsPWqcuDC",
+        "opening_host": null,
+        "guid": "1SV2JjiwPEawqZsPWqcuDC",
+        "class": "IfcRoof",
+        "volume_m3": 8.313843888000005,
+        "bbox_m": [
+          [
+            15.0,
+            -0.5,
+            3.0
+          ],
+          [
+            21.0,
+            3.5,
+            4.5011107
+          ]
+        ],
+        "pset": null
+      },
+      {
+        "key": "0C2pNHDk95xQMCC3fur4yz",
+        "opening_host": null,
+        "guid": "0C2pNHDk95xQMCC3fur4yz",
+        "class": "IfcSlab",
+        "volume_m3": 3.6,
+        "bbox_m": [
+          [
+            7.0,
+            -1.0,
+            0.2
+          ],
+          [
+            13.0,
+            2.0,
+            0.4
+          ]
+        ],
+        "pset": null
+      },
+      {
+        "key": "3G8xo9cjr4_Q$3zdmS6KVh",
+        "opening_host": null,
+        "guid": "3G8xo9cjr4_Q$3zdmS6KVh",
+        "class": "IfcSlab",
+        "volume_m3": 3.599999999999995,
+        "bbox_m": [
+          [
+            7.0,
+            -1.0,
+            2.8
+          ],
+          [
+            13.0,
+            2.0,
+            3.0
+          ]
+        ],
+        "pset": null
+      },
+      {
+        "key": "2ZQZ2CYtP9IBGGaXUWnGtZ",
+        "opening_host": null,
+        "guid": "2ZQZ2CYtP9IBGGaXUWnGtZ",
+        "class": "IfcWall",
+        "volume_m3": 2.5608000000000004,
+        "bbox_m": [
+          [
+            0.0,
+            -0.24,
+            0.0
+          ],
+          [
+            5.0,
+            0.0,
+            2.8000000000000003
+          ]
+        ],
+        "pset": {
+          "Location": "exterior-finish",
+          "id": 54
+        }
+      },
+      {
+        "key": "0Gffz6QHbCvga2I8BKvm8d",
+        "opening_host": null,
+        "guid": "0Gffz6QHbCvga2I8BKvm8d",
+        "class": "IfcWall",
+        "volume_m3": 2.88,
+        "bbox_m": [
+          [
+            7.5,
+            -0.02,
+            0.4
+          ],
+          [
+            12.5,
+            0.22,
+            2.8
+          ]
+        ],
+        "pset": {
+          "Location": "interior-core",
+          "AttachTop": "3G8xo9cjr4_Q$3zdmS6KVh",
+          "AttachBase": "0C2pNHDk95xQMCC3fur4yz",
+          "id": 107
+        }
+      },
+      {
+        "key": "3OcMAUdtvCsR99o2asE8VG",
+        "opening_host": null,
+        "guid": "3OcMAUdtvCsR99o2asE8VG",
+        "class": "IfcWall",
+        "volume_m3": 3.9533383649999982,
+        "bbox_m": [
+          [
+            15.5,
+            -0.11,
+            0.0
+          ],
+          [
+            20.5,
+            0.13,
+            3.36373067
+          ]
+        ],
+        "pset": {
+          "Location": "core-centre",
+          "AttachTop": "1SV2JjiwPEawqZsPWqcuDC",
+          "id": 154
+        }
+      },
+      {
+        "key": "3f4n7TgCn4s9wIZheoBuZV",
+        "opening_host": null,
+        "guid": "3f4n7TgCn4s9wIZheoBuZV",
+        "class": "IfcWall",
+        "volume_m3": 3.38394618356998,
+        "bbox_m": [
+          [
+            0.0,
+            6.503671272248922,
+            0.0
+          ],
+          [
+            5.000000000476599,
+            7.221731087802707,
+            2.8000000000000003
+          ]
+        ],
+        "pset": {
+          "Location": "interior-finish",
+          "id": 245
+        }
+      },
+      {
+        "key": "1q5Tf7Ws9DGANj$PHbtWFa",
+        "opening_host": null,
+        "guid": "1q5Tf7Ws9DGANj$PHbtWFa",
+        "class": "IfcWall",
+        "volume_m3": 3.4614184528457197,
+        "bbox_m": [
+          [
+            7.480000000063722,
+            6.291074687345644,
+            0.0
+          ],
+          [
+            12.520000000000008,
+            7.173205080838466,
+            2.8000000000000003
+          ]
+        ],
+        "pset": {
+          "Location": "exterior-core",
+          "id": 353
+        }
+      },
+      {
+        "key": "1iI7Xnrqv8bQv5HyjdKB1y",
+        "opening_host": null,
+        "guid": "1iI7Xnrqv8bQv5HyjdKB1y",
+        "class": "IfcWindow",
+        "volume_m3": 0.07199999999999998,
+        "bbox_m": [
+          [
+            2.9,
+            -0.145,
+            0.9
+          ],
+          [
+            4.1,
+            -0.095,
+            2.1
+          ]
+        ],
+        "pset": null
+      },
+      {
+        "key": "opening-of:2oCM02Wbb5t9m78vTZF4XC",
+        "opening_host": "2ZQZ2CYtP9IBGGaXUWnGtZ",
+        "guid": "1ZOaoQnHn6kLSdfbko$WKU",
+        "class": "IfcOpeningElement",
+        "volume_m3": 0.49140000000000006,
+        "bbox_m": [
+          [
+            0.55,
+            -0.25,
+            0.0
+          ],
+          [
+            1.4500000000000002,
+            0.010000000000000009,
+            2.1
+          ]
+        ],
+        "pset": null
+      },
+      {
+        "key": "opening-of:1iI7Xnrqv8bQv5HyjdKB1y",
+        "opening_host": "2ZQZ2CYtP9IBGGaXUWnGtZ",
+        "guid": "1f1C6EWX0wuRdwPOVFZd$m",
+        "class": "IfcOpeningElement",
+        "volume_m3": 0.37439999999999984,
+        "bbox_m": [
+          [
+            2.9,
+            -0.25,
+            0.9
+          ],
+          [
+            4.1,
+            0.010000000000000009,
+            2.1
+          ]
+        ],
+        "pset": null
+      }
+    ]
+  },
+  "ifcopenshell_version": "0.8.5"
+}

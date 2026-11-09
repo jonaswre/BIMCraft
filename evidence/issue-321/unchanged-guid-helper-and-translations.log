@@ -1,0 +1,37 @@
+warning: in the working copy of 'translations/project/bimcraft-project.pot', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'translations/project/cs.po', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'translations/project/de.po', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'translations/project/es.po', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'translations/project/fr.po', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'translations/project/it.po', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'translations/project/nl.po', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'translations/project/pt.po', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'translations/project/sv.po', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'translations/ui/bimcraft-ui.pot', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'translations/ui/cs.po', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'translations/ui/de.po', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'translations/ui/es.po', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'translations/ui/fr.po', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'translations/ui/it.po', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'translations/ui/nl.po', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'translations/ui/pt.po', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'translations/ui/vi.po', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'translations/ui/zh.po', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'translations/ui/zh_TW.po', LF will be replaced by CRLF the next time Git touches it
+Unchanged from base 30527e323e9c2e59abff927e4b76fe3ce0f83e15:
+fn guid(uid: u64, role: u64, id: u64) -> String {
+    let hi = mix(uid ^ mix(role.wrapping_mul(0x9E37_79B9_7F4A_7C15) ^ id));
+    let lo = mix(hi ^ id.rotate_left(17) ^ role);
+    compress((u128::from(hi) << 64) | u128::from(lo))
+}
+
+Unchanged from base 30527e323e9c2e59abff927e4b76fe3ce0f83e15:
+    fn guid(&self, role: u64, id: u64) -> String {
+        match self.own.get(&id) {
+            Some(g) if role == ELEMENT || role == STOREY => s(&compress(g.as_u128())),
+            Some(g) => s(&guid(self.uid, role, fold(*g))),
+            None => s(&guid(self.uid, role, id)),
+        }
+    }
+
+20 translation/template files: source references only; messages, translations and metadata unchanged.
