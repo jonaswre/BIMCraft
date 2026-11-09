@@ -1,0 +1,26 @@
+{
+  "base": "30527e323e9c2e59abff927e4b76fe3ce0f83e15",
+  "included_exact_heads_are_ancestors": 22,
+  "excluded_parent_acceptance_heads": [
+    "b2ec5a400da59f7aa5373649ade761d8aec70815",
+    "7ebeb79fa917a840d3b90b9548977909bd3b77c5",
+    "3317917e24a305cd91387d81e4051e6975dbed24"
+  ],
+  "fixtures": [
+    {
+      "name": "steel19.bimcraft",
+      "sha256": "57e7044d452b4bc9346dd8432c5eda356243245a2bc955853a4238962ced807a",
+      "format": 19,
+      "exact_original_bytes": true
+    },
+    {
+      "name": "stair19.bimcraft",
+      "sha256": "3ab8d206f6c2f9e9a286322305c0b5e289a12ee0cd02a72174423538d400e1e7",
+      "format": 19,
+      "exact_original_bytes": true
+    }
+  ],
+  "final_head": "4056f2795e7b46bec20cfd56589e9b4058973a2d",
+  "branch": "audit/combined-factory-fixes",
+  "worktree_clean": true
+}

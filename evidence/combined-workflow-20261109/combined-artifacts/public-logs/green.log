@@ -1,0 +1,12 @@
+   Compiling bimcraft-core v0.11.0 (<workspace>\upstream-combined-audit\crates\core)
+    Finished `test` profile [unoptimized] target(s) in 1.78s
+     Running tests\combined_audit.rs (<workspace>/.targets/combined-audit\debug\deps\combined_audit-47b6e039aa43b18e.exe)
+
+running 4 tests
+test implicit_opening_prefers_any_cut_host_then_unique_default_level_raised_host ... ok
+test combined_native_history_advances_beyond_both_independent_format19_readers ... ok
+test property_boundary_level_edit_updates_warm_plans_undo_and_native_reopen ... ok
+test industrial_gates_draw_in_section_and_elevation_after_native_reopen ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.84s
+

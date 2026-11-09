@@ -1,0 +1,7 @@
+{"ids":[100002,100003,100004,100005]}
+{"area_m2":180.0,"id":100006,"number":"1"}
+{"format":"IFC4","path":"baseline-room.ifc"}
+ 
+{"elements":{"level":2,"room":1,"wall":4},"format":"IFC4","generic":0,"moved":null,"name":"Project","path":"baseline-room.ifc","skipped":[]}
+{"format":"IFC4","path":"baseline-room-reopened.ifc"}
+ 

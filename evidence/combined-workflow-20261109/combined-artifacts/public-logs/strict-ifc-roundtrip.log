@@ -1,0 +1,29 @@
+[
+  {
+    "guid": "2LmOISvU55hQKyV4wh6y7U",
+    "class": "IfcSpace",
+    "field": "max",
+    "before": [
+      18.0,
+      10.0,
+      2.7
+    ],
+    "after": [
+      18.0,
+      10.0,
+      2.5
+    ]
+  },
+  {
+    "guid": "2LmOISvU55hQKyV4wh6y7U",
+    "class": "IfcSpace",
+    "field": "volume",
+    "before": 485.9055912863348,
+    "after": 449.91258452438404
+  }
+]
+Traceback (most recent call last):
+  File "<workspace>\upstream-delivery\.superpowers\sdd\2026-11-09-upstream-factory-fixes\combined-artifacts\verify_ifc_full_model.py", line 13, in <module>
+    assert not errors, 'Strict full-model IFC roundtrip FAILED; retained as a real failure, not an expected-pass test'
+           ^^^^^^^^^^
+AssertionError: Strict full-model IFC roundtrip FAILED; retained as a real failure, not an expected-pass test

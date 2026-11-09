@@ -1,0 +1,46 @@
+{
+  "mixed.ifc": {
+    "roots": 106,
+    "products": 26,
+    "shapes": 21,
+    "problems": 0
+  },
+  "reopened-bimcraft.ifc": {
+    "roots": 106,
+    "products": 26,
+    "shapes": 21,
+    "problems": 0
+  },
+  "reopened-ifc.ifc": {
+    "roots": 106,
+    "products": 26,
+    "shapes": 21,
+    "problems": 0
+  },
+  "steel19.bimcraft.old.ifc": {
+    "roots": 172,
+    "products": 20,
+    "shapes": 16,
+    "problems": 0
+  },
+  "steel19.bimcraft.new.ifc": {
+    "roots": 172,
+    "products": 20,
+    "shapes": 16,
+    "problems": 0
+  },
+  "stair19.bimcraft.old.ifc": {
+    "roots": 19,
+    "products": 11,
+    "shapes": 5,
+    "problems": 0
+  },
+  "stair19.bimcraft.new.ifc": {
+    "roots": 19,
+    "products": 11,
+    "shapes": 5,
+    "problems": 0
+  }
+}
+KNOWN LIMITATION: pre-existing room IFC height loss 2.7m -> 2.5m; separately baseline18 reproduced
+PASS schema/EXPRESS, unique GlobalIds, all represented shapes, independent19 geometry, combined native geometry and targeted IFC solids (IfcSpace excluded), CRS/map conversion

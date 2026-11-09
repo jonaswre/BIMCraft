@@ -1,0 +1,20 @@
+   Compiling bimcraft-core v0.11.0 (WORKTREES/upstream-11-property-lines\crates\core)
+    Finished `test` profile [unoptimized] target(s) in 9.60s
+     Running tests\property_boundaries.rs (../.targets/issue-11\debug\deps\property_boundaries-a8bd9a113e521750.exe)
+
+running 12 tests
+test tests::concave_reversed_boundaries_and_multiple_levels_survive_ifc_with_names_and_guids ... ok
+test tests::boundaries_move_copy_undo_and_refresh_the_level_lookup_without_losing_identity ... ok
+test tests::boundary_rotation_mirroring_visibility_and_deletion_use_the_existing_commands ... ok
+test tests::an_open_ifc_site_footprint_is_reported_instead_of_silently_closed ... ok
+test tests::native_unknown_fields_are_reported_newer_versions_refused_and_old_files_unchanged ... ok
+test tests::mismatched_site_metadata_is_ignored_without_losing_the_boundary_or_identity ... ok
+test tests::property_boundary_invalid_inputs_roll_back_and_read_only_refuses ... ok
+test tests::property_boundary_command_draw_schedule_native_and_ifc_round_trip ... ok
+test tests::survey_bearings_cover_quadrants_and_carry_rounded_seconds ... ok
+test tests::property_labels_clear_multiple_room_tags_but_ignore_hidden_other_level_and_distant_tags ... ok
+test tests::property_and_centered_room_labels_remain_readable_at_different_scales_and_name_widths ... ok
+test tests::printed_sheet_preserves_room_pixels_when_a_centered_property_is_added_and_reopened ... ok
+
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.16s
+

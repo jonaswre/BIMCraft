@@ -1,0 +1,6 @@
+COMMAND bimcraft-cli run synthetic-mixed.bimcraft --cmd render {"view": "Level 1", "path": "after-plan.png", "width": 1200, "height": 800} --cmd render {"view": "S-01", "path": "after-sheet.png"} --cmd render {"view": "S-01", "path": "after-sheet.pdf"} --save after-reopened.bimcraft
+{"name":"Project","path":"synthetic-mixed.bimcraft"}
+{"height":800,"kind":"plan","path":"after-plan.png","view":"Level 1","width":1200}
+{"height":1485,"kind":"sheet","path":"after-sheet.png","view":"S-01","width":2100}
+{"kind":"sheet","path":"after-sheet.pdf","view":"S-01"}
+{"format":"bimcraft","path":"after-reopened.bimcraft"}

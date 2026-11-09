@@ -1,0 +1,44 @@
+{
+  "plan": {
+    "size": [
+      1200,
+      800
+    ],
+    "changed_pixels_bbox": [
+      527,
+      324,
+      672,
+      390
+    ],
+    "fixed_label_neighborhood": [
+      480,
+      300,
+      720,
+      420
+    ],
+    "all_pixels_outside_fixed_label_neighborhood_unchanged": true
+  },
+  "sheet": {
+    "size": [
+      2100,
+      1485
+    ],
+    "changed_pixels_bbox": [
+      993,
+      556,
+      1158,
+      631
+    ],
+    "fixed_label_neighborhood": [
+      950,
+      530,
+      1200,
+      650
+    ],
+    "all_pixels_outside_fixed_label_neighborhood_unchanged": true
+  },
+  "observed_after_labels": [
+    "SYNTHETIC BOUNDARY / 308.00 M2",
+    "SYNTHETIC ASSEMBLY / 1 / 179.97 M2"
+  ]
+}

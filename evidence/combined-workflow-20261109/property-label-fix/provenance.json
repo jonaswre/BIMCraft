@@ -1,0 +1,41 @@
+{
+  "scope": "F1 property/room label rendering only; synthetic evidence",
+  "task11_old": "9274a263c1e483859585bfd60e707d2d910ca0e5",
+  "task11_fix": "c117662cb80cb83206620db35d52af6ea036bfc8",
+  "audit_old": "4056f2795e7b46bec20cfd56589e9b4058973a2d",
+  "audit_new": "626ad873a09d2217d350edbbcc11c1e3518a69e3",
+  "integration": "no-ff merge of exact task11 fix commit; both original reviewed heads remain ancestors",
+  "source_files": [
+    "crates/core/src/render.rs",
+    "crates/core/tests/property_boundaries.rs",
+    "docs/areas/property-boundaries.md"
+  ],
+  "resources": {
+    "CARGO_BUILD_JOBS": 2,
+    "RAYON_NUM_THREADS": 2,
+    "test_threads": 4,
+    "local_cargo_config": [
+      "profile.dev.package.bimcraft-core.opt-level=0",
+      "profile.dev.debug=0"
+    ],
+    "committed_build_overrides": false
+  },
+  "synthetic_input": "byte-for-byte copy of combined-artifacts/mixed.bimcraft; invented names and geometry; no customer input",
+  "known_limits": [
+    "No full workspace/platform/default-reader run in this fix wave",
+    "Baseline IfcSpace height/volume loss remains FAILED, outside this render-only fix",
+    "No broad annotation collision engine: property tags avoid visible room tags only",
+    "M1-M3 remain nonblocking follow-up recommendations",
+    "No push, PR edit, merge to upstream or release"
+  ],
+  "task11_new": "271643700503c0045d79ed71f4a9b6b9a4b3e9a8",
+  "task11_followups": [
+    "c85c2f7827ff78eab6ef2e453df6c894d49e21a0",
+    "271643700503c0045d79ed71f4a9b6b9a4b3e9a8"
+  ],
+  "audit_merges": [
+    "a1528f3a2ab3f0e3654ba8d633ba71bbb2751767",
+    "c716a4948c73b15d4e218074932af7432a5cb3a8",
+    "626ad873a09d2217d350edbbcc11c1e3518a69e3"
+  ]
+}

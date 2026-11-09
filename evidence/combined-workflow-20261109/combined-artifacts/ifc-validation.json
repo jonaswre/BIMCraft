@@ -1,0 +1,1670 @@
+{
+  "mixed.ifc": {
+    "roots": 106,
+    "products": 26,
+    "shapes": {
+      "25BjzuRZX9f9uwfgF$EqSh": {
+        "class": "IfcBeam",
+        "name": "IPE 300",
+        "min": [
+          1.0,
+          2.925,
+          5.7
+        ],
+        "max": [
+          17.0,
+          3.075,
+          6.000000000000001
+        ],
+        "volume": 0.08619390492866745
+      },
+      "1Hk2rDDEPBBwnonlvghEZU": {
+        "class": "IfcColumn",
+        "name": "HEB 300",
+        "min": [
+          0.85,
+          2.85,
+          0.0
+        ],
+        "max": [
+          1.15,
+          3.15,
+          6.0
+        ],
+        "volume": 0.08956170808825299
+      },
+      "2Jhvyvsfj3vhwT5PVuyGAG": {
+        "class": "IfcColumn",
+        "name": "Synthetic Tube",
+        "min": [
+          16.9,
+          2.95,
+          0.0
+        ],
+        "max": [
+          17.1,
+          3.05,
+          6.0
+        ],
+        "volume": 0.02726399999999411
+      },
+      "38XHme$X53XuV3NHoteFm_": {
+        "class": "IfcDoor",
+        "name": "Sectional Gate",
+        "min": [
+          2.4,
+          0.1,
+          0.4
+        ],
+        "max": [
+          5.6,
+          3.38,
+          3.7
+        ],
+        "volume": 0.48747000000000335
+      },
+      "31DNMR$En1cAvVprXs58bh": {
+        "class": "IfcDoor",
+        "name": "Roller Gate",
+        "min": [
+          9.4,
+          0.1,
+          0.4
+        ],
+        "max": [
+          12.6,
+          0.55,
+          4.05
+        ],
+        "volume": 0.830719999999999
+      },
+      "2LtpdCp712KhrBVEtBgBYP": {
+        "class": "IfcRailing",
+        "name": "Railing - 1000mm",
+        "min": [
+          2.99,
+          6.425,
+          0.0
+        ],
+        "max": [
+          5.315,
+          9.02,
+          4.4
+        ],
+        "volume": 0.02772999999996951
+      },
+      "1F9wSDZ7vBy960hW9nf2Qa": {
+        "class": "IfcRailing",
+        "name": "Railing - 1000mm",
+        "min": [
+          2.99,
+          5.525,
+          0.0
+        ],
+        "max": [
+          6.215,
+          9.02,
+          4.4
+        ],
+        "volume": 0.03792999999997493
+      },
+      "0Q6FIE8P4l4gTmRpApeKMb": {
+        "class": "IfcSlab",
+        "name": "Landing",
+        "min": [
+          5.24,
+          5.5,
+          1.360526316
+        ],
+        "max": [
+          6.24,
+          6.5,
+          1.610526316
+        ],
+        "volume": 0.25000000000000133
+      },
+      "32pjH5uPZmtICL1dBpvti2": {
+        "class": "IfcStairFlight",
+        "name": "Flight",
+        "min": [
+          3.0,
+          5.5,
+          -0.111052632
+        ],
+        "max": [
+          5.24,
+          6.5,
+          1.570526316
+        ],
+        "volume": 0.10640000000000267
+      },
+      "00K8HF$KfvxMlordqSJ91M": {
+        "class": "IfcStairFlight",
+        "name": "Flight",
+        "min": [
+          5.24,
+          6.5,
+          1.499473684
+        ],
+        "max": [
+          6.24,
+          9.02,
+          3.3600000000000003
+        ],
+        "volume": 0.11969999999998437
+      },
+      "11RAahDrn5BvaF0hwru5Rq": {
+        "class": "IfcWall",
+        "name": "Generic - 200mm",
+        "min": [
+          -0.1,
+          -0.10000000000000002,
+          0.4
+        ],
+        "max": [
+          18.1,
+          0.10000000000000002,
+          7.6000000000000005
+        ],
+        "volume": 21.72000000000001
+      },
+      "1RADc1lpHCJA354g7J_K9h": {
+        "class": "IfcWall",
+        "name": "Generic - 200mm",
+        "min": [
+          17.9,
+          -0.1,
+          0.4
+        ],
+        "max": [
+          18.1,
+          10.1,
+          7.6000000000000005
+        ],
+        "volume": 14.400000000000142
+      },
+      "2TZNiJro5B7xnu86prDQFb": {
+        "class": "IfcWall",
+        "name": "Generic - 200mm",
+        "min": [
+          -0.10000000000000142,
+          9.9,
+          0.4
+        ],
+        "max": [
+          18.1,
+          10.1,
+          7.6000000000000005
+        ],
+        "volume": 25.91999999999993
+      },
+      "2$kfU9fOTBPA4u1BVgtAm2": {
+        "class": "IfcWall",
+        "name": "Generic - 200mm",
+        "min": [
+          -0.1,
+          -0.09999999999999964,
+          0.4
+        ],
+        "max": [
+          0.1,
+          10.1,
+          7.6000000000000005
+        ],
+        "volume": 14.4
+      },
+      "0TJAxFTjbF8QyQHOqx5GxO": {
+        "class": "IfcWindow",
+        "name": "Fixed 1200 x 1500",
+        "min": [
+          3.4,
+          -0.025,
+          4.3
+        ],
+        "max": [
+          4.6,
+          0.025,
+          5.8
+        ],
+        "volume": 0.08999999999999991
+      },
+      "2pC4S74cNN$mMt8tKn3bmi": {
+        "class": "IfcOpeningElement",
+        "name": "Opening",
+        "min": [
+          2.5,
+          -0.11,
+          0.4
+        ],
+        "max": [
+          5.5,
+          0.11,
+          3.6
+        ],
+        "volume": 2.1119999999999997
+      },
+      "0KGtc5ZWfCak5IEJCeApZq": {
+        "class": "IfcOpeningElement",
+        "name": "Opening",
+        "min": [
+          9.5,
+          -0.11,
+          0.4
+        ],
+        "max": [
+          12.5,
+          0.11,
+          3.6
+        ],
+        "volume": 2.1120000000000005
+      },
+      "39HS32bOjWZ3vbNd2MZTwI": {
+        "class": "IfcOpeningElement",
+        "name": "Opening",
+        "min": [
+          3.4,
+          -0.11,
+          4.3
+        ],
+        "max": [
+          4.6,
+          0.11,
+          5.8
+        ],
+        "volume": 0.3960000000000002
+      },
+      "0YbGmI_exZ9kO2FjA6W_0N": {
+        "class": "IfcGrid",
+        "name": "Grid",
+        "min": [
+          -1.0,
+          -1.0,
+          0.0
+        ],
+        "max": [
+          19.0,
+          11.0,
+          0.0
+        ],
+        "volume": 0
+      },
+      "2uckl52B9xbQpeBauonfz5": {
+        "class": "IfcSite",
+        "name": "Site",
+        "min": [
+          -2.0,
+          -2.0,
+          0.0
+        ],
+        "max": [
+          20.0,
+          12.0,
+          0.0
+        ],
+        "volume": 0
+      },
+      "2LmOISvU55hQKyV4wh6y7U": {
+        "class": "IfcSpace",
+        "name": "1",
+        "min": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "max": [
+          18.0,
+          10.0,
+          2.7
+        ],
+        "volume": 485.9055912863348
+      }
+    },
+    "schema": "IFC4",
+    "problems": 0
+  },
+  "reopened-bimcraft.ifc": {
+    "roots": 106,
+    "products": 26,
+    "shapes": {
+      "25BjzuRZX9f9uwfgF$EqSh": {
+        "class": "IfcBeam",
+        "name": "IPE 300",
+        "min": [
+          1.0,
+          2.925,
+          5.7
+        ],
+        "max": [
+          17.0,
+          3.075,
+          6.000000000000001
+        ],
+        "volume": 0.08619390492866745
+      },
+      "1Hk2rDDEPBBwnonlvghEZU": {
+        "class": "IfcColumn",
+        "name": "HEB 300",
+        "min": [
+          0.85,
+          2.85,
+          0.0
+        ],
+        "max": [
+          1.15,
+          3.15,
+          6.0
+        ],
+        "volume": 0.08956170808825299
+      },
+      "2Jhvyvsfj3vhwT5PVuyGAG": {
+        "class": "IfcColumn",
+        "name": "Synthetic Tube",
+        "min": [
+          16.9,
+          2.95,
+          0.0
+        ],
+        "max": [
+          17.1,
+          3.05,
+          6.0
+        ],
+        "volume": 0.02726399999999411
+      },
+      "38XHme$X53XuV3NHoteFm_": {
+        "class": "IfcDoor",
+        "name": "Sectional Gate",
+        "min": [
+          2.4,
+          0.1,
+          0.4
+        ],
+        "max": [
+          5.6,
+          3.38,
+          3.7
+        ],
+        "volume": 0.48747000000000335
+      },
+      "31DNMR$En1cAvVprXs58bh": {
+        "class": "IfcDoor",
+        "name": "Roller Gate",
+        "min": [
+          9.4,
+          0.1,
+          0.4
+        ],
+        "max": [
+          12.6,
+          0.55,
+          4.05
+        ],
+        "volume": 0.830719999999999
+      },
+      "2LtpdCp712KhrBVEtBgBYP": {
+        "class": "IfcRailing",
+        "name": "Railing - 1000mm",
+        "min": [
+          2.99,
+          6.425,
+          0.0
+        ],
+        "max": [
+          5.315,
+          9.02,
+          4.4
+        ],
+        "volume": 0.02772999999996951
+      },
+      "1F9wSDZ7vBy960hW9nf2Qa": {
+        "class": "IfcRailing",
+        "name": "Railing - 1000mm",
+        "min": [
+          2.99,
+          5.525,
+          0.0
+        ],
+        "max": [
+          6.215,
+          9.02,
+          4.4
+        ],
+        "volume": 0.03792999999997493
+      },
+      "0Q6FIE8P4l4gTmRpApeKMb": {
+        "class": "IfcSlab",
+        "name": "Landing",
+        "min": [
+          5.24,
+          5.5,
+          1.360526316
+        ],
+        "max": [
+          6.24,
+          6.5,
+          1.610526316
+        ],
+        "volume": 0.25000000000000133
+      },
+      "32pjH5uPZmtICL1dBpvti2": {
+        "class": "IfcStairFlight",
+        "name": "Flight",
+        "min": [
+          3.0,
+          5.5,
+          -0.111052632
+        ],
+        "max": [
+          5.24,
+          6.5,
+          1.570526316
+        ],
+        "volume": 0.10640000000000267
+      },
+      "00K8HF$KfvxMlordqSJ91M": {
+        "class": "IfcStairFlight",
+        "name": "Flight",
+        "min": [
+          5.24,
+          6.5,
+          1.499473684
+        ],
+        "max": [
+          6.24,
+          9.02,
+          3.3600000000000003
+        ],
+        "volume": 0.11969999999998437
+      },
+      "11RAahDrn5BvaF0hwru5Rq": {
+        "class": "IfcWall",
+        "name": "Generic - 200mm",
+        "min": [
+          -0.1,
+          -0.10000000000000002,
+          0.4
+        ],
+        "max": [
+          18.1,
+          0.10000000000000002,
+          7.6000000000000005
+        ],
+        "volume": 21.72000000000001
+      },
+      "1RADc1lpHCJA354g7J_K9h": {
+        "class": "IfcWall",
+        "name": "Generic - 200mm",
+        "min": [
+          17.9,
+          -0.1,
+          0.4
+        ],
+        "max": [
+          18.1,
+          10.1,
+          7.6000000000000005
+        ],
+        "volume": 14.400000000000142
+      },
+      "2TZNiJro5B7xnu86prDQFb": {
+        "class": "IfcWall",
+        "name": "Generic - 200mm",
+        "min": [
+          -0.10000000000000142,
+          9.9,
+          0.4
+        ],
+        "max": [
+          18.1,
+          10.1,
+          7.6000000000000005
+        ],
+        "volume": 25.91999999999993
+      },
+      "2$kfU9fOTBPA4u1BVgtAm2": {
+        "class": "IfcWall",
+        "name": "Generic - 200mm",
+        "min": [
+          -0.1,
+          -0.09999999999999964,
+          0.4
+        ],
+        "max": [
+          0.1,
+          10.1,
+          7.6000000000000005
+        ],
+        "volume": 14.4
+      },
+      "0TJAxFTjbF8QyQHOqx5GxO": {
+        "class": "IfcWindow",
+        "name": "Fixed 1200 x 1500",
+        "min": [
+          3.4,
+          -0.025,
+          4.3
+        ],
+        "max": [
+          4.6,
+          0.025,
+          5.8
+        ],
+        "volume": 0.08999999999999991
+      },
+      "2pC4S74cNN$mMt8tKn3bmi": {
+        "class": "IfcOpeningElement",
+        "name": "Opening",
+        "min": [
+          2.5,
+          -0.11,
+          0.4
+        ],
+        "max": [
+          5.5,
+          0.11,
+          3.6
+        ],
+        "volume": 2.1119999999999997
+      },
+      "0KGtc5ZWfCak5IEJCeApZq": {
+        "class": "IfcOpeningElement",
+        "name": "Opening",
+        "min": [
+          9.5,
+          -0.11,
+          0.4
+        ],
+        "max": [
+          12.5,
+          0.11,
+          3.6
+        ],
+        "volume": 2.1120000000000005
+      },
+      "39HS32bOjWZ3vbNd2MZTwI": {
+        "class": "IfcOpeningElement",
+        "name": "Opening",
+        "min": [
+          3.4,
+          -0.11,
+          4.3
+        ],
+        "max": [
+          4.6,
+          0.11,
+          5.8
+        ],
+        "volume": 0.3960000000000002
+      },
+      "0YbGmI_exZ9kO2FjA6W_0N": {
+        "class": "IfcGrid",
+        "name": "Grid",
+        "min": [
+          -1.0,
+          -1.0,
+          0.0
+        ],
+        "max": [
+          19.0,
+          11.0,
+          0.0
+        ],
+        "volume": 0
+      },
+      "2uckl52B9xbQpeBauonfz5": {
+        "class": "IfcSite",
+        "name": "Site",
+        "min": [
+          -2.0,
+          -2.0,
+          0.0
+        ],
+        "max": [
+          20.0,
+          12.0,
+          0.0
+        ],
+        "volume": 0
+      },
+      "2LmOISvU55hQKyV4wh6y7U": {
+        "class": "IfcSpace",
+        "name": "1",
+        "min": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "max": [
+          18.0,
+          10.0,
+          2.7
+        ],
+        "volume": 485.9055912863348
+      }
+    },
+    "schema": "IFC4",
+    "problems": 0
+  },
+  "reopened-ifc.ifc": {
+    "roots": 106,
+    "products": 26,
+    "shapes": {
+      "25BjzuRZX9f9uwfgF$EqSh": {
+        "class": "IfcBeam",
+        "name": "IPE 300",
+        "min": [
+          1.0,
+          2.925,
+          5.7
+        ],
+        "max": [
+          17.0,
+          3.075,
+          6.000000000000001
+        ],
+        "volume": 0.08619390492866745
+      },
+      "1Hk2rDDEPBBwnonlvghEZU": {
+        "class": "IfcColumn",
+        "name": "HEB 300",
+        "min": [
+          0.85,
+          2.85,
+          0.0
+        ],
+        "max": [
+          1.15,
+          3.15,
+          6.0
+        ],
+        "volume": 0.08956170808825299
+      },
+      "2Jhvyvsfj3vhwT5PVuyGAG": {
+        "class": "IfcColumn",
+        "name": "Synthetic Tube",
+        "min": [
+          16.9,
+          2.95,
+          0.0
+        ],
+        "max": [
+          17.1,
+          3.05,
+          6.0
+        ],
+        "volume": 0.02726399999999411
+      },
+      "38XHme$X53XuV3NHoteFm_": {
+        "class": "IfcDoor",
+        "name": "Sectional Gate",
+        "min": [
+          2.4,
+          0.1,
+          0.4
+        ],
+        "max": [
+          5.6,
+          3.38,
+          3.7
+        ],
+        "volume": 0.48747000000000335
+      },
+      "31DNMR$En1cAvVprXs58bh": {
+        "class": "IfcDoor",
+        "name": "Roller Gate",
+        "min": [
+          9.4,
+          0.1,
+          0.4
+        ],
+        "max": [
+          12.6,
+          0.55,
+          4.05
+        ],
+        "volume": 0.830719999999999
+      },
+      "2LtpdCp712KhrBVEtBgBYP": {
+        "class": "IfcRailing",
+        "name": "Railing - 1000mm",
+        "min": [
+          2.99,
+          6.425,
+          0.0
+        ],
+        "max": [
+          5.315,
+          9.02,
+          4.4
+        ],
+        "volume": 0.02772999999996951
+      },
+      "1F9wSDZ7vBy960hW9nf2Qa": {
+        "class": "IfcRailing",
+        "name": "Railing - 1000mm",
+        "min": [
+          2.99,
+          5.525,
+          0.0
+        ],
+        "max": [
+          6.215,
+          9.02,
+          4.4
+        ],
+        "volume": 0.03792999999997493
+      },
+      "0gNNlWzN4gOmwxNr_YAkI5": {
+        "class": "IfcSlab",
+        "name": "Landing",
+        "min": [
+          5.24,
+          5.5,
+          1.360526316
+        ],
+        "max": [
+          6.24,
+          6.5,
+          1.610526316
+        ],
+        "volume": 0.25000000000000133
+      },
+      "0q06NxMIqcjyPlEEf$LCuT": {
+        "class": "IfcStairFlight",
+        "name": "Flight",
+        "min": [
+          3.0,
+          5.5,
+          -0.111052632
+        ],
+        "max": [
+          5.24,
+          6.5,
+          1.570526316
+        ],
+        "volume": 0.10640000000000267
+      },
+      "1hUK3jTV5WJ56i7fwByglA": {
+        "class": "IfcStairFlight",
+        "name": "Flight",
+        "min": [
+          5.24,
+          6.5,
+          1.499473684
+        ],
+        "max": [
+          6.24,
+          9.02,
+          3.3600000000000003
+        ],
+        "volume": 0.11969999999998437
+      },
+      "11RAahDrn5BvaF0hwru5Rq": {
+        "class": "IfcWall",
+        "name": "Generic - 200mm",
+        "min": [
+          -0.1,
+          -0.10000000000000002,
+          0.4
+        ],
+        "max": [
+          18.1,
+          0.10000000000000002,
+          7.6000000000000005
+        ],
+        "volume": 21.72000000000001
+      },
+      "1RADc1lpHCJA354g7J_K9h": {
+        "class": "IfcWall",
+        "name": "Generic - 200mm",
+        "min": [
+          17.9,
+          -0.1,
+          0.4
+        ],
+        "max": [
+          18.1,
+          10.1,
+          7.6000000000000005
+        ],
+        "volume": 14.400000000000142
+      },
+      "2TZNiJro5B7xnu86prDQFb": {
+        "class": "IfcWall",
+        "name": "Generic - 200mm",
+        "min": [
+          -0.10000000000000142,
+          9.9,
+          0.4
+        ],
+        "max": [
+          18.1,
+          10.1,
+          7.6000000000000005
+        ],
+        "volume": 25.91999999999993
+      },
+      "2$kfU9fOTBPA4u1BVgtAm2": {
+        "class": "IfcWall",
+        "name": "Generic - 200mm",
+        "min": [
+          -0.1,
+          -0.09999999999999964,
+          0.4
+        ],
+        "max": [
+          0.1,
+          10.1,
+          7.6000000000000005
+        ],
+        "volume": 14.4
+      },
+      "0TJAxFTjbF8QyQHOqx5GxO": {
+        "class": "IfcWindow",
+        "name": "Fixed 1200 x 1500",
+        "min": [
+          3.4,
+          -0.025,
+          4.3
+        ],
+        "max": [
+          4.6,
+          0.025,
+          5.8
+        ],
+        "volume": 0.08999999999999991
+      },
+      "07Kq4zlcBVCodkuc78AE0B": {
+        "class": "IfcOpeningElement",
+        "name": "Opening",
+        "min": [
+          2.5,
+          -0.11,
+          0.4
+        ],
+        "max": [
+          5.5,
+          0.11,
+          3.6
+        ],
+        "volume": 2.1119999999999997
+      },
+      "377mRCY6cDHpep1sWhaI5G": {
+        "class": "IfcOpeningElement",
+        "name": "Opening",
+        "min": [
+          9.5,
+          -0.11,
+          0.4
+        ],
+        "max": [
+          12.5,
+          0.11,
+          3.6
+        ],
+        "volume": 2.1120000000000005
+      },
+      "3Ao$bfWvGnHXO33_SO_u9b": {
+        "class": "IfcOpeningElement",
+        "name": "Opening",
+        "min": [
+          3.4,
+          -0.11,
+          4.3
+        ],
+        "max": [
+          4.6,
+          0.11,
+          5.8
+        ],
+        "volume": 0.3960000000000002
+      },
+      "0AH247nzM60v$hIMSPcHCY": {
+        "class": "IfcGrid",
+        "name": "Grid",
+        "min": [
+          -1.0,
+          -1.0,
+          0.0
+        ],
+        "max": [
+          19.0,
+          11.0,
+          0.0
+        ],
+        "volume": 0
+      },
+      "2dpCc94Mo29VReRGKx1zqx": {
+        "class": "IfcSite",
+        "name": "Site",
+        "min": [
+          -2.0,
+          -2.0,
+          0.0
+        ],
+        "max": [
+          20.0,
+          12.0,
+          0.0
+        ],
+        "volume": 0
+      },
+      "2LmOISvU55hQKyV4wh6y7U": {
+        "class": "IfcSpace",
+        "name": "1",
+        "min": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "max": [
+          18.0,
+          10.0,
+          2.5
+        ],
+        "volume": 449.91258452438404
+      }
+    },
+    "schema": "IFC4",
+    "problems": 0
+  },
+  "steel19.bimcraft.old.ifc": {
+    "roots": 172,
+    "products": 20,
+    "shapes": {
+      "2MPDWVQh1DJwj0HpZ0S$UX": {
+        "class": "IfcBeam",
+        "name": "IPE 300",
+        "min": [
+          0.0,
+          1.125,
+          3.2
+        ],
+        "max": [
+          6.0,
+          1.275,
+          3.5
+        ],
+        "volume": 0.03232271434822217
+      },
+      "2EwlUnu1D8hBSUYK49E9hX": {
+        "class": "IfcBeam",
+        "name": "Channel",
+        "min": [
+          0.0,
+          2.36,
+          3.3
+        ],
+        "max": [
+          6.0,
+          2.44,
+          3.5
+        ],
+        "volume": 0.01741654641078104
+      },
+      "3ZBShavPPAKPUp2RqxonGB": {
+        "class": "IfcBeam",
+        "name": "Angle",
+        "min": [
+          0.0,
+          3.5500000000000003,
+          3.35
+        ],
+        "max": [
+          6.0,
+          3.65,
+          3.5000000000000004
+        ],
+        "volume": 0.014591096695711236
+      },
+      "0eb9X4$kjDhvLIrH3qxab9": {
+        "class": "IfcBeam",
+        "name": "RHS",
+        "min": [
+          0.0,
+          4.7,
+          3.4000000000000004
+        ],
+        "max": [
+          6.0,
+          4.8999999999999995,
+          3.5
+        ],
+        "volume": 0.027264000000006245
+      },
+      "0d8$UFrGz2N99wm5b3VXAM": {
+        "class": "IfcBeam",
+        "name": "CHS",
+        "min": [
+          0.0,
+          5.916343290905461,
+          3.331823413224428
+        ],
+        "max": [
+          6.0,
+          6.08415,
+          3.4998765867755717
+        ],
+        "volume": 0.018277589934662886
+      },
+      "3Zzir4tWLDduauXF5pRR3q": {
+        "class": "IfcBeam",
+        "name": "IPE 300",
+        "min": [
+          -0.12,
+          7.125,
+          0.91
+        ],
+        "max": [
+          3.12,
+          7.275,
+          5.09
+        ],
+        "volume": 0.0269355952901964
+      },
+      "1evYokICnEOvNenavFpgUa": {
+        "class": "IfcBeam",
+        "name": "Mixed I",
+        "min": [
+          8.0,
+          -0.075,
+          3.2
+        ],
+        "max": [
+          14.0,
+          0.075,
+          3.5
+        ],
+        "volume": 0.02976000000000179
+      },
+      "1hz_vstfv969Vt0EQwf6Km": {
+        "class": "IfcBeam",
+        "name": "Mixed thick I",
+        "min": [
+          8.0,
+          1.125,
+          3.5
+        ],
+        "max": [
+          14.0,
+          1.275,
+          3.8
+        ],
+        "volume": 0.0415800000000017
+      },
+      "3kYleeXe533ubzrIMNKzLr": {
+        "class": "IfcBeam",
+        "name": "Mixed U",
+        "min": [
+          8.0,
+          2.3249999999999997,
+          3.2
+        ],
+        "max": [
+          14.0,
+          2.475,
+          3.5
+        ],
+        "volume": 0.029759999999999547
+      },
+      "0Eah4ItwbDrAVF4RbP8Il4": {
+        "class": "IfcBeam",
+        "name": "Mixed RHS",
+        "min": [
+          8.0,
+          3.525,
+          3.2
+        ],
+        "max": [
+          14.0,
+          3.6750000000000003,
+          3.5
+        ],
+        "volume": 0.04166400000000229
+      },
+      "10Qv5cBPTBzBFSDdtIRey9": {
+        "class": "IfcBeam",
+        "name": "Solid control",
+        "min": [
+          8.0,
+          4.725,
+          3.2
+        ],
+        "max": [
+          14.0,
+          4.875,
+          3.5
+        ],
+        "volume": 0.26999999999998986
+      },
+      "2w2DzjcLLF9vFAwJkxPXpF": {
+        "class": "IfcColumn",
+        "name": "HEB 300",
+        "min": [
+          -0.20490381056767784,
+          -0.20490381056767784,
+          0.0
+        ],
+        "max": [
+          0.20490381056767784,
+          0.20490381056767784,
+          3.0
+        ],
+        "volume": 0.04478085404412554
+      },
+      "3mx5DhHbzDcBbrnU9d73r6": {
+        "class": "IfcColumn",
+        "name": "Channel",
+        "min": [
+          0.76,
+          -0.1,
+          0.0
+        ],
+        "max": [
+          0.8400000000000001,
+          0.1,
+          3.0
+        ],
+        "volume": 0.008708273205388976
+      },
+      "0StRmtFl16EPEeXzg0SfLM": {
+        "class": "IfcColumn",
+        "name": "Angle",
+        "min": [
+          1.55,
+          -0.075,
+          0.0
+        ],
+        "max": [
+          1.6500000000000001,
+          0.075,
+          3.0
+        ],
+        "volume": 0.007295548347857987
+      },
+      "3$zRR1QBDCnfJdRiIgbS9l": {
+        "class": "IfcColumn",
+        "name": "RHS",
+        "min": [
+          2.3,
+          -0.05,
+          0.0
+        ],
+        "max": [
+          2.5,
+          0.05,
+          3.0
+        ],
+        "volume": 0.013632000000000014
+      },
+      "110i_49er45P9fzLTp2_Fe": {
+        "class": "IfcColumn",
+        "name": "CHS",
+        "min": [
+          3.1163432909054607,
+          -0.08402658677557207,
+          0.0
+        ],
+        "max": [
+          3.2841500000000003,
+          0.08402658677557207,
+          3.0
+        ],
+        "volume": 0.009138794967324606
+      }
+    },
+    "schema": "IFC4",
+    "problems": 0
+  },
+  "steel19.bimcraft.new.ifc": {
+    "roots": 172,
+    "products": 20,
+    "shapes": {
+      "2MPDWVQh1DJwj0HpZ0S$UX": {
+        "class": "IfcBeam",
+        "name": "IPE 300",
+        "min": [
+          0.0,
+          1.125,
+          3.2
+        ],
+        "max": [
+          6.0,
+          1.275,
+          3.5
+        ],
+        "volume": 0.03232271434822217
+      },
+      "2EwlUnu1D8hBSUYK49E9hX": {
+        "class": "IfcBeam",
+        "name": "Channel",
+        "min": [
+          0.0,
+          2.36,
+          3.3
+        ],
+        "max": [
+          6.0,
+          2.44,
+          3.5
+        ],
+        "volume": 0.01741654641078104
+      },
+      "3ZBShavPPAKPUp2RqxonGB": {
+        "class": "IfcBeam",
+        "name": "Angle",
+        "min": [
+          0.0,
+          3.5500000000000003,
+          3.35
+        ],
+        "max": [
+          6.0,
+          3.65,
+          3.5000000000000004
+        ],
+        "volume": 0.014591096695711236
+      },
+      "0eb9X4$kjDhvLIrH3qxab9": {
+        "class": "IfcBeam",
+        "name": "RHS",
+        "min": [
+          0.0,
+          4.7,
+          3.4000000000000004
+        ],
+        "max": [
+          6.0,
+          4.8999999999999995,
+          3.5
+        ],
+        "volume": 0.027264000000006245
+      },
+      "0d8$UFrGz2N99wm5b3VXAM": {
+        "class": "IfcBeam",
+        "name": "CHS",
+        "min": [
+          0.0,
+          5.916343290905461,
+          3.331823413224428
+        ],
+        "max": [
+          6.0,
+          6.08415,
+          3.4998765867755717
+        ],
+        "volume": 0.018277589934662886
+      },
+      "3Zzir4tWLDduauXF5pRR3q": {
+        "class": "IfcBeam",
+        "name": "IPE 300",
+        "min": [
+          -0.12,
+          7.125,
+          0.91
+        ],
+        "max": [
+          3.12,
+          7.275,
+          5.09
+        ],
+        "volume": 0.0269355952901964
+      },
+      "1evYokICnEOvNenavFpgUa": {
+        "class": "IfcBeam",
+        "name": "Mixed I",
+        "min": [
+          8.0,
+          -0.075,
+          3.2
+        ],
+        "max": [
+          14.0,
+          0.075,
+          3.5
+        ],
+        "volume": 0.02976000000000179
+      },
+      "1hz_vstfv969Vt0EQwf6Km": {
+        "class": "IfcBeam",
+        "name": "Mixed thick I",
+        "min": [
+          8.0,
+          1.125,
+          3.5
+        ],
+        "max": [
+          14.0,
+          1.275,
+          3.8
+        ],
+        "volume": 0.0415800000000017
+      },
+      "3kYleeXe533ubzrIMNKzLr": {
+        "class": "IfcBeam",
+        "name": "Mixed U",
+        "min": [
+          8.0,
+          2.3249999999999997,
+          3.2
+        ],
+        "max": [
+          14.0,
+          2.475,
+          3.5
+        ],
+        "volume": 0.029759999999999547
+      },
+      "0Eah4ItwbDrAVF4RbP8Il4": {
+        "class": "IfcBeam",
+        "name": "Mixed RHS",
+        "min": [
+          8.0,
+          3.525,
+          3.2
+        ],
+        "max": [
+          14.0,
+          3.6750000000000003,
+          3.5
+        ],
+        "volume": 0.04166400000000229
+      },
+      "10Qv5cBPTBzBFSDdtIRey9": {
+        "class": "IfcBeam",
+        "name": "Solid control",
+        "min": [
+          8.0,
+          4.725,
+          3.2
+        ],
+        "max": [
+          14.0,
+          4.875,
+          3.5
+        ],
+        "volume": 0.26999999999998986
+      },
+      "2w2DzjcLLF9vFAwJkxPXpF": {
+        "class": "IfcColumn",
+        "name": "HEB 300",
+        "min": [
+          -0.20490381056767784,
+          -0.20490381056767784,
+          0.0
+        ],
+        "max": [
+          0.20490381056767784,
+          0.20490381056767784,
+          3.0
+        ],
+        "volume": 0.04478085404412554
+      },
+      "3mx5DhHbzDcBbrnU9d73r6": {
+        "class": "IfcColumn",
+        "name": "Channel",
+        "min": [
+          0.76,
+          -0.1,
+          0.0
+        ],
+        "max": [
+          0.8400000000000001,
+          0.1,
+          3.0
+        ],
+        "volume": 0.008708273205388976
+      },
+      "0StRmtFl16EPEeXzg0SfLM": {
+        "class": "IfcColumn",
+        "name": "Angle",
+        "min": [
+          1.55,
+          -0.075,
+          0.0
+        ],
+        "max": [
+          1.6500000000000001,
+          0.075,
+          3.0
+        ],
+        "volume": 0.007295548347857987
+      },
+      "3$zRR1QBDCnfJdRiIgbS9l": {
+        "class": "IfcColumn",
+        "name": "RHS",
+        "min": [
+          2.3,
+          -0.05,
+          0.0
+        ],
+        "max": [
+          2.5,
+          0.05,
+          3.0
+        ],
+        "volume": 0.013632000000000014
+      },
+      "110i_49er45P9fzLTp2_Fe": {
+        "class": "IfcColumn",
+        "name": "CHS",
+        "min": [
+          3.1163432909054607,
+          -0.08402658677557207,
+          0.0
+        ],
+        "max": [
+          3.2841500000000003,
+          0.08402658677557207,
+          3.0
+        ],
+        "volume": 0.009138794967324606
+      }
+    },
+    "schema": "IFC4",
+    "problems": 0
+  },
+  "stair19.bimcraft.old.ifc": {
+    "roots": 19,
+    "products": 11,
+    "shapes": {
+      "2GRcSD2Dn8LgWV4X7bf2iH": {
+        "class": "IfcRailing",
+        "name": "Railing - 1000mm",
+        "min": [
+          -0.085862136,
+          0.6394200919999999,
+          1.0
+        ],
+        "max": [
+          1.554406503,
+          3.489336927,
+          4.88
+        ],
+        "volume": 0.022970000030311164
+      },
+      "2qSBvZ7DD8SRsS0AQj$GUk": {
+        "class": "IfcRailing",
+        "name": "Railing - 1000mm",
+        "min": [
+          0.45577138500000003,
+          -0.079351867,
+          1.0
+        ],
+        "max": [
+          2.814811982,
+          4.030970448,
+          4.88
+        ],
+        "volume": 0.03316999994144019
+      },
+      "1_VMinPE27Emf_Qv5uOyYl": {
+        "class": "IfcSlab",
+        "name": "Landing",
+        "min": [
+          1.464418088,
+          1.0802396900000002,
+          2.19
+        ],
+        "max": [
+          2.8648686210000003,
+          2.480690224,
+          2.44
+        ],
+        "volume": 0.2500000000858175
+      },
+      "2K7VL5aZSFLC5$dWl$IqwN": {
+        "class": "IfcStairFlight",
+        "name": "Flight",
+        "min": [
+          -0.10090751157607913,
+          -0.09931775502360501,
+          0.89
+        ],
+        "max": [
+          2.0662331112686108,
+          1.8788752004018352,
+          2.4000000000000004
+        ],
+        "volume": 0.09309999999999981
+      },
+      "0yq4ZuPhOkoKSZ3pk53CqS": {
+        "class": "IfcStairFlight",
+        "name": "Flight",
+        "min": [
+          0.2848606425981648,
+          1.878875200423921,
+          2.33
+        ],
+        "max": [
+          2.263053598023605,
+          4.046015823268611,
+          3.84
+        ],
+        "volume": 0.09310000000000034
+      }
+    },
+    "schema": "IFC4",
+    "problems": 0
+  },
+  "stair19.bimcraft.new.ifc": {
+    "roots": 19,
+    "products": 11,
+    "shapes": {
+      "2GRcSD2Dn8LgWV4X7bf2iH": {
+        "class": "IfcRailing",
+        "name": "Railing - 1000mm",
+        "min": [
+          -0.085862136,
+          0.6394200919999999,
+          1.0
+        ],
+        "max": [
+          1.554406503,
+          3.489336927,
+          4.88
+        ],
+        "volume": 0.022970000030311164
+      },
+      "2qSBvZ7DD8SRsS0AQj$GUk": {
+        "class": "IfcRailing",
+        "name": "Railing - 1000mm",
+        "min": [
+          0.45577138500000003,
+          -0.079351867,
+          1.0
+        ],
+        "max": [
+          2.814811982,
+          4.030970448,
+          4.88
+        ],
+        "volume": 0.03316999994144019
+      },
+      "1_VMinPE27Emf_Qv5uOyYl": {
+        "class": "IfcSlab",
+        "name": "Landing",
+        "min": [
+          1.464418088,
+          1.0802396900000002,
+          2.19
+        ],
+        "max": [
+          2.8648686210000003,
+          2.480690224,
+          2.44
+        ],
+        "volume": 0.2500000000858175
+      },
+      "2K7VL5aZSFLC5$dWl$IqwN": {
+        "class": "IfcStairFlight",
+        "name": "Flight",
+        "min": [
+          -0.10090751157607913,
+          -0.09931775502360501,
+          0.89
+        ],
+        "max": [
+          2.0662331112686108,
+          1.8788752004018352,
+          2.4000000000000004
+        ],
+        "volume": 0.09309999999999981
+      },
+      "0yq4ZuPhOkoKSZ3pk53CqS": {
+        "class": "IfcStairFlight",
+        "name": "Flight",
+        "min": [
+          0.2848606425981648,
+          1.878875200423921,
+          2.33
+        ],
+        "max": [
+          2.263053598023605,
+          4.046015823268611,
+          3.84
+        ],
+        "volume": 0.09310000000000034
+      }
+    },
+    "schema": "IFC4",
+    "problems": 0
+  },
+  "ifcopenshell": "0.8.5",
+  "known_limitations": [
+    {
+      "kind": "excluded-pre-existing-room-height-roundtrip",
+      "guid": "2LmOISvU55hQKyV4wh6y7U",
+      "before": {
+        "class": "IfcSpace",
+        "name": "1",
+        "min": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "max": [
+          18.0,
+          10.0,
+          2.7
+        ],
+        "volume": 485.9055912863348
+      },
+      "after": {
+        "class": "IfcSpace",
+        "name": "1",
+        "min": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "max": [
+          18.0,
+          10.0,
+          2.5
+        ],
+        "volume": 449.91258452438404
+      }
+    }
+  ]
+}

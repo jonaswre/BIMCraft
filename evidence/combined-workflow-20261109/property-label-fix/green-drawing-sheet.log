@@ -1,0 +1,14 @@
+   Compiling bimcraft-core v0.11.0 (WORKTREES/upstream-combined-audit\crates\core)
+    Finished `test` profile [unoptimized] target(s) in 1m 29s
+     Running unittests src\lib.rs (../.targets/combined-audit\debug\deps\bimcraft_core-f723816fa9dc5cad.exe)
+
+running 6 tests
+test render::tests::a_tag_on_a_wall_or_a_room_draws_its_label_as_plain_text_over_the_plan ... ok
+test render::tests::ceiling_plans_look_up_at_ceilings_over_walls_cut_above_the_doors ... ok
+test render::tests::a_views_scale_sizes_its_annotation_as_paper_at_that_scale_holds_it ... ok
+test render::tests::every_primitive_names_the_element_it_draws ... ok
+test render::tests::crop_regions_clip_plans_and_sections ... ok
+test tests::sheets_hold_views_at_a_scale_and_print_to_pdf ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 1567 filtered out; finished in 1.42s
+

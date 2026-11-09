@@ -1,0 +1,1379 @@
+{
+  "checked_at_utc": "2026-11-09T14:58:31.440695+00:00",
+  "prs": [
+    {
+      "baseRefName": "main",
+      "headRefName": "fix/raised-wall-room-enclosure",
+      "headRefOid": "8421cbbb4fb3944ff4e844403300f0f5db815a6c",
+      "mergeStateStatus": "UNKNOWN",
+      "mergeable": "UNKNOWN",
+      "number": 317,
+      "state": "OPEN",
+      "statusCheckRollup": [
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T09:03:04Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42587786102/job/129061662699",
+          "name": "Linux",
+          "startedAt": "2026-11-09T08:41:33Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T09:32:51Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42587786102/job/129061662379",
+          "name": "Windows",
+          "startedAt": "2026-11-09T08:41:33Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T09:16:23Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42587786102/job/129061662780",
+          "name": "macOS",
+          "startedAt": "2026-11-09T08:41:33Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T08:46:52Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42587786102/job/129061662840",
+          "name": "IFC (IfcOpenShell)",
+          "startedAt": "2026-11-09T08:41:33Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T08:41:42Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42587786102/job/129061662815",
+          "name": "Scripts and workflows",
+          "startedAt": "2026-11-09T08:41:33Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        }
+      ],
+      "url": "https://github.com/IPedrax/BIMCraft/pull/317"
+    },
+    {
+      "baseRefName": "main",
+      "headRefName": "fix/duplicated-plan-render",
+      "headRefOid": "48407bc78171b4e2d95cbbf0f2005fb87cb6654a",
+      "mergeStateStatus": "UNKNOWN",
+      "mergeable": "UNKNOWN",
+      "number": 315,
+      "state": "OPEN",
+      "statusCheckRollup": [
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T09:11:09Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42587020018/job/129059313232",
+          "name": "Linux",
+          "startedAt": "2026-11-09T08:35:37Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T09:26:55Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42587020018/job/129059313280",
+          "name": "Windows",
+          "startedAt": "2026-11-09T08:35:36Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T08:58:36Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42587020018/job/129059312937",
+          "name": "macOS",
+          "startedAt": "2026-11-09T08:35:36Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T08:40:58Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42587020018/job/129059313294",
+          "name": "IFC (IfcOpenShell)",
+          "startedAt": "2026-11-09T08:35:37Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T08:35:42Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42587020018/job/129059313346",
+          "name": "Scripts and workflows",
+          "startedAt": "2026-11-09T08:35:37Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        }
+      ],
+      "url": "https://github.com/IPedrax/BIMCraft/pull/315"
+    },
+    {
+      "baseRefName": "main",
+      "headRefName": "fix/ifc-grid-export",
+      "headRefOid": "1d4279ebce23bd15a249038e82da9afd4346acc0",
+      "mergeStateStatus": "UNKNOWN",
+      "mergeable": "UNKNOWN",
+      "number": 319,
+      "state": "OPEN",
+      "statusCheckRollup": [
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T10:16:42Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42595600786/job/129087346407",
+          "name": "Linux",
+          "startedAt": "2026-11-09T09:43:41Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T10:23:36Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42595600786/job/129087346257",
+          "name": "Windows",
+          "startedAt": "2026-11-09T09:43:44Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T10:21:02Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42595600786/job/129087346502",
+          "name": "macOS",
+          "startedAt": "2026-11-09T09:43:41Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T09:48:55Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42595600786/job/129087346667",
+          "name": "IFC (IfcOpenShell)",
+          "startedAt": "2026-11-09T09:43:41Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T09:43:48Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42595600786/job/129087346700",
+          "name": "Scripts and workflows",
+          "startedAt": "2026-11-09T09:43:41Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        }
+      ],
+      "url": "https://github.com/IPedrax/BIMCraft/pull/319"
+    },
+    {
+      "baseRefName": "main",
+      "headRefName": "fix/opening-default-host-level",
+      "headRefOid": "79a897209390c6a6340f3ea8732d8b31fdb29472",
+      "mergeStateStatus": "UNKNOWN",
+      "mergeable": "UNKNOWN",
+      "number": 320,
+      "state": "OPEN",
+      "statusCheckRollup": [
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T09:34:00Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42590045646/job/129069196068",
+          "name": "Linux",
+          "startedAt": "2026-11-09T09:00:23Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T09:52:19Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42590045646/job/129069195838",
+          "name": "Windows",
+          "startedAt": "2026-11-09T09:00:23Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T09:45:23Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42590045646/job/129069196188",
+          "name": "macOS",
+          "startedAt": "2026-11-09T09:00:24Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T09:04:07Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42590045646/job/129069196104",
+          "name": "IFC (IfcOpenShell)",
+          "startedAt": "2026-11-09T09:00:23Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T09:00:54Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42590045646/job/129069195448",
+          "name": "Scripts and workflows",
+          "startedAt": "2026-11-09T09:00:48Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        }
+      ],
+      "url": "https://github.com/IPedrax/BIMCraft/pull/320"
+    },
+    {
+      "baseRefName": "main",
+      "headRefName": "fix/drawing-prime-glyphs",
+      "headRefOid": "7d5424d2d8e7cd6ac732097f8046d988023fa33f",
+      "mergeStateStatus": "UNKNOWN",
+      "mergeable": "UNKNOWN",
+      "number": 323,
+      "state": "OPEN",
+      "statusCheckRollup": [
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T09:37:29Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42591375439/job/129073517741",
+          "name": "Linux",
+          "startedAt": "2026-11-09T09:10:43Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T10:04:49Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42591375439/job/129073517313",
+          "name": "Windows",
+          "startedAt": "2026-11-09T09:11:00Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T09:46:43Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42591375439/job/129073517640",
+          "name": "macOS",
+          "startedAt": "2026-11-09T09:10:45Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T09:15:39Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42591375439/job/129073518075",
+          "name": "IFC (IfcOpenShell)",
+          "startedAt": "2026-11-09T09:10:43Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T09:10:49Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42591375439/job/129073517724",
+          "name": "Scripts and workflows",
+          "startedAt": "2026-11-09T09:10:43Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        }
+      ],
+      "url": "https://github.com/IPedrax/BIMCraft/pull/323"
+    },
+    {
+      "baseRefName": "main",
+      "headRefName": "fix/ifc-wall-authoring-intent",
+      "headRefOid": "85888aaf764df26777ceebf00218145efb8fbb58",
+      "mergeStateStatus": "UNKNOWN",
+      "mergeable": "UNKNOWN",
+      "number": 326,
+      "state": "OPEN",
+      "statusCheckRollup": [
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T10:21:21Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42596116931/job/129089045367",
+          "name": "Linux",
+          "startedAt": "2026-11-09T09:47:46Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T10:38:49Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42596116931/job/129089045397",
+          "name": "Windows",
+          "startedAt": "2026-11-09T09:47:46Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T10:10:13Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42596116931/job/129089045449",
+          "name": "macOS",
+          "startedAt": "2026-11-09T09:47:46Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T09:51:09Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42596116931/job/129089045446",
+          "name": "IFC (IfcOpenShell)",
+          "startedAt": "2026-11-09T09:47:45Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T09:47:59Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42596116931/job/129089045150",
+          "name": "Scripts and workflows",
+          "startedAt": "2026-11-09T09:47:46Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        }
+      ],
+      "url": "https://github.com/IPedrax/BIMCraft/pull/326"
+    },
+    {
+      "baseRefName": "main",
+      "headRefName": "feat/script-result-references",
+      "headRefOid": "c8683ecbebf28c90230f9ac8189de3bc355ef6ff",
+      "mergeStateStatus": "UNKNOWN",
+      "mergeable": "UNKNOWN",
+      "number": 329,
+      "state": "OPEN",
+      "statusCheckRollup": [
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T10:33:09Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42597578787/job/129093910462",
+          "name": "Linux",
+          "startedAt": "2026-11-09T09:59:48Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T10:40:04Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42597578787/job/129093910631",
+          "name": "Windows",
+          "startedAt": "2026-11-09T09:59:48Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T10:38:03Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42597578787/job/129093910491",
+          "name": "macOS",
+          "startedAt": "2026-11-09T09:59:49Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T10:03:51Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42597578787/job/129093910241",
+          "name": "IFC (IfcOpenShell)",
+          "startedAt": "2026-11-09T09:59:53Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T09:59:58Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42597578787/job/129093910584",
+          "name": "Scripts and workflows",
+          "startedAt": "2026-11-09T09:59:52Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        }
+      ],
+      "url": "https://github.com/IPedrax/BIMCraft/pull/329"
+    },
+    {
+      "baseRefName": "main",
+      "headRefName": "fix/scan-default-framing",
+      "headRefOid": "1bc2c67e855bb6d77b97c65e48fc19fa4122a0de",
+      "mergeStateStatus": "UNKNOWN",
+      "mergeable": "UNKNOWN",
+      "number": 327,
+      "state": "OPEN",
+      "statusCheckRollup": [
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T10:21:26Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42596130295/job/129089092267",
+          "name": "Linux",
+          "startedAt": "2026-11-09T09:47:53Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T10:28:59Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42596130295/job/129089092173",
+          "name": "Windows",
+          "startedAt": "2026-11-09T09:47:53Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T10:23:19Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42596130295/job/129089092210",
+          "name": "macOS",
+          "startedAt": "2026-11-09T09:47:54Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T09:53:05Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42596130295/job/129089091997",
+          "name": "IFC (IfcOpenShell)",
+          "startedAt": "2026-11-09T09:47:52Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T09:47:58Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42596130295/job/129089092175",
+          "name": "Scripts and workflows",
+          "startedAt": "2026-11-09T09:47:52Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        }
+      ],
+      "url": "https://github.com/IPedrax/BIMCraft/pull/327"
+    },
+    {
+      "baseRefName": "main",
+      "headRefName": "fix/viewport-auto-placement",
+      "headRefOid": "b9343587cd224e9a131d6953feef9a616a8730e4",
+      "mergeStateStatus": "UNKNOWN",
+      "mergeable": "UNKNOWN",
+      "number": 336,
+      "state": "OPEN",
+      "statusCheckRollup": [
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T11:01:54Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42602790071/job/129111097567",
+          "name": "Linux",
+          "startedAt": "2026-11-09T10:41:40Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T11:33:30Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42602790071/job/129111097280",
+          "name": "Windows",
+          "startedAt": "2026-11-09T10:41:41Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T11:25:23Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42602790071/job/129111097249",
+          "name": "macOS",
+          "startedAt": "2026-11-09T10:41:41Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T10:45:58Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42602790071/job/129111097224",
+          "name": "IFC (IfcOpenShell)",
+          "startedAt": "2026-11-09T10:41:40Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T10:41:46Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42602790071/job/129111097170",
+          "name": "Scripts and workflows",
+          "startedAt": "2026-11-09T10:41:40Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        }
+      ],
+      "url": "https://github.com/IPedrax/BIMCraft/pull/336"
+    },
+    {
+      "baseRefName": "main",
+      "headRefName": "fix/sheet-title-fitting",
+      "headRefOid": "61ab42bd42e2d30df91760e1879923e6b872629b",
+      "mergeStateStatus": "UNKNOWN",
+      "mergeable": "UNKNOWN",
+      "number": 332,
+      "state": "OPEN",
+      "statusCheckRollup": [
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T10:56:44Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42600357146/job/129102989907",
+          "name": "Linux",
+          "startedAt": "2026-11-09T10:22:05Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T11:13:00Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42600357146/job/129102989903",
+          "name": "Windows",
+          "startedAt": "2026-11-09T10:22:05Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T11:05:08Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42600357146/job/129102989775",
+          "name": "macOS",
+          "startedAt": "2026-11-09T10:22:05Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T10:26:57Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42600357146/job/129102989564",
+          "name": "IFC (IfcOpenShell)",
+          "startedAt": "2026-11-09T10:22:05Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T10:22:13Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42600357146/job/129102989774",
+          "name": "Scripts and workflows",
+          "startedAt": "2026-11-09T10:22:05Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        }
+      ],
+      "url": "https://github.com/IPedrax/BIMCraft/pull/332"
+    },
+    {
+      "baseRefName": "main",
+      "headRefName": "fix/sheet-3d-default-scale",
+      "headRefOid": "549d322b42b33feb212c08307b86a4a8fdf6d93b",
+      "mergeStateStatus": "UNKNOWN",
+      "mergeable": "UNKNOWN",
+      "number": 334,
+      "state": "OPEN",
+      "statusCheckRollup": [
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T10:52:45Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42601652653/job/129107338001",
+          "name": "Linux",
+          "startedAt": "2026-11-09T10:33:00Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T11:24:32Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42601652653/job/129107338176",
+          "name": "Windows",
+          "startedAt": "2026-11-09T10:33:02Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T11:08:55Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42601652653/job/129107337968",
+          "name": "macOS",
+          "startedAt": "2026-11-09T10:33:01Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T10:38:07Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42601652653/job/129107337717",
+          "name": "IFC (IfcOpenShell)",
+          "startedAt": "2026-11-09T10:33:00Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T10:33:07Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42601652653/job/129107338105",
+          "name": "Scripts and workflows",
+          "startedAt": "2026-11-09T10:33:01Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        }
+      ],
+      "url": "https://github.com/IPedrax/BIMCraft/pull/334"
+    },
+    {
+      "baseRefName": "main",
+      "headRefName": "feat/opening-raised-wall-host",
+      "headRefOid": "71398cf01f2a444bc53412af58bcf124ce964d29",
+      "mergeStateStatus": "UNKNOWN",
+      "mergeable": "UNKNOWN",
+      "number": 338,
+      "state": "OPEN",
+      "statusCheckRollup": [
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T11:31:02Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42605875352/job/129121620781",
+          "name": "Linux",
+          "startedAt": "2026-11-09T11:03:23Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T11:51:14Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42605875352/job/129121620623",
+          "name": "Windows",
+          "startedAt": "2026-11-09T11:03:24Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T11:42:41Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42605875352/job/129121620241",
+          "name": "macOS",
+          "startedAt": "2026-11-09T11:03:24Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T11:08:35Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42605875352/job/129121620580",
+          "name": "IFC (IfcOpenShell)",
+          "startedAt": "2026-11-09T11:03:24Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T11:03:31Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42605875352/job/129121621744",
+          "name": "Scripts and workflows",
+          "startedAt": "2026-11-09T11:03:24Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        }
+      ],
+      "url": "https://github.com/IPedrax/BIMCraft/pull/338"
+    },
+    {
+      "baseRefName": "main",
+      "headRefName": "fix/explicit-roof-overhang",
+      "headRefOid": "f32146429f4912ee84c7ec12327f34f861049523",
+      "mergeStateStatus": "UNKNOWN",
+      "mergeable": "UNKNOWN",
+      "number": 340,
+      "state": "OPEN",
+      "statusCheckRollup": [
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T11:29:40Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42606554161/job/129123919765",
+          "name": "Linux",
+          "startedAt": "2026-11-09T11:08:18Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T11:48:10Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42606554161/job/129123920040",
+          "name": "Windows",
+          "startedAt": "2026-11-09T11:08:19Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T11:30:36Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42606554161/job/129123919804",
+          "name": "macOS",
+          "startedAt": "2026-11-09T11:08:20Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T11:11:40Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42606554161/job/129123919969",
+          "name": "IFC (IfcOpenShell)",
+          "startedAt": "2026-11-09T11:08:18Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T11:08:25Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42606554161/job/129123919511",
+          "name": "Scripts and workflows",
+          "startedAt": "2026-11-09T11:08:19Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        }
+      ],
+      "url": "https://github.com/IPedrax/BIMCraft/pull/340"
+    },
+    {
+      "baseRefName": "main",
+      "headRefName": "fix/opening-requested-elevation",
+      "headRefOid": "8681249e5d60f5836ab4e52d3a3bfc07f6733e0d",
+      "mergeStateStatus": "UNKNOWN",
+      "mergeable": "UNKNOWN",
+      "number": 343,
+      "state": "OPEN",
+      "statusCheckRollup": [
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T12:12:23Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42611637557/job/129141243706",
+          "name": "Linux",
+          "startedAt": "2026-11-09T11:46:20Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T12:26:19Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42611637557/job/129141243230",
+          "name": "Windows",
+          "startedAt": "2026-11-09T11:46:15Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T12:22:42Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42611637557/job/129141243488",
+          "name": "macOS",
+          "startedAt": "2026-11-09T11:46:17Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T11:51:02Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42611637557/job/129141242967",
+          "name": "IFC (IfcOpenShell)",
+          "startedAt": "2026-11-09T11:46:15Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T11:46:22Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42611637557/job/129141243457",
+          "name": "Scripts and workflows",
+          "startedAt": "2026-11-09T11:46:15Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        }
+      ],
+      "url": "https://github.com/IPedrax/BIMCraft/pull/343"
+    },
+    {
+      "baseRefName": "main",
+      "headRefName": "fix/separator-offset-wall-end",
+      "headRefOid": "18b91317cd357c2030fdff1f2b541cdd055df5bc",
+      "mergeStateStatus": "UNKNOWN",
+      "mergeable": "UNKNOWN",
+      "number": 347,
+      "state": "OPEN",
+      "statusCheckRollup": [
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T12:46:13Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42614956963/job/129152410519",
+          "name": "Linux",
+          "startedAt": "2026-11-09T12:11:42Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T12:51:28Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42614956963/job/129152410629",
+          "name": "Windows",
+          "startedAt": "2026-11-09T12:11:42Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T12:49:33Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42614956963/job/129152410819",
+          "name": "macOS",
+          "startedAt": "2026-11-09T12:11:42Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T12:14:56Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42614956963/job/129152410825",
+          "name": "IFC (IfcOpenShell)",
+          "startedAt": "2026-11-09T12:11:42Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T12:11:48Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42614956963/job/129152410307",
+          "name": "Scripts and workflows",
+          "startedAt": "2026-11-09T12:11:42Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        }
+      ],
+      "url": "https://github.com/IPedrax/BIMCraft/pull/347"
+    },
+    {
+      "baseRefName": "main",
+      "headRefName": "feat/industrial-door-operations",
+      "headRefOid": "64bf0ec5d0c0afd711e70002dc3b68a214fb0714",
+      "mergeStateStatus": "UNKNOWN",
+      "mergeable": "UNKNOWN",
+      "number": 350,
+      "state": "OPEN",
+      "statusCheckRollup": [
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T13:13:41Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42619823370/job/129168766406",
+          "name": "Linux",
+          "startedAt": "2026-11-09T12:46:41Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T13:26:45Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42619823370/job/129168766100",
+          "name": "Windows",
+          "startedAt": "2026-11-09T12:46:43Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T13:13:44Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42619823370/job/129168766240",
+          "name": "macOS",
+          "startedAt": "2026-11-09T12:49:35Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T12:51:38Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42619823370/job/129168766111",
+          "name": "IFC (IfcOpenShell)",
+          "startedAt": "2026-11-09T12:46:41Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T12:46:46Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42619823370/job/129168765592",
+          "name": "Scripts and workflows",
+          "startedAt": "2026-11-09T12:46:41Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        }
+      ],
+      "url": "https://github.com/IPedrax/BIMCraft/pull/350"
+    },
+    {
+      "baseRefName": "main",
+      "headRefName": "feat/steel-section-profiles",
+      "headRefOid": "79199fbb02e4187de0aefb9c21be4636ee4a94e2",
+      "mergeStateStatus": "UNKNOWN",
+      "mergeable": "UNKNOWN",
+      "number": 346,
+      "state": "OPEN",
+      "statusCheckRollup": [
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T12:32:42Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42613191397/job/129146521181",
+          "name": "Linux",
+          "startedAt": "2026-11-09T11:58:30Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T12:49:11Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42613191397/job/129146521134",
+          "name": "Windows",
+          "startedAt": "2026-11-09T11:58:30Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T12:29:17Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42613191397/job/129146521111",
+          "name": "macOS",
+          "startedAt": "2026-11-09T11:58:31Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T12:03:33Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42613191397/job/129146521030",
+          "name": "IFC (IfcOpenShell)",
+          "startedAt": "2026-11-09T11:58:30Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T11:58:36Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42613191397/job/129146520640",
+          "name": "Scripts and workflows",
+          "startedAt": "2026-11-09T11:58:30Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        }
+      ],
+      "url": "https://github.com/IPedrax/BIMCraft/pull/346"
+    },
+    {
+      "baseRefName": "main",
+      "headRefName": "feat/property-boundaries",
+      "headRefOid": "271643700503c0045d79ed71f4a9b6b9a4b3e9a8",
+      "mergeStateStatus": "DIRTY",
+      "mergeable": "CONFLICTING",
+      "number": 352,
+      "state": "OPEN",
+      "statusCheckRollup": [],
+      "url": "https://github.com/IPedrax/BIMCraft/pull/352",
+      "workflow_runs": []
+    },
+    {
+      "baseRefName": "main",
+      "headRefName": "fix/ifc-supplementary-quantities",
+      "headRefOid": "be6881c9d72fa7973bc4d328867448bf60cc9b54",
+      "mergeStateStatus": "UNKNOWN",
+      "mergeable": "UNKNOWN",
+      "number": 349,
+      "state": "OPEN",
+      "statusCheckRollup": [
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T13:13:29Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42619205813/job/129166689650",
+          "name": "Linux",
+          "startedAt": "2026-11-09T12:42:12Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T13:34:49Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42619205813/job/129166689768",
+          "name": "Windows",
+          "startedAt": "2026-11-09T12:42:12Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T13:22:12Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42619205813/job/129166689518",
+          "name": "macOS",
+          "startedAt": "2026-11-09T12:42:18Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T12:47:22Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42619205813/job/129166689704",
+          "name": "IFC (IfcOpenShell)",
+          "startedAt": "2026-11-09T12:42:12Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T12:42:23Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42619205813/job/129166689241",
+          "name": "Scripts and workflows",
+          "startedAt": "2026-11-09T12:42:12Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        }
+      ],
+      "url": "https://github.com/IPedrax/BIMCraft/pull/349"
+    },
+    {
+      "baseRefName": "main",
+      "headRefName": "feat/bridge-selection-context",
+      "headRefOid": "3219a10bfce22a70199a7c6caef5dd35e1882f1b",
+      "mergeStateStatus": "UNKNOWN",
+      "mergeable": "UNKNOWN",
+      "number": 353,
+      "state": "OPEN",
+      "statusCheckRollup": [
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T13:58:53Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42625282428/job/129187329566",
+          "name": "Linux",
+          "startedAt": "2026-11-09T13:25:03Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T14:17:16Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42625282428/job/129187329594",
+          "name": "Windows",
+          "startedAt": "2026-11-09T13:25:04Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T13:59:17Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42625282428/job/129187329132",
+          "name": "macOS",
+          "startedAt": "2026-11-09T13:36:05Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T13:30:03Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42625282428/job/129187329719",
+          "name": "IFC (IfcOpenShell)",
+          "startedAt": "2026-11-09T13:25:03Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T13:25:10Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42625282428/job/129187329518",
+          "name": "Scripts and workflows",
+          "startedAt": "2026-11-09T13:25:03Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        }
+      ],
+      "url": "https://github.com/IPedrax/BIMCraft/pull/353"
+    },
+    {
+      "baseRefName": "main",
+      "headRefName": "feat/open-stair-construction",
+      "headRefOid": "3293f093a9b827dcacb8c78d0cca4682cb449cbb",
+      "mergeStateStatus": "UNKNOWN",
+      "mergeable": "UNKNOWN",
+      "number": 354,
+      "state": "OPEN",
+      "statusCheckRollup": [
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T14:00:20Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42625337114/job/129187510427",
+          "name": "Linux",
+          "startedAt": "2026-11-09T13:26:20Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T14:17:24Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42625337114/job/129187510088",
+          "name": "Windows",
+          "startedAt": "2026-11-09T13:25:25Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T14:18:55Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42625337114/job/129187510229",
+          "name": "macOS",
+          "startedAt": "2026-11-09T13:43:25Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T13:29:09Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42625337114/job/129187509753",
+          "name": "IFC (IfcOpenShell)",
+          "startedAt": "2026-11-09T13:25:25Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T13:26:19Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42625337114/job/129187510320",
+          "name": "Scripts and workflows",
+          "startedAt": "2026-11-09T13:26:12Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        }
+      ],
+      "url": "https://github.com/IPedrax/BIMCraft/pull/354"
+    },
+    {
+      "baseRefName": "main",
+      "headRefName": "fix/legacy-georeference-migration",
+      "headRefOid": "ca3d5e5bf3cbde1f3b0cff2d16173de967bf5d2f",
+      "mergeStateStatus": "UNKNOWN",
+      "mergeable": "UNKNOWN",
+      "number": 356,
+      "state": "OPEN",
+      "statusCheckRollup": [
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T14:25:54Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42629161336/job/129200648020",
+          "name": "Linux",
+          "startedAt": "2026-11-09T13:51:34Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T14:43:19Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42629161336/job/129200648245",
+          "name": "Windows",
+          "startedAt": "2026-11-09T13:51:34Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T14:41:06Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42629161336/job/129200648423",
+          "name": "macOS",
+          "startedAt": "2026-11-09T13:59:20Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T13:56:37Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42629161336/job/129200648271",
+          "name": "IFC (IfcOpenShell)",
+          "startedAt": "2026-11-09T13:51:35Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-11-09T13:51:41Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/IPedrax/BIMCraft/actions/runs/42629161336/job/129200647770",
+          "name": "Scripts and workflows",
+          "startedAt": "2026-11-09T13:51:35Z",
+          "status": "COMPLETED",
+          "workflowName": "CI"
+        }
+      ],
+      "url": "https://github.com/IPedrax/BIMCraft/pull/356"
+    },
+    {
+      "baseRefName": "claude/compassionate-newton-l9sz26",
+      "headRefName": "test/site-terrain-acceptance",
+      "headRefOid": "7ebeb79fa917a840d3b90b9548977909bd3b77c5",
+      "mergeStateStatus": "UNSTABLE",
+      "mergeable": "MERGEABLE",
+      "number": 4,
+      "state": "OPEN",
+      "statusCheckRollup": [],
+      "url": "https://github.com/PolyglotOpenstreetmap/BIMCraft/pull/4",
+      "workflow_runs": [
+        {
+          "id": 42629331261,
+          "head_sha": "7ebeb79fa917a840d3b90b9548977909bd3b77c5",
+          "status": "completed",
+          "conclusion": "action_required",
+          "html_url": "https://github.com/PolyglotOpenstreetmap/BIMCraft/actions/runs/42629331261"
+        }
+      ]
+    },
+    {
+      "baseRefName": "claude/compassionate-newton-l9sz26",
+      "headRefName": "test/site-true-north-acceptance",
+      "headRefOid": "3317917e24a305cd91387d81e4051e6975dbed24",
+      "mergeStateStatus": "UNSTABLE",
+      "mergeable": "MERGEABLE",
+      "number": 3,
+      "state": "OPEN",
+      "statusCheckRollup": [],
+      "url": "https://github.com/PolyglotOpenstreetmap/BIMCraft/pull/3",
+      "workflow_runs": [
+        {
+          "id": 42627972928,
+          "head_sha": "3317917e24a305cd91387d81e4051e6975dbed24",
+          "status": "completed",
+          "conclusion": "action_required",
+          "html_url": "https://github.com/PolyglotOpenstreetmap/BIMCraft/actions/runs/42627972928"
+        }
+      ]
+    },
+    {
+      "baseRefName": "feat/coordinates",
+      "headRefName": "test/coordinate-migration-acceptance",
+      "headRefOid": "b2ec5a400da59f7aa5373649ade761d8aec70815",
+      "mergeStateStatus": "UNKNOWN",
+      "mergeable": "UNKNOWN",
+      "number": 1,
+      "state": "OPEN",
+      "statusCheckRollup": [],
+      "url": "https://github.com/dansity/BIMCraft/pull/1",
+      "workflow_runs": [
+        {
+          "id": 42629195892,
+          "head_sha": "b2ec5a400da59f7aa5373649ade761d8aec70815",
+          "status": "completed",
+          "conclusion": "action_required",
+          "html_url": "https://github.com/dansity/BIMCraft/actions/runs/42629195892"
+        }
+      ]
+    }
+  ]
+}

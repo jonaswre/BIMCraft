@@ -1,0 +1,25 @@
+{"georeference":{"crs":"EPSG:32632","eastings":500000000.0,"height":42000.0,"northings":5500000000.0,"rotation":23.0,"scale":0.9996}}
+{"id":100002,"name":"Upper"}
+{"ids":[100003,100004,100005,100006]}
+{"category":"door","name":"Sectional Gate","type":{"height":3200.0,"operation":"sectional","sill":0.0,"width":3000.0}}
+{"category":"door","name":"Roller Gate","type":{"height":3200.0,"operation":"roller","sill":0.0,"width":3000.0}}
+{"host":100003,"id":100007,"mark":"Gate A","offset":4000.0}
+{"host":100003,"id":100008,"mark":"Gate B","offset":11000.0}
+{"host":100003,"id":100009,"mark":"1","offset":4000.0}
+{"area_m2":180.0,"id":100010,"number":"1"}
+{"ids":[100011]}
+{"id":100012}
+{"category":"structuralcolumn","name":"Synthetic Tube","type":{"depth":100.0,"profile":{"shape":"rhs","thickness":8.0},"round":false,"width":200.0}}
+{"id":100013}
+{"id":100014,"length":4760.0,"railings":[100015,100016],"risers":19}
+{"area_m2":308.0,"id":100017,"name":"Synthetic boundary"}
+{"id":100018,"name":"A"}
+{"id":100019,"name":"B"}
+{"id":100020,"name":"1"}
+{"id":100021,"name":"Synthetic Section"}
+{"id":100022,"name":"Synthetic South"}
+{"id":100023,"number":"S-01"}
+{"at":[215.0,168.5],"id":100024,"scale":100.0}
+{"at":[542.5,168.5],"id":100026,"scale":100.0}
+{"format":"bimcraft","path":"original-layout-reproduction.bimcraft"}
+{"height":1485,"kind":"sheet","path":"original-layout-reproduction.png","view":"S-01","width":2100}

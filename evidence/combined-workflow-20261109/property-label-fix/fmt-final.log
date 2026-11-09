@@ -1,0 +1,2 @@
+COMMAND cargo fmt --check
+EXIT 0 (no formatting differences)

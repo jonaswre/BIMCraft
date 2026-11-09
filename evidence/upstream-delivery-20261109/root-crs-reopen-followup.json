@@ -1,0 +1,174 @@
+{
+  "source_parent": "5f666a84a45f6f71bf7dd399eb2e0edfe752be40",
+  "scope": "Actual IFC-reopen geolocate response, not a permanent new regression; all six retained CRS EPSG and recomputed mapping compared to frozen PROJ oracle.",
+  "cases": [
+    {
+      "case": "north-west",
+      "expected_crs": 32631,
+      "actual": {
+        "crs": {
+          "convergence": -1.4145038286734994,
+          "easting": 342369.35927004984,
+          "epsg": 32631,
+          "name": "WGS 84 / UTM zone 31N",
+          "northing": 4984896.171271757,
+          "rotation": -1.4145038286793759,
+          "scale": 0.9999055361859692
+        },
+        "elevation": 12500.0,
+        "latitude": 45.0,
+        "located": true,
+        "longitude": 1.0,
+        "true_north": 5.8764104693409536e-12
+      },
+      "matches": true,
+      "actual_epsg": 32631,
+      "map_checks": {
+        "east_error_m": 9.313225746154785e-10,
+        "north_error_m": 0.0,
+        "rotation_component_error": 2.1863182583792273e-09,
+        "scale_error": 1.0978284947782413e-10
+      }
+    },
+    {
+      "case": "north-east",
+      "expected_crs": 32631,
+      "actual": {
+        "crs": {
+          "convergence": 1.4145038286734994,
+          "easting": 657630.6407299502,
+          "epsg": 32631,
+          "name": "WGS 84 / UTM zone 31N",
+          "northing": 4984896.171271757,
+          "rotation": 1.414503828679354,
+          "scale": 0.9999055367811155
+        },
+        "elevation": 12500.0,
+        "latitude": 45.0,
+        "located": true,
+        "longitude": 5.0,
+        "true_north": -5.8548721426632255e-12
+      },
+      "matches": true,
+      "actual_epsg": 32631,
+      "map_checks": {
+        "east_error_m": 3.4924596548080444e-10,
+        "north_error_m": 0.0,
+        "rotation_component_error": 2.1864915572544774e-09,
+        "scale_error": 4.853634161250397e-10
+      }
+    },
+    {
+      "case": "central-turned",
+      "expected_crs": 32631,
+      "actual": {
+        "crs": {
+          "convergence": -0.0,
+          "easting": 500000.0,
+          "epsg": 32631,
+          "name": "WGS 84 / UTM zone 31N",
+          "northing": 4982950.400226552,
+          "rotation": -90.0,
+          "scale": 0.9995999988468978
+        },
+        "elevation": 12500.0,
+        "latitude": 45.0,
+        "located": true,
+        "longitude": 3.0,
+        "true_north": 90.0
+      },
+      "matches": true,
+      "actual_epsg": 32631,
+      "map_checks": {
+        "east_error_m": 6.984919309616089e-10,
+        "north_error_m": 0.0,
+        "rotation_component_error": 0.0,
+        "scale_error": 1.1028162827386723e-09
+      }
+    },
+    {
+      "case": "south-west",
+      "expected_crs": 32731,
+      "actual": {
+        "crs": {
+          "convergence": 1.4145035765696194,
+          "easting": 342369.35927004984,
+          "epsg": 32731,
+          "name": "WGS 84 / UTM zone 31S",
+          "northing": 5015103.828728243,
+          "rotation": 31.41450357656518,
+          "scale": 0.9999055361859692
+        },
+        "elevation": 12500.0,
+        "latitude": -45.0,
+        "located": true,
+        "longitude": 1.0,
+        "true_north": -29.999999999995566
+      },
+      "matches": true,
+      "actual_epsg": 32731,
+      "map_checks": {
+        "east_error_m": 9.313225746154785e-10,
+        "north_error_m": 0.0,
+        "rotation_component_error": 1.888967426921795e-09,
+        "scale_error": 1.1002776467705644e-10
+      }
+    },
+    {
+      "case": "south-east",
+      "expected_crs": 32731,
+      "actual": {
+        "crs": {
+          "convergence": -1.4145035765696194,
+          "easting": 657630.6407299502,
+          "epsg": 32731,
+          "name": "WGS 84 / UTM zone 31S",
+          "northing": 5015103.828728243,
+          "rotation": -18.91450357659442,
+          "scale": 0.9999055367811155
+        },
+        "elevation": 12500.0,
+        "latitude": -45.0,
+        "located": true,
+        "longitude": 5.0,
+        "true_north": 17.5000000000248
+      },
+      "matches": true,
+      "actual_epsg": 32731,
+      "map_checks": {
+        "east_error_m": 3.4924596548080444e-10,
+        "north_error_m": 0.0,
+        "rotation_component_error": 2.09324785283016e-09,
+        "scale_error": 4.851185009258074e-10
+      }
+    },
+    {
+      "case": "lambert-turned",
+      "expected_crs": 2154,
+      "actual": {
+        "crs": {
+          "convergence": 1.4512155274070127,
+          "easting": 857581.8993196683,
+          "epsg": 2154,
+          "name": "RGF93 v1 / Lambert-93",
+          "northing": 6435414.7478354,
+          "rotation": 76.45121552742492,
+          "scale": 0.9993980685095637
+        },
+        "elevation": 12500.0,
+        "latitude": 45.0,
+        "located": true,
+        "longitude": 5.0,
+        "true_north": -75.0000000000179
+      },
+      "matches": true,
+      "actual_epsg": 2154,
+      "map_checks": {
+        "east_error_m": 2.3283064365386963e-10,
+        "north_error_m": 0.0,
+        "rotation_component_error": 4.544070675294165e-11,
+        "scale_error": 9.993598171220697e-10
+      }
+    }
+  ]
+}

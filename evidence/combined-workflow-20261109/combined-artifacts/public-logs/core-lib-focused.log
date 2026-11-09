@@ -1,0 +1,45 @@
+   Compiling bimcraft-core v0.11.0 (<workspace>\upstream-combined-audit\crates\core)
+    Finished `test` profile [unoptimized] target(s) in 3m 31s
+     Running unittests src\lib.rs (<workspace>/.targets/combined-audit\debug\deps\bimcraft_core-f723816fa9dc5cad.exe)
+
+running 37 tests
+test bridge::tests::a_request_is_read_with_its_token_and_what_is_wrong_with_one_is_said ... ok
+test bridge::tests::context_requires_the_token_and_a_desktop_rather_than_inventing_session_state ... ok
+test bridge::tests::an_agent_may_ask_to_only_read_a_window_that_lets_it_edit ... ok
+test bridge::tests::tokens_are_the_same_only_when_every_byte_is ... ok
+test bridge::tests::the_file_keeps_a_port_and_a_token_for_the_user_alone_and_is_removed_only_by_its_own_window ... ok
+test bridge::tests::a_request_runs_on_the_session_as_a_command_does_and_the_reply_says_how_it_went ... ok
+test bridge::tests::what_would_replace_the_project_is_refused_by_any_name_and_a_script_is_read_before_it_runs ... ok
+test bridge::tests::a_window_that_lets_agents_only_read_refuses_their_edits_says_why_and_still_answers_what_reads ... ok
+test plan_view_tests::a_duplicate_is_a_plan_view_of_the_same_level_named_after_it_and_numbered ... ok
+test plan_view_tests::a_dependent_follows_its_parents_range_and_graphics_has_its_own_crop_and_shows_its_parents_annotation ... ok
+test plan_view_tests::a_duplicate_has_the_range_crop_and_graphics_of_its_source_and_then_its_own ... ok
+test plan_view_tests::a_plan_views_range_follows_a_view_template_that_controls_it ... ok
+test plan_view_tests::a_plan_view_goes_on_a_sheet_is_fitted_to_its_crop_and_is_found_by_name ... ok
+test plan_view_tests::an_annotation_is_in_the_view_it_was_made_in_and_only_there ... ok
+test plan_view_tests::deleting_takes_a_views_annotation_a_parents_dependents_and_a_levels_plan_views ... ok
+test plan_view_tests::only_plans_are_duplicated_and_the_mode_is_one_of_three ... ok
+test plan_view_tests::detailing_copies_the_annotation_and_the_plain_duplicate_does_not ... ok
+test plan_view_tests::render_command_uses_the_duplicated_plans_crop_in_the_written_png ... ok
+test plan_view_tests::plan_views_are_saved_with_the_project_and_a_project_without_them_is_written_as_before ... ok
+test plan_view_tests::render_command_uses_the_duplicated_plans_view_range ... ok
+test plan_view_tests::render_command_uses_the_duplicated_plans_graphics_by_name_and_id ... ok
+test profile_tests::a_catalogue_section_is_a_type_by_its_name_and_a_beam_may_name_one_the_project_has_not_got ... ok
+test plan_view_tests::tag_all_tags_what_the_plan_has_no_tag_of_in_that_plan ... ok
+test profile_tests::a_sloped_steel_beam_in_3d_is_its_section_swept_along_it ... ok
+test profile_tests::a_project_with_steel_sections_saves_and_opens_again ... ok
+test profile_tests::a_schedule_of_steel_lists_each_sections_weight_per_metre_and_its_total_weight ... ok
+test profile_tests::a_steel_columns_solid_in_3d_is_its_outline_and_a_tubes_has_a_hole ... ok
+test profile_tests::hostile_sections_are_refused_without_a_panic_or_a_broken_model ... ok
+test profile_tests::a_section_cuts_a_steel_beam_as_its_i ... ok
+test profile_tests::parametric_sections_are_made_with_their_plates_and_refused_when_they_dont_fit ... ok
+test profile_tests::steel_sections_go_out_as_ifc_profiles_with_a_material_profile_set ... ok
+test profile_tests::steel_sections_come_back_from_ifc ... ok
+test raised_wall_room_tests::a_wall_reaching_the_computation_height_still_divides_the_hall ... ok
+test raised_wall_room_tests::joins_follow_the_levels_computation_height_when_it_changes ... ok
+test profile_tests::a_steel_column_is_cut_in_plan_as_its_section_and_a_tube_shows_its_hole ... ok
+test raised_wall_room_tests::raised_wall_edits_preserve_the_room_below_at_centre_lines ... ok
+test raised_wall_room_tests::raised_wall_edits_preserve_the_room_below_at_finish_faces ... ok
+
+test result: ok. 37 passed; 0 failed; 0 ignored; 0 measured; 1536 filtered out; finished in 4.52s
+

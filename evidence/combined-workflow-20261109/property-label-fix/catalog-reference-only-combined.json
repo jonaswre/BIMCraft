@@ -1,0 +1,22 @@
+{
+  "translations/project/bimcraft-project.pot": true,
+  "translations/project/cs.po": true,
+  "translations/project/de.po": true,
+  "translations/project/es.po": true,
+  "translations/project/fr.po": true,
+  "translations/project/it.po": true,
+  "translations/project/nl.po": true,
+  "translations/project/pt.po": true,
+  "translations/project/sv.po": true,
+  "translations/ui/bimcraft-ui.pot": true,
+  "translations/ui/cs.po": true,
+  "translations/ui/de.po": true,
+  "translations/ui/es.po": true,
+  "translations/ui/fr.po": true,
+  "translations/ui/it.po": true,
+  "translations/ui/nl.po": true,
+  "translations/ui/pt.po": true,
+  "translations/ui/vi.po": true,
+  "translations/ui/zh.po": true,
+  "translations/ui/zh_TW.po": true
+}

@@ -1,0 +1,272 @@
+   Compiling bimcraft-core v0.11.0 (<workspace>\upstream-combined-audit\crates\core)
+    Finished `test` profile [unoptimized] target(s) in 1.48s
+     Running tests\agent_docs.rs (<workspace>/.targets/combined-audit\debug\deps\agent_docs-860e53fa9aab599c.exe)
+
+running 3 tests
+test the_root_claude_md_stays_under_its_word_budget ... ok
+test the_root_claude_md_reaches_every_crate_note_and_area_write_up ... ok
+test every_file_the_agent_docs_link_to_exists ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running tests\combined_audit.rs (<workspace>/.targets/combined-audit\debug\deps\combined_audit-47b6e039aa43b18e.exe)
+
+running 4 tests
+test implicit_opening_prefers_any_cut_host_then_unique_default_level_raised_host ... ok
+test combined_native_history_advances_beyond_both_independent_format19_readers ... ok
+test property_boundary_level_edit_updates_warm_plans_undo_and_native_reopen ... ok
+test industrial_gates_draw_in_section_and_elevation_after_native_reopen ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.89s
+
+     Running tests\drawing_lettering.rs (<workspace>/.targets/combined-audit\debug\deps\drawing_lettering-20f4f32fdf0bc723.exe)
+
+running 5 tests
+test tests::many_unsupported_letters_have_bounded_diagnostics_and_still_render ... ok
+test tests::export_failure_preserves_labels_and_a_retry_returns_the_diagnostic ... ok
+test tests::non_latin_note_fallback_does_not_get_a_drawing_lettering_warning ... ok
+test tests::unsupported_grid_letters_are_reported_once_and_survive_native_reopen ... ok
+test tests::engineering_marks_are_visible_and_distinct_in_exported_grid_labels ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.00s
+
+     Running tests\ifc_grids.rs (<workspace>/.targets/combined-audit\debug\deps\ifc_grids-181ecd4ff1be0277.exe)
+
+running 7 tests
+test tests::ifc_grids_import_a_shared_axis_once_and_keep_reversed_sense_and_placement ... ok
+test tests::ifc_grids_import_keeps_distinct_coincident_axes_w_axes_and_axes_in_different_placements ... ok
+test tests::ifc_grids_unrelated_annotations_do_not_become_grids_and_missing_axes_are_reported ... ok
+test tests::ifc_grids_without_native_grids_write_no_grid_entities_or_annotations ... ok
+test tests::ifc_grids_a_lone_axis_is_a_named_curve_annotation_and_reopens_as_a_grid ... ok
+test tests::ifc_grids_keep_native_names_and_oblique_lines_through_save_and_open ... ok
+test tests::ifc_grids_parallel_axes_use_real_disjoint_axis_sets_and_reopen_once ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.30s
+
+     Running tests\ifc_supplementary_quantities.rs (<workspace>/.targets/combined-audit\debug\deps\ifc_supplementary_quantities-7242f9f9b6194bc9.exe)
+
+running 10 tests
+test tests::extruded_roof_projected_area_comes_from_its_profile_instead_of_its_boundary ... ok
+test tests::pad_footing_dimensions_and_volume_match_its_rectangular_solid ... ok
+test tests::ceiling_areas_subtract_openings_and_only_intersecting_shafts ... ok
+test tests::attached_wall_quantities_integrate_the_sloping_top_and_clipped_door ... ok
+test tests::roof_areas_follow_the_pitch_and_subtract_openings_and_shafts ... ok
+test tests::roof_courtyard_is_absent_from_gross_and_projected_areas ... ok
+test tests::shaped_variable_layer_roof_areas_follow_the_top_planes ... ok
+test tests::round_pad_uses_the_circle_area_and_strip_uses_its_run_length ... ok
+test tests::wall_attached_across_a_roof_ridge_measures_both_planes ... ok
+test tests::wall_base_attached_to_a_slope_subtracts_only_the_door_above_its_base ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.61s
+
+     Running tests\ifc_wall_authoring.rs (<workspace>/.targets/combined-audit\debug\deps\ifc_wall_authoring-cc977bd321f7d102.exe)
+
+running 8 tests
+test tests::authored_endpoints_near_another_wall_are_not_extended_by_import_joining ... ok
+test tests::floor_attachments_keep_their_guids_after_ifc_and_native_reopen ... ok
+test tests::missing_or_wrong_kind_attachment_targets_leave_the_wall_present_and_unattached ... ok
+test tests::explicit_roof_attachment_and_explicitly_unattached_metadata_override_the_geometry_guess ... ok
+test tests::noncentral_location_lines_keep_the_drawn_endpoints_through_ifc_and_native_reopen ... ok
+test tests::opening_wall_metadata_with_many_unknown_properties_and_targets_keeps_only_the_real_wall_intent ... ok
+test tests::reversed_layer_usage_keeps_the_generic_direction_and_centre_line ... ok
+test tests::unknown_or_nontext_location_metadata_keeps_the_generic_body_reconstruction ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.98s
+
+     Running tests\industrial_doors.rs (<workspace>/.targets/combined-audit\debug\deps\industrial_doors-4c0928f1588b04a9.exe)
+
+running 8 tests
+test tests::gate_type_edits_keep_host_validation_and_rollback ... ok
+test tests::family_operations_keep_authored_geometry_and_import_from_ifc_type_fallback ... ok
+test tests::industrial_parts_have_positive_volume_and_fit_in_plan_with_overhead_equipment ... ok
+test tests::flipped_industrial_gates_reopen_on_the_same_side_of_the_wall_in_ifc ... ok
+test tests::old_files_keep_unspecified_swing_and_newer_files_are_refused ... ok
+test tests::existing_operations_and_handedness_keep_their_ifc_meaning ... ok
+test tests::sectional_and_roller_gates_save_reopen_and_keep_operations_and_guids ... ok
+test tests::vertical_gates_have_a_closed_panel_in_plan_without_a_horizontal_swing ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.35s
+
+     Running tests\legacy_georeference.rs (<workspace>/.targets/combined-audit\debug\deps\legacy_georeference-719b46aeb8387f69.exe)
+
+running 4 tests
+test tests::absent_legacy_rotation_and_scale_keep_the_existing_defaults ... ok
+test tests::modern_fields_and_unknown_field_reporting_are_preserved ... ok
+test tests::conflicting_invalid_and_newer_payloads_leave_the_open_project_unchanged ... ok
+test tests::legacy_height_and_clockwise_rotation_survive_native_and_ifc_reopen ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.78s
+
+     Running tests\open_stairs.rs (<workspace>/.targets/combined-audit\debug\deps\open_stairs-8e6bc786de881d34.exe)
+
+running 5 tests
+test tests::invalid_open_parameters_roll_back_and_modify_undo_preserves_identity ... ok
+test tests::format18_stairs_keep_solid_geometry_guids_and_unknown_field_reporting ... ok
+test tests::open_construction_survives_native_and_ifc_save_reopen_and_can_be_closed_again ... ok
+test tests::two_riser_open_flights_keep_their_direction_and_height_on_ifc_import ... ok
+test tests::treads_supports_and_landing_underside_survive_ifc_reopening ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.89s
+
+     Running tests\opening_elevation.rs (<workspace>/.targets/combined-audit\debug\deps\opening_elevation-98c98d962aefda17.exe)
+
+running 6 tests
+test tests::different_requested_level_accounts_for_the_host_base_offset ... ok
+test tests::explicit_host_honors_requested_level_for_doors_and_default_window_sills ... ok
+test tests::host_relative_placement_without_a_different_requested_level_is_preserved ... ok
+test tests::upper_level_family_window_uses_its_default_sill_in_preview_and_placement ... ok
+test tests::requested_level_outside_host_is_rejected_atomically ... ok
+test tests::upper_level_window_is_visible_on_its_plan_and_survives_save_reopen ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.24s
+
+     Running tests\opening_level.rs (<workspace>/.targets/combined-audit\debug\deps\opening_level-a8a32838ceca6606.exe)
+
+running 10 tests
+test tests::an_inferred_host_still_rejects_an_opening_outside_the_wall_atomically ... ok
+test tests::an_implicit_level_failure_keeps_wall_span_and_cut_context_without_an_undo_step ... ok
+test tests::explicit_wall_remains_authoritative_even_with_a_different_level ... ok
+test tests::explicit_level_overrides_inference_and_never_falls_back ... ok
+test tests::below_ground_hosts_prefer_the_highest_eligible_level ... ok
+test tests::no_eligible_host_reports_the_point_and_preserves_the_model_and_undo ... ok
+test tests::openings_without_a_level_find_an_upper_floor_when_it_is_the_only_host ... ok
+test tests::stacked_hosts_prefer_the_lowest_eligible_level_at_or_above_zero ... ok
+test tests::openings_without_a_level_find_the_ground_wall_and_survive_save_and_reopen ... ok
+test tests::inferred_openings_render_in_the_ground_plan_and_export_as_hosted_ifc ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.58s
+
+     Running tests\property_boundaries.rs (<workspace>/.targets/combined-audit\debug\deps\property_boundaries-a8bd9a113e521750.exe)
+
+running 9 tests
+test tests::concave_reversed_boundaries_and_multiple_levels_survive_ifc_with_names_and_guids ... ok
+test tests::boundaries_move_copy_undo_and_refresh_the_level_lookup_without_losing_identity ... ok
+test tests::boundary_rotation_mirroring_visibility_and_deletion_use_the_existing_commands ... ok
+test tests::an_open_ifc_site_footprint_is_reported_instead_of_silently_closed ... ok
+test tests::native_unknown_fields_are_reported_newer_versions_refused_and_old_files_unchanged ... ok
+test tests::mismatched_site_metadata_is_ignored_without_losing_the_boundary_or_identity ... ok
+test tests::survey_bearings_cover_quadrants_and_carry_rounded_seconds ... ok
+test tests::property_boundary_invalid_inputs_roll_back_and_read_only_refuses ... ok
+test tests::property_boundary_command_draw_schedule_native_and_ifc_round_trip ... ok
+
+test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.36s
+
+     Running tests\raised_wall_openings.rs (<workspace>/.targets/combined-audit\debug\deps\raised_wall_openings-90fa1aecd5d57a95.exe)
+
+running 5 tests
+test tests::raised_wall_fallback_still_validates_sill_width_and_overlapping_openings ... ok
+test tests::raised_wall_lookup_keeps_low_wall_and_other_level_diagnostics ... ok
+test tests::raised_host_lookup_preserves_cut_wall_priority_and_explicit_wall_control ... ok
+test tests::stacked_raised_hosts_require_a_wall_id_and_refusal_changes_nothing ... ok
+test tests::raised_wall_openings_render_and_keep_their_hosts_after_save_and_open ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.44s
+
+     Running tests\roof_overhang.rs (<workspace>/.targets/combined-audit\debug\deps\roof_overhang-d236a58cf0c5a0d4.exe)
+
+running 6 tests
+test tests::courtyards_offset_inward_and_impossible_creation_is_atomic ... ok
+test tests::sketch_overhang_preserves_per_edge_pitches_and_edit_boundary_does_not_offset_twice ... ok
+test tests::wall_derived_roofs_and_zero_overhang_keep_existing_outlines ... ok
+test tests::impossible_mass_roof_update_refuses_all_elements_and_preserves_undo_redo ... ok
+test tests::mass_roof_keeps_positive_overhang_identity_and_pitch_through_update_and_reopen ... ok
+test tests::explicit_roof_overhang_extends_eaves_and_keeps_wall_line_height_after_reopen ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.37s
+
+     Running tests\scan_framing.rs (<workspace>/.targets/combined-audit\debug\deps\scan_framing-f8a4aee1145ae709.exe)
+
+running 4 tests
+test tests::empty_fitting_and_explicit_level_extents_are_preserved ... ok
+test tests::scan_only_fitting_still_shows_scans_in_parallel_and_perspective ... ok
+test tests::explicit_camera_and_crops_keep_scans_visible_and_survive_save_open ... ok
+test tests::adding_a_distant_scan_keeps_the_building_readable_in_default_views_after_reopening ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.01s
+
+     Running tests\script_references.rs (<workspace>/.targets/combined-audit\debug\deps\script_references-b188a05a433d565e.exe)
+
+running 13 tests
+test tests::external_command_results_resolve_nested_values_once_without_interpolating_keys ... ok
+test tests::named_control_port_lines_cannot_replace_the_project_or_bypass_read_only ... ok
+test tests::atomic_reference_errors_restore_history_ids_and_allow_a_clean_retry ... ok
+test tests::named_ids_and_array_results_attach_a_wall_and_delete_selected_grids ... ok
+test tests::named_lines_validate_names_and_allow_literal_at_and_dollar_text ... ok
+test tests::non_atomic_control_port_scripts_keep_completed_lines_before_a_malformed_name ... ok
+test tests::reference_expansion_accepts_an_id_list_at_the_existing_command_cap ... ok
+test tests::reference_expansion_diagnostics_do_not_copy_large_prior_replies ... ok
+test tests::named_script_results_create_a_hosted_door_and_survive_save_reopen ... ok
+test tests::reference_expansion_budget_refuses_amplification_before_execution_and_rolls_back_for_retry ... ok
+test tests::reference_expansion_rejects_deep_external_results_before_execution ... ok
+test tests::bad_references_name_the_failing_line_and_non_atomic_scripts_keep_prior_results ... ok
+test tests::relative_script_result_references_skip_comments_and_blank_lines ... ok
+
+test result: ok. 13 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.47s
+
+     Running tests\separator_wall_end.rs (<workspace>/.targets/combined-audit\debug\deps\separator_wall_end-8c377b32f66d348a.exe)
+
+running 6 tests
+test tests::a_curved_wall_end_gap_is_not_closed_by_a_parallel_chord ... ok
+test tests::invalid_separator_commands_leave_the_existing_room_journey_intact ... ok
+test tests::a_parallel_separator_does_not_join_a_gap_a_wall_side_or_a_nonbounding_wall ... ok
+test tests::continuing_a_wall_end_separates_rooms_in_both_directions_and_on_rotated_plans ... ok
+test tests::rendered_plan_fills_both_independent_rooms_on_opposite_sides_of_the_partition ... ok
+test tests::wall_end_rooms_survive_native_reopen_and_export_distinct_gross_and_net_ifc_quantities ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.51s
+
+     Running tests\sheet_fit.rs (<workspace>/.targets/combined-audit\debug\deps\sheet_fit-b675dd3f408b57bc.exe)
+
+running 10 tests
+test tests::explicit_viewport_scale_and_position_are_preserved_even_when_the_picture_does_not_fit ... ok
+test tests::explicit_position_is_preserved_when_a_default_3d_scale_is_fitted ... ok
+test tests::a_small_or_empty_3d_view_keeps_the_project_default_scale ... ok
+test tests::fitting_falls_back_to_the_coarsest_offered_scale_when_no_scale_fits ... ok
+test tests::assigned_view_and_template_scales_are_preserved ... ok
+test tests::invalid_explicit_scale_does_not_leave_a_view_or_viewport_behind ... ok
+test tests::fitting_uses_the_finest_offered_imperial_scale_that_fits ... ok
+test tests::plans_keep_their_assigned_scale_instead_of_fitting_to_paper ... ok
+test tests::fitting_uses_the_current_standard_sheet_margins ... ok
+test tests::large_default_3d_view_fits_the_sheet_and_keeps_its_picture_after_save_and_reopen ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.34s
+
+     Running tests\sheet_title_fitting.rs (<workspace>/.targets/combined-audit\debug\deps\sheet_title_fitting-d643ef0f9e6fc8e7.exe)
+
+running 5 tests
+test tests::fitted_titles_keep_their_names_and_print_identically_after_reopening ... ok
+test tests::a_fitted_project_name_draws_every_letter ... ok
+test tests::long_sheet_numbers_stay_inside_their_cell ... ok
+test tests::long_project_names_stay_inside_the_title_block ... ok
+test tests::long_sheet_names_stay_clear_of_the_number_cell ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 44.85s
+
+     Running tests\steel_profiles.rs (<workspace>/.targets/combined-audit\debug\deps\steel_profiles-00e7b12505d633ce.exe)
+
+running 10 tests
+test sloped_hollow_bounds::plain_round_slopes_keep_the_existing_perpendicular_tube_envelope ... ok
+test picking::a_hollow_column_can_be_picked_on_its_wall_but_not_through_its_empty_centre ... ok
+test native_versions::steel_files_require_a_reader_that_knows_sections_and_plain_format_18_files_keep_their_geometry ... ok
+test sloped_hollow_bounds::sloped_chs_bounds_enclose_the_actual_upright_end_sweep_in_every_direction ... ok
+test tests::catalogue_beam_can_be_created_scheduled_saved_and_reopened ... ok
+test tests::parametrically_authored_hollow_column_keeps_its_section_in_native_and_ifc_output ... ok
+test tests::equal_enclosing_boxes_with_distinct_steel_sections_export_distinct_profiles_and_true_quantities ... ok
+test tests::unsupported_categories_reject_section_parameters_and_plain_shape_replaces_a_hollow_circle ... ok
+test sloped_hollow_bounds::a_sloped_chs_section_keeps_full_extents_and_pixels_when_neighbour_heights_hide_the_old_box ... ok
+test tests::steel_type_plate_edits_refresh_cached_sections_without_changing_elements ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.68s
+
+     Running tests\viewport_placement.rs (<workspace>/.targets/combined-audit\debug\deps\viewport_placement-b7516adb92dedb8c.exe)
+
+running 6 tests
+test tests::a_first_long_title_fits_and_manual_positions_are_preserved ... ok
+test tests::a_full_sheet_keeps_later_viewports_separate_instead_of_stacking_them ... ok
+test tests::automatic_placement_keeps_schedules_sections_and_3d_views_separate ... ok
+test tests::automatic_views_clear_each_standards_border_and_title_block ... ok
+test tests::overflowing_views_preserve_the_printed_border_and_title_block ... ok
+test tests::long_titles_remain_readable_after_automatic_placement_and_native_reopen ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 3.01s
+

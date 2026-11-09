@@ -1,0 +1,6 @@
+Auto-merging crates/core/src/render.rs
+Merge made by the 'ort' strategy.
+ crates/core/src/render.rs                |  66 ++++++++++++++-
+ crates/core/tests/property_boundaries.rs | 135 +++++++++++++++++++++++++++++++
+ docs/areas/property-boundaries.md        |   2 +-
+ 3 files changed, 198 insertions(+), 5 deletions(-)

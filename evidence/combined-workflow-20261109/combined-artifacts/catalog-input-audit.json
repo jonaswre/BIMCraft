@@ -1,0 +1,673 @@
+[
+  {
+    "task": 19,
+    "semantic_changes": []
+  },
+  {
+    "task": 1,
+    "semantic_changes": []
+  },
+  {
+    "task": 7,
+    "semantic_changes": []
+  },
+  {
+    "task": 21,
+    "semantic_changes": []
+  },
+  {
+    "task": 2,
+    "semantic_changes": []
+  },
+  {
+    "task": 16,
+    "semantic_changes": []
+  },
+  {
+    "task": 14,
+    "semantic_changes": []
+  },
+  {
+    "task": 13,
+    "semantic_changes": []
+  },
+  {
+    "task": 3,
+    "semantic_changes": []
+  },
+  {
+    "task": 4,
+    "semantic_changes": []
+  },
+  {
+    "task": 15,
+    "semantic_changes": []
+  },
+  {
+    "task": 18,
+    "semantic_changes": []
+  },
+  {
+    "task": 20,
+    "semantic_changes": []
+  },
+  {
+    "task": 22,
+    "semantic_changes": []
+  },
+  {
+    "task": 24,
+    "semantic_changes": []
+  },
+  {
+    "task": 10,
+    "semantic_changes": [
+      {
+        "file": "translations/project/bimcraft-project.pot",
+        "semantic_lines": [
+          "+msgid \"Roller\"",
+          "+msgstr \"\"",
+          "+msgid \"Sectional\"",
+          "+msgstr \"\""
+        ]
+      },
+      {
+        "file": "translations/project/cs.po",
+        "semantic_lines": [
+          "+msgid \"Roller\"",
+          "+msgstr \"\"",
+          "+msgid \"Sectional\"",
+          "+msgstr \"\""
+        ]
+      },
+      {
+        "file": "translations/project/de.po",
+        "semantic_lines": [
+          "+msgid \"Roller\"",
+          "+msgstr \"\"",
+          "+msgid \"Sectional\"",
+          "+msgstr \"\""
+        ]
+      },
+      {
+        "file": "translations/project/es.po",
+        "semantic_lines": [
+          "+msgid \"Roller\"",
+          "+msgstr \"\"",
+          "+msgid \"Sectional\"",
+          "+msgstr \"\""
+        ]
+      },
+      {
+        "file": "translations/project/fr.po",
+        "semantic_lines": [
+          "+msgid \"Roller\"",
+          "+msgstr \"\"",
+          "+msgid \"Sectional\"",
+          "+msgstr \"\""
+        ]
+      },
+      {
+        "file": "translations/project/it.po",
+        "semantic_lines": [
+          "+msgid \"Roller\"",
+          "+msgstr \"\"",
+          "+msgid \"Sectional\"",
+          "+msgstr \"\""
+        ]
+      },
+      {
+        "file": "translations/project/nl.po",
+        "semantic_lines": [
+          "+msgid \"Roller\"",
+          "+msgstr \"\"",
+          "+msgid \"Sectional\"",
+          "+msgstr \"\""
+        ]
+      },
+      {
+        "file": "translations/project/pt.po",
+        "semantic_lines": [
+          "+msgid \"Roller\"",
+          "+msgstr \"\"",
+          "+msgid \"Sectional\"",
+          "+msgstr \"\""
+        ]
+      },
+      {
+        "file": "translations/project/sv.po",
+        "semantic_lines": [
+          "+msgid \"Roller\"",
+          "+msgstr \"\"",
+          "+msgid \"Sectional\"",
+          "+msgstr \"\""
+        ]
+      },
+      {
+        "file": "translations/ui/bimcraft-ui.pot",
+        "semantic_lines": [
+          "+msgid \"Roller\"",
+          "+msgstr \"\"",
+          "+msgid \"Sectional\"",
+          "+msgstr \"\""
+        ]
+      },
+      {
+        "file": "translations/ui/cs.po",
+        "semantic_lines": [
+          "+msgid \"Roller\"",
+          "+msgstr \"\"",
+          "+msgid \"Sectional\"",
+          "+msgstr \"\""
+        ]
+      },
+      {
+        "file": "translations/ui/de.po",
+        "semantic_lines": [
+          "+msgid \"Roller\"",
+          "+msgstr \"\"",
+          "+msgid \"Sectional\"",
+          "+msgstr \"\""
+        ]
+      },
+      {
+        "file": "translations/ui/es.po",
+        "semantic_lines": [
+          "+msgid \"Roller\"",
+          "+msgstr \"\"",
+          "+msgid \"Sectional\"",
+          "+msgstr \"\""
+        ]
+      },
+      {
+        "file": "translations/ui/fr.po",
+        "semantic_lines": [
+          "+msgid \"Roller\"",
+          "+msgstr \"\"",
+          "+msgid \"Sectional\"",
+          "+msgstr \"\""
+        ]
+      },
+      {
+        "file": "translations/ui/it.po",
+        "semantic_lines": [
+          "+msgid \"Roller\"",
+          "+msgstr \"\"",
+          "+msgid \"Sectional\"",
+          "+msgstr \"\""
+        ]
+      },
+      {
+        "file": "translations/ui/nl.po",
+        "semantic_lines": [
+          "+msgid \"Roller\"",
+          "+msgstr \"\"",
+          "+msgid \"Sectional\"",
+          "+msgstr \"\""
+        ]
+      },
+      {
+        "file": "translations/ui/pt.po",
+        "semantic_lines": [
+          "+msgid \"Roller\"",
+          "+msgstr \"\"",
+          "+msgid \"Sectional\"",
+          "+msgstr \"\""
+        ]
+      },
+      {
+        "file": "translations/ui/vi.po",
+        "semantic_lines": [
+          "+msgid \"Roller\"",
+          "+msgstr \"\"",
+          "+msgid \"Sectional\"",
+          "+msgstr \"\""
+        ]
+      },
+      {
+        "file": "translations/ui/zh.po",
+        "semantic_lines": [
+          "+msgid \"Roller\"",
+          "+msgstr \"\"",
+          "+msgid \"Sectional\"",
+          "+msgstr \"\""
+        ]
+      },
+      {
+        "file": "translations/ui/zh_TW.po",
+        "semantic_lines": [
+          "+msgid \"Roller\"",
+          "+msgstr \"\"",
+          "+msgid \"Sectional\"",
+          "+msgstr \"\""
+        ]
+      }
+    ]
+  },
+  {
+    "task": 9,
+    "semantic_changes": [
+      {
+        "file": "translations/project/bimcraft-project.pot",
+        "semantic_lines": [
+          "+msgid \"Profile\"",
+          "+msgstr \"\"",
+          "+msgid \"Section Area\"",
+          "+msgstr \"\"",
+          "+msgid \"Weight per Metre\"",
+          "+msgstr \"\""
+        ]
+      },
+      {
+        "file": "translations/project/cs.po",
+        "semantic_lines": [
+          "+msgid \"Profile\"",
+          "+msgstr \"\"",
+          "+msgid \"Section Area\"",
+          "+msgstr \"\"",
+          "+msgid \"Weight per Metre\"",
+          "+msgstr \"\""
+        ]
+      },
+      {
+        "file": "translations/project/de.po",
+        "semantic_lines": [
+          "+msgid \"Profile\"",
+          "+msgstr \"\"",
+          "+msgid \"Section Area\"",
+          "+msgstr \"\"",
+          "+msgid \"Weight per Metre\"",
+          "+msgstr \"\""
+        ]
+      },
+      {
+        "file": "translations/project/es.po",
+        "semantic_lines": [
+          "+msgid \"Profile\"",
+          "+msgstr \"\"",
+          "+msgid \"Section Area\"",
+          "+msgstr \"\"",
+          "+msgid \"Weight per Metre\"",
+          "+msgstr \"\""
+        ]
+      },
+      {
+        "file": "translations/project/fr.po",
+        "semantic_lines": [
+          "+msgid \"Profile\"",
+          "+msgstr \"\"",
+          "+msgid \"Section Area\"",
+          "+msgstr \"\"",
+          "+msgid \"Weight per Metre\"",
+          "+msgstr \"\""
+        ]
+      },
+      {
+        "file": "translations/project/it.po",
+        "semantic_lines": [
+          "+msgid \"Profile\"",
+          "+msgstr \"\"",
+          "+msgid \"Section Area\"",
+          "+msgstr \"\"",
+          "+msgid \"Weight per Metre\"",
+          "+msgstr \"\""
+        ]
+      },
+      {
+        "file": "translations/project/nl.po",
+        "semantic_lines": [
+          "+msgid \"Profile\"",
+          "+msgstr \"\"",
+          "+msgid \"Section Area\"",
+          "+msgstr \"\"",
+          "+msgid \"Weight per Metre\"",
+          "+msgstr \"\""
+        ]
+      },
+      {
+        "file": "translations/project/pt.po",
+        "semantic_lines": [
+          "+msgid \"Profile\"",
+          "+msgstr \"\"",
+          "+msgid \"Section Area\"",
+          "+msgstr \"\"",
+          "+msgid \"Weight per Metre\"",
+          "+msgstr \"\""
+        ]
+      },
+      {
+        "file": "translations/project/sv.po",
+        "semantic_lines": [
+          "+msgid \"Profile\"",
+          "+msgstr \"\"",
+          "+msgid \"Section Area\"",
+          "+msgstr \"\"",
+          "+msgid \"Weight per Metre\"",
+          "+msgstr \"\""
+        ]
+      },
+      {
+        "file": "translations/ui/bimcraft-ui.pot",
+        "semantic_lines": [
+          "+msgid \"Section Area\"",
+          "+msgstr \"\"",
+          "+msgid \"Weight per Metre\"",
+          "+msgstr \"\""
+        ]
+      },
+      {
+        "file": "translations/ui/cs.po",
+        "semantic_lines": [
+          "+msgid \"Section Area\"",
+          "+msgstr \"\"",
+          "+msgid \"Weight per Metre\"",
+          "+msgstr \"\""
+        ]
+      },
+      {
+        "file": "translations/ui/de.po",
+        "semantic_lines": [
+          "+msgid \"Section Area\"",
+          "+msgstr \"\"",
+          "+msgid \"Weight per Metre\"",
+          "+msgstr \"\""
+        ]
+      },
+      {
+        "file": "translations/ui/es.po",
+        "semantic_lines": [
+          "+msgid \"Section Area\"",
+          "+msgstr \"\"",
+          "+msgid \"Weight per Metre\"",
+          "+msgstr \"\""
+        ]
+      },
+      {
+        "file": "translations/ui/fr.po",
+        "semantic_lines": [
+          "+msgid \"Section Area\"",
+          "+msgstr \"\"",
+          "+msgid \"Weight per Metre\"",
+          "+msgstr \"\""
+        ]
+      },
+      {
+        "file": "translations/ui/it.po",
+        "semantic_lines": [
+          "+msgid \"Section Area\"",
+          "+msgstr \"\"",
+          "+msgid \"Weight per Metre\"",
+          "+msgstr \"\""
+        ]
+      },
+      {
+        "file": "translations/ui/nl.po",
+        "semantic_lines": [
+          "+msgid \"Section Area\"",
+          "+msgstr \"\"",
+          "+msgid \"Weight per Metre\"",
+          "+msgstr \"\""
+        ]
+      },
+      {
+        "file": "translations/ui/pt.po",
+        "semantic_lines": [
+          "+msgid \"Section Area\"",
+          "+msgstr \"\"",
+          "+msgid \"Weight per Metre\"",
+          "+msgstr \"\""
+        ]
+      },
+      {
+        "file": "translations/ui/vi.po",
+        "semantic_lines": [
+          "+msgid \"Section Area\"",
+          "+msgstr \"\"",
+          "+msgid \"Weight per Metre\"",
+          "+msgstr \"\""
+        ]
+      },
+      {
+        "file": "translations/ui/zh.po",
+        "semantic_lines": [
+          "+msgid \"Section Area\"",
+          "+msgstr \"\"",
+          "+msgid \"Weight per Metre\"",
+          "+msgstr \"\""
+        ]
+      },
+      {
+        "file": "translations/ui/zh_TW.po",
+        "semantic_lines": [
+          "+msgid \"Section Area\"",
+          "+msgstr \"\"",
+          "+msgid \"Weight per Metre\"",
+          "+msgstr \"\""
+        ]
+      }
+    ]
+  },
+  {
+    "task": 11,
+    "semantic_changes": [
+      {
+        "file": "translations/project/bimcraft-project.pot",
+        "semantic_lines": [
+          "+msgid \"Property Line\"",
+          "+msgstr \"\""
+        ]
+      },
+      {
+        "file": "translations/project/cs.po",
+        "semantic_lines": [
+          "+msgid \"Property Line\"",
+          "+msgstr \"\""
+        ]
+      },
+      {
+        "file": "translations/project/de.po",
+        "semantic_lines": [
+          "+msgid \"Property Line\"",
+          "+msgstr \"\""
+        ]
+      },
+      {
+        "file": "translations/project/es.po",
+        "semantic_lines": [
+          "+msgid \"Property Line\"",
+          "+msgstr \"\""
+        ]
+      },
+      {
+        "file": "translations/project/fr.po",
+        "semantic_lines": [
+          "+msgid \"Property Line\"",
+          "+msgstr \"\""
+        ]
+      },
+      {
+        "file": "translations/project/it.po",
+        "semantic_lines": [
+          "+msgid \"Property Line\"",
+          "+msgstr \"\""
+        ]
+      },
+      {
+        "file": "translations/project/nl.po",
+        "semantic_lines": [
+          "+msgid \"Property Line\"",
+          "+msgstr \"\""
+        ]
+      },
+      {
+        "file": "translations/project/pt.po",
+        "semantic_lines": [
+          "+msgid \"Property Line\"",
+          "+msgstr \"\""
+        ]
+      },
+      {
+        "file": "translations/project/sv.po",
+        "semantic_lines": [
+          "+msgid \"Property Line\"",
+          "+msgstr \"\""
+        ]
+      },
+      {
+        "file": "translations/ui/bimcraft-ui.pot",
+        "semantic_lines": [
+          "+msgid \"Property Line\"",
+          "+msgstr \"\"",
+          "+msgctxt \"category\"",
+          "+msgid \"Property Line\"",
+          "+msgstr \"\"",
+          "+msgctxt \"category-plural\"",
+          "+msgid \"Property Lines\"",
+          "+msgstr \"\""
+        ]
+      },
+      {
+        "file": "translations/ui/cs.po",
+        "semantic_lines": [
+          "+msgid \"Property Line\"",
+          "+msgstr \"\"",
+          "+msgctxt \"category\"",
+          "+msgid \"Property Line\"",
+          "+msgstr \"\"",
+          "+msgctxt \"category-plural\"",
+          "+msgid \"Property Lines\"",
+          "+msgstr \"\""
+        ]
+      },
+      {
+        "file": "translations/ui/de.po",
+        "semantic_lines": [
+          "+msgid \"Property Line\"",
+          "+msgstr \"\"",
+          "+msgctxt \"category\"",
+          "+msgid \"Property Line\"",
+          "+msgstr \"\"",
+          "+msgctxt \"category-plural\"",
+          "+msgid \"Property Lines\"",
+          "+msgstr \"\""
+        ]
+      },
+      {
+        "file": "translations/ui/es.po",
+        "semantic_lines": [
+          "+msgid \"Property Line\"",
+          "+msgstr \"\"",
+          "+msgctxt \"category\"",
+          "+msgid \"Property Line\"",
+          "+msgstr \"\"",
+          "+msgctxt \"category-plural\"",
+          "+msgid \"Property Lines\"",
+          "+msgstr \"\""
+        ]
+      },
+      {
+        "file": "translations/ui/fr.po",
+        "semantic_lines": [
+          "+msgid \"Property Line\"",
+          "+msgstr \"\"",
+          "+msgctxt \"category\"",
+          "+msgid \"Property Line\"",
+          "+msgstr \"\"",
+          "+msgctxt \"category-plural\"",
+          "+msgid \"Property Lines\"",
+          "+msgstr \"\""
+        ]
+      },
+      {
+        "file": "translations/ui/it.po",
+        "semantic_lines": [
+          "+msgid \"Property Line\"",
+          "+msgstr \"\"",
+          "+msgctxt \"category\"",
+          "+msgid \"Property Line\"",
+          "+msgstr \"\"",
+          "+msgctxt \"category-plural\"",
+          "+msgid \"Property Lines\"",
+          "+msgstr \"\""
+        ]
+      },
+      {
+        "file": "translations/ui/nl.po",
+        "semantic_lines": [
+          "+msgid \"Property Line\"",
+          "+msgstr \"\"",
+          "+msgctxt \"category\"",
+          "+msgid \"Property Line\"",
+          "+msgstr \"\"",
+          "+msgctxt \"category-plural\"",
+          "+msgid \"Property Lines\"",
+          "+msgstr \"\""
+        ]
+      },
+      {
+        "file": "translations/ui/pt.po",
+        "semantic_lines": [
+          "+msgid \"Property Line\"",
+          "+msgstr \"\"",
+          "+msgctxt \"category\"",
+          "+msgid \"Property Line\"",
+          "+msgstr \"\"",
+          "+msgctxt \"category-plural\"",
+          "+msgid \"Property Lines\"",
+          "+msgstr \"\""
+        ]
+      },
+      {
+        "file": "translations/ui/vi.po",
+        "semantic_lines": [
+          "+msgid \"Property Line\"",
+          "+msgstr \"\"",
+          "+msgctxt \"category\"",
+          "+msgid \"Property Line\"",
+          "+msgstr \"\"",
+          "+msgctxt \"category-plural\"",
+          "+msgid \"Property Lines\"",
+          "+msgstr \"\""
+        ]
+      },
+      {
+        "file": "translations/ui/zh.po",
+        "semantic_lines": [
+          "+msgid \"Property Line\"",
+          "+msgstr \"\"",
+          "+msgctxt \"category\"",
+          "+msgid \"Property Line\"",
+          "+msgstr \"\"",
+          "+msgctxt \"category-plural\"",
+          "+msgid \"Property Lines\"",
+          "+msgstr \"\""
+        ]
+      },
+      {
+        "file": "translations/ui/zh_TW.po",
+        "semantic_lines": [
+          "+msgid \"Property Line\"",
+          "+msgstr \"\"",
+          "+msgctxt \"category\"",
+          "+msgid \"Property Line\"",
+          "+msgstr \"\"",
+          "+msgctxt \"category-plural\"",
+          "+msgid \"Property Lines\"",
+          "+msgstr \"\""
+        ]
+      }
+    ]
+  },
+  {
+    "task": 12,
+    "semantic_changes": []
+  },
+  {
+    "task": 23,
+    "semantic_changes": []
+  },
+  {
+    "task": 26,
+    "semantic_changes": []
+  }
+]

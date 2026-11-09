@@ -1,0 +1,102 @@
+[
+  {
+    "file": "translations/project/bimcraft-project.pot",
+    "entries": 174,
+    "preserves_base_and_all_semantic_contributors": true
+  },
+  {
+    "file": "translations/project/cs.po",
+    "entries": 174,
+    "preserves_base_and_all_semantic_contributors": true
+  },
+  {
+    "file": "translations/project/de.po",
+    "entries": 174,
+    "preserves_base_and_all_semantic_contributors": true
+  },
+  {
+    "file": "translations/project/es.po",
+    "entries": 174,
+    "preserves_base_and_all_semantic_contributors": true
+  },
+  {
+    "file": "translations/project/fr.po",
+    "entries": 174,
+    "preserves_base_and_all_semantic_contributors": true
+  },
+  {
+    "file": "translations/project/it.po",
+    "entries": 174,
+    "preserves_base_and_all_semantic_contributors": true
+  },
+  {
+    "file": "translations/project/nl.po",
+    "entries": 174,
+    "preserves_base_and_all_semantic_contributors": true
+  },
+  {
+    "file": "translations/project/pt.po",
+    "entries": 174,
+    "preserves_base_and_all_semantic_contributors": true
+  },
+  {
+    "file": "translations/project/sv.po",
+    "entries": 174,
+    "preserves_base_and_all_semantic_contributors": true
+  },
+  {
+    "file": "translations/ui/bimcraft-ui.pot",
+    "entries": 2525,
+    "preserves_base_and_all_semantic_contributors": true
+  },
+  {
+    "file": "translations/ui/cs.po",
+    "entries": 2525,
+    "preserves_base_and_all_semantic_contributors": true
+  },
+  {
+    "file": "translations/ui/de.po",
+    "entries": 2525,
+    "preserves_base_and_all_semantic_contributors": true
+  },
+  {
+    "file": "translations/ui/es.po",
+    "entries": 2525,
+    "preserves_base_and_all_semantic_contributors": true
+  },
+  {
+    "file": "translations/ui/fr.po",
+    "entries": 2525,
+    "preserves_base_and_all_semantic_contributors": true
+  },
+  {
+    "file": "translations/ui/it.po",
+    "entries": 2525,
+    "preserves_base_and_all_semantic_contributors": true
+  },
+  {
+    "file": "translations/ui/nl.po",
+    "entries": 2525,
+    "preserves_base_and_all_semantic_contributors": true
+  },
+  {
+    "file": "translations/ui/pt.po",
+    "entries": 2525,
+    "preserves_base_and_all_semantic_contributors": true
+  },
+  {
+    "file": "translations/ui/vi.po",
+    "entries": 2525,
+    "preserves_base_and_all_semantic_contributors": true
+  },
+  {
+    "file": "translations/ui/zh.po",
+    "entries": 2525,
+    "preserves_base_and_all_semantic_contributors": true
+  },
+  {
+    "file": "translations/ui/zh_TW.po",
+    "entries": 2525,
+    "preserves_base_and_all_semantic_contributors": true
+  }
+]

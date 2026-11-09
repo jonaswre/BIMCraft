@@ -1,0 +1,1 @@
+Error: "WORKTREES/upstream-combined-audit\\crates\\i18n\\../..\\translations\\project\\bimcraft-project.pot is out of date; run cargo i18n update"

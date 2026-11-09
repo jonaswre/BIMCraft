@@ -1,0 +1,44 @@
+COMMAND run --script mixed.txt --save mixed.bimcraft --save mixed.ifc --save mixed.glb --cmd render {"view":"{3D}","path":"mixed.png","width":1000,"height":700} --cmd render {"view":"Synthetic Section","path":"section.png","width":900,"height":600} --cmd render {"view":"Synthetic South","path":"elevation.png","width":900,"height":600} --cmd render {"view":"S-01","path":"sheet.pdf"}
+{"georeference":{"crs":"EPSG:32632","eastings":500000000.0,"height":42000.0,"northings":5500000000.0,"rotation":23.0,"scale":0.9996}}
+{"id":100002,"name":"Upper"}
+{"ids":[100003,100004,100005,100006]}
+{"category":"door","name":"Sectional Gate","type":{"height":3200.0,"operation":"sectional","sill":0.0,"width":3000.0}}
+{"category":"door","name":"Roller Gate","type":{"height":3200.0,"operation":"roller","sill":0.0,"width":3000.0}}
+{"host":100003,"id":100007,"mark":"Gate A","offset":4000.0}
+{"host":100003,"id":100008,"mark":"Gate B","offset":11000.0}
+{"host":100003,"id":100009,"mark":"1","offset":4000.0}
+{"area_m2":180.0,"id":100010,"number":"1"}
+{"ids":[100011]}
+{"id":100012}
+{"category":"structuralcolumn","name":"Synthetic Tube","type":{"depth":100.0,"profile":{"shape":"rhs","thickness":8.0},"round":false,"width":200.0}}
+{"id":100013}
+{"id":100014,"length":4760.0,"railings":[100015,100016],"risers":19}
+{"area_m2":308.0,"id":100017,"name":"Synthetic boundary"}
+{"id":100018,"name":"A"}
+{"id":100019,"name":"B"}
+{"id":100020,"name":"1"}
+{"id":100021,"name":"Synthetic Section"}
+{"id":100022,"name":"Synthetic South"}
+{"id":100023,"number":"S-01"}
+{"at":[215.0,168.5],"id":100024,"scale":100.0}
+{"at":[542.5,168.5],"id":100026,"scale":100.0}
+{"format":"bimcraft","path":"mixed.bimcraft"}
+{"format":"IFC4","path":"mixed.ifc"}
+{"elements":13,"format":"glTF 2.0","path":"mixed.glb","triangles":2192}
+{"azimuth":-45.0,"elevation":30.0,"eye":null,"eye_elevation":null,"height":700,"kind":"3D view","lens":null,"path":"mixed.png","target":null,"view":"{3D}","width":1000}
+{"height":600,"kind":"section","path":"section.png","view":"Synthetic Section","width":900}
+{"height":600,"kind":"elevation","path":"elevation.png","view":"Synthetic South","width":900}
+{"kind":"sheet","path":"sheet.pdf","view":"S-01"}
+COMMAND run mixed.bimcraft --save reopened-bimcraft.bimcraft --save reopened-bimcraft.ifc
+{"name":"Project","path":"mixed.bimcraft"}
+{"format":"bimcraft","path":"reopened-bimcraft.bimcraft"}
+{"format":"IFC4","path":"reopened-bimcraft.ifc"}
+COMMAND run mixed.ifc --save reopened-ifc.bimcraft --save reopened-ifc.ifc
+{"elements":{"beam":1,"door":2,"grid":3,"level":3,"propertyline":1,"railing":2,"room":1,"stair":1,"structuralcolumn":2,"wall":4,"window":1},"format":"IFC4","generic":0,"moved":null,"name":"Project","path":"mixed.ifc","skipped":[]}
+{"format":"bimcraft","path":"reopened-ifc.bimcraft"}
+{"format":"IFC4","path":"reopened-ifc.ifc"}
+Traceback (most recent call last):
+  File "<workspace>\upstream-delivery\.superpowers\sdd\2026-11-09-upstream-factory-fixes\combined-artifacts\verify_cli.py", line 29, in <module>
+    assert a['georeference'][k]==b['georeference'][k],(k,a['georeference'],b['georeference'])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ('rotation', {'crs': 'EPSG:32632', 'eastings': 500000000.0, 'northings': 5500000000.0, 'height': 42000.0, 'rotation': 23.0, 'scale': 0.9996}, {'crs': 'EPSG:32632', 'eastings': 500000000.0, 'northings': 5500000000.0, 'height': 42000.0, 'rotation': 22.99999999999542, 'scale': 0.9996})

@@ -1,0 +1,23 @@
+    Finished `test` profile [unoptimized] target(s) in 0.18s
+     Running tests\property_boundaries.rs (../.targets/issue-11\debug\deps\property_boundaries-a8bd9a113e521750.exe)
+
+running 1 test
+test tests::printed_sheet_preserves_room_pixels_when_a_centered_property_is_added_and_reopened ... FAILED
+
+failures:
+
+---- tests::printed_sheet_preserves_room_pixels_when_a_centered_property_is_added_and_reopened stdout ----
+
+thread 'tests::printed_sheet_preserves_room_pixels_when_a_centered_property_is_added_and_reopened' (16428) panicked at crates\core\tests\property_boundaries.rs:89:21:
+assertion `left == right` failed: printed room name/number/area pixels changed at 970,644, scale 100
+  left: Some(PremultipliedColorU8 { r: 255, g: 255, b: 255, a: 255 })
+ right: Some(PremultipliedColorU8 { r: 187, g: 187, b: 187, a: 255 })
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    tests::printed_sheet_preserves_room_pixels_when_a_centered_property_is_added_and_reopened
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 10 filtered out; finished in 1.00s
+
+error: test failed, to rerun pass `-p bimcraft-core --test property_boundaries`
