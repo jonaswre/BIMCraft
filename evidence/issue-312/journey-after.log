@@ -1,0 +1,12 @@
+{"ids":[100002,100003,100004,100005]}
+{"ids":[100006]}
+{"id":100007}
+{"attach_top":100007,"base_offset":0.0,"category":"wall","end":[0.0,0.0],"guid":"bb94db8d-d44b-4e64-b810-8577414789b2","height":7851.43,"id":100006,"length":10000.0,"level":"0903c766-aa14-43af-b37a-c0d691057f43","location":"exterior-finish","room_bounding":true,"start":[10000.0,0.0],"thickness":200.0,"top_level":null,"type":"Generic - 200mm","type_guid":"b15621d5-571c-4816-8f65-3a9623fa7063"}
+{"area_m2":154.44,"id":100008,"number":"1"}
+{"count":1,"elements":[{"area_m2":154.44,"category":"room","enclosed":true,"guid":"8ebde0ba-b363-48dd-9baa-ec6db0900d20","id":100008,"level":"0903c766-aa14-43af-b37a-c0d691057f43","limit_offset":-300.0,"name":"Room","number":"1","perimeter_m":55.2,"point":[5000.0,4000.0],"top_level":"263ca275-7bbc-4da5-8a44-1c8ec5e68451","unbounded_height":2700.0,"volume_m3":416.99}],"returned":1}
+{"ids":[100009]}
+{"count":1,"elements":[{"area_m2":154.44,"category":"room","enclosed":true,"guid":"8ebde0ba-b363-48dd-9baa-ec6db0900d20","id":100008,"level":"0903c766-aa14-43af-b37a-c0d691057f43","limit_offset":-300.0,"name":"Room","number":"1","perimeter_m":55.2,"point":[5000.0,4000.0],"top_level":"263ca275-7bbc-4da5-8a44-1c8ec5e68451","unbounded_height":2700.0,"volume_m3":416.99}],"returned":1}
+{"available":["Number","Name","Level","Area","Perimeter","Count","Unbounded Height","Volume","Phase Created","Phase Demolished","Design Option"],"category":"room","columns":["Number","Name","Level","Area (m²)","Perimeter"],"elements":[[100008]],"id":null,"name":"Room Schedule","rows":[["1","Room","Level 1",154.44,55200.0]]}
+{"height":1000,"kind":"plan","path":"./room-after.png","view":"Level 1","width":1600}
+{"format":"bimcraft","path":"./room-after.bimcraft"}
+{"format":"IFC4","path":"./room-after.ifc"}

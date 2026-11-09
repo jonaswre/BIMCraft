@@ -1,0 +1,8 @@
+wall {"points":[[0,0],[0,8000],[20000,8000],[20000,0],[10000,0]],"level":"Level 1","height":7200,"location":"exterior-finish"}
+wall {"points":[[10000,0],[0,0]],"level":"Level 1","height":6000,"location":"exterior-finish"}
+roof {"level":"Level 1","boundary":[[-500,-500],[10500,-500],[10500,8500],[-500,8500]],"gables":[0,1,2],"slope":10,"offset":6000,"overhang":0}
+modify {"id": 100006, "attach_top": 100007}
+room {"point":[5000,4000],"level":"Level 1"}
+elements {"category":"room"}
+wall {"points":[[10000,8000],[10000,0]],"level":"Level 1","base_offset":7200,"height":3000,"location":"exterior-finish"}
+elements {"category":"room"}

@@ -1,0 +1,13 @@
+[
+  {
+    "product": "IfcWall",
+    "expected_m3": 2.4,
+    "measured_m3": 2.4000000000000004
+  },
+  {
+    "product": "IfcRoof",
+    "expected_m3": 2.4,
+    "measured_m3": 2.4000000000000004
+  }
+]
+.\solid-volumes.ifc: 6 products, 2 shapes built, 0 problems

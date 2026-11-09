@@ -1,0 +1,4 @@
+{"name":"Project","path":"./room-after.bimcraft"}
+{"count":1,"elements":[{"area_m2":154.44,"category":"room","enclosed":true,"guid":"8ebde0ba-b363-48dd-9baa-ec6db0900d20","id":100008,"level":"0903c766-aa14-43af-b37a-c0d691057f43","limit_offset":-300.0,"name":"Room","number":"1","perimeter_m":55.2,"point":[5000.0,4000.0],"top_level":"263ca275-7bbc-4da5-8a44-1c8ec5e68451","unbounded_height":2700.0,"volume_m3":416.99}],"returned":1}
+{"at":"finish"}
+{"count":1,"elements":[{"area_m2":148.96,"category":"room","enclosed":true,"guid":"8ebde0ba-b363-48dd-9baa-ec6db0900d20","id":100008,"level":"0903c766-aa14-43af-b37a-c0d691057f43","limit_offset":-300.0,"name":"Room","number":"1","perimeter_m":54.4,"point":[5000.0,4000.0],"top_level":"263ca275-7bbc-4da5-8a44-1c8ec5e68451","unbounded_height":2700.0,"volume_m3":402.19}],"returned":1}

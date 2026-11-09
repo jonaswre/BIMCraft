@@ -1,0 +1,3 @@
+elements {"category":"room"}
+room_area {"at":"finish"}
+elements {"category":"room"}
