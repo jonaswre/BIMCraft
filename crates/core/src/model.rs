@@ -74,6 +74,7 @@ pub const MAX_SLOPE: f64 = 75.0;
 /// The version of the project file this build writes, and the newest it reads. 19: beam and structural-column types may
 /// have steel profiles; a reader of 18 would drop them and reinterpret their bounding rectangles/circles as material.
 /// Files of 18 retain their original sections without conversion. 18: a family's connector may be a `pipe`,
+
 /// `data` or `earthing` one, with no `system` (a pipe's `domain`, `flow`, `size`), and any may have a place (`at`, `direction`);
 /// the starter fixtures and fittings have them; nothing in a file of 17 changes, but a build that reads up to 17 would answer
 /// such a connector with a serde error ("unknown variant", "missing field `system`"), not "saved by a newer BIMCraft". 17: a schedule may list several categories
@@ -1631,6 +1632,9 @@ pub struct Stair {
     pub tread: f64,
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub landings: Vec<Landing>,
+    /// Thin treads and landings carried by side stringers; false keeps solid construction.
+    #[serde(default, skip_serializing_if = "std::ops::Not::not")]
+    pub open: bool,
     /// Its values of the project's parameters, by name.
     #[serde(default, skip_serializing_if = "BTreeMap::is_empty")]
     pub params: BTreeMap<String, serde_json::Value>,
@@ -3514,6 +3518,15 @@ impl Model {
         // a power or a switch one, each with its system, which 18 reads as they were.
         // 18 to 19 (steel beam and structural-column sections) needs no data conversion: absent profiles retain the
         // original rectangle/circle. The version gate prevents an older reader dropping a profile and changing geometry.
+        // 18 to 19: open stair construction. Older readers discard `open`, turning the stair solid.
+        // Files of 18 and earlier authored only solid stairs; their missing field defaults to false.
+        if self.format < 19 {
+            for (_, element) in self.elements.iter_mut() {
+                if let Element::Stair(stair) = element {
+                    stair.open = false;
+                }
+            }
+        }
         self.format = FORMAT;
     }
 
@@ -7180,7 +7193,12 @@ impl Model {
                 for (what, v) in [("width", st.width), ("riser", st.riser), ("tread", st.tread)] {
                     size(&format!("{who} {what}"), v)?;
                 }
-                let (n, _, _) = self.flight(st);
+                let (n, each, _) = self.flight(st);
+                if st.open && (st.width <= 2.0 * crate::stairs::STRINGER.0 || each <= crate::stairs::OPEN_TREAD) {
+                    return Err(format!(
+                        "{who}: open construction needs width greater than 30 mm and actual riser height greater than 40 mm"
+                    ));
+                }
                 if !(2..=200).contains(&n) {
                     return Err(format!("{who}: {n} risers; a stair takes 2 to 200, so check its height and its riser ({} mm)", st.riser));
                 }

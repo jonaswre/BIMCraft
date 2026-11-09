@@ -88,3 +88,6 @@ type {"category":"beam","name":"CHS steel","shape":"CHS","width":168.3,"thicknes
 beam {"points":[[0,17000],[6000,17000]],"type":"CHS steel","offset":3000,"end_offset":4000}
 # Property boundaries are site FootPrint curves, with area and native identity metadata; no terrain dependency.
 property_line {"name":"Synthetic survey plot","points":[[-2000,-8000],[8000,-8000],[8000,16000],[-2000,16000]]}
+
+# Open construction includes side supports and a thin landing.
+stair {"start":[40000,20000],"height":2880,"open":true,"landings":[{"at":8,"turn":90}]}
