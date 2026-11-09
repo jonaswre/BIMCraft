@@ -1,0 +1,20 @@
+running 1 test
+test tests::overflowing_views_preserve_the_printed_border_and_title_block ... FAILED
+
+failures:
+
+---- tests::overflowing_views_preserve_the_printed_border_and_title_block stdout ----
+
+thread 'tests::overflowing_views_preserve_the_printed_border_and_title_block' (54264) panicked at crates\core\tests\viewport_placement.rs:151:21:
+assertion `left == right` failed: overflow must preserve sheet graphics at (2049, 332)
+  left: Some(PremultipliedColorU8 { r: 168, g: 168, b: 168, a: 255 })
+ right: Some(PremultipliedColorU8 { r: 82, g: 82, b: 82, a: 255 })
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    tests::overflowing_views_preserve_the_printed_border_and_title_block
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 5 filtered out; finished in 0.86s
+
+error: test failed, to rerun pass `-p bimcraft-core --test viewport_placement`

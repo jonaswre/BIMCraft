@@ -1,0 +1,32 @@
+running 3 tests
+test tests::long_titles_remain_readable_after_automatic_placement_and_native_reopen ... FAILED
+test tests::a_first_long_title_fits_and_manual_positions_are_preserved ... FAILED
+test tests::a_full_sheet_keeps_later_viewports_separate_instead_of_stacking_them ... FAILED
+
+failures:
+
+---- tests::long_titles_remain_readable_after_automatic_placement_and_native_reopen stdout ----
+
+thread 'tests::long_titles_remain_readable_after_automatic_placement_and_native_reopen' (53496) panicked at crates\core\tests\viewport_placement.rs:60:9:
+rendered titles must not overprint: [2042.5, 1300.0, 3249.3, 1530.5], [2262.5, 1300.0, 3469.3, 1530.5]
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- tests::a_first_long_title_fits_and_manual_positions_are_preserved stdout ----
+
+thread 'tests::a_first_long_title_fits_and_manual_positions_are_preserved' (43220) panicked at crates\core\tests\viewport_placement.rs:49:9:
+complete viewport must be inside the sheet border: [990.0, 557.5, 2471.8, 788.0]
+
+---- tests::a_full_sheet_keeps_later_viewports_separate_instead_of_stacking_them stdout ----
+
+thread 'tests::a_full_sheet_keeps_later_viewports_separate_instead_of_stacking_them' (17164) panicked at crates\core\tests\viewport_placement.rs:88:17:
+automatic viewports must stay separate, even after the sheet fills: [1405.0, 75.0, 2025.0, 755.5], [1405.0, 75.0, 2025.0, 755.5]
+
+
+failures:
+    tests::a_first_long_title_fits_and_manual_positions_are_preserved
+    tests::a_full_sheet_keeps_later_viewports_separate_instead_of_stacking_them
+    tests::long_titles_remain_readable_after_automatic_placement_and_native_reopen
+
+test result: FAILED. 0 passed; 3 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.13s
+
+error: test failed, to rerun pass `-p bimcraft-core --test viewport_placement`

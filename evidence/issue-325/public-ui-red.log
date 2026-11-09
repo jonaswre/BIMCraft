@@ -1,0 +1,18 @@
+running 1 test
+test tests::place_view_menu_keeps_long_view_titles_separate_on_the_sheet ... FAILED
+
+failures:
+
+---- tests::place_view_menu_keeps_long_view_titles_separate_on_the_sheet stdout ----
+
+thread 'tests::place_view_menu_keeps_long_view_titles_separate_on_the_sheet' (26168) panicked at crates\ui-egui\src\tests.rs:2713:5:
+the sheet opened through Place View must show separate titles: [990.0, 557.5, 2196.25, 787.5], [1210.0, 557.5, 2416.25, 787.5]
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    tests::place_view_menu_keeps_long_view_titles_separate_on_the_sheet
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 855 filtered out; finished in 0.67s
+
+error: test failed, to rerun pass `-p bimcraft-ui-egui --lib`

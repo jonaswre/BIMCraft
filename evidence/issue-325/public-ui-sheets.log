@@ -1,0 +1,10 @@
+running 7 tests
+test tests::a_flick_on_a_sheets_view_selects_it_and_does_not_move_it ... ok
+test tests::place_view_menu_keeps_long_view_titles_separate_on_the_sheet ... ok
+test tests::place_view_puts_schedules_and_the_3d_view_on_sheets ... ok
+test tests::sheets_and_schedules_have_no_graphics_to_override ... ok
+test tests::sheets_take_views_from_the_view_tab_and_viewports_move_and_open ... ok
+test tests::a_tool_acts_where_the_button_went_down_in_sections_and_on_sheets_too ... ok
+test tests::text_notes_go_where_clicked_in_plans_sections_and_sheets ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 849 filtered out; finished in 3.48s

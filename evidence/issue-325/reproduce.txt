@@ -1,0 +1,16 @@
+wall {"points": [[0, 0], [1000, 0], [1000, 1000], [0, 1000]], "closed": true}
+crop {"view": "Level 1", "region": [[0, 0], [1000, 1000]]}
+sheet {"number": "A101", "name": "Synthetic titles", "size": "A1"}
+duplicate_view {"view": "Level 1", "name": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"}
+place {"sheet": "A101", "view": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "scale": 100}
+duplicate_view {"view": "Level 1", "name": "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB"}
+place {"sheet": "A101", "view": "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "scale": 100}
+sheet {"number": "A102", "name": "Synthetic overflow", "size": "A3"}
+duplicate_view {"view": "Level 1", "name": "Plan 1"}
+place {"sheet": "A102", "view": "Plan 1", "scale": 10}
+duplicate_view {"view": "Level 1", "name": "Plan 2"}
+place {"sheet": "A102", "view": "Plan 2", "scale": 10}
+duplicate_view {"view": "Level 1", "name": "Plan 3"}
+place {"sheet": "A102", "view": "Plan 3", "scale": 10}
+duplicate_view {"view": "Level 1", "name": "Plan 4"}
+place {"sheet": "A102", "view": "Plan 4", "scale": 10}

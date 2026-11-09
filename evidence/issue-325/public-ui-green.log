@@ -1,0 +1,5 @@
+running 2 tests
+test tests::place_view_menu_keeps_long_view_titles_separate_on_the_sheet ... ok
+test tests::place_view_puts_schedules_and_the_3d_view_on_sheets ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 854 filtered out; finished in 1.07s

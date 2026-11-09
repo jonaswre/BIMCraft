@@ -1,0 +1,3 @@
+Command: cargo clippy --config 'profile.dev.package.bimcraft-core.opt-level=0' --config 'profile.dev.debug=0' -p bimcraft-core -p bimcraft-ui-egui --all-targets -- -D warnings
+    Finished `dev` profile [unoptimized] target(s) in 24.59s
+Exit: 0

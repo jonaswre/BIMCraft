@@ -1,0 +1,21 @@
+{"ids":[100002,100003,100004,100005]}
+{"crop":[[0.0,0.0],[1000.0,1000.0]],"view":100000}
+{"id":100006,"number":"A101"}
+{"annotations":0,"id":100007,"level":100000,"name":"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"}
+{"at":[425.5,317.0],"id":100008}
+{"annotations":0,"id":100009,"level":100000,"name":"BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB"}
+{"at":[42.0,562.0],"id":100010}
+{"id":100011,"number":"A102"}
+{"annotations":0,"id":100012,"level":100000,"name":"Plan 1"}
+{"at":[215.0,168.5],"id":100013}
+{"annotations":0,"id":100014,"level":100000,"name":"Plan 2"}
+{"at":[492.0,168.5],"id":100015}
+{"annotations":0,"id":100016,"level":100000,"name":"Plan 3"}
+{"at":[626.0,168.5],"id":100017}
+{"annotations":0,"id":100018,"level":100000,"name":"Plan 4"}
+{"at":[760.0,168.5],"id":100019}
+{"format":"bimcraft","path":"after.bimcraft"}
+{"height":2970,"kind":"sheet","path":"after-titles.png","view":"A101","width":4205}
+{"height":1485,"kind":"sheet","path":"after-overflow.png","view":"A102","width":2100}
+{"kind":"sheet","path":"after-titles.pdf","view":"A101"}
+{"kind":"sheet","path":"after-overflow.pdf","view":"A102"}

@@ -1,0 +1,9 @@
+running 6 tests
+test tests::a_first_long_title_fits_and_manual_positions_are_preserved ... ok
+test tests::a_full_sheet_keeps_later_viewports_separate_instead_of_stacking_them ... ok
+test tests::automatic_placement_keeps_schedules_sections_and_3d_views_separate ... ok
+test tests::automatic_views_clear_each_standards_border_and_title_block ... ok
+test tests::overflowing_views_preserve_the_printed_border_and_title_block ... ok
+test tests::long_titles_remain_readable_after_automatic_placement_and_native_reopen ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 3.37s
