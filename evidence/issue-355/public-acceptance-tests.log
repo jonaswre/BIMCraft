@@ -1,0 +1,10 @@
+   Compiling bimcraft-core v0.10.0 (<parent-worktree>\crates\core)
+    Finished `test` profile [unoptimized] target(s) in 1.60s
+     Running tests\coordinate_acceptance.rs (<target>\debug\deps\coordinate_acceptance-ebd1ae92c76a101d.exe)
+
+running 3 tests
+test tests::coordinate_edits_respect_read_only_and_invalid_scale_rolls_back ... ok
+test tests::newer_native_files_are_refused_and_unknown_fields_remain_reported ... ok
+test tests::shared_coordinates_keep_height_rotation_scale_and_identity_after_native_reopen ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.21s

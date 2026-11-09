@@ -1,0 +1,84 @@
+[
+  {
+    "arguments": [
+      "run",
+      "--cmd",
+      "wall {\"points\":[[0,0],[8000,0]],\"height\":3000}",
+      "--save",
+      "migration-seed.bimcraft"
+    ],
+    "exit": 0,
+    "stdout": "{\"ids\":[100002]}\n{\"format\":\"bimcraft\",\"path\":\"migration-seed.bimcraft\"}\n",
+    "stderr": ""
+  },
+  {
+    "arguments": [
+      "run",
+      "migration-default-legacy.bimcraft",
+      "--save",
+      "migration-default.bimcraft",
+      "--save",
+      "migration-default.ifc"
+    ],
+    "exit": 0,
+    "stdout": "{\"name\":\"Project\",\"path\":\"migration-default-legacy.bimcraft\"}\n{\"format\":\"bimcraft\",\"path\":\"migration-default.bimcraft\"}\n{\"format\":\"IFC4\",\"path\":\"migration-default.ifc\"}\n",
+    "stderr": ""
+  },
+  {
+    "arguments": [
+      "run",
+      "migration-default.bimcraft",
+      "--save",
+      "migration-default-native-reopened.bimcraft"
+    ],
+    "exit": 0,
+    "stdout": "{\"name\":\"Project\",\"path\":\"migration-default.bimcraft\"}\n{\"format\":\"bimcraft\",\"path\":\"migration-default-native-reopened.bimcraft\"}\n",
+    "stderr": ""
+  },
+  {
+    "arguments": [
+      "run",
+      "migration-default.ifc",
+      "--save",
+      "migration-default-ifc-reopened.bimcraft"
+    ],
+    "exit": 0,
+    "stdout": "{\"elements\":{\"level\":2,\"wall\":1},\"format\":\"IFC4\",\"generic\":0,\"moved\":null,\"name\":\"Project\",\"path\":\"migration-default.ifc\",\"skipped\":[]}\n{\"format\":\"bimcraft\",\"path\":\"migration-default-ifc-reopened.bimcraft\"}\n",
+    "stderr": ""
+  },
+  {
+    "arguments": [
+      "run",
+      "migration-scaled-legacy.bimcraft",
+      "--save",
+      "migration-scaled.bimcraft",
+      "--save",
+      "migration-scaled.ifc"
+    ],
+    "exit": 0,
+    "stdout": "{\"name\":\"Project\",\"path\":\"migration-scaled-legacy.bimcraft\"}\n{\"format\":\"bimcraft\",\"path\":\"migration-scaled.bimcraft\"}\n{\"format\":\"IFC4\",\"path\":\"migration-scaled.ifc\"}\n",
+    "stderr": ""
+  },
+  {
+    "arguments": [
+      "run",
+      "migration-scaled.bimcraft",
+      "--save",
+      "migration-scaled-native-reopened.bimcraft"
+    ],
+    "exit": 0,
+    "stdout": "{\"name\":\"Project\",\"path\":\"migration-scaled.bimcraft\"}\n{\"format\":\"bimcraft\",\"path\":\"migration-scaled-native-reopened.bimcraft\"}\n",
+    "stderr": ""
+  },
+  {
+    "arguments": [
+      "run",
+      "migration-scaled.ifc",
+      "--save",
+      "migration-scaled-ifc-reopened.bimcraft"
+    ],
+    "exit": 0,
+    "stdout": "{\"elements\":{\"level\":2,\"wall\":1},\"format\":\"IFC4\",\"generic\":0,\"moved\":null,\"name\":\"Project\",\"path\":\"migration-scaled.ifc\",\"skipped\":[]}\n{\"format\":\"bimcraft\",\"path\":\"migration-scaled-ifc-reopened.bimcraft\"}\n",
+    "stderr": ""
+  }
+]

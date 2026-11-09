@@ -1,0 +1,12 @@
+   Compiling bimcraft-core v0.11.0 (<main-worktree>\crates\core)
+    Finished `test` profile [unoptimized] target(s) in 3m 50s
+     Running unittests src\lib.rs (<target>\debug\deps\bimcraft_core-f723816fa9dc5cad.exe)
+
+running 5 tests
+test georef_tests::a_model_brought_near_the_origin_keeps_where_it_lies_on_the_map ... ok
+test georef_tests::an_ifc_map_conversion_comes_in_as_the_projects_georeference ... ok
+test georef_tests::the_georeference_is_kept_in_the_project_file ... ok
+test georef_tests::the_georeference_goes_back_out_to_ifc_and_comes_in_again_the_same ... ok
+test georef_tests::the_georeference_command_says_sets_and_clears_it_and_refuses_what_it_cannot_be ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 1544 filtered out; finished in 0.23s

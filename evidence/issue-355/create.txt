@@ -1,0 +1,5 @@
+wall {"points":[[0,0],[8000,0]],"height":3000}
+crs {"code":32632}
+location {"name":"Internal","east":500000000,"north":5000000000,"elevation":42000,"angle":-30,"scale":0.9996}
+coordinates {}
+save {"path":"synthetic.bimcraft"}

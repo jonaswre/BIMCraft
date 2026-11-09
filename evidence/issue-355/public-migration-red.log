@@ -1,0 +1,49 @@
+   Compiling bimcraft-core v0.11.0 (<main-worktree>\crates\core)
+    Finished `test` profile [unoptimized] target(s) in 1.44s
+     Running tests\legacy_georeference.rs (<target>\debug\deps\legacy_georeference-719b46aeb8387f69.exe)
+
+running 4 tests
+test tests::legacy_height_and_clockwise_rotation_survive_native_and_ifc_reopen ... FAILED
+test tests::absent_legacy_rotation_and_scale_keep_the_existing_defaults ... FAILED
+test tests::modern_fields_and_unknown_field_reporting_are_preserved ... FAILED
+test tests::conflicting_invalid_and_newer_payloads_leave_the_open_project_unchanged ... FAILED
+
+failures:
+
+---- tests::legacy_height_and_clockwise_rotation_survive_native_and_ifc_reopen stdout ----
+
+thread 'tests::legacy_height_and_clockwise_rotation_survive_native_and_ifc_reopen' (47112) panicked at crates\core\tests\legacy_georeference.rs:42:13:
+assertion `left == right` failed: opening legacy height must not silently zero it
+  left: 0.0
+ right: 42000.0
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- tests::absent_legacy_rotation_and_scale_keep_the_existing_defaults stdout ----
+
+thread 'tests::absent_legacy_rotation_and_scale_keep_the_existing_defaults' (23180) panicked at crates\core\tests\legacy_georeference.rs:121:9:
+assertion `left == right` failed
+  left: (0.0, 0.0, 1.0)
+ right: (42000.0, 0.0, 1.0)
+
+---- tests::modern_fields_and_unknown_field_reporting_are_preserved stdout ----
+
+thread 'tests::modern_fields_and_unknown_field_reporting_are_preserved' (22224) panicked at crates\core\tests\legacy_georeference.rs:79:13:
+assertion `left == right` failed
+  left: Array [String("/georeference/future_metadata"), String("/georeference/orthogonal_height")]
+ right: Array [String("/georeference/future_metadata")]
+
+---- tests::conflicting_invalid_and_newer_payloads_leave_the_open_project_unchanged stdout ----
+
+thread 'tests::conflicting_invalid_and_newer_payloads_leave_the_open_project_unchanged' (52240) panicked at crates\core\tests\legacy_georeference.rs:106:13:
+must refuse ambiguous, invalid or newer georeference input
+
+
+failures:
+    tests::absent_legacy_rotation_and_scale_keep_the_existing_defaults
+    tests::conflicting_invalid_and_newer_payloads_leave_the_open_project_unchanged
+    tests::legacy_height_and_clockwise_rotation_survive_native_and_ifc_reopen
+    tests::modern_fields_and_unknown_field_reporting_are_preserved
+
+test result: FAILED. 0 passed; 4 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.42s
+
+error: test failed, to rerun pass `-p bimcraft-core --test legacy_georeference`

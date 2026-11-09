@@ -1,0 +1,320 @@
+{
+  "ifcopenshell": "0.8.5",
+  "native_reopen": "pass",
+  "origins": {
+    "internal": {
+      "schema_messages": [],
+      "unique_global_ids": 14,
+      "wall_vertices": 8,
+      "map_scale": 0.0009996,
+      "top_map_m": 44.9988,
+      "expected_top_map_m": 45.0,
+      "top_error_mm": -1.1999999999972033,
+      "numeric_reference": [
+        {
+          "internal_mm": [
+            0,
+            0,
+            0
+          ],
+          "ifc_map": [
+            500000.0,
+            5000000.0,
+            42.0
+          ],
+          "native_map": [
+            500000.0,
+            5000000.0,
+            42.0
+          ],
+          "error_mm": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "internal_mm": [
+            8000,
+            0,
+            0
+          ],
+          "ifc_map": [
+            500006.92543194897,
+            4999996.0016,
+            42.0
+          ],
+          "native_map": [
+            500006.92543194897,
+            4999996.0016,
+            42.0
+          ],
+          "error_mm": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "internal_mm": [
+            8000,
+            2000,
+            3000
+          ],
+          "ifc_map": [
+            500007.925031949,
+            4999997.732957987,
+            44.9988
+          ],
+          "native_map": [
+            500007.925031949,
+            4999997.732957987,
+            45.0
+          ],
+          "error_mm": [
+            0.0,
+            0.0,
+            -1.1999999999972033
+          ]
+        }
+      ]
+    },
+    "base": {
+      "schema_messages": [],
+      "unique_global_ids": 14,
+      "wall_vertices": 8,
+      "map_scale": 0.0009996,
+      "top_map_m": 44.9988,
+      "expected_top_map_m": 45.0,
+      "top_error_mm": -1.1999999999972033,
+      "numeric_reference": [
+        {
+          "internal_mm": [
+            0,
+            0,
+            0
+          ],
+          "ifc_map": [
+            500000.0,
+            5000000.0,
+            42.0
+          ],
+          "native_map": [
+            500000.0,
+            5000000.0,
+            42.0
+          ],
+          "error_mm": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "internal_mm": [
+            8000,
+            0,
+            0
+          ],
+          "ifc_map": [
+            500006.92543194897,
+            4999996.0016,
+            42.0
+          ],
+          "native_map": [
+            500006.92543194897,
+            4999996.0016,
+            42.0
+          ],
+          "error_mm": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "internal_mm": [
+            8000,
+            2000,
+            3000
+          ],
+          "ifc_map": [
+            500007.925031949,
+            4999997.732957987,
+            44.9988
+          ],
+          "native_map": [
+            500007.925031949,
+            4999997.732957987,
+            45.0
+          ],
+          "error_mm": [
+            0.0,
+            0.0,
+            -1.1999999999972033
+          ]
+        }
+      ]
+    },
+    "survey": {
+      "schema_messages": [],
+      "unique_global_ids": 14,
+      "wall_vertices": 8,
+      "map_scale": 0.0009996,
+      "top_map_m": 44.9988,
+      "expected_top_map_m": 45.0,
+      "top_error_mm": -1.1999999999972033,
+      "numeric_reference": [
+        {
+          "internal_mm": [
+            0,
+            0,
+            0
+          ],
+          "ifc_map": [
+            500000.0,
+            5000000.0,
+            42.0
+          ],
+          "native_map": [
+            500000.0,
+            5000000.0,
+            42.0
+          ],
+          "error_mm": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "internal_mm": [
+            8000,
+            0,
+            0
+          ],
+          "ifc_map": [
+            500006.92543194897,
+            4999996.0016,
+            42.0
+          ],
+          "native_map": [
+            500006.92543194897,
+            4999996.0016,
+            42.0
+          ],
+          "error_mm": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "internal_mm": [
+            8000,
+            2000,
+            3000
+          ],
+          "ifc_map": [
+            500007.925031949,
+            4999997.732957987,
+            44.9988
+          ],
+          "native_map": [
+            500007.925031949,
+            4999997.732957987,
+            45.0
+          ],
+          "error_mm": [
+            0.0,
+            0.0,
+            -1.1999999999972033
+          ]
+        }
+      ]
+    },
+    "shared": {
+      "schema_messages": [],
+      "unique_global_ids": 14,
+      "wall_vertices": 8,
+      "map_scale": 0.001,
+      "top_map_m": 45.0,
+      "expected_top_map_m": 45.0,
+      "top_error_mm": 0.0,
+      "numeric_reference": []
+    }
+  },
+  "legacy_open": [
+    {
+      "left_out": [
+        "/georeference"
+      ],
+      "left_out_count": 1,
+      "name": "Project",
+      "path": "legacy-georef.bimcraft"
+    },
+    {
+      "active": "Internal",
+      "base": {
+        "guid": "f81b0963-0a0a-49bd-b4fd-52cad0282a2d",
+        "id": 999624,
+        "internal": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "shared": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "crs": null,
+      "internal_origin": {
+        "guid": "e71ce6ad-4833-47f8-a5fa-41b7b8379926",
+        "id": 999625,
+        "internal": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "shared": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "location": {
+        "angle": 0.0,
+        "east": 0.0,
+        "elevation": 0.0,
+        "north": 0.0
+      },
+      "locations": {
+        "Internal": {
+          "angle": 0.0,
+          "east": 0.0,
+          "elevation": 0.0,
+          "guid": "547a73fd-9d7b-4a97-9f68-359fe10ecc05",
+          "id": 999626,
+          "north": 0.0
+        }
+      },
+      "survey": {
+        "guid": "8ab71087-1d8c-4162-a4a8-099a365994ce",
+        "id": 999623,
+        "internal": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "shared": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    }
+  ],
+  "newer_format_refused": true
+}

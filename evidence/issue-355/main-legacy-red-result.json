@@ -1,0 +1,8 @@
+{
+  "crs": "EPSG:32632",
+  "eastings": 500000000.0,
+  "northings": 5000000000.0,
+  "height": 0.0,
+  "rotation": 30.0,
+  "scale": 1.0
+}

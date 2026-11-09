@@ -1,0 +1,27 @@
+[
+  {
+    "arguments": [
+      "run",
+      "--cmd",
+      "wall {\"points\":[[0,0],[8000,0]],\"height\":3000}",
+      "--save",
+      "main-seed.bimcraft"
+    ],
+    "exit": 0,
+    "stdout": "{\"ids\":[100002]}\n{\"format\":\"bimcraft\",\"path\":\"main-seed.bimcraft\"}\n",
+    "stderr": ""
+  },
+  {
+    "arguments": [
+      "run",
+      "main-legacy.bimcraft",
+      "--save",
+      "main-legacy-reopened.bimcraft",
+      "--save",
+      "main-legacy.ifc"
+    ],
+    "exit": 0,
+    "stdout": "{\"left_out\":[\"/georeference/orthogonal_height\"],\"left_out_count\":1,\"name\":\"Project\",\"path\":\"main-legacy.bimcraft\"}\n{\"format\":\"bimcraft\",\"path\":\"main-legacy-reopened.bimcraft\"}\n{\"format\":\"IFC4\",\"path\":\"main-legacy.ifc\"}\n",
+    "stderr": ""
+  }
+]

@@ -1,0 +1,4 @@
+   Compiling bimcraft-i18n v0.11.0 (<main-worktree>\crates\i18n)
+    Checking serde v1.0.229
+   Compiling bimcraft-core v0.11.0 (<main-worktree>\crates\core)
+    Finished `dev` profile [unoptimized] target(s) in 1m 42s

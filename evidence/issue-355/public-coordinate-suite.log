@@ -1,0 +1,68 @@
+   Compiling bimcraft-core v0.10.0 (<parent-worktree>\crates\core)
+    Finished `test` profile [unoptimized] target(s) in 4m 08s
+     Running unittests src\lib.rs (<target>\debug\deps\bimcraft_core-1f734f19b9bd5ac1.exe)
+
+running 61 tests
+test background_grid::tests::grid_rotation_spacing_and_negative_coordinates_share_the_origin ... ok
+test coordinates::tests::to_shared_and_back_is_the_same_point ... ok
+test coordinates::tests::the_survey_point_has_its_locations_coordinates ... ok
+test coordinates_io_tests::a_bad_ifc_origin_is_refused ... ok
+test coordinates_io_tests::a_far_drawing_asks_to_acquire_its_coordinates_and_then_lands_near_the_origin ... ok
+test coordinates_io_tests::a_far_scan_acquires_its_coordinates_its_foot_at_the_origin ... ok
+test cloud_tests::origin_to_origin_keeps_the_files_coordinates_where_a_model_can_hold_them ... ok
+test coordinates_io_tests::a_drawing_at_map_coordinates_comes_in_by_shared_coordinates ... ok
+test coordinates_io_tests::a_link_by_base_points_puts_its_base_point_on_this_ones ... ok
+test coordinates_io_tests::a_link_by_shared_coordinates_stands_where_its_map_coordinates_say ... ok
+test coordinates_io_tests::a_link_by_shared_coordinates_stands_at_its_own_elevation_and_location ... ok
+test coordinates_io_tests::a_link_placed_by_shared_coordinates_is_not_moved_by_hand_until_it_is_manual ... ok
+test coordinates_io_tests::a_project_acquires_its_coordinates_from_a_placed_drawing ... ok
+test coordinates_io_tests::a_project_acquires_its_coordinates_from_a_link_placed_by_hand ... ok
+test coordinates_io_tests::a_scan_at_map_coordinates_comes_in_by_shared_coordinates ... ok
+test coordinates_io_tests::a_project_acquires_its_coordinates_from_a_linked_ifc ... ok
+test coordinates_io_tests::ifc_goes_out_with_its_map_conversion_and_crs ... ok
+test coordinates_io_tests::ifc_out_at_map_coordinates_comes_in_near_the_origin_and_keeps_where_it_was ... ok
+test coordinates_io_tests::ifc_map_conversion_scale_takes_the_projects_millimetres_to_the_maps_unit ... ok
+test coordinates_io_tests::map_coordinates_whose_file_says_inches_are_read_in_the_map_systems_unit ... ok
+test coordinates_io_tests::reset_pins_an_unloaded_link_where_it_last_stood ... ok
+test coordinates_tests::a_file_from_before_coordinates_reads_with_the_defaults ... ok
+test coordinates_tests::a_level_shows_its_elevation_from_its_elevation_base ... ok
+test coordinates_tests::a_location_is_placed_by_latitude_and_longitude ... ok
+test coordinates_tests::a_location_turns_and_moves_the_shared_coordinates ... ok
+test coordinates_tests::a_new_project_has_both_points_at_the_origin_and_one_location ... ok
+test coordinates_io_tests::ifc_whose_scale_carries_the_unit_comes_in_with_its_ground_to_grid_scale ... ok
+test coordinates_io_tests::ifc_comes_back_where_it_was_in_the_world_from_each_origin ... ok
+test coordinates_tests::a_project_in_portuguese_starts_with_its_location_named_in_it ... ok
+test coordinates_tests::a_plan_oriented_to_true_north_turns_on_screen_and_nothing_else_moves ... ok
+test coordinates_tests::bad_coordinates_are_refused_with_what_to_fix ... ok
+test coordinates_tests::coordinates_are_one_undo_step ... ok
+test coordinates_tests::a_point_picked_in_plan_stands_at_a_wall_s_bottom_and_a_floor_s_top ... ok
+test coordinates_tests::coordinates_survive_a_file ... ok
+test coordinates_io_tests::reset_puts_the_coordinates_back_on_the_internal_origin_and_pins_the_links_where_they_stand ... ok
+test coordinates_tests::crs_search_finds_a_country_by_any_of_its_names ... ok
+test coordinates_tests::crs_search_finds_by_name_and_code ... ok
+test coordinates_tests::crs_search_finds_a_city_and_pairs_it_with_its_country_s_systems ... ok
+test coordinates_tests::a_section_shows_the_points_where_its_graphics_show_them_and_picks_them ... ok
+test coordinates_tests::dubai_finds_its_local_transverse_mercator_by_place_and_by_words_of_its_name ... ok
+test coordinates_tests::each_point_is_picked_by_its_library_id_where_a_view_shows_it ... ok
+test coordinates_tests::every_location_and_both_points_report_their_id_and_guid_and_a_rename_keeps_them ... ok
+test coordinates_tests::only_a_known_projected_crs_is_taken ... ok
+test coordinates_tests::rotate_project_north_needs_an_angle_or_true_north ... ok
+test coordinates_tests::moving_the_survey_point_alone_keeps_the_building_where_it_is_in_the_world ... ok
+test coordinates_tests::moving_the_survey_point_with_the_system_moves_the_building_in_the_world ... ok
+test coordinates_tests::locations_are_added_activated_renamed_and_deleted ... ok
+test coordinates_tests::schedules_list_where_columns_stand_in_shared_coordinates ... ok
+test coordinates_tests::rotate_project_north_turns_the_model_and_keeps_it_where_it_is_in_the_world ... ok
+test coordinates_tests::shift_moves_every_location_at_once ... ok
+test coordinates_tests::specify_coordinates_solves_the_active_location ... ok
+test coordinates_tests::shared_coordinates_reach_wgs84_through_the_crs ... ok
+test coordinates_tests::the_base_point_reports_from_where_it_stands ... ok
+test coordinates_tests::spot_elevations_measure_from_the_base_point_or_the_survey_point ... ok
+test coordinates_tests::spot_coordinates_read_north_and_east_from_either_point ... ok
+test coordinates_tests::the_crs_says_its_name_and_unit ... ok
+test coordinates_tests::the_scale_stretches_the_map_and_not_the_height ... ok
+test coordinates_tests::true_north_east_of_project_north_turns_project_east_south ... ok
+test import::tests::a_model_at_map_coordinates_comes_near_the_origin ... ok
+test coordinates_tests::the_three_origins_are_site_subcategories_hidden_until_a_view_shows_them ... ok
+test coordinates_tests::rotate_project_north_turns_the_whole_sample_house ... ok
+
+test result: ok. 61 passed; 0 failed; 0 ignored; 0 measured; 1523 filtered out; finished in 17.33s

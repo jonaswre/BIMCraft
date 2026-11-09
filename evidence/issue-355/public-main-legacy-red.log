@@ -1,0 +1,13 @@
+{
+  "crs": "EPSG:32632",
+  "eastings": 500000000.0,
+  "northings": 5000000000.0,
+  "height": 0.0,
+  "rotation": 30.0,
+  "scale": 1.0
+}
+Traceback (most recent call last):
+  File "<evidence>\legacy_probe.py", line 33, in <module>
+    assert result["height"] == 42000, f'height lost: {result["height"]}, expected 42000'
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: height lost: 0.0, expected 42000

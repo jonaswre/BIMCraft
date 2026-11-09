@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "<evidence>\verify_ifc_height.py", line 8, in <module>
+    assert abs(error) < 0.001, f"{origin}: IFC top differs from native shared elevation by {error:.6f} mm"
+           ^^^^^^^^^^^^^^^^^^
+AssertionError: internal: IFC top differs from native shared elevation by -1.200000 mm
